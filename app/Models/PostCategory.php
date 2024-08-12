@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class PostCategory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name', 'image', 'description', 'tags', 'slug'
+    ];
+
+    // Relationships
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

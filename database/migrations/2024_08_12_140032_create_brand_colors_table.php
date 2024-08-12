@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('brand_colors', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->foreignIdFor(App\Models\Color::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\Brand::class)->constrained()->cascadeOnDelete();
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
