@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BrandResource\Pages;
-use App\Filament\Resources\BrandResource\RelationManagers;
-use App\Models\Brand;
+use App\Filament\Resources\PostResource\Pages;
+use App\Filament\Resources\PostResource\RelationManagers;
+use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,67 +13,57 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BrandResource extends Resource
+class PostResource extends Resource
 {
-    protected static ?string $model = Brand::class;
+    protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cube-transparent';
+    protected static ?string $navigationIcon = 'heroicon-o-queue-list';
 
     public static function getModelLabel(): string
     {
-        return __("Marque");
+        return __("Article");
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
                 Forms\Components\Grid::make(3)
                     ->schema([
-
                         Forms\Components\Section::make()
                             ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->placeholder(__("Nom du marque"))
-                                    ->label(__("Nom"))
+                                Forms\Components\TextInput::make('title')
+                                    ->placeholder(__("Titre de l'article"))
+                                    ->label(__("Titre"))
                                     ->required()
                                     ->maxLength(255),
 
+                                Forms\Components\Textarea::make('description')
+                                    ->columnSpanFull(),
+                                    
+                                Forms\Components\RichEditor::make('content')
+                                    ->label(__("Contenu"))
+                                    ->columnSpanFull(),
+
+                            ])
+                            ->columnSpan(2),
+
+
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\FileUpload::make('image')
+                                    ->image()
+                                    ->image(),
                                 Forms\Components\TagsInput::make('tags')
                                     ->label(__("Mots clés"))
                                     ->placeholder(__("Mot-clé"))
                                     ->separator(',')
                                     ->splitKeys(['Tab', ','])
                                     ->default(null),
-
-                                Forms\Components\Textarea::make('description')
-                                    ->columnSpanFull(),
-                            ])->columnSpan(2),
-
-
-                        Forms\Components\Section::make()
-                            ->schema([
-                                Forms\Components\FileUpload::make('logo')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->alignCenter()
-                                    ->avatar()
-                                    ->label(false)
-                                    ->image(),
-                                Forms\Components\Toggle::make('status')
-                                    ->inline(false)
-                                    ->helperText('Rendre cette marque visible pour tout le monde.')
-                                    ->label(__("Visibilité"))
-                                    ->default(true)
-                                    ->required(),
                             ])->columnSpan(1),
+                    ]),
 
-
-
-
-
-
-                    ])
             ]);
     }
 
@@ -81,14 +71,14 @@ class BrandResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('logo')
+                Tables\Columns\TextColumn::make('post_category_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tags')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('status')
-                    ->boolean(),
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -123,9 +113,9 @@ class BrandResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBrands::route('/'),
-            'create' => Pages\CreateBrand::route('/create'),
-            'edit' => Pages\EditBrand::route('/{record}/edit'),
+            'index' => Pages\ListPosts::route('/'),
+            'create' => Pages\CreatePost::route('/create'),
+            'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
 }

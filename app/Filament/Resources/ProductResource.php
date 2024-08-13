@@ -32,7 +32,7 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\Tabs::make('Tabs')
                     ->tabs([
-                        Forms\Components\Tabs\Tab::make('Tab 1')
+                        Forms\Components\Tabs\Tab::make('Produit')
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label(__("Nom du produit"))
@@ -115,10 +115,11 @@ class ProductResource extends Resource
                             ->reorderable()
                             ->columnSpanFull(),
                         Forms\Components\RichEditor::make('content')
+                            ->label(__("Contenu"))
                             ->columnSpanFull(),
 
                         Forms\Components\Select::make('colore')
-                            ->label(__("Color"))
+                            ->label(__("Couleur"))
                             ->relationship('colors', 'name')
                             ->native(false)
                             ->multiple()
@@ -132,6 +133,12 @@ class ProductResource extends Resource
                                 $color = Color::create($data);
                                 return $color->getKey();
                             }),
+                            Forms\Components\TagsInput::make('tags')
+                            ->label(__("Mots clés"))
+                            ->placeholder(__("Mot-clé"))
+                            ->separator(',')
+                            ->splitKeys(['Tab', ','])
+                            ->default(null),
                     ])->columns(2),
             ]);
     }

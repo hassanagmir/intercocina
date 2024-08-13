@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('options')->nullable();
             $table->boolean('status')->default(true);
             $table->string('slug')->unique();
+            $table->string('tags')->nullable();
             $table->timestamps();
         });
     }

@@ -13,9 +13,4 @@ class Post extends Model
         'title', 'description', 'tags', 'image', 'content', 'slug'
     ];
 
-    // Relationships
-    public function category()
-    {
-        return $this->belongsTo(PostCategory::class);
-    }
 }

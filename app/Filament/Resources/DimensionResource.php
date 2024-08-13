@@ -23,26 +23,34 @@ class DimensionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('width')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('height')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('price')
-                    ->label(__("Prix"))
-                    ->required()
-                    ->numeric()
-                    ->prefix('MAD'),
-                Forms\Components\TextInput::make('product_id')
-                
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Toggle::make('status')
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('width')
+                            ->label(__("Largeur"))
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('height')
+                            ->label(__("Hauteur"))
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('price')
+                            ->label(__("Prix"))
+                            ->required()
+                            ->numeric()
+                            ->prefix('MAD'),
+                        Forms\Components\Select::make('product_id')
+                            ->searchable()
+                            ->preload()
+                            ->relationship('product', "name")
+                            ->label(__("Produit"))
+                            ->required(),
+                        Forms\Components\Toggle::make('status')
+                            ->inline(false)
+                            ->helperText('Rendre cette dimension visible pour tout le monde.')
+                            ->label(__("Visibilité"))
+                            ->required(),
+                    ])->columns(2)
+
             ]);
     }
 

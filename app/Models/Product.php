@@ -14,7 +14,7 @@ class Product extends Model
 
 
     protected $fillable = [
-        'name', 'es_name', 'description', 'code', 'type_id', 'content', 'options', 'status', 'slug'
+        'name', 'es_name', 'description', 'code', 'type_id', 'content', 'options', 'tags', 'status', 'slug'
     ];
 
     public function getSlugOptions() : SlugOptions
