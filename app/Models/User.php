@@ -29,6 +29,12 @@ class User extends Authenticatable implements HasName
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function canAccessFilament(): bool
+    {
+        return true;
+        return str_ends_with($this->email, '@intercocina.com') && $this->hasVerifiedEmail();
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

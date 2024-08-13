@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TypeResource\Pages;
-use App\Filament\Resources\TypeResource\RelationManagers;
-use App\Models\Type;
+use App\Filament\Resources\ColorResource\Pages;
+use App\Filament\Resources\ColorResource\RelationManagers;
+use App\Models\Color;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,68 +13,58 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TypeResource extends Resource
+class ColorResource extends Resource
 {
-    protected static ?string $model = Type::class;
+    protected static ?string $model = Color::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-swatch';
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
+
+    protected static ?string $navigationGroup = "Plus d'options";
+
 
     public static function getModelLabel(): string
     {
-        return __("Type");
+        return __("couleur");
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
-
                 Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\components\Section::make()
+                        Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\TextInput::make('name')
-                                    ->label(__("Type"))
+                                    ->label(__("Couleur"))
                                     ->required()
                                     ->maxLength(255),
 
-                                Forms\Components\TagsInput::make('tags')
-                                    ->label(__("Mots clés"))
-                                    ->placeholder(__("Mot-clé"))
-                                    ->separator(',')
-                                    ->splitKeys(['Tab', ','])
+                                Forms\Components\TextInput::make('es_name')
+                                    ->label(__("Couleur en espagnol"))
+                                    ->maxLength(255)
                                     ->default(null),
-
-                                Forms\Components\Textarea::make('description')
-                                    ->columnSpanFull(),
-
-                                Forms\Components\RichEditor::make('content')
-                                    ->label(__("Contenu"))
-                                    ->columnSpanFull(),
-
-                            ])->columnSpan(2),
-
-
-                        Forms\Components\Section::make()
-                            ->schema([
-                                Forms\Components\Select::make('category_id')
-                                    ->label(__("Catégorie"))
-                                    ->native(false)
-                                    ->preload()
-                                    ->searchable()
-                                    ->relationship('category', 'name'),
-                                Forms\Components\FileUpload::make('image')
-                                    ->image(),
+                                Forms\Components\TextInput::make('code')
+                                    ->label(__("Nombre"))
+                                    ->maxLength(255)
+                                    ->default(null),
 
                                 Forms\Components\Toggle::make('status')
                                     ->inline(false)
-                                    ->default(true)
-                                    ->helperText('Rendre cette type visible pour tout le monde.')
+                                    ->helperText('Rendre cette catégorie visible pour tout le monde.')
                                     ->label(__("Visibilité"))
+                                    ->default(true)
                                     ->required(),
 
-                            ])->columnSpan(1)
+                            ])
+                            ->columns(2)
+                            ->columnSpan(2),
+
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\FileUpload::make('image')
+                                    ->image(),
+                            ])->columnSpan(1),
                     ]),
             ]);
     }
@@ -83,13 +73,16 @@ class TypeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('es_name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('code')
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->badge()
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -123,9 +116,9 @@ class TypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTypes::route('/'),
-            'create' => Pages\CreateType::route('/create'),
-            'edit' => Pages\EditType::route('/{record}/edit'),
+            'index' => Pages\ListColors::route('/'),
+            'create' => Pages\CreateColor::route('/create'),
+            'edit' => Pages\EditColor::route('/{record}/edit'),
         ];
     }
 }
