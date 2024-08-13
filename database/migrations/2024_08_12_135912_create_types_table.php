@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('tags')->nullable();
             $table->boolean('status')->default(true);
+            $table->foreignIdFor(App\Models\Category::class);
             $table->string('slug')->unique();
             $table->timestamps();
         });

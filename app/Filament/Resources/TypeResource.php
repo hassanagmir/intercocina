@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use App\Filament\Resources\TypeResource\Pages;
+use App\Filament\Resources\TypeResource\RelationManagers;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,83 +13,90 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CategoryResource extends Resource
+class TypeResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Type::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-folder-open';
+    protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
     public static function getModelLabel(): string
     {
-        return __("Catégorie");
+        return __("Type");
     }
-
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
+
                 Forms\Components\Grid::make(3)
                     ->schema([
-
-                        Forms\Components\Section::make()
+                        Forms\components\Section::make()
                             ->schema([
-
                                 Forms\Components\TextInput::make('name')
-                                    ->unique(ignoreRecord: true)
-                                    ->label(__("Catégorie"))
+                                    ->label(__("Type"))
                                     ->required()
                                     ->maxLength(255),
-        
+
                                 Forms\Components\TagsInput::make('tags')
                                     ->label(__("Mots clés"))
                                     ->placeholder(__("Mot-clé"))
                                     ->separator(',')
                                     ->splitKeys(['Tab', ','])
                                     ->default(null),
-                            
+
                                 Forms\Components\Textarea::make('description')
+                                    ->columnSpanFull(),
+
+                                Forms\Components\RichEditor::make('content')
+                                    ->label(__("Contenu"))
                                     ->columnSpanFull(),
 
                             ])->columnSpan(2),
 
-                        Forms\Components\Section::make()
-                            ->make([
 
+                        Forms\Components\Section::make()
+                            ->schema([
+                                Forms\Components\Select::make('category_id')
+                                    ->label(__("Catégorie"))
+                                    ->native(false)
+                                    ->preload()
+                                    ->searchable()
+                                    ->relationship('category', 'name'),
                                 Forms\Components\FileUpload::make('image')
-                                    ->label(__("Image"))
                                     ->image(),
-                 
+
                                 Forms\Components\Toggle::make('status')
                                     ->inline(false)
-                                    ->helperText('Rendre cette catégorie visible pour tout le monde.')
+                                    ->default(true)
+                                    ->helperText('Rendre cette type visible pour tout le monde.')
                                     ->label(__("Visibilité"))
                                     ->required(),
 
                             ])->columnSpan(1)
-
-                ])
-                
-            ])->columns(2);
+                    ]),
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__("Catégorie"))
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('tags')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__("Créé le"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__("Edité le"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -117,9 +124,9 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListTypes::route('/'),
+            'create' => Pages\CreateType::route('/create'),
+            'edit' => Pages\EditType::route('/{record}/edit'),
         ];
     }
 }
