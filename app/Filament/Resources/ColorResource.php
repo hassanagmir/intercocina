@@ -63,6 +63,9 @@ class ColorResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
+                                    ->label(__("Image du color"))
+                                    ->avatar()
+                                    ->alignCenter()
                                     ->image(),
                             ])->columnSpan(1),
                     ]),

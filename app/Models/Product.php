@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -25,7 +26,10 @@ class Product extends Model
 
     protected $casts = [
         'options' => 'array',
+        'status' =>  ProductStatusEnum::class,
     ];
+
+
 
     // Relationships
     public function type()
@@ -42,6 +46,11 @@ class Product extends Model
     public function dimensions()
     {
         return $this->hasMany(Dimension::class);
+    }
+
+
+    public function images(){
+        return $this->hasMany(Image::class);
     }
 
     public function orders()
