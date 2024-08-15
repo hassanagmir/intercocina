@@ -7,13 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Brand extends Model
+class City extends Model
 {
     use HasFactory, HasSlug;
 
-    protected $fillable = [
-        'name', 'description', 'logo', 'tags', 'status', 'slug'
-    ];
+    protected $fillable = ['name', 'country_id', 'slug'];
 
     public function getSlugOptions() : SlugOptions
     {
@@ -23,9 +21,14 @@ class Brand extends Model
     }
 
 
-    // Relationships
-    public function colors()
+    // Relations
+    public function country()
     {
-        return $this->hasMany(BrandColor::class);
+        return $this->belongsTo(Country::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
 }

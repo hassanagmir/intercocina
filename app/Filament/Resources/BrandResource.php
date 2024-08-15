@@ -47,6 +47,7 @@ class BrandResource extends Resource
                                     ->default(null),
 
                                 Forms\Components\Textarea::make('description')
+                                    ->rows(5)
                                     ->columnSpanFull(),
                             ])->columnSpan(2),
 
@@ -54,6 +55,7 @@ class BrandResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\FileUpload::make('logo')
+
                                     ->required()
                                     ->columnSpanFull()
                                     ->alignCenter()
@@ -81,22 +83,20 @@ class BrandResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('logo')
+                    ->label(__("Logo"))
+                    // ->circular()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__("Marque"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('logo')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tags')
-                    ->searchable(),
+                    
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+                
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label(__("Crée le"))
+                    ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

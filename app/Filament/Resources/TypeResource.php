@@ -47,6 +47,7 @@ class TypeResource extends Resource
                                     ->default(null),
 
                                 Forms\Components\Textarea::make('description')
+                                    ->rows(5)
                                     ->columnSpanFull(),
 
                                 Forms\Components\RichEditor::make('content')

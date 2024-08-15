@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reclamations', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('client_number')->nullable();
-            $table->string('full_name');
-            $table->string('subject');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('address_name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('phone');
-            $table->text('message');
+            $table->foreignId('city_id')->constrained()->onDelete('cascade');
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reclamations');
+        Schema::dropIfExists('addresses');
     }
 };

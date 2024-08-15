@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reclamations', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('client_number')->nullable();
-            $table->string('full_name');
-            $table->string('subject');
-            $table->string('phone');
-            $table->text('message');
+            $table->string('name');
+            $table->string('code', 10); 
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reclamations');
+        Schema::dropIfExists('countries');
     }
 };

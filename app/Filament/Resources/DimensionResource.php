@@ -59,27 +59,29 @@ class DimensionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('width')
+                    ->label(__("Largeur"))
+                    ->suffix(" mm")
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('height')
+                    ->label(__("Hauteur"))
+                    ->suffix(" mm")
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->label(__("Produit"))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('product_id')
-                    ->numeric()
+                    ->badge()
+                    ->label(__("Prix"))
+                    ->suffix(" MAD")
                     ->sortable(),
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label(__("Créé à"))
+                    ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

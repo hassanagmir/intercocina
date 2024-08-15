@@ -7,6 +7,7 @@ use App\Filament\Resources\ContactResource\RelationManagers;
 use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -45,6 +46,22 @@ class ContactResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolists\Infolist $infolist): Infolists\Infolist
+    {
+        return $infolist->schema([
+
+            Infolists\Components\TextEntry::make('full_name')
+                ->label(__("Nom et prénom")),
+            Infolists\Components\TextEntry::make('phone')
+                ->label(__("Téléphone")),
+            Infolists\Components\TextEntry::make('email')
+                ->label(__("E-mail")),
+            Infolists\Components\TextEntry::make('message')
+                ->label(__("Message")),
+
+        ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -69,6 +86,7 @@ class ContactResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

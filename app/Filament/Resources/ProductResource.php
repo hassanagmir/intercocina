@@ -57,6 +57,7 @@ class ProductResource extends Resource
                                     ->relationship('type', 'name')
                                     ->required(),
                                 Forms\Components\Textarea::make('description')
+                                    ->rows(5)
                                     ->columnSpanFull(),
                             ])->columns(2),
                         Forms\Components\Tabs\Tab::make('Images')
