@@ -61,21 +61,19 @@ class OrderResource extends Resource
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         if ($get('product_id')) {
                                             $product = Product::find($get('product_id'));
-                                            if($product->price){
+                                            if ($product->price) {
                                                 $set("total", (intval($get("quantity")) * $product->price));
                                                 $set("price", $product->price);
-                                                
-                                            }else{
+                                            } else {
                                                 $set("price", 0);
                                                 if ($get('dimension_id') && $get('quantity')) {
                                                     $dimension = Dimension::find($get('dimension_id'));
                                                     $set('total', intval($get('quantity')) * intval($dimension->price));
                                                 }
                                             }
-                                          
                                         }
                                     }),
-                                
+
 
                                 Forms\Components\TextInput::make('price')
                                     ->hidden(fn(Get $get): bool => !$get('price') && true)
@@ -112,15 +110,13 @@ class OrderResource extends Resource
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         if ($get('product')) {
                                             $product = Product::find($get('product_id'));
-                                            if($product->price){
+                                            if ($product->price) {
                                                 $set("total", (intval($get("quantity")) * $product->price));
                                             }
                                         } elseif ($get('dimension_id') && $get('quantity')) {
                                             $dimension = Dimension::find($get('dimension_id'));
                                             $set('total', intval($get('quantity')) * intval($dimension->price));
-
-                                            
-                                        }else{
+                                        } else {
                                             $set('total', 0);
                                         }
                                     })
@@ -135,11 +131,7 @@ class OrderResource extends Resource
                                     ->required()
                                     ->numeric(),
 
-                                Forms\Components\Select::make('status')
-                                    ->label(__("État"))
-                                    ->native(false)
-                                    ->options(OrderStatusEnum::toArray())
-                                    ->required(),
+
                             ])
                             ->columnSpan(2)
                             ->label(false)
@@ -164,6 +156,11 @@ class OrderResource extends Resource
                                     ->readOnly()
                                     ->required()
                                     ->numeric(),
+                                Forms\Components\Select::make('status')
+                                    ->label(__("État"))
+                                    ->native(false)
+                                    ->options(OrderStatusEnum::toArray())
+                                    ->required(),
                             ])->columnSpan(1)
 
                     ])
@@ -177,23 +174,32 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
+                Tables\Columns\TextColumn::make('user.first_name')
+                    ->label(__("Utilisateur"))
                     ->numeric()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('code')
+                    ->label("Numéro")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('total')
+                Tables\Columns\TextColumn::make('items_count')->counts('items')
+                    ->badge()
+                    ->label(__("Produits"))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('total_amount')
+                    ->badge()
+                    ->suffix(" MAD")
+                    ->label(__("Montant total"))
                     ->numeric()
                     ->sortable(),
+
                 Tables\Columns\SelectColumn::make('status')
+                    ->placeholder("État")
                     ->label(__("État"))
                     ->options(OrderStatusEnum::class),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label(__("Cree le"))
+                    ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

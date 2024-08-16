@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\Color::class)->nullable()->constrained()->cascadeOnDelete();
             $table->integer('quantity');
             $table->decimal('total', 10, 2);
-            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

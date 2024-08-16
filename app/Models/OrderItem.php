@@ -10,7 +10,7 @@ class OrderItem extends Model
     use HasFactory;
 
     protected $fillable = [
-        'order_id', 'product_id', 'dimension_id', 'color_id', 'quantity', 'total', 'status'
+        'order_id', 'product_id', 'dimension_id', 'color_id', 'quantity', 'total'
     ];
 
     // Relationships
