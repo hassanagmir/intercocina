@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->string('code')->unique();
-            $table->decimal('total', 10, 2);
+            $table->decimal('total_amount', 10, 2);
             $table->timestamps();
         });
     }

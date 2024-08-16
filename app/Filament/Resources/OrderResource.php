@@ -7,6 +7,7 @@ use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Dimension;
 use App\Models\Order;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -22,7 +23,12 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
+
+    public static function getModelLabel(): string
+    {
+        return __("Commande");
+    }
 
     public static function form(Form $form): Form
     {
@@ -44,13 +50,40 @@ class OrderResource extends Resource
                             ->live()
                             ->relationship()
                             ->schema([
+
                                 Forms\Components\Select::make('product_id')
                                     ->relationship('product', 'name')
+                                    ->label(__("Produit"))
                                     ->searchable()
                                     ->preload()
-                                    ->label(__("Produit"))
+                                    ->required()
                                     ->live()
-                                    ->required(),
+                                    ->afterStateUpdated(function (Set $set, Get $get) {
+                                        if ($get('product_id')) {
+                                            $product = Product::find($get('product_id'));
+                                            if($product->price){
+                                                $set("total", (intval($get("quantity")) * $product->price));
+                                                $set("price", $product->price);
+                                                
+                                            }else{
+                                                $set("price", 0);
+                                                if ($get('dimension_id') && $get('quantity')) {
+                                                    $dimension = Dimension::find($get('dimension_id'));
+                                                    $set('total', intval($get('quantity')) * intval($dimension->price));
+                                                }
+                                            }
+                                          
+                                        }
+                                    }),
+                                
+
+                                Forms\Components\TextInput::make('price')
+                                    ->hidden(fn(Get $get): bool => !$get('price') && true)
+                                    ->live()
+                                    ->label(__("Prix"))
+                                    ->numeric(),
+
+
                                 Forms\Components\Select::make('dimension_id')
                                     ->relationship('dimension', 'width', function (Builder $query, Get $get) {
                                         return $query->where('product_id', $get('product_id'));
@@ -66,24 +99,35 @@ class OrderResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->live()
+                                    ->hidden(fn(Get $get): bool => $get('price') && true)
                                     ->required(),
 
-                                Forms\Components\TextInput::make('color')
-                                    ->maxLength(255)
-                                    ->default(null),
+                                Forms\Components\Select::make('color_id')
+                                    ->relationship('color', 'name')
+                                    ->searchable()
+                                    ->preload(),
 
                                 Forms\Components\TextInput::make('quantity')
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
-                                        if ($get('dimension_id') && $get('quantity')) {
+                                        if ($get('product')) {
+                                            $product = Product::find($get('product_id'));
+                                            if($product->price){
+                                                $set("total", (intval($get("quantity")) * $product->price));
+                                            }
+                                        } elseif ($get('dimension_id') && $get('quantity')) {
                                             $dimension = Dimension::find($get('dimension_id'));
                                             $set('total', intval($get('quantity')) * intval($dimension->price));
-                                        } else {
-                                            return 0;
+
+                                            
+                                        }else{
+                                            $set('total', 0);
                                         }
                                     })
                                     ->required()
                                     ->numeric(),
+
+
                                 Forms\Components\TextInput::make('total')
                                     ->readOnly()
                                     ->live()
@@ -105,15 +149,19 @@ class OrderResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\Select::make('user_id')
+                                    ->label(__("Utilisateur"))
                                     ->relationship('user', "first_name")
                                     ->searchable()
                                     ->preload()
                                     ->required(),
                                 Forms\Components\TextInput::make('code')
+                                    ->label(__("Code"))
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('total_amount')
+                                    ->label(__("Montant total"))
                                     ->live()
+                                    ->readOnly()
                                     ->required()
                                     ->numeric(),
                             ])->columnSpan(1)

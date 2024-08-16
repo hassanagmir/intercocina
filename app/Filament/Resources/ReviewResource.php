@@ -19,6 +19,11 @@ class ReviewResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
+    public static function getModelLabel(): string
+    {
+        return __("Avis");
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -9,6 +9,7 @@ use App\Models\Color;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -78,35 +79,58 @@ class ProductResource extends Resource
                             ]),
                         Forms\Components\Tabs\Tab::make('Dimensions')
                             ->schema([
+                                Forms\Components\Toggle::make('is_dimensions')
+                                    ->live()
+                                    ->label('Avec le prix'),
+
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('price')
+                                            ->hidden(fn(Get $get): bool => !$get('is_dimensions'))
+                                            ->prefix("MAD")
+                                            ->required(fn(Get $get): bool => !$get('is_dimensions'))
+                                            ->numeric()
+                                            ->columnSpan(1)
+                                            ->label('Prix'),
+
+                                        Forms\Components\TextInput::make('old_price')
+                                            ->hidden(fn(Get $get): bool => !$get('is_dimensions'))
+                                            ->prefix("MAD")
+                                            ->numeric()
+                                            ->columnSpan(1)
+                                            ->label('Ancien prix'),
+                                    ]),
+
                                 Forms\Components\Repeater::make('dimensions')
-                                ->label(false)
-                                ->relationship()
-                                ->schema([
-                                    Forms\Components\TextInput::make('width')
-                                        ->label(__("Largeur"))
-                                        ->required()
-                                        ->numeric(),
-                                    Forms\Components\TextInput::make('height')
-                                        ->label(__("Hauteur"))
-                                        ->required()
-                                        ->numeric(),
-                                    Forms\Components\TextInput::make('price')
-                                        ->label(__("Prix"))
-                                        ->required()
-                                        ->numeric()
-                                        ->prefix('MAD'),
-                                    Forms\Components\Toggle::make('status')
-                                        ->default(true)
-                                        ->required(),
-                                ])
-                                ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                                    return $data;
-                                })
-                                ->grid(2)
-                                // ->collapsed()
-                                ->columns(3)
-                                ->columnSpanFull()
-                                ->cloneable()
+                                    ->hidden(fn(Get $get): bool => $get('is_dimensions'))
+                                    ->label(false)
+                                    ->relationship()
+                                    ->schema([
+                                        Forms\Components\TextInput::make('width')
+                                            ->label(__("Largeur"))
+                                            ->required()
+                                            ->numeric(),
+                                        Forms\Components\TextInput::make('height')
+                                            ->label(__("Hauteur"))
+                                            ->required()
+                                            ->numeric(),
+                                        Forms\Components\TextInput::make('price')
+                                            ->label(__("Prix"))
+                                            ->required()
+                                            ->numeric()
+                                            ->prefix('MAD'),
+                                        Forms\Components\Toggle::make('status')
+                                            ->default(true)
+                                            ->required(),
+                                    ])
+                                    ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                                        return $data;
+                                    })
+                                    ->grid(2)
+                                    // ->collapsed()
+                                    ->columns(3)
+                                    ->columnSpanFull()
+                                    ->cloneable()
                             ]),
                     ])->columnSpanFull(),
                 Forms\Components\Section::make()
@@ -134,7 +158,7 @@ class ProductResource extends Resource
                                 $color = Color::create($data);
                                 return $color->getKey();
                             }),
-                            Forms\Components\TagsInput::make('tags')
+                        Forms\Components\TagsInput::make('tags')
                             ->label(__("Mots clés"))
                             ->placeholder(__("Mot-clé"))
                             ->separator(',')
