@@ -25,6 +25,13 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
+    protected static ?string $navigationGroup = "Porduits";
+
+    public static function getNavigationBadge(): ?string
+    {
+        return parent::getEloquentQuery()->where('status', 1)->count();
+    }
+
     public static function getModelLabel(): string
     {
         return __("Commande");

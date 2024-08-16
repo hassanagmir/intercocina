@@ -19,6 +19,8 @@ class TypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
+    protected static ?string $navigationGroup = "Porduits";
+
     public static function getModelLabel(): string
     {
         return __("Type");

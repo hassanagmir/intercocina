@@ -27,6 +27,8 @@ class ProductResource extends Resource
         return __("Produit");
     }
 
+    protected static ?string $navigationGroup = "Porduits";
+
     public static function form(Form $form): Form
     {
         return $form

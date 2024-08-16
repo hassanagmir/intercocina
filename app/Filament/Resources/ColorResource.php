@@ -19,7 +19,8 @@ class ColorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
-    protected static ?string $navigationGroup = "Plus d'options";
+    
+    protected static ?string $navigationGroup = "Porduits";
 
 
     public static function getModelLabel(): string

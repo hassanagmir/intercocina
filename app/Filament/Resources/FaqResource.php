@@ -23,6 +23,8 @@ class FaqResource extends Resource
     {
         return __("FAQ");
     }
+    
+    protected static ?string $navigationGroup = "Plus d'options";
 
     public static function form(Form $form): Form
     {

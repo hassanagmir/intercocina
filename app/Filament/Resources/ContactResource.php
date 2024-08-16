@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ContactResource extends Resource
@@ -29,20 +30,27 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('full_name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('message')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\components\Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('full_name')
+                            ->label(__("Nom et prénom"))
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone')
+                            ->label(__("Téléphone"))
+                            ->tel()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->label(__("E-mail"))
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Textarea::make('message')
+                            ->label(__("Message"))
+                            ->required()
+                            ->columnSpanFull(),
+                    ])->columns(3)
             ]);
     }
 
@@ -56,6 +64,7 @@ class ContactResource extends Resource
                 ->label(__("Téléphone")),
             Infolists\Components\TextEntry::make('email')
                 ->label(__("E-mail")),
+
             Infolists\Components\TextEntry::make('message')
                 ->label(__("Message")),
 
@@ -67,16 +76,19 @@ class ContactResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('full_name')
+                    ->label(__("Nom et prénom"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label(__("Téléphone"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label("E-mail")
                     ->searchable(),
+                Tables\Columns\IconColumn::make('status')
+                    ->label(__("Est lu"))
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Envoyé à"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -25,6 +25,8 @@ class CategoryResource extends Resource
     }
 
 
+    protected static ?string $navigationGroup = "Porduits";
+
     public static function form(Form $form): Form
     {
         return $form
@@ -40,15 +42,16 @@ class CategoryResource extends Resource
                                     ->label(__("Catégorie"))
                                     ->required()
                                     ->maxLength(255),
-        
+
                                 Forms\Components\TagsInput::make('tags')
                                     ->label(__("Mots clés"))
                                     ->placeholder(__("Mot-clé"))
                                     ->separator(',')
                                     ->splitKeys(['Tab', ','])
                                     ->default(null),
-                            
+
                                 Forms\Components\Textarea::make('description')
+                                    ->rows(6)
                                     ->columnSpanFull(),
 
                             ])->columnSpan(2),
@@ -59,7 +62,7 @@ class CategoryResource extends Resource
                                 Forms\Components\FileUpload::make('image')
                                     ->label(__("Image"))
                                     ->image(),
-                 
+
                                 Forms\Components\Toggle::make('status')
                                     ->inline(false)
                                     ->helperText('Rendre cette catégorie visible pour tout le monde.')
@@ -68,8 +71,8 @@ class CategoryResource extends Resource
 
                             ])->columnSpan(1)
 
-                ])
-                
+                    ])
+
             ])->columns(2);
     }
 

@@ -19,6 +19,8 @@ class ReviewResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
 
+    protected static ?string $navigationGroup = "Porduits";
+
     public static function getModelLabel(): string
     {
         return __("Avis");
@@ -44,7 +46,7 @@ class ReviewResource extends Resource
                         ->options([1, 2, 3, 4, 5])
                         ->required(),
                     Forms\Components\Select::make('product_id')
-                        ->label(__("Status"))
+                        ->label(__("Produit"))
                         ->relationship('product', 'name')
                         ->searchable()
                         ->preload()

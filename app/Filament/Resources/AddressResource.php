@@ -20,11 +20,14 @@ class AddressResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
+    protected static ?string $navigationGroup = "Plus d'options";
+
     public static function getModelLabel(): string
     {
         return __("Adresse");
     }
 
+    
     public static function form(Form $form): Form
     {
         return $form
