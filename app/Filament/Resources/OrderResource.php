@@ -83,11 +83,19 @@ class OrderResource extends Resource
 
 
                                 Forms\Components\TextInput::make('price')
-                                    ->hidden(fn(Get $get): bool => !$get('price') && true)
+                                    ->hidden(function (Get $get, Set $set) {
+                                        if ($get("product_id")) {
+                                            if (Product::find($get("product_id"))->price) {
+                                                $set("price", Product::find($get("product_id"))->price);
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
+                                        }
+                                    })
                                     ->live()
                                     ->label(__("Prix"))
                                     ->numeric(),
-
 
                                 Forms\Components\Select::make('dimension_id')
                                     ->relationship('dimension', 'width', function (Builder $query, Get $get) {
@@ -104,7 +112,15 @@ class OrderResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->live()
-                                    ->hidden(fn(Get $get): bool => $get('price') && true)
+                                    ->hidden(function (Get $get) {
+                                        if ($get("product_id")) {
+                                            if (Product::find($get("product_id"))->price) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+                                        }
+                                    })
                                     ->required(),
 
                                 Forms\Components\Select::make('color_id')
@@ -176,9 +192,6 @@ class OrderResource extends Resource
                             ])->columnSpan(1)
 
                     ])
-
-
-
             ]);
     }
 
@@ -220,6 +233,7 @@ class OrderResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -241,6 +255,7 @@ class OrderResource extends Resource
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'view' => Pages\ViewOrder::route('/{record}/view'),
         ];
     }
 }

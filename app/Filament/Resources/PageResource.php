@@ -40,8 +40,6 @@ class PageResource extends Resource
 
                             ])
                             ->columnSpan(2),
-
-
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
@@ -62,21 +60,18 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label(__("Image"))
+                    ->placeholder("__"),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tags')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('slug')
+                    ->label(__("Titre"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__("Crée le"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
