@@ -98,7 +98,7 @@ class OrderResource extends Resource
                                             $dimension = Dimension::find($get('dimension_id'));
                                             $set('total', intval($get('quantity')) * intval($dimension->price));
                                         } else {
-                                            return 0;
+                                            $set('total', 0);
                                         }
                                     })
                                     ->searchable()
@@ -115,7 +115,7 @@ class OrderResource extends Resource
                                 Forms\Components\TextInput::make('quantity')
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
-                                        if ($get('product')) {
+                                        if ($get('price')) {
                                             $product = Product::find($get('product_id'));
                                             if ($product->price) {
                                                 $set("total", (intval($get("quantity")) * $product->price));
@@ -126,6 +126,13 @@ class OrderResource extends Resource
                                         } else {
                                             $set('total', 0);
                                         }
+
+                                        $items = $get('../../items');
+                                        $total_amount = 0;
+                                        foreach ($items as $item) {
+                                            $total_amount += $item['total'];
+                                        }
+                                        $set('../../total_amount', $total_amount);
                                     })
                                     ->required()
                                     ->numeric(),
@@ -137,8 +144,6 @@ class OrderResource extends Resource
                                     ->prefix("MAD")
                                     ->required()
                                     ->numeric(),
-
-
                             ])
                             ->columnSpan(2)
                             ->label(false)

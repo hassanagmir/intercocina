@@ -78,21 +78,21 @@ class ColorResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__("Couleur"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('es_name')
+                    ->label(__("Couleur en espagnol"))
+                    ->placeholder("__")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
+                    ->placeholder("__")
+                    ->label(__("Numero"))
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\IconColumn::make('status')
+                    ->label(__("Status"))
                     ->boolean(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Crée le"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
