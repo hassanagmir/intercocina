@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\IconSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -170,7 +171,7 @@ class OrderResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('user_id')
                                     ->label(__("Utilisateur"))
-                                    ->relationship('user', "first_name")
+                                    ->relationship('user', "full_name")
                                     ->searchable()
                                     ->preload()
                                     ->required(),
@@ -199,18 +200,23 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.first_name')
-                    ->label(__("Utilisateur"))
+                Tables\Columns\TextColumn::make('user')
+                    ->state(function(Model $model){
+                        return $model->user->first_name . " " . $model->user->last_name;
+                    })
+                    ->label(__("Client"))
                     ->numeric()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('code')
                     ->label("Numéro")
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('items_count')->counts('items')
                     ->badge()
                     ->label(__("Produits"))
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('total_amount')
                     ->badge()
                     ->suffix(" MAD")
@@ -219,11 +225,18 @@ class OrderResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\SelectColumn::make('status')
-                    ->placeholder("État")
-                    ->label(__("État"))
+                    ->placeholder("__")
+                    ->label(__("Modifier l'état"))
                     ->options(OrderStatusEnum::class),
+
+                Tables\Columns\TextColumn::make('view_status')
+                    ->state(function(Model $model){
+                        return $model->status;
+                    })
+                    ->placeholder("État")
+                    ->label(__("État")),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__("Cree le"))
+                    ->label(__("Crée le"))
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -232,8 +245,14 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->iconSize(IconSize::Medium)
+                    ->label(false)
+                    ->tooltip(__("Modifier")),
+                Tables\Actions\ViewAction::make()
+                    ->iconSize(IconSize::Medium)
+                    ->label(false)
+                    ->tooltip(__("Voir")),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

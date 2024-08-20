@@ -10,7 +10,7 @@
         <meta name="description" content="">
 
         <title>
-            Digiton
+            InterCocina
         </title>
 
         <link rel="canonical" href="https://new.digiton.ma" />

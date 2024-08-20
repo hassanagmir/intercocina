@@ -11,7 +11,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
 
         <title>
-            Digiton
+            InterCocina
         </title>
 
         <link rel="canonical" href="https://new.digiton.ma" />
@@ -33,10 +33,6 @@
 
         <!-- Custom Google font-->
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-
-
-        
         <link rel="preload" as="style" href="/assets/css/app.css" />
         {{-- <link rel="stylesheet" href="https://new.digiton.ma/build/assets/app-Cl0QQosK.css" data-navigate-track="reload" /> --}}
 

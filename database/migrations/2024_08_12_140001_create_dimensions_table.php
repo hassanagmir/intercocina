@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('height');
             $table->decimal('price', 10, 2);
             $table->foreignIdFor(App\Models\Product::class)->constrained()->cascadeOnDelete();
+            $table->string('dimension')->virtualAs('concat(width, \' x \', height)');
             $table->boolean('status')->default(true);
             $table->string('slug')->unique();
             $table->timestamps();
