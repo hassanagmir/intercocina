@@ -201,7 +201,7 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user')
-                    ->state(function(Model $model){
+                    ->state(function (Model $model) {
                         return $model->user->first_name . " " . $model->user->last_name;
                     })
                     ->label(__("Client"))
@@ -230,7 +230,7 @@ class OrderResource extends Resource
                     ->options(OrderStatusEnum::class),
 
                 Tables\Columns\TextColumn::make('view_status')
-                    ->state(function(Model $model){
+                    ->state(function (Model $model) {
                         return $model->status;
                     })
                     ->placeholder("État")
@@ -256,7 +256,8 @@ class OrderResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                    // ->icon('heroicons-o-trash'),
                 ]),
             ]);
     }

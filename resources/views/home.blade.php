@@ -290,10 +290,10 @@
                 class="flex flex-col order-2 gap-3 pt-6 space-y-4 col-span-full md:px-4 xl:order-1 xl:col-span-1 md:pt-16 ">
                 <h1 class="text-4xl font-bold leading-tight text-center md:text-left md:text-5xl md:leading-tight"
                     x-animate="fadeInUp">
-                    Digit-ON : Expert en Création de Sites Web et Marketing Digital
+                    INTERCOCINA : Expert en Création de Sites Web et Marketing Digital
                 </h1>
                 <p class="text-center text-slate-500 md:text-left animate__delay-200ms" x-animate.delay.100="fadeInUp">
-                    Élevez votre présence en ligne avec Digit-ON, votre partenaire pour des sites web captivants, une
+                    Élevez votre présence en ligne avec INTERCOCINA, votre partenaire pour des sites web captivants, une
                     gestion optimisée des réseaux sociaux, et des stratégies de marketing digital sur mesure.
                 </p>
                 <div class="flex justify-center md:justify-start gap-4">
@@ -722,7 +722,7 @@
                                             Mouad Lawhoiwir</h3>
 
                                         <p class="mt-4 leading-relaxed text-gray-700">
-                                            Une équipe très professionnelle, réactive et à l&#039;écoute de ses clients. C&#039;est toujours un réel plaisir de travailler avec Digit-on. Je recommande les yeux fermés ! 
+                                            Une équipe très professionnelle, réactive et à l&#039;écoute de ses clients. C&#039;est toujours un réel plaisir de travailler avec INTERCOCINA. Je recommande les yeux fermés ! 
                                         </p>
                                     </div>
                                 </div>
@@ -934,7 +934,7 @@ Franchement super agence 🙏🏽🙏🏽
             <div class="space-y-4 xl:col-span-1 col-span-full" x-animate.intersect="fadeInRight">
                 <img class="w-[200px]" loading="lazy" src="https://new.digiton.ma/assets/images/Logo-Digiton-2L.svg" alt="">
                 <p class="text-slate-500 md:max-w-[400px]">
-                    Digit-ON, agence de marketing digital, offre des sites internet performants,
+                    INTERCOCINA, agence de marketing digital, offre des sites internet performants,
                     des vidéos de qualité, et une gestion optimale des réseaux sociaux.
                     Nous nous engageons à augmenter votre visibilité et à atteindre vos objectifs de croissance.
                 </p>
@@ -1062,7 +1062,7 @@ Franchement super agence 🙏🏽🙏🏽
     <hr class="h-px bg-gray-200 border-0">
     <div class="flex flex-col items-center gap-8 pt-8 md:justify-between lg:flex-row">
         <p class="text-center text-slate-500 md:text-left">
-            Copyright © Digit-ON 2024. All rights reserved. Made with ❤️ in Fés.
+            Copyright © INTERCOCINA 2024. All rights reserved. Made with ❤️ in Fés.
         </p>
         <div>
             <ul class="flex items-center gap-4">
@@ -1121,7 +1121,7 @@ Franchement super agence 🙏🏽🙏🏽
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.youtube.com/@digit-on4079" aria-label="youtube channel link">
+                    <a href="https://www.youtube.com/@INTERCOCINA4079" aria-label="youtube channel link">
                         <svg class="duration-500 hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="30px"
                             height="30px" viewBox="0 0 256 180">
                             <path fill="#f00"
