@@ -12,7 +12,7 @@ class Dimension extends Model
     use HasFactory, HasSlug;
 
     protected $fillable = [
-        'width', 'height', 'price', 'product_id', 'status', 'slug'
+        'width', 'height', 'price', 'product_id', 'status', 'slug', 'code', 'image_id'
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -28,4 +28,5 @@ class Dimension extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
 }

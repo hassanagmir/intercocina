@@ -41,10 +41,6 @@ class ProductResource extends Resource
                                     ->label(__("Nom du produit"))
                                     ->required()
                                     ->maxLength(255),
-                                // Forms\Components\TextInput::make('es_name')
-                                //     ->label(__("Nom du produit en espagnol"))
-                                //     ->maxLength(255)
-                                //     ->default(null),
                                 Forms\Components\TextInput::make('code')
                                     ->required()
                                     ->maxLength(255),
@@ -70,8 +66,6 @@ class ProductResource extends Resource
                                     ->schema([
                                         Forms\Components\FileUpload::make('image')
                                             ->image()
-                                            // ->acceptedFileTypes(['application/images'])
-                                            // ->orientImagesFromExif(true)
                                             ->label(false)
                                     ])
                                     ->orderColumn('order')
@@ -80,6 +74,7 @@ class ProductResource extends Resource
                                     ->grid(4)
                             ]),
                         Forms\Components\Tabs\Tab::make('Dimensions')
+                            ->label(__("Tarifs"))
                             ->schema([
                                 Forms\Components\Toggle::make('is_dimensions')
                                     ->live()
@@ -121,7 +116,24 @@ class ProductResource extends Resource
                                             ->required()
                                             ->numeric()
                                             ->prefix('MAD'),
+                                        Forms\Components\TextInput::make('code')
+                                            ->label(__("Référence"))
+                                            ->required(),
+                                          
+
+                                        Forms\Components\Select::make('image_reference')
+                                            ->label(__("Référence d'image"))
+                                            ->live()
+                                            ->options(function (Get $get) {
+                                                $incrementedArray = [];
+                                                $i = 0;
+                                                foreach ($get('../../images') as $key => $value) {
+                                                    $incrementedArray[$i++] = $i;
+                                                }
+                                                return $incrementedArray;
+                                            }),
                                         Forms\Components\Toggle::make('status')
+                                            ->inline(false)
                                             ->default(true)
                                             ->required(),
                                     ])
@@ -129,18 +141,18 @@ class ProductResource extends Resource
                                         return $data;
                                     })
                                     ->grid(2)
-                                    // ->collapsed()
                                     ->columns(3)
                                     ->columnSpanFull()
                                     ->cloneable()
                             ]),
                     ])->columnSpanFull(),
+
                 Forms\Components\Section::make()
                     ->schema([
-
                         Forms\Components\KeyValue::make('options')
                             ->reorderable()
                             ->columnSpanFull(),
+                            
                         Forms\Components\RichEditor::make('content')
                             ->label(__("Contenu"))
                             ->columnSpanFull(),

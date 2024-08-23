@@ -65,24 +65,26 @@ class ReviewResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('full_name')
+                    ->label(__("Nom complet"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__("E-mail"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('stars')
                     ->numeric()
+                    ->label(__("étoiles"))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('product_id')
+                Tables\Columns\TextColumn::make('product.name')
+                    ->label(__("Produit"))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('status')
+                    ->label(__("Status"))
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->label(__("Crée le"))
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
