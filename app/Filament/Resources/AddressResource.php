@@ -34,7 +34,7 @@ class AddressResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'first_name')
-                    ->label(__("Utilisateur"))
+                    ->label(__("Client"))
                     ->required()
                     ->preload()
                     ->searchable(),

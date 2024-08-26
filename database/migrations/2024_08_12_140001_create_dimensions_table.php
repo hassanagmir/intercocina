@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('width');
             $table->integer('height');
             $table->decimal('price', 10, 2);
-            $table->string('code')->nullable();
+            $table->string('code')->unique()->nullable();
             $table->string("image_reference")->nullable();
             $table->foreignIdFor(App\Models\Product::class)->constrained()->cascadeOnDelete();
             $table->string('dimension')->virtualAs('concat(width, \' x \', height)');

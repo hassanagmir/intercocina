@@ -23,7 +23,7 @@ class FaqResource extends Resource
     {
         return __("FAQ");
     }
-    
+
     protected static ?string $navigationGroup = "Plus d'options";
 
     public static function form(Form $form): Form
@@ -38,6 +38,7 @@ class FaqResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\Textarea::make('answer')
+                                    ->label(__("Répondre"))
                                     ->required()
                                     ->columnSpanFull(),
 

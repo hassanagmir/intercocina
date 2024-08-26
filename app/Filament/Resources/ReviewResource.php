@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
+use Mokhosh\FilamentRating\Components\Rating;
+
 
 class ReviewResource extends Resource
 {
@@ -40,16 +43,15 @@ class ReviewResource extends Resource
                         ->email()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\Select::make('stars')
-                        ->label(__("Nombre d'étoiles"))
-                        ->native(false)
-                        ->options([1, 2, 3, 4, 5])
-                        ->required(),
+                    
                     Forms\Components\Select::make('product_id')
                         ->label(__("Produit"))
                         ->relationship('product', 'name')
                         ->searchable()
                         ->preload()
+                        ->required(),
+                    Rating::make('stars')
+                        ->label(__("Notation"))
                         ->required(),
                     Forms\Components\Toggle::make('status')
                         ->required(),
@@ -70,10 +72,8 @@ class ReviewResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label(__("E-mail"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('stars')
-                    ->numeric()
-                    ->label(__("étoiles"))
-                    ->sortable(),
+                RatingColumn::make('stars')
+                    ->label(__("Notation")),
                 Tables\Columns\TextColumn::make('product.name')
                     ->label(__("Produit"))
                     ->numeric()
@@ -92,6 +92,7 @@ class ReviewResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

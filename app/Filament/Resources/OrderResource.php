@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+
+
+
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
@@ -99,9 +102,7 @@ class OrderResource extends Resource
                                     ->numeric(),
 
                                 Forms\Components\Select::make('dimension_id')
-                                    ->relationship('dimension', 'width', function (Builder $query, Get $get) {
-                                        return $query->where('product_id', $get('product_id'));
-                                    })
+                                    ->relationship('dimension', 'dimension')
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         if ($get('dimension_id') && $get('quantity')) {
                                             $dimension = Dimension::find($get('dimension_id'));
@@ -125,6 +126,7 @@ class OrderResource extends Resource
                                     ->required(),
 
                                 Forms\Components\Select::make('color_id')
+                                    ->label(__("Couleur"))
                                     ->relationship('color', 'name')
                                     ->searchable()
                                     ->preload(),
@@ -170,7 +172,7 @@ class OrderResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\Select::make('user_id')
-                                    ->label(__("Utilisateur"))
+                                    ->label(__("Client"))
                                     ->relationship('user', "full_name")
                                     ->searchable()
                                     ->preload()
@@ -179,17 +181,19 @@ class OrderResource extends Resource
                                     ->label(__("Code"))
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\TextInput::make('total_amount')
-                                    ->label(__("Montant total"))
-                                    ->live()
-                                    ->readOnly()
-                                    ->required()
-                                    ->numeric(),
                                 Forms\Components\Select::make('status')
                                     ->label(__("État"))
                                     ->native(false)
                                     ->options(OrderStatusEnum::toArray())
                                     ->required(),
+                                Forms\Components\TextInput::make('total_amount')
+                                    ->label(__("Montant total"))
+                                    ->live()
+                                    ->prefix("MAD")
+                                    ->readOnly()
+                                    ->required()
+                                    ->numeric(),
+
                             ])->columnSpan(1)
 
                     ])
@@ -207,10 +211,6 @@ class OrderResource extends Resource
                     ->label(__("Client"))
                     ->numeric()
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('code')
-                    ->label("Numéro")
-                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('items_count')->counts('items')
                     ->badge()

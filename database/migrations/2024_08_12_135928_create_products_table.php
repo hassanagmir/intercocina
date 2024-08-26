@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->string('old_price')->nullable();
             $table->text('description')->nullable();
-            $table->string('code')->nullable();
+            $table->string('code')->unique()->nullable();
             $table->foreignIdFor(App\Models\Type::class)->constrained()->cascadeOnDelete();
             $table->text('content')->nullable();
             $table->json('options')->nullable();

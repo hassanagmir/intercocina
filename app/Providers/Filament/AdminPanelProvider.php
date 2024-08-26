@@ -56,6 +56,12 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+
+            ->navigationGroups([
+                'Porduits',
+                "Plus d'options",
+                'Autorisation',
+            ])
             ->authMiddleware([
                 Authenticate::class,
             ])->viteTheme('resources/css/filament/admin/theme.css');
