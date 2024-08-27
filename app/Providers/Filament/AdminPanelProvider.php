@@ -58,9 +58,9 @@ class AdminPanelProvider extends PanelProvider
             ])
 
             ->navigationGroups([
-                'Porduits',
+                "Porduits",
                 "Plus d'options",
-                'Autorisation',
+                "Autorisation",
             ])
             ->authMiddleware([
                 Authenticate::class,

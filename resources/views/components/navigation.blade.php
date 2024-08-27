@@ -46,7 +46,7 @@
                         </x-nav-link>
                     </li>
                     <li>
-                        <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-accent-blue">
+                        <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
                             Contact
                         </button>
 
@@ -82,8 +82,7 @@
         :class="openMenu ? 'translate-x-0' : 'translate-x-full'">
         <li class="py-10">
             <div class="flex justify-center ">
-                <a href="/"><img class="h-[80px] md:h-[150px]"
-                        src="{{ asset('assets/images/Logo-Digiton-V.svg') }}" alt=""></a>
+                <a href="/"><img class="h-[80px] md:h-[150px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="Intercocina"></a>
             </div>
         </li>
         <li class="border-B border-inherit">
@@ -103,7 +102,7 @@
         </li>
     </ul>
     {{-- close navMenu --}}
-    <button class="p-2 rounded-full bg-accent-green/30 md:p-4 " x-on:click="openMenu = !openMenu"
+    <button class="p-2 rounded-full bg-accent-redm md:p-4 " x-on:click="openMenu = !openMenu"
         aria-label="close-navMenu" :aria-expanded="openMenu" aria-controls="mobNav">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffff"
             fill="none">

@@ -25,9 +25,9 @@ new class extends Component {
 }; ?>
 
 <div
-    class="w-full max-w-lg bg-accent-green px-8 py-16 xl:ml-36 rounded-3xl relative overflow-hidden order-1 xl:order-2 md:flex md:justify-center">
-    <x-circle-shape class="bg-accent-blue absolute z-0 -bottom-10 -left-10" x-animate.intersect="zoomIn"/>
-    <x-circle-shape class="bg-[#58d185] w-36 md:w-80 absolute z-0 -top-16 -right-16 md:-top-28 md:-right-28"
+    class="w-full max-w-lg bg-accent-red px-8 py-16 xl:ml-36 rounded-3xl relative overflow-hidden order-1 xl:order-2 md:flex md:justify-center">
+    <x-circle-shape class="bg-accent-gray absolute z-0 -bottom-10 -left-10" x-animate.intersect="zoomIn"/>
+    <x-circle-shape class="bg-accent-gray w-36 md:w-80 absolute z-0 -top-16 -right-16 md:-top-28 md:-right-28"
                     x-animate.intersect="zoomIn"/>
 
     <div class="w-full relative z-20 space-y-6"

@@ -1,4 +1,4 @@
-<button {{ $attributes->merge(['class' => 'flex items-center justify-center gap-2 text-accent-green bg-white px-6 py-3 rounded-xl font-semibold hover:bg-accent-green hover:bg-transparent border hover:border-white hover:text-white']) }}>
+<button {{ $attributes->merge(['class' => 'flex items-center justify-center gap-2 text-accent-red bg-white px-6 py-3 rounded-xl font-semibold hover:bg-accent-red hover:bg-transparent border hover:border-white hover:text-white']) }}>
 
     <svg wire:loading @if($attributes->get('wire:target')) wire:target="{{ $attributes->get('wire:target') }}" @endif
          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

@@ -9,11 +9,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
-
-        <title>
-            {{ (isset($title) ? $title . ' | ' : '') . config('app.name', 'Laravel') }}
-        </title>
-
+        <title>{{ (isset($title) ? $title . ' | ' : '') . config('app.name', 'Laravel') }}</title>
         <link rel="canonical" href="{{ url()->current() }}" />
         <link rel="icon" href="" type="image/x-icon"/>
 
@@ -39,7 +35,7 @@
         @stack('head::end')
     </head>
 
-    <body class="bg-slate-50 " x-data="{ openMenu: false }" :class="openMenu ? 'overflow-hidden' : 'overflow-visible'" x-cloak>
+    <body class="bg-red-50 " x-data="{ openMenu: false }" :class="openMenu ? 'overflow-hidden' : 'overflow-visible'" x-cloak>
         @stack('body::start')
 
         <x-navigation />
