@@ -43,7 +43,12 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
             ])
             ->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                \Rmsramos\Activitylog\ActivitylogPlugin::make()
+                    ->label(__("Journal d'activité"))
+                    ->navigationIcon('heroicon-o-adjustments-vertical')
+                    ->navigationGroup('Autorisation')
+                    ->pluralLabel(__("Journaux d'activité")),
             ])
             ->middleware([
                 EncryptCookies::class,

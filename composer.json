@@ -14,8 +14,9 @@
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.5",
+        "livewire/volt": "^1.6",
         "mokhosh/filament-rating": "^1.1",
+        "rmsramos/activitylog": "^1.0",
         "spatie/filament-simple-stats": "^0.1.4",
         "spatie/laravel-sluggable": "^3.6"
     },

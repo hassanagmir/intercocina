@@ -26,12 +26,9 @@
         <meta property="twitter:title" content="{{isset($title) ?? config('app.name', 'Laravel') }}">
         <meta property="twitter:description" content="">
         <meta property="twitter:image" content="">
-
         @stack('head::before-scripts')
-
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
-
         @stack('head::end')
     </head>
 
@@ -49,6 +46,9 @@
         <x-footer />
 
         @livewireScriptConfig
+        {{-- @livewireScripts --}}
+        {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+
         @stack('scripts')
     </body>
 

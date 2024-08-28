@@ -160,17 +160,17 @@
 </div>
     </section>
 
-    <section class="py-1 py-16 overflow-x-hidden bg-accent-gray-50 ">
+    <section class="py-16 overflow-x-hidden bg-accent-gray-50 ">
         <div class="max-w-3xl px-4 mx-auto">
             <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
                 Ce que vous y gagnez !
             </h2>
         </div>
         <div class="relative px-4 md:max-w-5xl md:mx-auto ">
-            <div class="absolute z-0 rounded-full bg-accent-gray-400 w-28 h-28 md:w-36 md:h-36 -top-10 -right-0 md:-top-20 md:-right-16"
+            <div class="absolute z-0 rounded-full bg-accent-gray-200 w-28 h-28 md:w-36 md:h-36 -top-10 -right-0 md:-top-20 md:-right-16"
                 x-animate.intersect="zoomIn">
             </div>
-            <div class="absolute z-0 w-40 h-40 rounded-full bg-accent-red-350 md:w-52 md:h-52 md:-bottom-24 -bottom-16 -left-20 "
+            <div class="absolute z-0 w-40 h-40 rounded-full bg-accent-red md:w-52 md:h-52 md:-bottom-24 -bottom-16 -left-20 "
                 x-animate.intersect="zoomIn">
             </div>
 
