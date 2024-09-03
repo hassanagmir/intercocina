@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Darryldecode\Cart\CartServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         // \Barryvdh\Debugbar\ServiceProvider::class,
+        
     }
 
     /**
@@ -19,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

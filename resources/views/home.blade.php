@@ -67,6 +67,7 @@
         </div>
     </section>
 
+
     <section class="py-20 my-4 overflow-x-hidden bg-accent-gray-50">
         <div class="px-3">
             <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">

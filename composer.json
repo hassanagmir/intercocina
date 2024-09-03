@@ -10,6 +10,8 @@
     "require": {
         "php": "^8.2",
         "bezhansalleh/filament-shield": "^3.2",
+        "binafy/laravel-cart": "^1.0",
+        "darryldecode/cart": "^4.2",
         "filament/filament": "*",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^11.9",
