@@ -3,7 +3,6 @@
 
 
 @section('content')
-@vite('resources/js/keen-slider.js')
 
 <x-header headerClass="max-w-7xl mx-auto px-4 py-20 overflow-x-hidden md:overflow-visible">
 

@@ -1,14 +1,5 @@
 <div class="mx-auto max-w-7xl">
-    <div x-data="{ showNavbar: true, lastScrollY: window.scrollY }"
-        @scroll.window="
-            showNavbar = window.scrollY <= lastScrollY || window.scrollY < 50;
-            lastScrollY = window.scrollY;
-        "
-        :class="{
-            '-translate-y-full': !showNavbar,
-            'translate-y-0': showNavbar
-        }"
-        class="fixed top-0 left-0 bg-slate-50 boreder-b-2 border-b-gray-200 z-50 w-full shadow-sm transition-transform duration-200">
+    <div class="fixed top-0 left-0 bg-slate-50 boreder-b-2 border-b-gray-200 z-50 w-full shadow-sm transition-transform duration-200">
         <nav class="flex items-center justify-between px-4 max-w-7xl mx-auto">
 
             <div class="py-4 ">
@@ -41,9 +32,7 @@
                         </x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="" :active="request()->routeIs('site.a-propos')">
-                        À propos
-                        </x-nav-link>
+                       @livewire('cart-modal')
                     </li>
                     <li>
                         <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">

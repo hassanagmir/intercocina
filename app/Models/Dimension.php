@@ -12,7 +12,7 @@ class Dimension extends Model
     use HasFactory, HasSlug;
 
     protected $fillable = [
-        'width', 'height', 'price', 'product_id', 'status', 'slug', 'code', 'image_id'
+        'width', 'height', 'price', 'product_id', 'status', 'slug', 'code', 'image_id', 'dimension'
     ];
 
     public function getSlugOptions() : SlugOptions

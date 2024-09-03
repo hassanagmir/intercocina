@@ -12,3 +12,7 @@ Route::get('/', function () {
 
 
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
+
+Route::get("checkout", function(){
+    return view('checkout');
+})->name('checkout');

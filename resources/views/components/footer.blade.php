@@ -77,9 +77,7 @@
     <div class="w-40 aspect-square rounded-full bg-accent-gray absolute z-0 -bottom-10 -left-10" x-animate.intersect="zoomIn"></div>
     <div class="w-40 aspect-square rounded-full bg-accent-gray w-36 md:w-80 absolute z-0 -top-16 -right-16 md:-top-28 md:-right-28" x-animate.intersect="zoomIn"></div>
 
-    <div class="w-full relative z-20 space-y-6"
-         x-data="{ emailSent: window.Livewire.find('kKEOmOQ5b5WFFtONVTU8').entangle('emailSent').live }"
-         x-init="$watch('emailSent', () => { setTimeout(() => emailSent = false, 6000)})">
+    <div class="w-full relative z-20 space-y-6">
         <div class="space-y-2">
             <h4 class="text-white text-4xl font-bold uppercase tracking-wide">
                 Newsletter

@@ -5,7 +5,7 @@
 /*@import '@fontsource/raleway/800.css';*/
 /*@import '@fontsource/raleway/900.css';*/
 
-
+@import 'swiper/css/bundle';
 
 @import "animate.css";
 
@@ -79,3 +79,29 @@
     }
 }
 
+
+
+/* Swipper */
+
+
+.nav-for-slider .swiper-slide {
+    height: auto;
+    width: auto;
+    cursor: pointer;
+
+}
+
+.swiper-wrapper {
+    height: auto;
+}
+
+.nav-for-slider .swiper-slide img {
+    border: 2px solid transparent;
+    border-radius: 10px;
+
+}
+
+.nav-for-slider .swiper-slide-thumb-active img {
+
+    border-color: rgb(239 68 68 / 500);
+}
