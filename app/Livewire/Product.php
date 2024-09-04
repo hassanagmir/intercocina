@@ -18,6 +18,8 @@ class Product extends Component
     public $dimension;
     public $price;
 
+    public $color_error;
+
     public function mount()
     {
         $this->total = \Cart::getTotal();
@@ -33,15 +35,21 @@ class Product extends Component
         }else{
             $this->price = 0;
         }
-       
     }
 
 
     public function add()
     {
+
+        if($this->product->colors->count() && $this->color == ""){
+            $this->color_error = "Obligatoire de sélectionner une couleur"; 
+            return;
+        }
+
         $rules = [
             'quantity' => 'required|numeric',
             'dimension' => ['required_if:product.price,null'],
+            'color' => ['required_if:product.colors.count,>0'],
         ];
 
         $messages = [
@@ -71,13 +79,14 @@ class Product extends Component
                 'color' => $color,
                 'image' => $this->product->images->first()->image,
                 'dimension' => $dimension ? $dimension->dimension : false,
+                'slug' => $this->product->slug
             ]
         ));
         $this->dispatch('add-to-cart');
 
         $this->reset("color");
         $this->reset("dimension");
-        $this->reset("quantity");
+        $this->quantity = 1;
     }
 
 

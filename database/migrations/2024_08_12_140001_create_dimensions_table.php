@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('code')->unique()->nullable();
             $table->string("image_reference")->nullable();
             $table->foreignIdFor(App\Models\Product::class)->constrained()->cascadeOnDelete();
-            $table->string('dimension')->virtualAs('concat(width, \' x \', height)');
+            $table->string('dimension')->virtualAs('concat(height, \' x \', width)');
             $table->boolean('status')->default(true);
             $table->string('slug')->unique();
             $table->timestamps();

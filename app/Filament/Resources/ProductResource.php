@@ -103,12 +103,14 @@ class ProductResource extends Resource
                                     ->label(false)
                                     ->relationship()
                                     ->schema([
-                                        Forms\Components\TextInput::make('width')
-                                            ->label(__("Largeur"))
-                                            ->required()
-                                            ->numeric(),
+                                        
                                         Forms\Components\TextInput::make('height')
                                             ->label(__("Hauteur"))
+                                            ->required()
+                                            ->numeric(),
+                                        
+                                        Forms\Components\TextInput::make('width')
+                                            ->label(__("Largeur"))
                                             ->required()
                                             ->numeric(),
                                         Forms\Components\TextInput::make('price')
