@@ -1,4 +1,5 @@
 import "./bootstrap";
+import { cuteToast } from 'cute-alert'
 
 import {
     Livewire,
@@ -12,7 +13,7 @@ Alpine.plugin(focus);
 Alpine.plugin(Animate);
 
 // swiper
-function initSwiper(){
+function initSwiper() {
     var swiper_thumbs = new Swiper(".nav-for-slider", {
         loop: true,
         spaceBetween: 30,
@@ -30,5 +31,26 @@ initSwiper()
 Livewire.hook('morph.updated', ({ el, component }) => {
     initSwiper()
 })
+
+
+// Alerts
+document.addEventListener('livewire:init', () => {
+    Livewire.on('add-to-cart', (event) => {
+        cuteToast({
+            "type": "success",
+            "title": "Succès",
+            "description": "Produit ajouté au panier",
+            "timer": 4000,
+            "vibrationPattern": [],
+            "soundSrc": "",
+            "imageSrc": "",
+            "imageSize": 32
+          })
+
+    });
+});
+
+
+
 
 Livewire.start();

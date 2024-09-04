@@ -20,6 +20,9 @@
         "Helvetica Neue", sans-serif;
 }
 
+:root {
+    --cute-toast-z-index: 200; /* Custom z-index value */
+}
 
 [x-cloak] {
     display: none !important
