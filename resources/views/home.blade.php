@@ -35,8 +35,6 @@
             </div>
         </div>
     </x-header>
-
-
     <section class="py-16">
         <div class="px-4 py-16 md:max-w-5xl md:mx-auto">
             <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
@@ -46,18 +44,17 @@
                 Que vous recherchiez le style, la fonctionnalité ou la qualité, notre gamme de produits a tout pour plaire. Explorez dès maintenant pour dénicher vos favoris.
             </p>
         </div>
-
-        @livewire('home-category')
-
-
-        <div class="flex justify-center pt-20 md:max-w-6xl md:mx-auto gap-4">
-            <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-accent-gray" x-animate.intersect="fadeInUp">
-                Contact
-            </button>
-            <a href="#!" class="btn btn-primary" x-animate.intersect="fadeInUp">
-                Voir nos réalisations
-            </a>
-        </div>
+       <div class="max-w-7xl mx-auto px-4 pb-20 overflow-x-hidden md:overflow-visible">
+            <div class="w-full flex justify-center">
+                @livewire('home-category')
+            </div>
+            <div class="flex justify-center md:max-w-6xl md:mx-auto gap-4">
+                <a href="#!" class="btn btn-primary" x-animate.intersect="fadeInUp">
+                    Voir Plus
+                </a>
+            </div>
+       </div>
+        
     </section>
 
 
@@ -109,8 +106,7 @@
 
         </div>
         <div class="flex justify-center md:max-w-6xl md:mx-auto gap-4">
-            <button class="btn btn-primary" x-on:click="$dispatch('open-contact-form-modal')"
-                x-animate.intersect="fadeInUp">
+            <button class="btn btn-primary" x-on:click="$dispatch('open-contact-modal')" x-animate.intersect="fadeInUp">
                 Je prends rendez-vous
             </button>
         </div>

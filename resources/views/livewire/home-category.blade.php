@@ -1,62 +1,67 @@
-<div>
-    <div class="flex flex-row items-stretch justify-between gap-10 px-4 md:max-w-6xl md:mx-auto md:flex-row">
-        <div class="fadeInLeft" x-animate.intersect="zoomInUp">
-            <div class="overflow-hidden rounded-xl">
-                <img loading="lazy" class="object-cover w-full transform transition-transform duration-300 hover:scale-110"
-                    src="/assets/imgs/Caissons.png" alt="">
-            </div>
-            <a href="#!" target="_blank">
-                <h3 class="pt-4 text-xl font-medium">
-                    Caissons de Cuisine
-                </h3>
-                <p class="text-slate-500 text-md">
-                    Découvrez notre vaste gamme de caissons de cuisine, conçus avec passion pour transformer votre espace culinaire en une œuvre d’art fonctionnelle.
-                </p>
-            </a>
+<div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="rounded-xl">
+        <a class="relative flex h-60 overflow-hidden rounded-xl" href="#">
+          <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="product image" />
+        </a>
+        <div class="mt-4 pb-5">
+          <a href="#">
+            <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">Nike Air MX Super 2500 - Red</h5>
+          </a>
+          <div class="mt-2 mb-5 flex items-center justify-between">
+            <p class="w-full">
+              <span class="text-sm text-slate-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor obcaecati dolore qui omnis distinctio iusto adipisci nisi incidunt.</span>
+            </p>
+          </div>
         </div>
-
-        <div class="fadeInLeft" x-animate.intersect="zoomInUp">
-            <div class="overflow-hidden rounded-xl">
-                <img loading="lazy" class="object-cover w-full transform transition-transform duration-300 hover:scale-110"
-                    src="/assets/imgs/Facades.png" alt="">
-            </div>
-            <a href="#!" target="_blank">
-                <h3 class="pt-4 text-xl font-medium">
-                    Façades de cuisine
-                </h3>
-                <p class="text-slate-500 text-md">
-                    Découvrez notre vaste gamme de caissons de cuisine, conçus avec passion pour transformer votre espace culinaire en une œuvre d’art fonctionnelle.
-                </p>
-            </a>
-        </div>
-        <div class="fadeInLeft" x-animate.intersect="zoomInUp">
-            <div class="overflow-hidden rounded-xl">
-                <img loading="lazy" class="object-cover w-full transform transition-transform duration-300 hover:scale-110"
-                    src="/assets/imgs/Parquettes.png" alt="">
-            </div>
-            <a href="#!" target="_blank">
-                <h3 class="pt-4 text-xl font-medium">
-                    Parquettes
-                </h3>
-                <p class="text-slate-500 text-md">
-                    Découvrez notre vaste gamme de caissons de cuisine, conçus avec passion pour transformer votre espace culinaire en une œuvre d’art fonctionnelle.
-                </p>
-            </a>
-        </div>
-
-        {{-- <div class="fadeInLeft" x-animate.intersect="zoomInUp">
-            <div class="overflow-hidden rounded-xl">
-                <img loading="lazy" class="object-cover w-full transform transition-transform duration-300 hover:scale-110"
-                    src="/assets/imgs/Caissons.png" alt="">
-            </div>
-            <a href="#!" target="_blank">
-                <h3 class="pt-4 text-xl font-medium">
-                    Caissons | Plateforme E-learning 
-                </h3>
-                <p class="text-slate-500 text-md">
-                    Découvrez notre vaste gamme de caissons de cuisine, conçus avec passion pour transformer votre espace culinaire en une œuvre d’art fonctionnelle.
-                </p>
-            </a>
-        </div> --}}
     </div>
+
+    <div class="rounded-xl">
+        <a class="relative flex h-60 overflow-hidden rounded-xl" href="#">
+          <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="product image" />
+        </a>
+        <div class="mt-4 pb-5">
+          <a href="#">
+            <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">Nike Air MX Super 2500 - Red</h5>
+          </a>
+          <div class="mt-2 mb-5 flex items-center justify-between">
+            <p class="w-full">
+              <span class="text-sm text-slate-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor obcaecati dolore qui omnis distinctio iusto adipisci nisi incidunt.</span>
+            </p>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="rounded-xl">
+        <a class="relative flex h-60 overflow-hidden rounded-xl" href="#">
+          <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="product image" />
+        </a>
+        <div class="mt-4 pb-5">
+          <a href="#">
+            <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">Nike Air MX Super 2500 - Red</h5>
+          </a>
+          <div class="mt-2 mb-5 flex items-center justify-between">
+            <p class="w-full">
+              <span class="text-sm text-slate-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor obcaecati dolore qui omnis distinctio iusto adipisci nisi incidunt.</span>
+            </p>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="rounded-xl">
+        <a class="relative flex h-60 overflow-hidden rounded-xl" href="#">
+          <img class="object-cover w-full h-full" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="product image" />
+        </a>
+        <div class="mt-4 pb-5">
+          <a href="#">
+            <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">Nike Air MX Super 2500 - Red</h5>
+          </a>
+          <div class="mt-2 mb-5 flex items-center justify-between">
+            <p class="w-full">
+              <span class="text-sm text-slate-900">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor obcaecati dolore qui omnis distinctio iusto adipisci nisi incidunt.</span>
+            </p>
+          </div>
+        </div>
+    </div>   
 </div>
