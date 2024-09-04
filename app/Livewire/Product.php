@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Dimension;
 use App\Models\Product as ProductModel;
 use Livewire\Component;
-use Livewire\Attributes\Validate;
 
 class Product extends Component
 {
@@ -17,10 +16,24 @@ class Product extends Component
     public $total = 0;
     public $color = "";
     public $dimension;
+    public $price;
 
     public function mount()
     {
         $this->total = \Cart::getTotal();
+        $this->price =  $this->product->price ? $this->product->price : 0;
+    }
+
+
+
+    public function dimensionChanaged()
+    {
+        if($this->dimension && !($this->dimension == 'Choisir un dimension')){
+            $this->price = Dimension::find($this->dimension)->price;
+        }else{
+            $this->price = 0;
+        }
+       
     }
 
 
