@@ -19,7 +19,7 @@ class="fixed inset-0 z-50" aria-labelledby="modal-title" role="dialog" :aria-mod
         class="fixed top-0 left-0 flex items-center justify-center w-full h-full p-4 mt-4 md:p-8">
 
         <section @click.away="modalOpen = false"
-            class="relative p-4 py-10 overflow-hidden text-left shadow-2xl bg-accent-red md:py-24 rounded-t-2xl md:rounded-2xl max-h-[100vh] mx-auto max-w-7xl md:overflow-hidden overflow-y-auto">
+            class="relative p-4 py-10 overflow-hidden text-left shadow-2xl bg-accent-red rounded-t-2xl md:rounded-2xl max-h-full mx-auto max-w-7xl md:overflow-hidden overflow-y-auto">
 
             <button @click="modalOpen = false"
                 class="absolute z-50 grid w-8 text-lg font-bold text-red-500 bg-white rounded-full right-4 top-4 aspect-square place-content-center">
@@ -33,15 +33,17 @@ class="fixed inset-0 z-50" aria-labelledby="modal-title" role="dialog" :aria-mod
             </button>
 
             <div class="relative z-10 grid gap-4 px-4 md:grid-cols-2 md:gap-16 md:px-10 md:max-w-6xl md:mx-auto">
-                <div class="py-16 space-y-6">
+                <div class="pb-16 space-y-6">
+                    <img class="w-52 bg-white rounded-xl p-5" src="/assets/imgs/intercocina-logo.png" alt="Login to you intercocina account" />
                     <h2 class="text-3xl font-bold text-left text-white md:text-4xl">
-                        Toujours intéressés ? Besoin d'un rendez-vous ?
+                        Toujours intéressés ? Rejoignez-nous maintenant.
                     </h2>
 
                     <p class="text-xl text-white text-start">
-                        Entrez vos informations et nous vous contacterons directement!
+                        Accédez à tous nos serveurs et suivez facilement toutes vos commandes via notre tableau de bord intuitif. Connectez-vous dès maintenant pour tout gérer au même endroit.
                     </p>
                 </div>
+                <livewire:auth />
                 {{-- <livewire:cta-contact-form /> --}}
             </div>
 

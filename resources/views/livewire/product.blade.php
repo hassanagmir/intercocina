@@ -104,7 +104,7 @@
                                 for="color-{{ $color->id }}" 
                                 style="background-image: url({{ Storage::url($color->image)}}); background-color: {{ $color->code }};"
 
-                                class="inline-flex items-center border-2 justify-between w-full p-6 text-gray-500 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-red-500 peer-checked:border-red-600 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                                class="inline-flex bg-[{{ $color->code }}] items-center border-2 justify-between w-full p-6 text-gray-500 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-red-500 peer-checked:border-red-600 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
                             </label>
                             <div>{{ $color->name }}</div>
                         </li>

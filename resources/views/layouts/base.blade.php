@@ -28,6 +28,8 @@
         <meta property="twitter:image" content="">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+
+
     </head>
 
     <body class="bg-red-50 ">

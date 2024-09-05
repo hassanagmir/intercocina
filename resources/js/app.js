@@ -27,11 +27,13 @@ function initSwiper() {
     });
     var swiper = new Swiper(".main-slide-carousel", {
         slidesPerView: 1,
-       
         thumbs: {
             swiper: swiper_thumbs,
         },
     });
+
+
+
 }
 initSwiper()
 
@@ -61,3 +63,19 @@ document.addEventListener('livewire:init', () => {
 
 
 Livewire.start();
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var Swipes = new Swiper('.swiper-container', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-review-next',
+            prevEl: '.swiper-review-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+});

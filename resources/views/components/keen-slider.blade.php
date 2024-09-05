@@ -1,6 +1,7 @@
-@props(['id' => str()->random(4)])
-
-@php($camelCaseId = str()->camel($id))
+@php
+    $id = $id ?? str()->random(4);
+    $camelCaseId = str()->camel($id);
+@endphp
 
 <div {{ $attributes->merge(['class' => 'keen-slider']) }} id="{{ $id }}">
     {{ $slot }}
@@ -27,8 +28,7 @@
                             },
                         },
                     },
-                },
-                []
+                }
             );
 
             const keenSliderPrevious_{{ $camelCaseId }} = document.querySelector('.keen-slider-previous[data-target="{{ $id }}"]');

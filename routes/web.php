@@ -10,7 +10,12 @@ Route::get('/', function () {
     return view('home', [
         'products' => Product::all()
     ]);
-});
+})->name("home");
+
+
+Route::get("aprops", function(){
+    return view('about');
+})->name('about');
 
 
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
