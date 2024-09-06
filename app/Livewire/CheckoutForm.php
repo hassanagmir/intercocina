@@ -26,6 +26,9 @@ class CheckoutForm extends Component
     public function save(){
 
         $this->validate();
+        if(\Cart::getContent()->count() == 0){
+            return $this->dispatch("reloadPage");
+        }
 
         $order = Order::create([
             'user_id' => auth()->id(),
