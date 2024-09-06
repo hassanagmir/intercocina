@@ -28,4 +28,13 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function newQuery($ordered = true)
+    {
+        $query = parent::newQuery();
+        if ($ordered) {
+            $query->orderBy('created_at', 'desc');
+        }
+        return $query;
+    }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\Order::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(App\Models\Product::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(App\Models\Dimension::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(App\Models\Color::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(App\Models\Color::class)->nullable();
             $table->integer('quantity');
             $table->decimal('total', 10, 2);
             $table->timestamps();

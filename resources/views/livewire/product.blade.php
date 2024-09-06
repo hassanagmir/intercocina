@@ -99,7 +99,7 @@
                 <ul class="flex flex-wrap gap-2 mb-6 max-w-sm">
                     @foreach ($product->colors as $color)
                         <li class="color-box group text-center me-3">
-                            <input type="radio" id="color-{{ $color->id }}" name="hosting" wire:model="color" class="hidden peer" value="{{ $color->name }}" required />
+                            <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="hosting" wire:model="color" class="hidden peer" required />
                             <label 
                                 for="color-{{ $color->id }}" 
                                 style="background-image: url({{ Storage::url($color->image)}}); background-color: {{ $color->code }};"

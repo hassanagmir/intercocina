@@ -100,7 +100,7 @@
 
             <button class="flex items-center justify-center gap-2 text-accent-red bg-white px-6 py-3 rounded-xl font-semibold hover:bg-accent-red hover:bg-transparent border hover:border-white hover:text-white" wire:click="subscribe" label="Subscribe">
 
-    <svg wire:loading          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+    <svg wire:loading xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
          fill="none"
          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

@@ -19,7 +19,6 @@
         <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl mt-4 overflow-auto max-h-[500px]">
             <div class="space-y-6">
                 <!-- Card -->
-                    
                 @forelse( \Cart::getContent() as $product)
                 <div wire:key='{{ $product->id }}' class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
@@ -42,7 +41,7 @@
                                 </button>
                             </div>
                             <div class="text-end md:order-4 md:w-32">
-                                <p class="text-base font-bold text-gray-900 dark:text-white">{{ $product['price'] }} MAD</p>
+                                <p class="text-base font-bold text-gray-900 dark:text-white">{{ $product['price'] * intval($product['quantity']) }} MAD</p>
                             </div>
                         </div>
 
@@ -50,7 +49,7 @@
                             <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="text-base font-bold text-gray-900 hover:underline dark:text-white">
                                 {{ $product['name'] }} - 
                                 {{ $product['attributes']['dimension'] ? $product['attributes']['dimension'] . " mm" : '' }} 
-                                {{ $product['attributes']['color'] ? "(" .$product['attributes']['color'] . ")" : ''}}
+                                {{ $product['attributes']['color'] ? "(" .$product['attributes']['color_name'] . ")" : ''}}
                             </a>
                             <div class="flex items-center gap-4">
                                 <button wire:click="delete('{{ $product['id'] }}')" type="button" class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">

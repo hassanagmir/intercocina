@@ -237,9 +237,21 @@ class OrderResource extends Resource
                     ->label(__("État")),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Crée le"))
-                    ->date()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->since()
+                    ->sortable(),
+
+               
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->state(function (Model $model) {
+                        return $model->created_at->format('d/m/Y - h:m A');
+                    })
+                    ->label(__("Crée le")),
+
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->label(__("Crée le"))
+                //     ->since()
+                //     ->sortable(),
             ])
             ->filters([
                 //

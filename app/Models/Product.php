@@ -50,6 +50,16 @@ class Product extends Model
     }
 
 
+    public function price(){
+        if($this->price){
+            return strval($this->price);
+        }else{
+            $prices = $this->dimensions->pluck('price')->toArray();
+            return min($prices) . " - " . max($prices);
+        }
+    } 
+
+
     public function images(){
         return $this->hasMany(Image::class);
     }

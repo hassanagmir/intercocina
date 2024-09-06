@@ -34,7 +34,10 @@ class LoginForm extends Component
         // }
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            return redirect()->route('home');
+            // $this->emit('reloadPage');
+
+            $this->dispatch("reloadPage");
+            
         } else {
             session()->flash('error', __("Informations d'identification non valides"));
         }

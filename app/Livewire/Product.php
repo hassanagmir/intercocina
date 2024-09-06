@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Color;
 use App\Models\Dimension;
 use App\Models\Product as ProductModel;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Product extends Component
@@ -14,7 +16,9 @@ class Product extends Component
 
     public $quantity = 1;
     public $total = 0;
-    public $color = "";
+
+    #[Validate('numeric')]
+    public $color;
     public $dimension;
     public $price;
 
@@ -23,7 +27,7 @@ class Product extends Component
     public function mount()
     {
         $this->total = \Cart::getTotal();
-        $this->price =  $this->product->price ? $this->product->price : 0;
+        $this->price =  $this->product->price();
     }
 
 
@@ -68,18 +72,21 @@ class Product extends Component
             $price = $dimension->price;
         }
 
-        $color = $this->color ? $this->color : '';
+        $color = $this->color ? $this->color : null;
 
         \Cart::add(array(
-            'id' => ($this->dimension ? $this->dimension : $this->product->id) . $color,
+            'id' => ($this->dimension ? $this->dimension : $this->product->id) . "-". $color,
             'name' => $this->product->name,
             'price' => $price,
             'quantity' => $this->quantity,
             'attributes' => [
-                'color' => $color,
+                'color' => intval($color),
+                'color_name' => $color ? Color::find($color)->name : null,
                 'image' => $this->product->images->first()->image,
                 'dimension' => $dimension ? $dimension->dimension : false,
-                'slug' => $this->product->slug
+                'slug' => $this->product->slug,
+                'product_id' => $this->product->id,
+                'dimension_id' => $dimension ? $dimension->id : null,
             ]
         ));
         $this->dispatch('add-to-cart');

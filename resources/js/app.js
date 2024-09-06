@@ -79,3 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
         },
     });
 });
+
+
+// Reload page
+Livewire.on('reloadPage', () => {
+    location.reload();
+});
