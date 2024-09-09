@@ -61,7 +61,9 @@
 
                         @if (auth()->user())
                         <div>
-                            <img class="w-12 h-12 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="Bordered avatar">
+                            <a href="{{ route("profile") }}">
+                                <img class="w-12 h-12 p-1 rounded-full ring-2 ring-gray-300" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
+                            </a>
                         </div>
                         @else
                         <li>
