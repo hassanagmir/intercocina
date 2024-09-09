@@ -18,8 +18,8 @@
                         </div>
                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                             <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="text-base font-bold text-gray-900 hover:underline dark:text-white">
-                                {{ $product['name'] }} - 
-                                {{ $product['attributes']['dimension'] ? $product['attributes']['dimension'] . " mm" : '' }} 
+                                {{ $product['name'] }} 
+                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }} 
                                 {{ $product['attributes']['color'] ? "(" .$product['attributes']['color_name'] . ")" : ''}}
                             </a>
                         </div>

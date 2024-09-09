@@ -60,6 +60,8 @@ class Product extends Component
             
             if($dimension){
                 $this->dimension = $dimension;
+                $this->price = $dimension->price;
+
                 $this->reset("dimension_error");
             }else{
                 $this->dimension = null;
@@ -100,7 +102,6 @@ class Product extends Component
             $price = $this->product->price;
         } else {
             $this->dimension_error = "La dimension " . $this->width . " x " . $this->height . " n'est pas disponible";
-            dd($this->product->price);
             return;
         }
 

@@ -14,6 +14,11 @@ Route::get('/', function () {
 })->name("home");
 
 
+Route::get("profile", function(){
+    return view('profile');
+})->name('profile');
+
+
 Route::get("aprops", function(){
     return view('about');
 })->name('about');

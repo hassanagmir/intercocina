@@ -59,7 +59,11 @@
                             </button>
                         </li>
 
-
+                        @if (auth()->user())
+                        <div>
+                            <img class="w-12 h-12 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="Bordered avatar">
+                        </div>
+                        @else
                         <li>
                             <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
                                 {{__("Se connecter")}}
@@ -69,6 +73,10 @@
                                 <x-auth-modal />
                             </template>
                         </li>
+                        @endif
+
+
+
                     </ul>
                 </div>
 
