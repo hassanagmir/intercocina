@@ -110,11 +110,17 @@
                         </li>
                     @endforeach
                 </ul>
-                <div class="my-2 text-red-700">@isset($color_error) {{ $color_error }} @endisset</div>
+                <div class="my-2 text-red-700 font-semibold flex items-center gap-2">
+                    @isset($color_error) 
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg>
+
+                    {{ $color_error }} 
+                    @endisset
+                </div>
             @endempty
 
 
-            @empty(!$product->dimensions->count())
+            {{-- @empty(!$product->dimensions->count())
                 <label for="dimension" class="text-lg text-gray-900 mb-2">
                     <span class="font-bold">{{ __("Hauteur" )}}</span>
                     x
@@ -126,10 +132,60 @@
                     @endforeach
                 </select>
                 <div class="mt-2 text-red-700">@error('dimension') {{ $message }} @enderror</div>
+            @endempty --}}
+
+
+            @empty(!$product->dimensions->count())
+                <div class="font-bold mt-3">{{ __("Hauteur" )}}</div>
+                <ul class="flex flex-wrap w-full gap-3">
+                    @foreach ($heights as $item)
+                    <li>
+                        <input wire:model.change="height" type="radio" id="height-{{ $item }}" value="{{ $item }}" name="height" class="hidden peer" />
+                        <label for="height-{{ $item }}" class="inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg cursor-pointer border-2 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
+                            <div class="block">
+                                <div class="w-full text-md font-semibold">{{ $item }}</div>
+                            </div>
+                        </label>
+                    </li>
+                    @endforeach
+                </ul>
+
+                <div class="font-bold mt-3">{{ __("Largeur" )}}</div>
+                <ul class="flex flex-wrap w-full gap-3">
+                    @foreach ($widths as $item)
+                    <li>
+                        <input wire:model.change="width" type="radio" id="width-{{ $item }}" value="{{ $item }}" name="width" class="hidden peer" />
+                        <label for="width-{{ $item }}" class="inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg cursor-pointer border-2 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
+                            <div class="block">
+                                <div class="w-full text-md font-semibold">{{ $item }}</div>
+                            </div>
+                        </label>
+                    </li>
+                    @endforeach
+                </ul>
+
+                @if ($dimension_error)
+                <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center"> 
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg>
+                    {{ $dimension_error }}
+                </div>
+                @endif
+
             @endempty
-            
+
             <div class="mt-6 flex items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
-                <x-input-counter wire:model='quantity' />
+                {{-- <x-input-counter wire:model='quantity' /> --}}
+
+                <div x-data="{ qty: 1 }" class="flex items-center justify-center border border-gray-400 rounded-full">
+                    <button @click="if (qty > 1) qty--" class="group text-3xl py-2 px-3 w-full border-r border-gray-400 rounded-l-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
+                        -
+                    </button>
+                    <input x-model.number="qty" type="text" wire:model='qty' class="font-semibold text-gray-900 text-lg py-3 px-2 w-full min-[400px]:min-w-[75px] h-full bg-transparent placeholder:text-gray-900 text-center hover:text-red-600 outline-0 hover:placeholder:text-red-600">
+                    <button @click="qty++" class="group text-3xl py-2 px-3 w-full border-l border-gray-400 rounded-r-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
+                        +
+                    </button>
+                </div>
+
                 <button wire:click='add()' class="group border-2 border-red-400 py-3 px-5 rounded-full bg-red-50 text-red-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-red-300 hover:bg-red-100">
                     <svg wire:loading.remove wire:target='add()' class="stroke-red-600 transition-all duration-500 group-hover:red-red-600"
                         width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -146,6 +202,7 @@
                     </div>
                     {{ __("Ajouter au panier") }}
                 </button>
+                
             </div>
         </div>
     </div>

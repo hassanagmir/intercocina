@@ -14,7 +14,7 @@ class Product extends Component
 
     public ProductModel $product;
 
-    public $quantity = 1;
+    public $qty = 1;
     public $total = 0;
 
     #[Validate('numeric')]
@@ -22,10 +22,21 @@ class Product extends Component
     public $dimension;
     public $price;
 
+    public $heights = [];
+    public $widths = [];
+
+   
+    public $height;
+    public $width;
+
     public $color_error;
+    public $dimension_error;
 
     public function mount()
     {
+        $this->heights = array_unique($this->product->dimensions->pluck('height')->toArray());
+        $this->widths = array_unique($this->product->dimensions->pluck('width')->toArray());
+
         $this->total = \Cart::getTotal();
         $this->price =  $this->product->price();
     }
@@ -42,6 +53,24 @@ class Product extends Component
     }
 
 
+    public function updated($property)
+    {
+        if($this->width && $this->height){
+            $dimension =  $this->product->dimensions->where('height', $this->height)->where('width', $this->width)->first();
+            
+            if($dimension){
+                $this->dimension = $dimension;
+                $this->reset("dimension_error");
+            }else{
+                $this->dimension = null;
+                $this->dimension_error = "La dimension " . $this->width . " x " . $this->height . " n'est pas disponible";
+            }
+            
+        }
+    }
+
+
+
     public function add()
     {
 
@@ -51,49 +80,54 @@ class Product extends Component
         }
 
         $rules = [
-            'quantity' => 'required|numeric',
-            'dimension' => ['required_if:product.price,null'],
-            'color' => ['required_if:product.colors.count,>0'],
+            'qty' => 'required|numeric',
+            'height' => ['required_if:product.price,null'],
+            'width' => ['required_if:product.price,null'],
         ];
 
         $messages = [
-            'quantity.numeric' => __('La quantité doit être un nombre.'),
-            'dimension.required_if' => __('Les dimensions du produit sont obligatoires'),
+            'qty.numeric' => __('La quantité doit être un nombre.'),
+            'height.required_if' => __("La hauteur du produit est requise"),
+            'width.required_if' => __("La largeur du produit est requise"),
         ];
 
         $this->validate($rules, $messages);
 
-        if (!$this->dimension) {
 
+        if ($this->dimension) {
+            $price = $this->dimension->price;
+        } elseif ($this->product->price) {
             $price = $this->product->price;
-            $dimension = false;
         } else {
-            $dimension = Dimension::find(intval($this->dimension));
-            $price = $dimension->price;
+            $this->dimension_error = "La dimension " . $this->width . " x " . $this->height . " n'est pas disponible";
+            dd($this->product->price);
+            return;
         }
 
         $color = $this->color ? $this->color : null;
 
         \Cart::add(array(
-            'id' => ($this->dimension ? $this->dimension : $this->product->id) . "-". $color,
+            'id' => ($this->dimension ? $this->dimension->id : $this->product->id) . "-". $color,
             'name' => $this->product->name,
             'price' => $price,
-            'quantity' => $this->quantity,
+            'quantity' => $this->qty,
             'attributes' => [
                 'color' => intval($color),
                 'color_name' => $color ? Color::find($color)->name : null,
                 'image' => $this->product->images->first()->image,
-                'dimension' => $dimension ? $dimension->dimension : false,
+                'dimension' => $this->dimension ? $this->dimension->dimension : false,
                 'slug' => $this->product->slug,
                 'product_id' => $this->product->id,
-                'dimension_id' => $dimension ? $dimension->id : null,
+                'dimension_id' => $this->dimension ? $this->dimension->id : null,
             ]
         ));
-        $this->dispatch('add-to-cart');
-
+        
+        $this->qty = 1;
         $this->reset("color");
-        $this->reset("dimension");
-        $this->quantity = 1;
+        $this->reset("width");
+        $this->reset("height");
+        $this->dispatch('add-to-cart');
+       
     }
 
 

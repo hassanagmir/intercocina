@@ -17,11 +17,11 @@ class OrdersOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            SimpleStat::make(Order::class)
-                ->label(__("Commandes"))
-                ->description(__("L'année dernière"))
-                ->lastYears(1)
-                ->dailyCount(),
+        // SimpleStat::make(Order::class)
+        //     ->label(__("Commandes"))
+        //     ->description(__("L'année dernière"))
+        //     ->lastYears(1)
+        //     ->dailyCount(),
 
             
             SimpleStat::make(User::class)

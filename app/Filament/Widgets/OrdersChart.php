@@ -12,25 +12,29 @@ class OrdersChart extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Order::selectRaw('DATE(created_at) as date, COUNT(*) as count')
-            ->where('created_at', '>=', now()->subDays(30))
-            ->groupBy('date')
-            ->pluck('count', 'date')
-            ->toArray();
 
-        return [
-            'datasets' => [
-                [
-                    'label' => __("Commandes"),
-                    'data' => array_values($data),
+        return [];
+        // $data = Order::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+        //     ->where('created_at', '>=', now()->subDays(30))
+        //     ->groupBy('date')
+        //     ->pluck('count', 'date')
+        //     ->toArray();
+
+        // return [
+        //     'datasets' => [
+        //         [
+        //             'label' => __("Commandes"),
+        //             'data' => array_values($data),
                     
-                    'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
-                    'borderColor' => 'rgba(54, 162, 235, 1)',
-                ],
-            ],
+        //             'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
+        //             'borderColor' => 'rgba(54, 162, 235, 1)',
+        //         ],
+        //     ],
             
-            'labels' => array_keys($data),
-        ];
+        //     'labels' => array_keys($data),
+        // ];
+
+        
     }
 
     protected function getType(): string
