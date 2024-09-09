@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Address;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +31,20 @@ Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('
 
 
 Route::get('category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
+
+
+
+Route::get('order/list', [OrderController::class, 'list'])->name('order.list');
+Route::get('order/{order:code}', [OrderController::class, 'show'])->name('order.show');
+
+
+Route::get('address/list', [AddressController::class, 'list'])->name('address.list');
+
+
+Route::get("settings", function(){
+    return view('settings');
+})->name('settings');
+
 
 Route::get("panier", function(){
     return view('cart');
