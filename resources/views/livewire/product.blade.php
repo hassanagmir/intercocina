@@ -11,12 +11,8 @@
                 </div>
                 @endforeach
             </div>
-            {{-- <!-- If you want navigation buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div> --}}
         </div>
-    
-        <!-- Thumbs Swiper -->
+        
         <div class="swiper nav-for-slider">
             <div class="swiper-wrapper">
                 @foreach ($product->images as $image)

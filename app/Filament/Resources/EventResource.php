@@ -36,9 +36,6 @@ class EventResource extends Resource
 
                         Forms\Components\Section::make()
                             ->schema([
-
-
-
                                 Forms\Components\Textarea::make('description')
                                     ->label(__("Descriptin"))
                                     ->columnSpanFull(),
