@@ -2,64 +2,43 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
-use App\Livewire\Auth;
-use App\Models\Address;
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home', [
-        'products' => Product::all()
-    ]);
-})->name("home");
 
 
-Route::get("profile", function(){
-    $orders = Order::where('user_id', auth()->id())->paginate(6);
-    return view('profile', compact('orders'));
-})->name('profile');
 
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('aprops', 'about')->name('about');
+    Route::get('settings', 'settings')->name('settings');
+    Route::get('panier', 'cart')->name('cart');
+    Route::get('checkout', 'checkout')->name('checkout');
+    Route::get('merci', 'thanks')->name('thanks');
+    Route::get('profile', 'profile')->name('profile');
+});
 
-Route::get("aprops", function(){
-    return view('about');
-})->name('about');
 
 
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
-
-
 Route::get('category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
-
-
-
-Route::get('order/list', [OrderController::class, 'list'])->name('order.list');
-Route::get('order/{order:code}', [OrderController::class, 'show'])->name('order.show');
-
-
 Route::get('address/list', [AddressController::class, 'list'])->name('address.list');
 
-
-Route::get("settings", function(){
-    return view('settings');
-})->name('settings');
-
-
-Route::get("panier", function(){
-    return view('cart');
-})->name('cart');
+Route::prefix('order')->group(function(){
+    Route::get('list', [OrderController::class, 'list'])->name('order.list');
+    Route::get('{order:code}', [OrderController::class, 'show'])->name('order.show');
+});
 
 
-Route::get("checkout", function(){
-    return view('checkout');
-})->name('checkout');
+Route::prefix('event')->group(function(){
+    Route::get('list', [EventController::class, 'list'])->name('event.list');
+    Route::get('{event:slug}', [EventController::class, 'show'])->name('event.show');
+});
 
-Route::get("merci", function(){
-    return view('thanks');
-})->name('thanks');
+
 
 
 Route::get('logout', function(){

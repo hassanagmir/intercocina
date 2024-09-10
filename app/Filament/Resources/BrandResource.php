@@ -59,7 +59,6 @@ class BrandResource extends Resource
                                     ->required()
                                     ->columnSpanFull()
                                     ->alignCenter()
-                                    ->avatar()
                                     ->label(false)
                                     ->image(),
                                 Forms\Components\Toggle::make('status')

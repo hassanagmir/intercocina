@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('city');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
+            $table->string('slug')->unique();
             $table->date('date');
             $table->timestamps();
         });

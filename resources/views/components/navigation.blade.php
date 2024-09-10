@@ -21,23 +21,23 @@
                 <div class="hidden xl:flex">
                     <ul class="flex items-center gap-10 ">
                         <li>
-                            <x-nav-link href="/aprops" :active="request()->routeIs('site.notre-processus')">
+                            <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                                 {{ _("Accueil") }}
                             </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link href="/aprops" :active="request()->routeIs('case-studies.*')">
+                            <x-nav-link href="/produits" :active="request()->routeIs('case-studies.*')">
                                 {{ __("Produits") }}
                             </x-nav-link>
                         </li>
 
                         <li>
-                            <x-nav-link href="/aprops" :active="request()->routeIs('site.formation')">
+                            <x-nav-link href="{{ route('event.list') }}" :active="request()->routeIs('event.list')">
                                 {{ __("Événements") }}
                             </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link href="/aprops" :active="request()->routeIs('site.a-propos')">
+                            <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
                                 {{ __("À propos") }}
                             </x-nav-link>
                         </li>
@@ -136,7 +136,7 @@
                 <a class="block p-4 text-center" href="/events">Événements</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/about-uss">À propos</a>
+                <a class="block p-4 text-center" href="/about-us">À propos</a>
             </li>
         </ul>
         {{-- close navMenu --}}

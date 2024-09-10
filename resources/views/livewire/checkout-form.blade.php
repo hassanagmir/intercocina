@@ -102,7 +102,7 @@
 
       <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
         <dt class="text-base font-bold text-gray-900 dark:text-white">{{ __("Total") }}</dt>
-        <dd class="text-xl font-black text-gray-900 dark:text-white">{{ \Cart::getTotal() }}</dd>
+        <dd class="text-xl font-black text-gray-900 dark:text-white">{{ \Cart::getTotal() }} MAD</dd>
       </dl>
     </div>
 

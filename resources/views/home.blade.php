@@ -111,9 +111,15 @@
 
     </div>
     <div class="flex justify-center md:max-w-6xl md:mx-auto gap-4">
-        <button class="btn btn-primary" x-on:click="$dispatch('open-contact-modal')" x-animate.intersect="fadeInUp">
-            Je prends rendez-vous
-        </button>
+        @if (auth()->user())
+        <af href="/produits" class="btn btn-primary" x-animate.intersect="fadeInUp">
+            Nos produits 
+        </a>
+        @else
+            <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
+                {{__("Se connecter")}}
+            </button>
+        @endif
     </div>
 </section>
 
