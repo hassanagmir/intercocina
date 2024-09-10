@@ -6,7 +6,7 @@
                 lastScrollY = window.scrollY;
             "
             :class="{
-                '-translate-y-full': !showNavbar,
+                // '-translate-y-full': !showNavbar,
                 // 'translate-y-0': showNavbar
             }"
             class="fixed top-0 left-0 bg-slate-50 boreder-b-2 border-b-gray-200 z-50 w-full shadow-sm transition-transform duration-200">
@@ -14,7 +14,7 @@
 
                 <div class="py-4 ">
                     <a href="/">
-                        <img class="md:w-[130px] w-[150px] " src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="{{ config('app.name') }}'s logo">
+                        <img class="md:w-[130px] sm:w-[150px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="{{ config('app.name') }}'s logo">
                     </a>
                 </div>
 
@@ -43,7 +43,23 @@
                         </li>
 
                         <li>
-                            @livewire('cart-modal')
+                            <div x-data="{ showModalCart: false }" @open-cart-modal.window="showModalCart = true" x-cloak x-show="showModalCart" class="fixed inset-0 z-30 backdrop-blur-md flex justify-center items-center" @keydown.escape.window="showModalCart = false">
+                                <div class="max-w-3xl px-6 py-4 mx-auto text-left bg-white rounded shadow-lg animate__animated animate__zoomIn animate__faster"
+                                    style="min-width: 50%!important"
+                                    @click.away="showModalCart = false"
+                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                    x-transition:enter-start="opacity-0 scale-90"
+                                    x-transition:enter-end="opacity-100 scale-100"
+                                    x-transition:leave="motion-safe:ease-in duration-300"
+                                    x-transition:leave-start="opacity-100 scale-100"
+                                    x-transition:leave-end="opacity-0 scale-90">
+
+                                    <livewire:cart-modal />
+                                    <a href="{{ route('checkout' )}}" class="flex mt-4 w-full items-center justify-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-600">
+                                        {{ __("Envoyer la commande") }}
+                                    </a>
+                                </div>
+                            </div>
                         </li>
 
                         <li>
@@ -52,9 +68,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 21a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m-8 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M3.71 5.4h15.214c1.378 0 2.373 1.27 1.995 2.548l-1.654 5.6C19.01 14.408 18.196 15 17.27 15H8.112c-.927 0-1.742-.593-1.996-1.452zm0 0L3 3"/></svg>
                                     <span class="absolute inset-0 object-right-top -mr-6">
-                                    <span class="inline-flex items-center px-1.5 py-0.5 border-2 border-white rounded-full text-xs font-semibold leading-4 bg-red-500 text-white">
-                                        {{ \Cart::getContent()->count() }}
-                                    </span>
+                                    <livewire:cart-counter>
                                 </span>
                             </button>
                         </li>
@@ -62,7 +76,7 @@
                         @if (auth()->user())
                         <div>
                             <a href="{{ route("profile") }}">
-                                <img class="w-12 h-12 p-1 rounded-full ring-2 ring-gray-300" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
+                                <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
                             </a>
                         </div>
                         @else
@@ -110,19 +124,19 @@
                 </div>
             </li>
             <li class="border-B border-inherit">
-                <a class="block p-4 text-center" href="/noter">Notre Approche</a>
+                <a class="block p-4 text-center" href="/">Accueil</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/noter">Case studies</a>
+                <a class="block p-4 text-center" href="/products">Produits</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/noter">Portfolio</a>
+                <a class="block p-4 text-center" href="/articles">Articles</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/noter">Formation</a>
+                <a class="block p-4 text-center" href="/events">Événements</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/noter">À propos</a>
+                <a class="block p-4 text-center" href="/about-uss">À propos</a>
             </li>
         </ul>
         {{-- close navMenu --}}

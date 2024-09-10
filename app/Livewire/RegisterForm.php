@@ -35,7 +35,7 @@ class RegisterForm extends Component
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        $this->dispatch("reloadPage");
     }
 
 

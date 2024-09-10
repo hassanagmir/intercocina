@@ -11,12 +11,21 @@
                 incontesté dans le domaine de la fabrication sur mesure d’éléments de cuisine.
             </p>
             <div class="flex justify-center md:justify-start gap-4">
-                <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-accent-gray" x-animate.delay.200="fadeInUp">
-                    Contact
-                </button>
-                <a href="" class="btn btn-primary" x-animate.delay.200="fadeInUp">
-                    {{ __('Voir portfolio') }}
+                <a href="#contact" class="btn btn-accent-gray" x-animate.delay.200="fadeInUp">
+                    {{ __("Contact") }}
                 </a>
+                @guest
+                <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary" x-animate.delay.200="fadeInUp">
+                    {{__("Se connecter")}}
+                </button>
+                @endguest
+
+                @auth
+                <a href="" class="btn btn-primary" x-animate.delay.200="fadeInUp">
+                    {{__("Produits")}}
+                </a>
+                @endauth
+                
             </div>
         </div>
 
@@ -212,7 +221,7 @@
 </section>
 
 
-<section class="relative py-24 overflow-hidden bg-accent-red">
+<section id="contact" class="relative py-24 overflow-hidden bg-accent-red">
     <div class="relative z-10 grid gap-16 px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
         <div class="space-y-6">
             <h2 class="text-3xl font-bold text-left text-white md:text-4xl animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
@@ -230,42 +239,7 @@
             </div>
         </div>
         <div x-animate.intersect="fadeInLeft" class="animate__animated animate__fadeInLeft" style="--animate-duration: 1s;">
-            <form action="#" class="space-y-4">
-
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="sr-only" for="name">Nom</label>
-                        <input class="w-full p-3 text-sm border-gray-200 rounded-lg" placeholder="Nom" type="text" id="name">
-                    </div>
-                    <div>
-                        <label class="sr-only" for="name">Prénom</label>
-                        <input class="w-full p-3 text-sm border-gray-200 rounded-lg" placeholder="Prénom" type="text" id="name">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="sr-only" for="email">Adresse e-mail</label>
-                        <input class="w-full p-3 text-sm border-gray-200 rounded-lg" placeholder="Adresse e-mail" type="email" id="email">
-                    </div>
-
-                    <div>
-                        <label class="sr-only" for="phone">Téléphone</label>
-                        <input class="w-full p-3 text-sm border-gray-200 rounded-lg" placeholder="Numéro de téléphone" type="tel" id="phone">
-                    </div>
-                </div>
-                <div>
-                    <label class="sr-only" for="message">Message</label>
-
-                    <textarea class="w-full p-3 text-sm border-gray-200 rounded-lg" placeholder="Message" rows="8" id="message"></textarea>
-                </div>
-
-                <div class="mt-4">
-                    <button type="submit" class="inline-block w-full px-5 py-3 font-medium text-white bg-transparent border border-white rounded-lg hover:bg-white hover:text-accent-red sm:w-auto">
-                        Envoyer
-                    </button>
-                </div>
-            </form>
+            @livewire('contact-form')
         </div>
 
     </div>

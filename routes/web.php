@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Livewire\Auth;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Order;
@@ -18,7 +19,8 @@ Route::get('/', function () {
 
 
 Route::get("profile", function(){
-    return view('profile');
+    $orders = Order::where('user_id', auth()->id())->paginate(6);
+    return view('profile', compact('orders'));
 })->name('profile');
 
 
@@ -58,3 +60,9 @@ Route::get("checkout", function(){
 Route::get("merci", function(){
     return view('thanks');
 })->name('thanks');
+
+
+Route::get('logout', function(){
+    auth()->logout();
+    return redirect()->route('home');
+})->name('logout');

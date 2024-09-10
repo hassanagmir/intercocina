@@ -53,6 +53,17 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
         };
     }
 
+    public function getBg(): string | array | null
+    {
+        return match ($this) {
+            self::ON_HOLD => 'gray',
+            self::CONFIRMED => 'yellow',
+            self::PREPARATION => "blue",
+            self::READY => "green",
+            self::CANCELD => 'red',
+        };
+    }
+
     public function getIcon(): ?string
     {
         return match ($this) {

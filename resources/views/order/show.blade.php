@@ -61,7 +61,7 @@
                 <dl class="flex items-center justify-between gap-4">
                   <dt class="text-base font-normal text-gray-500">{{ _("Produits")}}</dt>
                   <dd class="text-base font-bold text-gray-900">
-                    <span class="bg-blue-100 text-blue-800 border-2 font-semibold border-blue-700 text-md px-2.5 py-0.5 rounded">
+                    <span class="bg-blue-100 text-blue-800 border font-semibold border-blue-700 text-md px-2.5 py-0.5 rounded">
                         {{ $order->items->count() }}
                     </span>
                   </dd>
@@ -70,9 +70,9 @@
                 <dl class="flex items-center justify-between gap-4">
                   <dt class="text-base font-normal text-gray-500">{{ __("Statu") }}</dt>
                   <dd class="text-base font-bold text-gray-900">
-                    <span class="bg-green-100 text-green-800 border-2 font-semibold border-green-700 text-md px-2.5 py-0.5 rounded">
-                        {{ $order->status }}
-                    </span>
+                    <span class="bg-{{ $order->status->getBg() }}-100 text-nowrap text-{{ $order->status->getBg() }}-800 text-md font-semibold px-2.5 py-0.5 rounded border border-{{ $order->status->getBg() }}-600">
+                      {{ $order->status->getLabel() }}
+                  </span>
                     
                     </dd>
                 </dl>
@@ -86,7 +86,6 @@
           </div>
         </div>
       </div>
-    
     </div>
 </section>
 @endsection

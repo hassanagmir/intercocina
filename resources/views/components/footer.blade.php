@@ -1,11 +1,11 @@
-        
 <footer class="px-4 pb-10 mt-24 overflow-hidden md:max-w-7xl md:mx-auto">
     <section>
         <div class="grid grid-cols-2">
             <div class="space-y-4 xl:col-span-1 col-span-full" x-animate.intersect="fadeInRight">
                 <img class="w-[200px]" loading="lazy" src="/assets/imgs/intercocina-logo.png" alt="">
                 <p class="text-slate-500 md:max-w-[400px]">
-                    Nous sommes profondément honorés de vous présenter notre société, qui se distingue en tant que leader incontesté dans le domaine de la fabrication sur mesure d’éléments de cuisine
+                    Nous sommes profondément honorés de vous présenter notre société, qui se distingue en tant que
+                    leader incontesté dans le domaine de la fabrication sur mesure d’éléments de cuisine
                 </p>
             </div>
             <div
@@ -44,16 +44,13 @@
                             <a href="/">Accueil</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/notre-processus">Notre Approche</a>
+                            <a href="/notre-processus">Produits</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/case-studies">Case studies</a>
+                            <a href="/case-studies">Articles</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/portfolio">Portfolio</a>
-                        </li>
-                        <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/a-propos">À propos</a>
+                            <a href="/portfolio">Événements</a>
                         </li>
                     </ul>
                 </div>
@@ -62,67 +59,76 @@
                 <h4 class="py-6 text-lg text-accent-red">Ressources</h4>
 
                 <ul class="space-y-5">
-                    <li class="text-slate-500 hover:text-accent-red"><a href="/formation">Formation</a>
+                    <li class="text-slate-500 hover:text-accent-red">
+                        <a href="/notre-processus">À propos</a>
                     </li>
-                    <li class="text-slate-500 hover:text-accent-red">Podcast</li>
-                    <li class="text-slate-500 hover:text-accent-red">Privacy policy</li>
+                    <li class="text-slate-500 hover:text-accent-red">
+                        <a href="/formation">Contactez-nous</a>
+                    </li>
+                    <li class="text-slate-500 hover:text-accent-red">
+                        <a href="/formation">Politique de confidentialité</a>
+                    </li>
                 </ul>
 
             </div>
 
         </div>
 
-        <div wire:snapshot="{&quot;data&quot;:{&quot;email&quot;:&quot;&quot;,&quot;emailSent&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;kKEOmOQ5b5WFFtONVTU8&quot;,&quot;name&quot;:&quot;newsletterform&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;b938cf710e9a4661db4035480c6283b38128fcce0860e81748010d93b05134c0&quot;}" wire:effects="[]" wire:id="kKEOmOQ5b5WFFtONVTU8"
-    class="w-full max-w-lg bg-accent-red px-8 py-16 xl:ml-36 rounded-3xl relative overflow-hidden order-1 xl:order-2 md:flex md:justify-center">
-    <div class="w-40 aspect-square rounded-full bg-accent-gray absolute z-0 -bottom-10 -left-10" x-animate.intersect="zoomIn"></div>
-    <div class="w-40 aspect-square rounded-full bg-accent-gray w-36 md:w-80 absolute z-0 -top-16 -right-16 md:-top-28 md:-right-28" x-animate.intersect="zoomIn"></div>
+        <div wire:snapshot="{&quot;data&quot;:{&quot;email&quot;:&quot;&quot;,&quot;emailSent&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;kKEOmOQ5b5WFFtONVTU8&quot;,&quot;name&quot;:&quot;newsletterform&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;},&quot;checksum&quot;:&quot;b938cf710e9a4661db4035480c6283b38128fcce0860e81748010d93b05134c0&quot;}"
+            wire:effects="[]" wire:id="kKEOmOQ5b5WFFtONVTU8"
+            class="w-full max-w-lg bg-accent-red px-8 py-16 xl:ml-36 rounded-3xl relative overflow-hidden order-1 xl:order-2 md:flex md:justify-center">
+            <div class="w-40 aspect-square rounded-full bg-accent-gray absolute z-0 -bottom-10 -left-10"
+                x-animate.intersect="zoomIn"></div>
+            <div class="aspect-square rounded-full bg-accent-gray w-36 md:w-80 absolute z-0 -top-16 -right-16 md:-top-28 md:-right-28"
+                x-animate.intersect="zoomIn"></div>
 
-    <div class="w-full relative z-20 space-y-6">
-        <div class="space-y-2">
-            <h4 class="text-white text-4xl font-bold uppercase tracking-wide">
-                Newsletter
-            </h4>
-            <p class="text-white text-lg">
-                Stay up to date! Subscribe to our newsletter.
-            </p>
-        </div>
-        <div class="flex flex-col gap-4">
+            <div class="w-full relative z-20 space-y-6">
+                <div class="space-y-2">
+                    <h4 class="text-white text-4xl font-bold uppercase tracking-wide">
+                        Newsletter
+                    </h4>
+                    <p class="text-white text-lg">
+                        Restez informés ! Abonnez-vous à notre newsletter.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-4">
 
-            <div class="space-y-2">
-    <label for="newsletter_email" for="newsletter_email" class="sr-only">
-    Newsletter_email
-</label>
+                    <div class="space-y-2">
+                        <label for="newsletter_email" for="newsletter_email" class="sr-only">
+                            Newsletter_email
+                        </label>
 
-    <input type="text" id="newsletter_email" name="newsletter_email"
-           placeholder="Email"
-           class="w-full rounded-lg border-gray-200 p-4 text-sm  rounded-xl" wire:model="email" label-class="sr-only"/>
-</div>
+                        <input type="text" id="newsletter_email" name="newsletter_email" placeholder="Email"
+                            class="w-full border-gray-200 p-4 text-sm  rounded-xl" wire:model="email"
+                            label-class="sr-only" />
+                    </div>
 
-            <button class="flex items-center justify-center gap-2 text-accent-red bg-white px-6 py-3 rounded-xl font-semibold hover:bg-accent-red hover:bg-transparent border hover:border-white hover:text-white" wire:click="subscribe" label="Subscribe">
+                    <button
+                        class="flex items-center justify-center gap-2 text-accent-red bg-white px-6 py-3 rounded-xl font-semibold hover:bg-accent-red hover:bg-transparent border hover:border-white hover:text-white"
+                        wire:click="subscribe" label="Subscribe">
 
-    <svg wire:loading xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path wire:loading.class="animate-rotate" d="M3 12a9 9 0 0 0 9 9a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9"/>
-        <path wire:loading.class="animate-rotate-reverse" d="M17 12a5 5 0 1 0 -5 5"/>
-    </svg>
+                        <svg wire:loading xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path wire:loading.class="animate-rotate"
+                                d="M3 12a9 9 0 0 0 9 9a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9" />
+                            <path wire:loading.class="animate-rotate-reverse" d="M17 12a5 5 0 1 0 -5 5" />
+                        </svg>
 
-    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                        Subscribe
+                    </button>
 
-    Subscribe
-</button>
+                    <div>
 
-            <div>
-                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
-                <p class="text-white text-sm">
-                    {{ __("Nous respectons votre vie privée. Vous pouvez vous désinscrire à tout moment") }}.
-                </p>
+                        <p class="text-white text-sm">
+                            {{ __("Nous respectons votre vie privée. Vous pouvez vous désinscrire à tout moment") }}.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
-
-    </div>
-</div>
     </section>
     <hr class="h-px bg-gray-200 border-0">
     <div class="flex flex-col items-center gap-8 pt-8 md:justify-between lg:flex-row">
