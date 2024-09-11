@@ -7,8 +7,8 @@
         <div class="mx-auto text-center lg:w-4/5">
             <div class="">
                 <h1 class="text-5xl font-black text-red-500 dark:text-white sm:text-6xl">
-                    <span class="hidden sm:inline-block">Leader des cuisines</span> 
-                    <br class="hidden sm:inline-block">Modernes au Maroc<br>
+                    <span class="hidden sm:inline-block">L'excellence des cuisines</span> 
+                    <br class="hidden sm:inline-block">De luxe au Maroc<br>
                     <div class="mx-auto block w-max">
                         <div class="relative block pb-2">
                             <span class="absolute inset-0 z-[1] block bg-gradient-to-b from-red-500 via-red-500 to-transparent bg-clip-text text-transparent dark:from-white dark:via-white">INTERCOCINA</span>

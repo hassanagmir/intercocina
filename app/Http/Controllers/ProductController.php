@@ -12,4 +12,10 @@ class ProductController extends Controller
     public function show(Product $product){
         return view('product.show', compact('product'));
     }
+
+    public function list(){
+        $categories = Category::where("status", 1)->get();
+        $title = __("Collections des produits");
+        return view('product.list', compact('categories'));
+    }
 }

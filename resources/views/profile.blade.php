@@ -14,9 +14,15 @@
 
                 <ul class="bg-gray-100 text-gray-600 hover:text-gray-700 py-2 px-3 mt-3 divide-y rounded shadow-sm border-2">
                     <li class="flex items-center py-3">
-                        <span>Statut</span>
+                        <span>{{ __("État") }}</span>
                         <span class="ml-auto">
-                            <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Actif</span></span>
+                            @if (auth()->user()->status == "active" )
+                            <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Actif</span>
+                            @else
+                            <span class="bg-red-500 py-1 px-2 rounded text-white text-sm">Inactif</span>
+                            @endif
+                            
+                        </span>
                     </li>
                     <li class="flex items-center py-3">
                         <span>{{ __("Date d'inscription") }} &#xa0; </span>
@@ -50,15 +56,15 @@
                         </div>
                         <div class="grid grid-cols-2">
                             <div class="px-4 py-2 font-semibold">{{ __("Genre") }}</div>
-                            <div class="px-4 py-2">Mâle</div>
+                            <div class="px-4 py-2">{{ auth()->user()->gender ? auth()->user()->gender : "__" }}</div>
                         </div>
                         <div class="grid grid-cols-2">
                             <div class="px-4 py-2 font-semibold">{{ __("Téléphone") }}</div>
-                            <div class="px-4 py-2">___</div>
+                            <div class="px-4 py-2">{{ auth()->user()->phone ? auth()->user()->phone : "__" }}</div>
                         </div>
                         <div class="grid grid-cols-2">
                             <div class="px-4 py-2 font-semibold">Address</div>
-                            <div class="px-4 py-2">__</div>
+                            <div class="px-4 py-2">{{ auth()->user()->address ? auth()->user()->address : "__" }}</div>
                         </div>
                         <div class="grid grid-cols-2">
                             <div class="px-4 py-2 font-semibold">E-mail.</div>

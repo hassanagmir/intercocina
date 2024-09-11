@@ -29,27 +29,39 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('first_name')
-                    ->label(__("Prenom"))
+                    ->label(__("Prénom"))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('last_name')
                     ->label(__("Nom"))
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('address')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('gender')
+                    ->label(__("Genre")),
+                Forms\Components\TextInput::make('phone')
+                    ->label(__("Téléphone"))
+                    ->tel()
+                    ->maxLength(255),
+             
+                Forms\Components\TextInput::make('status')
+                    ->label(__("État"))
+                    ->required(),
                 Forms\Components\TextInput::make('email')
                     ->label(__("E-mail"))
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->native(false),
                 Forms\Components\TextInput::make('password')
-                    ->label(__("Mot de passe"))
                     ->password()
                     ->required()
                     ->maxLength(255),
-                // Forms\Components\Select::make("role")
-                //     ->multiple()
-
+                Forms\Components\FileUpload::make('image')
+                    ->label(__("Image"))
+                    ->image(),
             ]);
     }
 
@@ -58,19 +70,24 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('first_name')
+                    ->label(__("Prénom"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name')
+                    ->label(__("Nom"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('phone')
+                    ->label(__("Téléphone"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->label(__("État")),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__("Date d'inscription"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Date de modification"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

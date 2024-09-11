@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,7 +22,14 @@ Route::controller(PageController::class)->group(function () {
     Route::get('profile', 'profile')->name('profile');
 });
 
+Route::prefix('user')->group(function(){
+    Route::get('password', [UserController::class, 'password'])->name('password');
+    Route::get('edit', [UserController::class, 'edit'])->name('user.edit');
+});
 
+Route::prefix('')->group(function(){
+    Route::get('produits', [ProductController::class, 'list'])->name("products");
+});
 
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
 Route::get('category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');

@@ -13,11 +13,7 @@ class EditUser extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make()
-                ->icon('heroicon-o-trash'),
-            Actions\CreateAction::make()
-                ->url(UserResource::getUrl('create'))
-                ->icon('heroicon-o-plus-circle'),
+            Actions\DeleteAction::make(),
         ];
     }
 }

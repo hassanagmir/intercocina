@@ -6,9 +6,8 @@
             <h1 class="text-4xl font-bold leading-tight text-center md:text-left md:text-5xl md:leading-tight" x-animate="fadeInUp">
                 <span class="text-gray-400 font-black">INTER</span><span class="text-red-600 font-black">COCINA</span> - Leader des cuisines modernes au Maroc
             </h1>
-            <p class="text-center text-slate-500 md:text-left animate__delay-200ms" x-animate.delay.100="fadeInUp">
-                Nous sommes profondément honorés de vous présenter notre société, qui se distingue en tant que leader
-                incontesté dans le domaine de la fabrication sur mesure d’éléments de cuisine.
+            <p class="text-center text-slate-500 md:text-left animate__delay-200ms text-lg" x-animate.delay.100="fadeInUp">
+                Notre collection de meubles de cuisine est conçue pour transformer votre espace en un lieu d'inspiration gastronomique, où chaque détail compte.
             </p>
             <div class="flex justify-center md:justify-start gap-4">
                 <a href="#contact" class="btn btn-accent-gray" x-animate.delay.200="fadeInUp">
@@ -21,7 +20,7 @@
                 @endguest
 
                 @auth
-                <a href="" class="btn btn-primary" x-animate.delay.200="fadeInUp">
+                <a href="{{ route("products") }}" class="btn btn-primary" x-animate.delay.200="fadeInUp">
                     {{__("Produits")}}
                 </a>
                 @endauth
@@ -52,7 +51,7 @@
             @livewire('home-category')
         </div>
         <div class="flex justify-center md:max-w-6xl md:mx-auto gap-4">
-            <a href="{{ route("about")}}" class="btn btn-primary" x-animate.intersect="fadeInUp">
+            <a href="{{ route("products")}}" class="btn btn-primary" x-animate.intersect="fadeInUp">
                 Voir Plus
             </a>
         </div>
@@ -61,13 +60,15 @@
 
 
 <section class="py-20 my-4 overflow-x-hidden bg-accent-gray-50">
-    <div class="px-3">
-        <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
-            Ce que l'on vous offre !
-        </h2>
-        <p class="text-center text-slate-500 md:text-lg" x-animate.intersect.delay.100="fadeInUp">
-            Nous vous proposons 3 types de services
-        </p>
+    <div class="px-3 max-w-3xl m-auto">
+       <div class="">
+            <h2 class="mb-4 text-3xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
+                Des services qui font toute la différence
+            </h2>
+            <p class="text-center text-slate-500 md:text-lg" x-animate.intersect.delay.100="fadeInUp">
+                Chez nous, l'excellence ne s'arrête pas à la qualité de nos produits. Nous avons à cœur de vous offrir une expérience client incomparable, enrichie par une gamme de services pensés pour votre confort et votre satisfaction.
+            </p>
+       </div>
     </div>
     <div class="flex flex-col items-stretch gap-10 px-4 py-12 md:py-20 md:max-w-6xl md:mx-auto md:flex-row">
         <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5"

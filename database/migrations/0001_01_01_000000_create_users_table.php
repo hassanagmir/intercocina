@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('address')->nullable();
+            $table->enum('gender', ['Mâle', 'Femelle'])->nullable();
+            $table->string('phone')->unique()->nullable();
+            $table->string('image')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('email')->unique();
             $table->string('full_name')->virtualAs('concat(first_name, \' \', last_name)');
             $table->timestamp('email_verified_at')->nullable();
