@@ -50,6 +50,7 @@ class AddressForm extends Component
         session()->flash('message', __('Adresse créée avec succès.'));
         $this->reset();
         $this->cities = City::all();
+        $this->dispatch('reloadPage');
     }
 
 

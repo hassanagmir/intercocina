@@ -34,7 +34,7 @@
 
     <body class="bg-red-50 ">
         <x-navigation />
-        <main class="mt-16">
+        <main class="mt-24">
             <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar" aria-controls="cta-button-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-white-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                 <span class="sr-only">Open sidebar</span>
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +97,7 @@
                 </div>
              </aside>
 
-             <div class="p-4 mt-32 sm:ml-64">
+             <div class="p-4 sm:mt-32 sm:ml-64">
                 @yield('content')
              </div>
             

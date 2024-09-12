@@ -34,6 +34,12 @@
                     </svg>
                     {{ __("Se connecter") }}
                 </button>
+                <div class="mt-5">
+                    <a href="{{ route('user.register') }}" class="text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                        {{ __("Créer un nouveau compte !") }}
+                    </a>
+                </div>
+                
             </form>
         </div>
     </div>

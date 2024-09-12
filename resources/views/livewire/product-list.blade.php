@@ -1,5 +1,5 @@
 <div>
-    <div class="my-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
+    <div class="my-4 items-end justify-between space-y-4 md:flex sm:space-y-0 md:mb-8">
         <div>
           <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -41,10 +41,12 @@
           
           </h2>
         </div>
-        <div class="flex items-center space-x-4">
-            @foreach ($category->types as $type)
-            <button wire:click='changeType("{{ $type->slug }}")' data-modal-toggle="filterModal" data-modal-target="filterModal" type="button" class="font-bold flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:w-auto">
-                {{ $type->name }}
+        <div class="flex items-center sm:space-x-2 space-x-0 sm:space-y-0 space-y-3 flex-wrap">
+            @foreach ($category->types as $item)
+            {{-- @dump($item->slug)
+            @dump($type) --}}
+            <button wire:click='changeType("{{ $item->slug }}")' type="button" class="font-bold {{ $item->slug == $type ? 'bg-red-500 text-white hover:bg-red-400' : 'bg-white hover:bg-gray-100 hover:text-primary-700'}} text-sm px-3 text-nowrap flex w-full items-center justify-center rounded-lg border border-gray-200 py-2 text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto">
+                {{ $item->name }}
                 <svg class="-me-0.5 ms-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
                 </svg>
@@ -67,7 +69,7 @@
             <x-product-card
                 name="{{ $product->name}}"
                 price="{{ $product->price() }}"
-                image="{{ $product->images->first()->image }}"
+                image="{{ $product->images?->first()?->image }}"
                 slug="{{ $product->slug }}"
              />
         @endforeach

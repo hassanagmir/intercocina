@@ -32,7 +32,7 @@
         @foreach ($events as $event)
             <div class="rounded-xl bg-white border-2 border-gray-400 overflow-hidden">
                 <a class="relative flex sm:h-96 h-auto overflow-hidden bg-gray-300" href="{{ route('event.show', $event->slug) }}">
-                    <img class="object-cover w-full h-full border-gray-400" src="{{ $event->getFirstMediaUrl() }}" alt="product image" />
+                    <img class="object-cover w-full h-full border-gray-400" src="{{ $event->getFirstMediaUrl() }}" alt="{{ $event->title }}" />
                 </a>
                 <div class="mt-4 pb-5 px-3">
                     <a href="{{ route('event.show', $event->slug) }}">

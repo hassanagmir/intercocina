@@ -115,7 +115,7 @@ class Product extends Component
             'attributes' => [
                 'color' => intval($color),
                 'color_name' => $color ? Color::find($color)->name : null,
-                'image' => $this->product->images->first()->image,
+                'image' => $this->product->images?->first()?->image,
                 'dimension' => $this->dimension ? $this->dimension->dimension : false,
                 'slug' => $this->product->slug,
                 'product_id' => $this->product->id,

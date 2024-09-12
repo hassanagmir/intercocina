@@ -20,9 +20,8 @@
             <div wire:key='{{ $product->id }}'
                 class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                 <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                    <a href="#" class="shrink-0 md:order-1">
-                        <img class="h-20 w-20 dark:hidden" src="{{ Storage::url($product['attributes']['image']) }}"
-                            alt="Product image">
+                    <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="shrink-0 md:order-1">
+                        <img class="h-20 w-20 dark:hidden" src="{{ Storage::url($product['attributes']['image']) }}"  alt="{{ $product['quantity'] }}">
                     </a>
                     <label for="counter-input" class="sr-only">Choose quantity:</label>
                     <div class="flex items-center justify-between md:order-3 md:justify-end">

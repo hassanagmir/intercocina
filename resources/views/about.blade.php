@@ -43,12 +43,9 @@
             </div>
         </div>
     </div>
-
-
-
-
+    
     <section class="mt-4">
-        <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
                 <div class="max-w-lg">
                     <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Leader des cuisines modernes</h2>
@@ -60,7 +57,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="mt-12 md:mt-0">
+                <div class="sm:mt-12 mt-0 order-first sm:order-last">
                     <img src="/assets/imgs/intercocina-logo.png" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
             </div>
@@ -68,9 +65,9 @@
     </section>
 
     <section class="mt-4">
-        <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-                <div class="mt-12 md:mt-0">
+                <div class="mt-12 md:mt-0 sm:order-first">
                     <img src="https://intercocina.com/wp-content/uploads/2022/06/DSC008501-1-scaled.jpg" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
                 <div class="max-w-lg">
@@ -89,7 +86,7 @@
     </section>
 
     <section class="mt-4">
-        <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
                 <div class="max-w-lg">
                     <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Produit de qualité</h2>
@@ -101,7 +98,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="mt-12 md:mt-0">
+                <div class="sm:mt-12 mt-0 order-first sm:order-last">
                     <img src="https://intercocina.com/wp-content/uploads/2022/06/DSC00998-768x512.jpg" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
             </div>
@@ -109,9 +106,9 @@
     </section>
 
     <section class="mt-4">
-        <div class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-                <div class="mt-12 md:mt-0">
+                <div class="mt-12 md:mt-0 order-last sm:order-first">
                     <img src="https://intercocina.com/wp-content/uploads/2022/06/DSC00922-768x572.jpg" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
                 <div class="max-w-lg">

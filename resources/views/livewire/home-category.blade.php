@@ -2,7 +2,13 @@
     @foreach ($categories as $category)
         <div class="rounded-xl">
             <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-300" href="{{ route('category.show', $category->slug) }}">
-            <img class="object-cover w-full h-full" src="{{ Storage::url($category->image) }}" alt="product image" />
+            @if ($category->image)
+             <img class="sm:object-cover object-contain w-full h-full" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" />
+            @else
+                <div class="w-full h-full bg-gray-300">
+
+                </div>
+            @endif
             </a>
             <div class="mt-4 pb-5 ">
             <a href="{{ route('category.show', $category->slug) }}">

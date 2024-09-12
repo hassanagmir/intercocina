@@ -37,16 +37,17 @@
             @foreach ($category->types as $type)
             <div class="rounded-xl">
                 <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-300" href="/category/caisson?type={{ $type->slug }}">
-                    <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="product image" />
+                    <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" />
                 </a>
                 <div class="mt-4 pb-5 ">
                     <a href="/category/caisson?type={{ $type->slug }}">
-                        <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ $type->name }}
+                        <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">
+                          {{ $type->name }}
                         </h5>
                     </a>
                     <div class="mt-2 mb-5 w-full">
-                        <a href="/category/caisson?type={{ $type->slug }}" class="text-center border-2 relative flex h-9 w-full rounded-full text-red-500 hover:text-white hover:bg-red-500 items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full border-red-500 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95">
-                            <span class="leading-none relative text-base tracking-wider font-semibold">Voir plus</span>
+                        <a href="/category/caisson?type={{ $type->slug }}" class="text-center border-2 relative flex h-9 w-full rounded-full text-red-500 hover:text-white hover:bg-red-500 items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full border-red-500 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 duration-500">
+                            <span class="leading-none relative text-base tracking-wider font-semibold">{{__("Voir plus")}}</span>
                         </a>
                     </div>
                 </div>

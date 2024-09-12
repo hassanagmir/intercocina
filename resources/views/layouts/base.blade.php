@@ -39,6 +39,8 @@
         </main>
         <x-footer />
         @livewireScriptConfig
+
+
     </body>
 
 </html>

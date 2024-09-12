@@ -14,7 +14,7 @@
 
                 <div class="py-4 ">
                     <a href="/">
-                        <img class="md:w-[130px] sm:w-[150px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="{{ config('app.name') }}'s logo">
+                        <img class="md:w-[130px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="{{ config('app.name') }}'s logo">
                     </a>
                 </div>
 
@@ -26,7 +26,7 @@
                             </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link href="/produits" :active="request()->routeIs('case-studies.*')">
+                            <x-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
                                 {{ __("Produits") }}
                             </x-nav-link>
                         </li>
@@ -90,22 +90,17 @@
                             </template>
                         </li>
                         @endif
-
-
-
                     </ul>
                 </div>
 
                 <div class="flex xl:hidden">
                     <button x-on:click="openMenu = !openMenu" aria-label="navMenu" :aria-expanded="openMenu"
                         aria-controls="mobNav">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"
-                            fill="none" stroke="#58d185" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 6l16 0" />
-                            <path d="M4 12l16 0" />
-                            <path d="M4 18l16 0" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#ec2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M4 6l16 0"></path>
+                            <path d="M4 12l16 0"></path>
+                            <path d="M4 18l16 0"></path>
                         </svg>
                     </button>
                 </div>
@@ -124,19 +119,20 @@
                 </div>
             </li>
             <li class="border-B border-inherit">
-                <a class="block p-4 text-center" href="/">Accueil</a>
+                <a class="block p-4 text-center" href="/">{{ __("Accueil") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/products">Produits</a>
+                <a class="block p-4 text-center" href="{{ route('products') }}">{{ __("Produits") }}</a>
+            </li>
+
+            <li class="border-y border-inherit">
+                <a class="block p-4 text-center" href="{{ route('event.list') }}">{{ __("Événements") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/articles">Articles</a>
+                <a class="block p-4 text-center" href="{{ route('about') }}">{{ __("À propos") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/events">Événements</a>
-            </li>
-            <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/about-us">À propos</a>
+                <a class="block p-4 text-center" href="/articles">{{ __("Articles") }}</a>
             </li>
         </ul>
         {{-- close navMenu --}}

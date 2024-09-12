@@ -44,13 +44,13 @@
                             <a href="/">Accueil</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/notre-processus">Produits</a>
+                            <a href="{{ route('products') }}">Produits</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/case-studies">Articles</a>
+                            <a href="#!">Articles</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="/portfolio">Événements</a>
+                            <a href="{{ route('event.list') }}">Événements</a>
                         </li>
                     </ul>
                 </div>
@@ -60,13 +60,16 @@
 
                 <ul class="space-y-5">
                     <li class="text-slate-500 hover:text-accent-red">
-                        <a href="/notre-processus">À propos</a>
+                        <a href="{{ route("about") }}">À propos</a>
                     </li>
                     <li class="text-slate-500 hover:text-accent-red">
-                        <a href="/formation">Contactez-nous</a>
+                        <a href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
                     <li class="text-slate-500 hover:text-accent-red">
-                        <a href="/formation">Politique de confidentialité</a>
+                        <a href="{{ route('faqs' )}}">FAQs</a>
+                    </li>
+                    <li class="text-slate-500 hover:text-accent-red">
+                        <a href="#">Politique de confidentialité</a>
                     </li>
                 </ul>
 
