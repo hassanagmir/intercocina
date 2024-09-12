@@ -31,7 +31,6 @@
             </div>
         </div>
     </section>
-
     <hr class="h-px my-10 bg-gray-200 border-0">
 
     <section class="flex flex-col gap-16 mb-8 lg:flex-row lg:justify-between">
