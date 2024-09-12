@@ -29,6 +29,9 @@ class PageController extends Controller
 
 
     public function settings(){
+        if(!auth()->user()){
+            return redirect()->route('user.login');
+        }
         $title = __("Paramètres");
         return view('settings', compact('title'));
     }
@@ -49,6 +52,9 @@ class PageController extends Controller
     }
 
     public function profile(){
+        if(!auth()->user()){
+            return redirect()->route('user.login');
+        }
         $orders = Order::where('user_id', auth()->id())->paginate(6);
         $title = auth()->user()->first_name . " " . auth()->user()->last_name;
         return view('profile', compact('title', 'orders'));

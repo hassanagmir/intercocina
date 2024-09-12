@@ -8,10 +8,16 @@ class UserController extends Controller
 {
 
     public function edit(){
+        if(!auth()->user()){
+            return redirect()->route('user.login');
+        }
         return view('user.edit');
     }
 
     public function password(){
+        if(!auth()->user()){
+            return redirect()->route('user.login');
+        }
         return view("user.password");
     }
 

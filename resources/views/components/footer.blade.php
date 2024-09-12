@@ -17,7 +17,6 @@
                         <p class="text-lg font-bold text-white ">Envoyez-nous un email</p>
                         <p class="text-white">hello@intercocina.com</p>
                     </div>
-
                 </div>
                 <div class="flex items-center gap-3 px-6 py-3 duration-500 bg-white shadow-lg rounded-3xl hover:scale-105"
                     x-animate.intersect="fadeInLeft">
