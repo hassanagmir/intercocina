@@ -50,6 +50,11 @@ class Product extends Model
     }
 
 
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
+
     public function price(){
         if($this->price){
             return strval($this->price);

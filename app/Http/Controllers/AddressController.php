@@ -14,4 +14,16 @@ class AddressController extends Controller
         $addresses = Address::all();
         return view('address.list', compact('addresses'));
     }
+
+
+
+    public function delete(Address $address){
+        if(auth()->id() == $address->user_id){
+            $address->delete();
+            session()->flash('message', __('Adresse supprimée avec succès.'));
+        }else{
+            abort(404);
+        }
+        return redirect()->route('address.list');
+    }
 }

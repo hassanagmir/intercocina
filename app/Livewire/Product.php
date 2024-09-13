@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Color;
 use App\Models\Dimension;
 use App\Models\Product as ProductModel;
+use App\Models\Review;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -32,6 +33,10 @@ class Product extends Component
     public $color_error;
     public $dimension_error;
 
+    public $averageRating = 0;
+
+    
+
     public function mount()
     {
         $this->heights = array_unique($this->product->dimensions->pluck('height')->toArray());
@@ -39,6 +44,8 @@ class Product extends Component
 
         $this->total = \Cart::getTotal();
         $this->price =  $this->product->price();
+
+        $this->averageRating = $this->getAvgRating();
     }
 
 
@@ -69,6 +76,20 @@ class Product extends Component
             }
             
         }
+    }
+
+
+    public function getAvgRating()
+    {
+        $totalReviews = $this->product->reviews->count();
+
+        if ($totalReviews === 0) {
+            return 0;
+        }
+
+        $totalStars = Review::where('product_id', $this->product->id)->sum('stars');
+
+        return round($totalStars / $totalReviews, 2);
     }
 
 

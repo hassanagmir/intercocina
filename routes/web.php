@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
@@ -46,6 +48,7 @@ Route::prefix('')->group(function () {
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
 Route::get('category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('address/list', [AddressController::class, 'list'])->name('address.list');
+Route::get('address/delete/{address}', [AddressController::class, 'delete'])->name('address.delete');
 
 Route::prefix('order')->group(function () {
     Route::get('list', [OrderController::class, 'list'])->name('order.list');
@@ -58,6 +61,11 @@ Route::prefix('event')->group(function () {
     Route::get('{event:slug}', [EventController::class, 'show'])->name('event.show');
 });
 
+
+Route::get('blogs', [PostController::class, 'index'])->name('post.index');
+Route::get('blogs/{post:slug}', [PostController::class, 'show'])->name('post.show');
+
+Route::get('reclamation', [ClaimController::class, 'create'])->name('claim.create');
 
 
 

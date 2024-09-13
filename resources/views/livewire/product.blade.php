@@ -13,13 +13,12 @@
                 @endforeach
             </div>
         </div>
-
+        
         <div class="swiper nav-for-slider">
             <div class="swiper-wrapper">
                 @foreach ($product->images as $image)
                 <div class="swiper-slide thumbs-slide">
-                    <img src="{{ Storage::url($image->image)}}" alt="{{ $product->name }}"
-                        class="cursor-pointer rounded-xl transition-all duration-500">
+                    <img src="{{ Storage::url($image->image)}}" alt="{{ $product->name }}" class="cursor-pointer rounded-xl transition-all duration-500">
                 </div>
                 @endforeach
             </div>
@@ -60,9 +59,9 @@
                                     fill="currentFill" />
                             </svg>
                         </div>
-                        <span wire:loading.remove wire:target='dimensionChanaged()'>{{ $price }}</span> MAD
+                        <span wire:loading.remove wire:target='dimensionChanaged()'>{{ $price }}</span> {{ __("MAD")}}
                     </h5>
-                    <span class="ml-3 font-semibold text-lg text-green-600"> {{ __("En stock" )}} </span>
+                    <span class="ml-3 font-semibold text-lg text-green-600"> {{ $product->status->getLabel()}} </span>
                 </div>
                 <svg class="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36"
                     viewBox="0 0 2 36" fill="none">
@@ -89,7 +88,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    <span class="text-base font-medium text-white">4.8</span>
+                    <span class="text-base font-medium text-white">{{ floatval($averageRating) }}</span>
 
                 </button>
                 <div role="status" wire:loading wire:loading.attr="disabled" class="px-4">
@@ -231,7 +230,6 @@
                     </div>
                     {{ __("Ajouter au panier") }}
                 </button>
-
             </div>
         </div>
     </div>

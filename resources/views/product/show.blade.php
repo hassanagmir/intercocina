@@ -8,24 +8,34 @@
         @livewire('product', ['product' => $product], key($product->id))
         <div class="mt-6">
             <h2 class="sm:text-2xl text-xl font-bold">{{ __("Description de")}} {{ $product->name}}</h2>
+            @if ($product->options)
             <div class="relative overflow-x-auto border-t-2 border-x-2 sm:rounded-lg mt-4">
                 <table class="w-full text-sm text-left rtl:text-right">
                     <tbody>
                         @foreach ($product->options as $key => $value)
-                            <tr class="border-b-2 font-semibold hover:bg-gray-50 duration-500">
-                                <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap">
-                                    {{ $key }}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ $value }}
-                                </td>
-                            </tr>
+                        <tr class="border-b-2 font-semibold hover:bg-gray-50 duration-500">
+                            <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap">
+                                {{ $key }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $value }}
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+            @endif
             <div class="mt-4 prose">
                 {!! $product->content !!}
+            </div>
+
+            <div>
+                @livewire('rating', ['product' => $product], key($product->id))
+            </div>
+
+            <div>
+                @livewire('reviews-list', ['product' => $product], key($product->id))
             </div>
         </div>
     </div>

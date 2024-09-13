@@ -45,7 +45,7 @@
                             <a href="{{ route('products') }}">Produits</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
-                            <a href="#!">Articles</a>
+                            <a href="{{ route('post.index') }}">Blog</a>
                         </li>
                         <li class="text-slate-500 hover:text-accent-red">
                             <a href="{{ route('event.list') }}">Événements</a>

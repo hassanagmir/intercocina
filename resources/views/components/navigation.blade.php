@@ -43,6 +43,14 @@
                         </li>
 
                         <li>
+                            <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+                                {{ __("Contactez-nous") }}
+                            </x-nav-link>
+                        </li>
+
+                        
+
+                        <li>
                             <div x-data="{ showModalCart: false }" @open-cart-modal.window="showModalCart = true" x-cloak x-show="showModalCart" class="fixed inset-0 z-30 backdrop-blur-md flex justify-center items-center" @keydown.escape.window="showModalCart = false">
                                 <div class="max-w-3xl px-6 py-4 mx-auto text-left bg-white rounded shadow-lg animate__animated animate__zoomIn animate__faster"
                                     style="min-width: 50%!important"
@@ -132,7 +140,10 @@
                 <a class="block p-4 text-center" href="{{ route('about') }}">{{ __("À propos") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="/articles">{{ __("Articles") }}</a>
+                <a class="block p-4 text-center" href="{{ route('contact') }}"> {{ __("Contactez-nous") }}</a>
+            </li>
+            <li class="border-y border-inherit">
+                <a class="block p-4 text-center" href="{{ route('post.index') }}">{{ __("Blog") }}</a>
             </li>
         </ul>
         {{-- close navMenu --}}

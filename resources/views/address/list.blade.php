@@ -4,7 +4,59 @@
 @section('content')
     
 <div class="relative overflow-x-auto shadow-sm sm:rounded-lg text-gray-500 bg-gray-50">
-    <h1 class="pt-3 px-5 text-xl font-semibold">Vos adresses</h1>
+    @if (session()->has('message'))
+    <div class="bg-green-500 text-white p-2 m-3 rounded">
+        {{ session('message') }}
+    </div>
+    @endif
+    <div class="sm:flex flex-initial justify-between">
+    <h1 class="pt-3 px-5 text-xl font-semibold w-full">Vos adresses</h1>
+    <div x-data="{ showModal: false }" class="w-full" @keydown.escape.window="showModal = false">
+        <!-- Trigger for Modal -->
+        <button type="button" @click="showModal = true" class="text-md float-end m-2 flex flex-col items-center justify-center py-3 px-4 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 font-bold">
+            <div class="flex gap-3">
+                <svg class="text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                    <path d="M9 12h6" />
+                    <path d="M12 9v6" />
+                </svg>
+                <span class="text-gray-600">{{__("Ajouter une adresse")}}</span>
+            </div>
+        </button>
+    
+        <!-- Modal -->
+        <div
+            class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
+            x-show="showModal"
+            x-cloak
+            role="dialog"
+            aria-labelledby="modalTitle"
+            x-transition:enter="motion-safe:ease-out duration-300" 
+            x-transition:enter-start="opacity-0 scale-90" 
+            x-transition:enter-end="opacity-100 scale-100"
+            @click.away="showModal = false"
+        >
+            <!-- Modal inner -->
+            <div class="max-w-3xl px-6 py-4 mx-auto text-left bg-white rounded shadow-lg" style="min-width: 50%!important">
+                <!-- Title / Close -->
+                <div class="flex items-center justify-between">
+                    <h5 class="mr-3 text-black max-w-none text-2xl font-semibold" id="modalTitle">Nouvelle adresse</h5>
+    
+                    <button type="button" class="z-50 cursor-pointer" @click="showModal = false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+    
+                <!-- Content -->
+                @livewire('address-form')
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
     <table class="w-full text-sm text-left rtl:text-right">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
             <tr>
@@ -53,7 +105,7 @@
                     {{ $address->address_name}}
                 </td>
                 <td class="flex items-center px-6 py-4">
-                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette adresse')" href="#" class="font-medium text-red-600 ms-3">
+                    <a onclick="return confirm('Etes-vous sûr de vouloir supprimer cette adresse')" href="{{ route('address.delete', $address->id ) }}" class="font-medium text-red-600 ms-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m18 9l-.84 8.398c-.127 1.273-.19 1.909-.48 2.39a2.5 2.5 0 0 1-1.075.973C15.098 21 14.46 21 13.18 21h-2.36c-1.279 0-1.918 0-2.425-.24a2.5 2.5 0 0 1-1.076-.973c-.288-.48-.352-1.116-.48-2.389L6 9m7.5 6.5v-5m-3 5v-5m-6-4h4.615m0 0l.386-2.672c.112-.486.516-.828.98-.828h3.038c.464 0 .867.342.98.828l.386 2.672m-5.77 0h5.77m0 0H19.5"/></svg>
                     </a>
                 </td>
