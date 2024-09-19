@@ -27,6 +27,7 @@
         "cute-alert": "^0.0.3",
         "keen-slider": "^6.8.6",
         "lightgallery": "^2.7.2",
+        "photoswipe": "^5.4.4",
         "swiper": "^11.1.12"
     }
 }

@@ -3,6 +3,27 @@
 @section('content')
 
 
+@if (session()->has('message'))
+<div class="w-full mb-8 p-6 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-sm">
+    <h1 class="text-2xl font-bold text-white mb-4 flex gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c-.006 5.52-4.48 9.994-10 10Zm-.016-2H12a8 8 0 1 0-.016 0ZM10 17l-4-4l1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8Z" />
+        </svg>
+        <span>Votre commande a été envoyée avec succès</span>
+    </h1>
+    <p class="text-white text-lg mb-4">Merci pour votre commande. Nous vous contacterons prochainement.</p>
+    <p class="text-white text-lg mb-4">Si vous avez des questions, contactez-nous aux numéros suivants :</p>
+    <ul class="text-white text-lg list-disc list-inside">
+        <li>+212 (6) 61 54 79 00 </li>
+        <li>+212 (5) 36 35 88 86 </li>
+    </ul>
+    <button
+        class="mt-6 px-4 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-green-100 transition duration-300">
+        Retour à les produits
+    </button>
+</div>
+@endif
 <div class="relative overflow-x-auto shadow-sm sm:rounded-lg text-gray-500 bg-gray-50">
     <h1 class="pt-3 px-5 text-xl font-semibold">Vos commandes</h1>
     <table class="w-full text-sm text-left rtl:text-right">

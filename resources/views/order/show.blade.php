@@ -11,10 +11,9 @@
                 @forelse($order->items as $item)
                 <div wire:key='{{ $item->product->id }}' class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                        <a href="#" class="shrink-0 md:order-1">
+                        <a href="{{ route('product.show', $item->product->slug) }}" class="shrink-0 md:order-1">
                             <img class="h-20 w-20 dark:hidden" src="{{ Storage::url($item->product?->images->first()?->image) }}" alt="{{ $item->product->name }}">
                         </a>
-                        <label for="counter-input" class="sr-only">Choose quantity:</label>
                         <div class="flex items-center justify-between md:order-3 md:justify-end">
                             <div class="text-end md:order-4 md:w-32">
                                 <p class="text-base font-bold text-gray-900">{{ $item->total }} MAD</p>
@@ -52,18 +51,20 @@
           <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
     
             <div class="space-y-4">
-              <div class="space-y-2">
+              <div class="space-y-5">
                 <dl class="flex items-center justify-between gap-4">
                   <dt class="text-base font-normal text-gray-500">{{ _("Date")}}</dt>
-                  <dd class="text-base font-bold text-gray-900">{{ $order->created_at }}</dd>
+                  <dd class="text-base font-bold text-gray-900 flex gap-3">
+                    <div>{{ $order->created_at->format("M d, Y") }} </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M3 5.231L6.15 3M21 5.231L17.85 3"/><circle cx="12" cy="13" r="8"/><path d="M12 8.5v5l3 2"/></g></svg>
+                  </dd>
                 </dl>
     
                 <dl class="flex items-center justify-between gap-4">
                   <dt class="text-base font-normal text-gray-500">{{ _("Produits")}}</dt>
-                  <dd class="text-base font-bold text-gray-900">
-                    <span class="bg-blue-100 text-blue-800 border font-semibold border-blue-700 text-md px-2.5 py-0.5 rounded">
-                        {{ $order->items->count() }}
-                    </span>
+                  <dd class="text-base font-bold text-gray-900 flex gap-3">
+                    <div class="text-xl">{{ $order->items->count() }}</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12 21l8.131-4.208c.316-.164.474-.245.589-.366a1 1 0 0 0 .226-.373c.054-.159.054-.336.054-.692V7.533M12 21l-8.131-4.208c-.316-.164-.474-.245-.589-.366a1 1 0 0 1-.226-.373C3 15.894 3 15.716 3 15.359V7.533M12 21v-9.063m9-4.404l-9 4.404m9-4.404l-8.27-4.28c-.267-.138-.4-.208-.541-.235a1 1 0 0 0-.378 0c-.14.027-.274.097-.542.235L3 7.533m0 0l9 4.404"/></svg>
                   </dd>
                 </dl>
     

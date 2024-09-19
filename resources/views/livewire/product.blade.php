@@ -3,13 +3,11 @@
     <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
         <!-- Main Swiper -->
         <div class="swiper main-slide-carousel swiper-container relative mb-6">
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper" id="gallery">
                 @foreach ($product->images as $image)
-                <div class="swiper-slide">
-                    <div class="block">
-                        <img src="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="max-lg:mx-auto rounded-2xl">
-                    </div>
-                </div>
+                <a href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide" data-pswp-width="1875" data-pswp-height="2500" target="_blank">
+                    <img src="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="max-lg:mx-auto rounded-2xl">
+                </a>
                 @endforeach
             </div>
         </div>

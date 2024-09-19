@@ -3,7 +3,7 @@
 
 @section('content')
     
-<div class="relative overflow-x-auto shadow-sm sm:rounded-lg text-gray-500 bg-gray-50">
+<div class="relative overflow-x-auto sm:rounded-lg text-gray-500 bg-gray-50">
     @if (session()->has('message'))
     <div class="bg-green-500 text-white p-2 m-3 rounded">
         {{ session('message') }}

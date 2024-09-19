@@ -134,6 +134,19 @@
             </li>
 
             <li class="border-y border-inherit">
+                <a class="block p-4 text-center" href="{{ route('cart') }}">{{ __("Panier") }} <livewire:cart-counter></a>
+            </li>
+
+            @if (auth()->user())
+            <li class="border-y border-inherit">
+                <a class="block p-4 text-center" href="{{ route('profile') }}">{{ __("Profile") }}</a>
+            </li>
+            @else
+            <li class="border-y border-inherit">
+                <a class="block p-4 text-center" href="{{ route('user.login') }}">{{ __("Se connecter") }}</a>
+            </li>
+            @endif
+            <li class="border-y border-inherit">
                 <a class="block p-4 text-center" href="{{ route('event.list') }}">{{ __("Événements") }}</a>
             </li>
             <li class="border-y border-inherit">

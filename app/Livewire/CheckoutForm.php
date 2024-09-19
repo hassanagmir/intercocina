@@ -49,11 +49,8 @@ class CheckoutForm extends Component
             ]);
         }
 
-        return redirect()->route("thanks");
-
-       
-
-        //  'order_id', 'product_id', 'dimension_id', 'color_id', 'quantity', 'total'
+        session()->flash('message', __('Mot de passe mis à jour avec succès. Veuillez vous reconnecter.'));
+        return redirect()->route("order.list");
 
     }
 
