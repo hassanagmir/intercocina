@@ -30,6 +30,11 @@ class CheckoutForm extends Component
             return $this->dispatch("reloadPage");
         }
 
+        if(Address::find($this->address)?->user_id != auth()->id()){
+            session()->flash('message', __("Cette adresse n'est pas pour vous"));
+            abort(404);
+        }
+
         $order = Order::create([
             'user_id' => auth()->id(),
             'code' => "INTER-" . Str::random(15),

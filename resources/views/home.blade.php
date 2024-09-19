@@ -209,7 +209,7 @@
                     <div x-animate.intersect="fadeInUp"
                         class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
                         <h3 class="text-4xl font-semibold md:text-7xl">
-                            <span class="text-accent-gray-500">+</span>1M
+                            <span class="text-accent-gray-500">+</span>10M
                             <span class="block mt-2 text-lg font-semibold md:text-xl">Commandes livrées</span>
                         </h3>
                     </div>

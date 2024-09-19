@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Livewire\ProductSearch;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Dimension;
@@ -54,6 +55,9 @@ Route::prefix('order')->group(function () {
     Route::get('list', [OrderController::class, 'list'])->name('order.list');
     Route::get('{order:code}', [OrderController::class, 'show'])->name('order.show');
 });
+
+
+Route::get("search", [ProductController::class, 'search'])->name('search');
 
 
 Route::prefix('event')->group(function () {

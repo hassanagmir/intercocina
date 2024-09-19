@@ -37,6 +37,13 @@
                 </div>
             </div>
             <div class="mx-auto mt-6 max-w-5xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+                @if (session()->has('message'))
+                <div class="w-full mb-8 p-6 bg-gradient-to-br from-red-300 to-red-600 rounded-xl shadow-sm">
+                    <h1 class="text-2xl font-bold text-white mb-4 flex gap-3">
+                        <span>{{ $message }}</span>
+                    </h1>
+                </div>
+                @endif
                 @livewire('checkout-form')
             </div>
         </div>

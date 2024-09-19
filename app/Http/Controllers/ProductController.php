@@ -18,4 +18,9 @@ class ProductController extends Controller
         $title = __("Collections des produits");
         return view('product.list', compact('categories'));
     }
+
+
+    public function search(){
+        return view('product.search');
+    }
 }

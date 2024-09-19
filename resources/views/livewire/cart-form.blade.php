@@ -110,7 +110,7 @@
         </dl>
       </div>
 
-      <a href="#" class="btn btn-primary gap-2 text-center flex items-start justify-center">
+      <a href="{{ route('checkout') }}" class="btn btn-primary gap-2 text-center flex items-start justify-center">
         <span>{{ __("Envoyer la commande") }}</span>
         <svg class="h-5 w-5 mt-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
