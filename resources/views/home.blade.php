@@ -149,7 +149,7 @@
             <div class="px-0 w-full h-full order-1 md:order-2">
                 <div class="relative flex items-center w-full h-full">
                     <div class="relative left-0 top-0 w-full h-full px-4 z-10">
-                        <img loading="lazy" width="200" class="w-full rounded-2xl bg-[#dddddd] p-6" src="/assets/imgs/intercocina-logo.png" alt="INTERCOCINA SAL">
+                        <img loading="lazy" width="200" height="auto" class="w-full rounded-2xl bg-[#dddddd] p-6" src="/assets/imgs/intercocina-logo.png" alt="INTERCOCINA SAL">
                     </div>
 
                     <div class="bg-accent-gray-300 w-28 h-28 md:w-52 md:h-52 rounded-full absolute -top-10 -right-3 md:-top-24 md:-right-8 lg:-top-12  lg:-right-8 z-0"

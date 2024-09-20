@@ -6,9 +6,7 @@
     <div class="relative z-10 grid gap-16 px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
         <div class="space-y-6">
             <h1 class="text-4xl font-bold text-left text-white md:text-4xl">Procédure de réclamation</h1>
-
             <div class="space-y-2">
-
                 <p class="text-white text-start md:text-lg" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
                     Chez Intercocina, nous nous efforçons de fournir la meilleure expérience possible à nos clients. Cependant, nous comprenons que des problèmes peuvent parfois survenir. Si vous avez une réclamation ou une préoccupation concernant nos produits ou services.
                 </p>
@@ -17,9 +15,8 @@
                     <li>Votre nom complet et vos coordonnées</li>
                     <li>Le numéro de commande ou de facture (le cas échéant)</li>
                     <li>Une description détaillée du problème</li>
-                    <li>Des photos ou vidéos du produit défectueux (si applicable)</li>
+                    <li>Votre numéro de téléphone</li>
                 </ul>
-
             </div>
         </div>
         <div>

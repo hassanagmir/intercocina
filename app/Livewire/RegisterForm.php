@@ -33,6 +33,8 @@ class RegisterForm extends Component
             'password' => Hash::make($this->password),
         ]);
 
+        $user->assignRole('client');
+
         Auth::login($user);
         $this->dispatch("reloadPage");
     }

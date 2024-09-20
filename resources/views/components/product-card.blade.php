@@ -1,10 +1,10 @@
 <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
     <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="{{ route('product.show', $slug) }}">
-      <img class="object-cover w-full h-full bg-gray-200" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
+      <img class="sm:object-cover object-contain w-full h-full" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
     </a>
     <div class="mt-4 px-5 pb-5">
       <a href="{{ route('product.show', $slug) }}">
-        <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ $name }}</h5>
+        <h3 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ $name }}</h3>
       </a>
       <div class="mt-2 mb-5 flex items-center justify-between">
         <p>

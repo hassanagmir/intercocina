@@ -21,6 +21,11 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return parent::getEloquentQuery()->where('status', 1)->count();
+    }
+
     public static function getModelLabel(): string
     {
         return __("Message");

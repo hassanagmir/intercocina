@@ -47,9 +47,6 @@
                                 {{ __("Contactez-nous") }}
                             </x-nav-link>
                         </li>
-
-                        
-
                         <li>
                             <div x-data="{ showModalCart: false }" @open-cart-modal.window="showModalCart = true" x-cloak x-show="showModalCart" class="fixed inset-0 z-30 backdrop-blur-md flex justify-center items-center" @keydown.escape.window="showModalCart = false">
                                 <div class="max-w-3xl px-6 py-4 mx-auto text-left bg-white rounded shadow-lg animate__animated animate__zoomIn animate__faster"
@@ -119,11 +116,11 @@
     <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
 
     {{-- Mobile navMenu --}}
-    <nav :class="openMenu ? 'visible' : 'invisible'" id="mobNav" class="fixed top-0 bottom-0 left-0 right-0 p-2 backdrop-blur-sm md:p-6 xl:hidden z-50">
+    <nav class="fixed top-0 bottom-0 left-0 right-0 p-2 backdrop-blur-sm md:p-6 xl:hidden z-50 hidden" :class="{ 'hidden': ! openMenu }" id="mobNav" x-transition>
         <ul :class="openMenu ? 'translate-x-0' : 'translate-x-full'" class="absolute top-0 bottom-0 right-0 w-10/12 py-8 text-lg transition-all bg-white drop-shadow-2xl">
             <li class="py-10">
                 <div class="flex justify-center ">
-                    <a href="/"><img class="h-[80px] md:h-[150px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt=""></a>
+                    <a href="/"><img class="h-[80px] md:h-[150px]" height="auto" width="auto" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt=""></a>
                 </div>
             </li>
             <li class="border-B border-inherit">

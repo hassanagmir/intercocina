@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="sm:mt-12 mt-0 order-first sm:order-last">
-                    <img src="/assets/imgs/intercocina-logo.png" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
+                    <img src="/assets/imgs/intercocina-logo.png" alt="Intercocina About Us Image" width="auto" height="auto" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
             </div>
         </div>
@@ -68,7 +68,7 @@
         <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
                 <div class="mt-12 md:mt-0 sm:order-first">
-                    <img src="https://intercocina.com/wp-content/uploads/2022/06/DSC008501-1-scaled.jpg" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
+                    <img src="https://intercocina.com/wp-content/uploads/2022/06/DSC008501-1-scaled.jpg" alt="Intercocina About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
                 <div class="max-w-lg">
                     <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Fabrication de meubles de cuisine</h2>

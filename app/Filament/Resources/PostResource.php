@@ -71,21 +71,17 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('post_category_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label(__("Images")),
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__("Titre"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tags')
+                    ->label(__("Mots-clés"))
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+                
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Créé à"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -95,6 +91,7 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

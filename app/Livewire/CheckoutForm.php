@@ -10,27 +10,30 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 
+
 class CheckoutForm extends Component
 {
 
     #[Validate('required')]
     public $address;
-    
 
-    public function mount(){
+
+    public function mount()
+    {
         // \Cart::clear();
-        // dd(\Cart::getContent());s
+        // dd(\Cart::getContent());
     }
 
 
-    public function save(){
+    public function save()
+    {
 
         $this->validate();
-        if(\Cart::getContent()->count() == 0){
+        if (\Cart::getContent()->count() == 0) {
             return $this->dispatch("reloadPage");
         }
 
-        if(Address::find($this->address)?->user_id != auth()->id()){
+        if (Address::find($this->address)?->user_id != auth()->id()) {
             session()->flash('message', __("Cette adresse n'est pas pour vous"));
             abort(404);
         }
@@ -42,7 +45,7 @@ class CheckoutForm extends Component
             'status' => OrderStatusEnum::ON_HOLD,
         ]);
 
-        foreach(\Cart::getContent() as $product){
+        foreach (\Cart::getContent() as $product) {
             OrderItem::create([
                 'order_id' => $order->id,
                 'code' => "INTER-" . strtoupper(Str::random(15)),
@@ -56,7 +59,6 @@ class CheckoutForm extends Component
 
         session()->flash('message', __('Mot de passe mis à jour avec succès. Veuillez vous reconnecter.'));
         return redirect()->route("order.list");
-
     }
 
 

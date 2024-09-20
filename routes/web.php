@@ -9,7 +9,6 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-use App\Livewire\ProductSearch;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Dimension;
@@ -19,8 +18,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
-
 
 
 Route::controller(PageController::class)->group(function () {
@@ -33,7 +30,9 @@ Route::controller(PageController::class)->group(function () {
     Route::get('profile', 'profile')->name('profile');
     Route::get('faqs', 'faqs')->name('faqs');
     Route::get('contact', 'contact')->name('contact');
+    Route::get('page/{page:slug}', 'show')->name('page.show');
 });
+
 
 Route::prefix('user')->group(function () {
     Route::get('password', [UserController::class, 'password'])->name('password');

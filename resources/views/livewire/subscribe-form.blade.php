@@ -6,9 +6,7 @@
 
     <div class="w-full relative z-20 space-y-6">
         <div class="space-y-2">
-            <h4 class="text-white text-4xl font-bold uppercase tracking-wide">
-                Newsletter
-            </h4>
+            <h3 class="text-white text-4xl font-bold uppercase tracking-wide"> Newsletter </h3>
             <p class="text-white text-lg">
                 Restez informés ! Abonnez-vous à notre newsletter.
             </p>

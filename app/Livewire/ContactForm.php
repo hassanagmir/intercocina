@@ -25,9 +25,9 @@ class ContactForm extends Component
 
         'phone.max' => 'Le numéro de téléphone ne peut pas dépasser 20 caractères.',
     
-        'email.required' => 'L\'adresse e-mail est requise.',
+        'email.required' => "L'adresse e-mail est requise.",
         'email.email' => 'Veuillez fournir une adresse e-mail valide.',
-        'email.max' => 'L\'adresse e-mail ne peut pas dépasser 255 caractères.',
+        'email.max' => "L'adresse e-mail ne peut pas dépasser 255 caractères.",
     
         'message.required' => 'Le message est requis.',
     
@@ -39,7 +39,7 @@ class ContactForm extends Component
 
     public function store()
     {
-        $this->validate($this->rules, $this->message);
+        $this->validate($this->rules, $this->messages);
 
         Contact::create([
             'full_name' => $this->full_name,

@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Faq;
 use App\Models\Order;
+use App\Models\Page;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class PageController extends Controller
 
     public function home(){
         $products = Product::all();
-        $title = __("Intercocina maroc");
+        $title = __("Fabricant de meubles de cuisine de lux.");
         return view('home', compact('products', 'title'));
     }
 
@@ -69,6 +70,11 @@ class PageController extends Controller
     public function contact(){
         $title = __("Contactez-nous");
         return view("pages.contact", compact('title'));
+    }
+
+    public function show(Page $page){
+        $title = $page->title;
+        return view("pages.show", compact('title', 'page'));
     }
 
     

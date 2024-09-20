@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('subject');
             $table->string('phone');
             $table->text('message');
+            $table->integer("status")->default(1);
             $table->timestamps();
         });
     }

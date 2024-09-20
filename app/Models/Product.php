@@ -73,4 +73,7 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class, 'order_items')->withPivot('quantity', 'total', 'status');
     }
+
+
+
 }

@@ -2,7 +2,7 @@
     
     <div class="flex items-center justify-between top-0">
         <!-- Title -->
-        <h5 class="mr-3 text-black max-w-none font-bold text-xl">Votre panier ({{ Cart::getContent()->count() }})</h5>
+        <div class="mr-3 text-black max-w-none font-bold text-xl">Votre panier ({{ Cart::getContent()->count() }})</div>
         
          <!-- Close -->
         <button type="button" class="z-50 cursor-pointer" @click="showModalCart = false" aria-label="Close Modal">
@@ -18,7 +18,7 @@
         <div class="space-y-6">
             @forelse( \Cart::getContent() as $product)
             <div wire:key='{{ $product->id }}'
-                class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                 <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                     <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="shrink-0 md:order-1">
                         <img class="h-20 w-20 dark:hidden" src="{{ Storage::url($product['attributes']['image']) }}"  alt="{{ $product['quantity'] }}">
@@ -27,27 +27,21 @@
                     <div class="flex items-center justify-between md:order-3 md:justify-end">
                         <div class="flex items-center">
                             <button type="button" id="decrement-button" data-input-counter-decrement="counter-input"
-                                class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                                <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M1 1h16"></path>
+                                class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
+                                <svg class="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"></path>
                                 </svg>
                             </button>
-                            <input type="text" id="counter-input"
-                                class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
-                                placeholder="1" value="{{ $product['quantity'] }}" required>
-                            <button type="button" id="increment-button" data-input-counter-increment="counter-input" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                                <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" aria-hidden="true"
+                            <input type="text" wire:model.change='quantity' id="counter-input" class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="1" value="{{ $product['quantity'] }}" required>
+                            <button type="button" id="increment-button" data-input-counter-increment="counter-input" class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
+                                <svg class="h-2.5 w-2.5 text-gray-900" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 1v16M1 9h16"></path>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"></path>
                                 </svg>
                             </button>
                         </div>
                         <div class="text-end md:order-4 md:w-32">
-                            <p class="text-base font-bold text-gray-900 dark:text-white">{{ $product['price'] *
-                                intval($product['quantity']) }} MAD</p>
+                            <p class="text-base font-bold text-gray-900">{{ $product['price'] * intval($product['quantity']) }} MAD</p>
                         </div>
                     </div>
 

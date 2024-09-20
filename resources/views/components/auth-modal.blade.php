@@ -34,7 +34,7 @@ class="fixed inset-0 z-50" aria-labelledby="modal-title" role="dialog" :aria-mod
 
             <div class="relative z-10 grid gap-4 px-4 md:grid-cols-2 md:gap-16 md:px-10 md:max-w-6xl md:mx-auto">
                 <div class="pb-16 space-y-6">
-                    <img class="w-52 bg-white rounded-xl p-5" src="/assets/imgs/intercocina-logo.png" alt="Login to you intercocina account" />
+                    <img class="w-52 bg-white rounded-xl p-5" src="/assets/imgs/intercocina-logo.png" width="208px" height="auto" alt="Login to you intercocina account" />
                     <h2 class="text-3xl font-bold text-left text-white md:text-4xl">
                         Toujours intéressés ? Rejoignez-nous maintenant.
                     </h2>

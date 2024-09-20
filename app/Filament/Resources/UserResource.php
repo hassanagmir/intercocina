@@ -28,6 +28,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+
+                Forms\Components\FileUpload::make('image')
+                    ->label(__("Image"))
+                    ->columnSpanFull()
+                    ->avatar(),
                 Forms\Components\TextInput::make('first_name')
                     ->label(__("Prénom"))
                     ->required()
@@ -37,31 +42,27 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
+                    ->label(__("Adresse"))
                     ->maxLength(255),
-                Forms\Components\TextInput::make('gender')
+                Forms\Components\Select::make('gender')
+                    ->options([
+                        'Mâle' => 'Mâle', 
+                        'Femelle' => 'Femelle'
+                    ])
                     ->label(__("Genre")),
                 Forms\Components\TextInput::make('phone')
                     ->label(__("Téléphone"))
                     ->tel()
                     ->maxLength(255),
              
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
+                    ->options([
+                        "active" =>  "Actif",
+                        "inactive" => "Inactif"
+                    ])
                     ->label(__("État"))
                     ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->label(__("E-mail"))
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at')
-                    ->native(false),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->label(__("Image"))
-                    ->image(),
+
             ]);
     }
 

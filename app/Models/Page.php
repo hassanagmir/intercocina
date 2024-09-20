@@ -18,8 +18,17 @@ class Page extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function newQuery($ordered = true)
+    {
+        $query = parent::newQuery();
+        if ($ordered) {
+            $query->orderBy('updated_at', 'desc');
+        }
+        return $query;
     }
 
 }

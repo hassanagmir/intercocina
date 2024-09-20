@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ClaimStatusEnum;
 use App\Filament\Resources\ReclamationResource\Pages;
 use App\Filament\Resources\ReclamationResource\RelationManagers;
 use App\Models\Reclamation;
@@ -36,6 +37,11 @@ class ReclamationResource extends Resource
     public static function canEdit(Model $record): bool
     {
         return false;
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return parent::getEloquentQuery()->where('status', 1)->count();
     }
 
     
@@ -79,6 +85,11 @@ class ReclamationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('subject')
                     ->label(__("Sujet"))
+                    ->searchable(),
+
+                Tables\Columns\SelectColumn::make('status')
+                    ->options(ClaimStatusEnum::class)
+                    ->label(__("Etat"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Créé à"))

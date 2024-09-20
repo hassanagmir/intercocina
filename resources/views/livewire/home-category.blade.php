@@ -12,7 +12,7 @@
             </a>
             <div class="mt-4 pb-5 ">
             <a href="{{ route('category.show', $category->slug) }}">
-                <h5 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ $category->name }}</h5>
+                <h3 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ $category->name }}</h3>
             </a>
             <div class="mt-2 mb-5 flex items-center justify-between">
                 <p class="w-full">
