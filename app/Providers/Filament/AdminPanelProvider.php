@@ -17,6 +17,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use CharrafiMed\GlobalSearchModal\Customization\Position;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -33,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Rose,
             ])
+            ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -49,6 +51,12 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationIcon('heroicon-o-adjustments-vertical')
                     ->navigationGroup('Autorisation')
                     ->pluralLabel(__("Journaux d'activité")),
+                \CharrafiMed\GlobalSearchModal\GlobalSearchModalPlugin::make()
+                    ->position(
+                        fn (Position $position) => $position
+                            ->top(100, 'px')     // Numeric value with unit
+                            ->right('30rem')     // String with unit
+                    )
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -67,9 +75,9 @@ class AdminPanelProvider extends PanelProvider
                 "Plus d'options",
                 "Autorisation",
             ])
+            
             ->authMiddleware([
                 Authenticate::class,
-            ])->viteTheme('resources/css/filament/admin/theme.css')
-            ->databaseNotifications();
+            ])->viteTheme('resources/css/filament/admin/theme.css');
     }
 }

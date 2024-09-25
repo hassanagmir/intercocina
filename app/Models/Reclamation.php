@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use App\Enums\ClaimStatusEnum;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\CliamObserver;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
+#[ObservedBy([CliamObserver::class])]
 class Reclamation extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
 
     protected $casts = [
@@ -19,4 +24,10 @@ class Reclamation extends Model
     protected $fillable = [
         'client_number', 'full_name', 'subject', 'phone', 'message', 'status'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['full_name', 'phone', 'subject', "client_number"]);
+    }
 }

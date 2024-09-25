@@ -29,4 +29,12 @@ class UserController extends Controller
         return view("user.register");
     }
 
+    public function forgot(){
+        return view("user.forgot-password");
+    }
+
+    public function reset(){
+        return view("user.reset-password");
+    }
+
 }

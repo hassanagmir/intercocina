@@ -41,15 +41,15 @@
                         @foreach ($articles as $product)
                         <div class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm md:p-3">
                             <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                <a href="http://localhost:8000/product/caisson-haut-avec-etagere" class="shrink-0 md:order-1">
-                                    <img class="h-20 w-20" src="/storage/01J7JX834XGGXGVCSPBE9456C2.png" alt="1">
+                                <a href="{{ route('product.show', $product->slug )}}" class="shrink-0 md:order-1">
+                                    <img class="h-20 w-20" src="{{ Storage::url($product?->images->first()?->image) }}" alt="{{ $product->name }}">
                                 </a>
                                 <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                    <a href="http://localhost:8000/product/caisson-haut-avec-etagere" class="text-base font-bold text-gray-900 hover:underline">
+                                    <a href="{{ route('product.show', $product->slug )}}" class="text-base font-bold text-gray-900 hover:underline">
                                         {{ $product->name }}
                                     </a>
                                     <div class="flex items-center gap-4">
-                                        <strong>{{ $product->price }} {{__("MAD")}}</strong>
+                                        <strong>{{ $product->price() }} {{__("MAD")}}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -62,10 +62,7 @@
                         @elseif(count($articles) == 0)
                             <div class="text-lg font-semibold text-center">{{ __("No produits") }} ({{ $search }})</div>
                         @endif
-                    </div>
-
-
-                    
+                    </div>                    
                 </div>
             </div>
         </div>

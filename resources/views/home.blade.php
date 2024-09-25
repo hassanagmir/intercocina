@@ -32,7 +32,7 @@
             <div class="absolute z-0 rounded-full -top-8 -right-16  w-28 h-28 md:w-52 md:h-52 bg-accent-gray-200" x-animate.delay.500="zoomIn"></div>
             <div class="absolute rounded-full -bottom-8 -left-16 md:-bottom-16 bg-accent-red-400 w-36 h-36 md:w-64 md:h-64" x-animate.delay.500="zoomIn"></div>
             {{-- <img class="relative z-20 rounded-3xl" src="https://placehold.co/550x300" alt="" x-animate="zoomIn"> --}}
-            <img class="relative z-20 rounded-3xl aspect-video animate__animated animate__zoomIn" src="https://placehold.co/550x300" alt="" x-animate="zoomIn" style="--animate-duration: 1s;">
+            <img class="relative z-20 rounded-3xl aspect-video animate__animated animate__zoomIn" src="https://placehold.co/550x300" width="550" height="300" alt="" x-animate="zoomIn" style="--animate-duration: 1s;">
         </div>
 
         
@@ -139,7 +139,7 @@
                         Nous fusionnons innovation et design sophistiqué pour offrir des solutions qui allient fonctionnalité et esthétique. Notre expertise repose sur des années d’expérience et une passion inébranlable pour la qualité.
                     </p>
                     <div class="py-10 flex md:justify-start justify-center">
-                        <a href="#" class="btn btn-accent-white-filled" x-animate.intersect.threshold.75="fadeInRight">
+                        <a href="{{ route("user.login") }}" class="btn btn-accent-white-filled" x-animate.intersect.threshold.75="fadeInRight">
                             Je m'inscris
                         </a>
                     </div>
@@ -149,7 +149,7 @@
             <div class="px-0 w-full h-full order-1 md:order-2">
                 <div class="relative flex items-center w-full h-full">
                     <div class="relative left-0 top-0 w-full h-full px-4 z-10">
-                        <img loading="lazy" width="200" height="auto" class="w-full rounded-2xl bg-[#dddddd] p-6" src="/assets/imgs/intercocina-logo.png" alt="INTERCOCINA SAL">
+                        <img loading="lazy" width="200" height="auto" class="w-full rounded-2xl bg-[#dddddd] p-6" src="/assets/imgs/intercocina-logo.png" alt="INTERCOCINA SAL" title="INTERCOCINA SAL">
                     </div>
 
                     <div class="bg-accent-gray-300 w-28 h-28 md:w-52 md:h-52 rounded-full absolute -top-10 -right-3 md:-top-24 md:-right-8 lg:-top-12  lg:-right-8 z-0"

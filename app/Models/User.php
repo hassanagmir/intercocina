@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Notifications\ResetPasswordNotification;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,10 +12,12 @@ use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Spatie\Permission\Traits\HasRoles;
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable implements HasName, FilamentUser
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasPanelShield;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +27,7 @@ class User extends Authenticatable implements HasName, FilamentUser
     protected $fillable = [
         'first_name',
         'last_name',
+        'full_name',
         'email',
         "gender",
         'address',
@@ -32,6 +36,13 @@ class User extends Authenticatable implements HasName, FilamentUser
         'status',
         'password',
     ];
+
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 
     public function getFilamentName(): string
     {
@@ -65,5 +76,11 @@ class User extends Authenticatable implements HasName, FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['full_name', 'email']);
     }
 }

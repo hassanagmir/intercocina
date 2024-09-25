@@ -14,8 +14,7 @@
                         <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                             <div class="flex items-center justify-between md:order-3 md:justify-end">
                                 <div class="text-end md:order-4 md:w-32">
-                                    <p class="text-base font-bold text-gray-900 dark:text-white">{{ $product['price'] }}
-                                        MAD</p>
+                                    <p class="text-base font-bold text-gray-900 dark:text-white text-nowrap">{{$product['quantity']}} &#xa0;  x &#xa0; {{ $product['price'] }} MAD</p>
                                 </div>
                             </div>
                             <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
@@ -30,7 +29,7 @@
                     </div>
                     @empty
                     <div class="flex justify-center py-4">
-                        <img class="w-20" src="/assets/imgs/empty-cart.png" alt="Cart empty">
+                        <img class="w-20"  src="/assets/imgs/empty-cart.png" width="80px" height="auto" alt="Cart empty" title="Cart empty" loading="lazy">
                     </div>
                     @endforelse
                     <!-- Card -->

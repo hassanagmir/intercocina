@@ -1,5 +1,4 @@
 <div class="grid grid-cols-12 mb-11 mt-6">
-
     <div class="col-span-12 xl:col-span-4 flex items-center">
         <div class="box flex flex-col gap-y-4 w-full max-xl:max-w-3xl mx-auto">
             @foreach ($stars as $star => $value)
@@ -17,7 +16,7 @@
         <div class="grid grid-cols-12 h-full px-8 max-lg:py-8 rounded-3xl bg-gray-200 border-2 w-full max-xl:max-w-3xl max-xl:mx-auto">
             <div class="col-span-12 md:col-span-8 sm:flex sm:items-center">
                 <div class="sm:pr-3 sm:border-r border-gray-200 flex items-center justify-center flex-col">
-                    <h2 class="font-manrope font-bold text-5xl text-black text-center mb-4">{{ $averageRating }}</h2>
+                    <div class="font-manrope font-bold text-5xl text-black text-center mb-4">{{ $averageRating }}</div>
                     <div class="flex items-center gap-3 mb-4">
                         <template x-for="star in [1,2,3,4,5]" :key="star">
                             <svg width="36" height="36"
@@ -45,5 +44,4 @@
             </div>
         </div>
     </div>
- 
 </div>

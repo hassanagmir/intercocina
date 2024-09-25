@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DimensionResource\Pages;
-use App\Filament\Resources\DimensionResource\RelationManagers;
 use App\Models\Dimension;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DimensionResource extends Resource
 {
@@ -39,7 +36,6 @@ class DimensionResource extends Resource
                             ->numeric()
                             ->prefix('MAD'),
                         Forms\Components\Select::make('product_id')
-                            ->searchable()
                             ->preload()
                             ->relationship('product', "name")
                             ->label(__("Produit"))

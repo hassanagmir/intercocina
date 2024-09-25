@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function show(Product $product){
-        return view('product.show', compact('product'));
+        $products = Product::where('type_id', $product->type_id)->paginate(4);
+        return view('product.show', compact('product', 'products'));
     }
 
     public function list(){

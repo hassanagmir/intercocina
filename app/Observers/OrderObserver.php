@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Notifications\OrderNotification;
 use Filament\Notifications\Notification;
 
+
 class OrderObserver
 {
     /**
@@ -22,12 +23,9 @@ class OrderObserver
             $admin->notify(new OrderNotification($order));
 
             // Intercocina db notifications
-            $admin->notify(
-                Notification::make()
-                    ->title('Created successfully')
-                    ->success()
-                    ->toDatabase(),
-            );
+            Notification::make()
+                ->title('Saved successfully')
+                ->sendToDatabase($admin);
         }
 
        

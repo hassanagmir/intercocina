@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction;
 
 class UserResource extends Resource
 {
@@ -22,6 +23,13 @@ class UserResource extends Resource
     public static function getModelLabel(): string
     {
         return __("Utilisateur");
+    }
+
+    protected static ?string $recordTitleAttribute = "full_name";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['full_name', 'first_name', 'last_name', 'email', 'phone'];
     }
 
     public static function form(Form $form): Form
@@ -45,6 +53,7 @@ class UserResource extends Resource
                     ->label(__("Adresse"))
                     ->maxLength(255),
                 Forms\Components\Select::make('gender')
+                    ->native(false)
                     ->options([
                         'Mâle' => 'Mâle', 
                         'Femelle' => 'Femelle'
@@ -54,14 +63,26 @@ class UserResource extends Resource
                     ->label(__("Téléphone"))
                     ->tel()
                     ->maxLength(255),
+
+                Forms\Components\TextInput::make('email')
+                    ->label(__("E-mail"))
+                    ->email()
+                    ->maxLength(255),
              
                 Forms\Components\Select::make('status')
+                    ->native(false)
                     ->options([
                         "active" =>  "Actif",
                         "inactive" => "Inactif"
                     ])
                     ->label(__("État"))
                     ->required(),
+    
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
 
             ]);
     }
@@ -98,6 +119,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                ActivityLogTimelineTableAction::make('Activities'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

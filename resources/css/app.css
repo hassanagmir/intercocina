@@ -114,3 +114,9 @@
 
     border-color: rgb(239 68 68 / 500);
 }
+
+
+.pswp__img{
+    height: auto!important;
+    margin-top: 7rem;
+}

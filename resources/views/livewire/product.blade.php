@@ -5,8 +5,8 @@
         <div class="swiper main-slide-carousel swiper-container relative mb-6">
             <div class="swiper-wrapper" id="gallery">
                 @foreach ($product->images as $image)
-                <a href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item" data-pswp-width="1875" data-pswp-height="2500" target="_blank">
-                    <img src="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="max-lg:mx-auto rounded-2xl">
+                <a href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1875" data-pswp-height="2500" target="_blank">
+                    <img src="{{ Storage::url($image->image) }}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="max-lg:mx-auto rounded-2xl">
                 </a>
                 @endforeach
             </div>
@@ -16,7 +16,7 @@
             <div class="swiper-wrapper">
                 @foreach ($product->images as $image)
                 <div class="swiper-slide thumbs-slide">
-                    <img src="{{ Storage::url($image->image)}}" alt="{{ $product->name }}" class="cursor-pointer rounded-xl transition-all duration-500">
+                    <img src="{{ Storage::url($image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500">
                 </div>
                 @endforeach
             </div>
@@ -28,7 +28,7 @@
             <div class="sm:flex flex-initial items-center justify-between gap-6 mb-4">
                 <div class="text">
                     <h1 class="font-manrope font-bold sm:text-3xl text-2xl leading-10 text-gray-900 mb-2">{{ $product->name }}</h1>
-                    <p class="font-normal text-base text-gray-500">{{ $product->type->name }}</p>
+                    <h2 class="font-normal text-base text-gray-500">{{ $product->type->name }}</h2>
                 </div>
                 <button class="group transition-all duration-500 p-0.5 sm:block hidden">
                     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@
 
             <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center mb-5 gap-y-3 flex-wrap">
                 <div class="flex items-center">
-                    <h5 class="font-manrope font-semibold sm:text-2xl text-xl leading-9 text-gray-900">
+                    <div class="font-manrope font-semibold sm:text-2xl text-xl leading-9 text-gray-900">
                         <div role="status" wire:loading wire:target='dimensionChanaged()'>
                             <svg aria-hidden="true"
                                 class="inline me-1.5 h-5 w-5 text-white animate-spin dark:text-gray-600 fill-red-600"
@@ -58,7 +58,7 @@
                             </svg>
                         </div>
                         <span wire:loading.remove wire:target='dimensionChanaged()'>{{ $price }}</span> {{ __("MAD")}}
-                    </h5>
+                    </div>
                     <span class="ml-3 font-semibold text-lg text-green-600"> {{ $product->status->getLabel()}} </span>
                 </div>
                 <svg class="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36"

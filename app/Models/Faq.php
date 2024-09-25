@@ -18,4 +18,5 @@ class Faq extends Model
         return LogOptions::defaults()
         ->logOnly(['question', 'answer']);
     }
+
 }

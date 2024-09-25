@@ -18,7 +18,7 @@
 
         <meta property="og:description" content="Fort d'une expérience de plus d'une décennie, Intercocia, leader en tant que fabricant de meubles de cuisine de lux.">
         <meta property="og:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
-
+        <link rel="icon" type="image/x-icon" href="\assets\imgs\favicon.png">
         {{-- Twitter --}}
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{ request()->fullUrl() }}">
@@ -27,8 +27,14 @@
         <meta property="twitter:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+
+        <style>
+            .grid {
+                display: grid !important;
+            }
+        </style>
     </head>
-    <body class="bg-red-50 ">
+    <body class="bg-red-50">
         <x-navigation />
         <main class="mt-16">
             @yield('content')

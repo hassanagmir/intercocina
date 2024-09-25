@@ -14,7 +14,7 @@
 
                 <div class="py-4 ">
                     <a href="/">
-                        <img class="md:w-[130px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="{{ config('app.name') }}'s logo">
+                        <img class="md:w-[130px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" width="auto" height="auto" alt="{{ config('app.name') }}'s logo" title="Intercocina logo" loading="lazy">
                     </a>
                 </div>
 
@@ -81,7 +81,7 @@
                         @if (auth()->user())
                         <div>
                             <a href="{{ route("profile") }}">
-                                <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
+                                <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300" width="auto" height="auto" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
                             </a>
                         </div>
                         @else
@@ -120,7 +120,7 @@
         <ul :class="openMenu ? 'translate-x-0' : 'translate-x-full'" class="absolute top-0 bottom-0 right-0 w-10/12 py-8 text-lg transition-all bg-white drop-shadow-2xl">
             <li class="py-10">
                 <div class="flex justify-center ">
-                    <a href="/"><img class="h-[80px] md:h-[150px]" height="auto" width="auto" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt=""></a>
+                    <a href="/"><img class="h-[80px] md:h-[150px]" height="80px" width="auto" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="Interconcina logo" title="Interconcina logo" loading="lazy"></a>
                 </div>
             </li>
             <li class="border-B border-inherit">

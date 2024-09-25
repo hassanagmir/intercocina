@@ -43,6 +43,7 @@ class CheckoutForm extends Component
             'code' => "INTER-" . Str::random(15),
             'total_amount' => \Cart::getTotal(),
             'status' => OrderStatusEnum::ON_HOLD,
+            'address_id' => $this->address
         ]);
 
         foreach (\Cart::getContent() as $product) {

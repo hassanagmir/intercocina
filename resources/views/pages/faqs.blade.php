@@ -7,7 +7,7 @@
         <div class="px-4 mx-auto max-w-screen-xl text-center lg:px-12">
             <div class="w-full flex justify-center py-6">
                 <a href="#">
-                    <img class="w-48" src="/assets/imgs/intercocina-logo.png" alt="Intercocina faq">
+                    <img class="w-48" src="/assets/imgs/intercocina-logo.png" width="192px" height="auto" title="Intercocina FAQs" loading="lazy" alt="Intercocina faq">
                 </a>
             </div>
             <h1

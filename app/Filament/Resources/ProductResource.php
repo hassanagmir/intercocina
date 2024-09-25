@@ -27,6 +27,13 @@ class ProductResource extends Resource
         return __("Produit");
     }
 
+    protected static ?string $recordTitleAttribute = "name";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'description', 'tags'];
+    }
+
     protected static ?string $navigationGroup = "Porduits";
 
     public static function form(Form $form): Form
@@ -42,7 +49,6 @@ class ProductResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('code')
-                                    ->required()
                                     ->maxLength(255),
                                 Forms\Components\Select::make('status')
                                     ->native(false)

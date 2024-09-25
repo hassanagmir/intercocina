@@ -10,10 +10,14 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Notifications\Notification;
 use Filament\Support\Enums\IconSize;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\HtmlString;
 
 class ViewOrder extends ViewRecord
 {
     protected static string $resource = OrderResource::class;
+
+    protected static string $view = 'filament.view-order';
 
 
     public function notify($text){
@@ -23,6 +27,12 @@ class ViewOrder extends ViewRecord
             ->send();
     }
 
+
+    public function getTitle(): Htmlable
+    {
+        return new HtmlString("<span class='text-xl'>{$this->getRecordTitle()} {$this->record->code}</span>");
+    }
+        
 
     protected function getHeaderActions(): array
     {

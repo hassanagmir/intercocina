@@ -40,7 +40,7 @@
                     {{ __("S'inscrire") }}
                 </button>
                 <div class="mt-2">
-                    <a href="{{ route('user.register') }}" class="text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                    <a href="{{ route('user.login') }}" class="text-sm font-medium text-red-600 hover:underline dark:text-red-500">
                         {{ __("J'ai déjà un compte?") }}
                     </a>
                 </div>

@@ -40,7 +40,7 @@
                 </div>
                 @empty
                 <div class="flex justify-center py-4">
-                    <img class="w-20" src="/assets/imgs/empty-cart.png" alt="Cart empty">
+                    <img class="w-20" src="/assets/imgs/empty-cart.png" width="80px" height="auto" alt="Cart empty" width="80px" height="auto">
                 </div>
                 @endforelse
                 <!-- Card -->

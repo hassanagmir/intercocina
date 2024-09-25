@@ -9,7 +9,7 @@
     <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px; margin: auto; background-color: #ffffff; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
         <tr>
             <td style="padding: 20px 0; text-align: center; background-color: #e7e7e7;">
-                <img src="{{ config('app.url') }}/assets/imgs/intercocina-logo.png" alt="Intercocina" style="max-width: 150px; height: auto;">
+                <img src="{{ config('app.url') }}/assets/imgs/intercocina-logo.png" alt="Intercocina" loading="lazy" title="Intercocina" width="auto" height="auto" style="max-width: 150px; height: auto;">
             </td>
         </tr>
         <tr>

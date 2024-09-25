@@ -8,10 +8,65 @@ use Livewire\Component;
 class CartForm extends Component
 {
 
-    
-    public function delete($product_id){
-        \Cart::remove($product_id);
+    public array $cartItems = [];
+
+    public function mount(): void
+    {
+        $this->updateCartItems();
     }
+
+
+    public function updateQuantity($productId, int $quantity): void
+    {
+        if ($quantity <= 0) {
+            $this->delete($productId);
+            return;
+        }
+
+        try {
+            \Cart::update($productId, [
+                'quantity' => [
+                    'relative' => false,
+                    'value' => $quantity
+                ]
+            ]);
+        } catch (Exception $e) {
+            $this->dispatch('error', ['message' => 'Failed to update cart']);
+        }
+    }
+
+
+
+    
+    private function updateCartItems(): void
+    {
+        $currentItems = \Cart::getContent()->toArray();
+        $this->cartItems = $currentItems;
+    }
+
+    #[On('add-to-cart')]
+    public function updateCart(): void
+    {
+        $currentItems = \Cart::getContent()->toArray();
+        $this->cartItems = $currentItems;
+    }
+
+
+    public function clearCart(): void
+    {
+        \Cart::clear();
+        $this->updateCartItems();
+    }
+
+
+    public function delete($product_id) : void
+    {
+        \Cart::remove($product_id);
+        $currentItems = \Cart::getContent()->toArray();
+        $this->cartItems = $currentItems;
+        $this->dispatch('remove-from-cart');
+    }
+
 
     #[On('add-to-cart')] 
     public function render()

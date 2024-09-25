@@ -5,12 +5,14 @@ namespace App\Models;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Product extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, LogsActivity;
 
 
     protected $fillable = [
@@ -29,6 +31,13 @@ class Product extends Model
         'options' => 'array',
         'status' =>  ProductStatusEnum::class,
     ];
+
+
+    public function getActivityLogOptions() : LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'id', 'description', 'code', 'content', 'tags',]);
+    }
 
 
 

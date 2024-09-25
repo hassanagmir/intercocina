@@ -5,6 +5,11 @@ namespace App\Providers;
 use Darryldecode\Cart\CartServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use App\Policies\ActivityPolicy;
+use Illuminate\Support\Facades\Gate;
+use Spatie\Activitylog\Models\Activity;
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::policy(Activity::class, ActivityPolicy::class);
+        FilamentColor::register([
+            'all' => Color::hex('#ff0000'),
+        ]);
+
 
     }
 }

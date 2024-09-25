@@ -36,10 +36,14 @@ Route::controller(PageController::class)->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::get('password', [UserController::class, 'password'])->name('password');
+    Route::get('forgot-password', [UserController::class, 'forgot'])->name('forgot');
+    // Route::get('reset-password', [UserController::class, 'reset'])->name('reset');
     Route::get('edit', [UserController::class, 'edit'])->name('user.edit');
     Route::get('login', [UserController::class, 'login'])->name('user.login');
     Route::get('register', [UserController::class, 'register'])->name('user.register');
 });
+
+// Route::get('/forgot-password', \App\Http\Livewire\ForgotPassword::class)->name('password.request');
 
 Route::prefix('')->group(function () {
     Route::get('produits', [ProductController::class, 'list'])->name("products");
@@ -65,8 +69,11 @@ Route::prefix('event')->group(function () {
 });
 
 
-Route::get('blogs', [PostController::class, 'index'])->name('post.index');
-Route::get('blogs/{post:slug}', [PostController::class, 'show'])->name('post.show');
+Route::prefix('blogs')->group(function(){
+    Route::get('', [PostController::class, 'index'])->name('post.index');
+    Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');
+});
+
 
 Route::get('reclamation', [ClaimController::class, 'create'])->name('claim.create');
 
@@ -132,3 +139,11 @@ Route::post('json', function (Request $request) {
 
     return response()->json(['data' => $processedData]);
 })->name('json');
+
+
+
+// In routes/web.php
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('user.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');

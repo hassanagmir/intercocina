@@ -154,6 +154,7 @@ import 'photoswipe/style.css';
 const lightbox = new PhotoSwipeLightbox({
   gallery: '#gallery',
   children: 'a',
+  showHideAnimationType: 'fade',
   pswpModule: () => import('photoswipe')
 });
 lightbox.init();
