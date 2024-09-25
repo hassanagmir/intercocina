@@ -3,18 +3,18 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-20 overflow-x-hidden md:overflow-visible">
     <div class="px-4 mx-auto max-w-screen-xl">
-        <h1 class="mb-8 text-2xl font-bold text-gray-900">{{ __("Derniers articles") }}</h1>
+        <h1 class="mb-8 text-2xl font-bold text-gray-900">{{ __("Derniers blog articles") }}</h1>
         <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($posts as $post)
             <article class="w-full">
                 <a href="{{ route('post.show', $post->slug)}}">
-                    <img src="{{ Storage::url($post->image) }}"class="bg-[#dddddd] border h-80 mb-5 object-contain rounded-lg w-full" alt="{{ $post->title }}">
+                    <img src="{{ Storage::url($post->image) }}" class="bg-[#dddddd] border h-80 mb-5 object-contain rounded-lg w-full" alt="{{ $post->title }}" width="100%" height="100%" title="{{ $post->title }}" loading="lazy">
                 </a>
                 <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900">
                     <a href="{{ route('post.show', $post->slug)}}">{{ $post->title }}</a>
                 </h2>
                 <p class="mb-4 text-gray-500">{{ Str::limit($post->description, 90, "...")}}</p>
-                <a href="{{ route('post.show', $post->slug)}}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+                <a href="{{ route('post.show', $post->slug)}}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 hover:no-underline">
                     {{ __("En savoir plus sur nous") }} →
                 </a>
             </article>

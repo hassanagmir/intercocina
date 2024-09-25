@@ -26,7 +26,7 @@ class Order extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['user_id', 'code', 'total_amoount', 'address_id']);
+            ->logOnly(['user_id', 'code', 'total_amoount']);
     }
 
 
@@ -47,12 +47,4 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function newQuery($ordered = true)
-    {
-        $query = parent::newQuery();
-        if ($ordered) {
-            $query->orderBy('created_at', 'desc');
-        }
-        return $query;
-    }
 }

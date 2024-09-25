@@ -36,9 +36,21 @@ class OrderResource extends Resource
         return parent::getEloquentQuery()->where('status', 1)->count();
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return Order::query()->latest();
+    }
+
     public static function getModelLabel(): string
     {
         return __("Commande");
+    }
+
+    protected static ?string $recordTitleAttribute = "code";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['code'];
     }
 
     public static function form(Form $form): Form

@@ -75,11 +75,7 @@ class PostResource extends Resource
                     ->label(__("Images")),
                 Tables\Columns\TextColumn::make('title')
                     ->label(__("Titre"))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tags')
-                    ->label(__("Mots-clés"))
-                    ->searchable(),
-                
+                    ->searchable(),                
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Créé à"))
                     ->dateTime()

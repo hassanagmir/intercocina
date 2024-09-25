@@ -14,7 +14,7 @@ class ResetPasswordNotification extends ResetPassword
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject("Notification de réinitialisation du mot de passe")
+            ->subject("Réinitialisation du mot de passe")
             ->line('Vous recevez cet e-mail parce que nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.')
             ->action('Réinitialiser le mot de passe', url(config('app.url').route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
             ->line('Ce lien de réinitialisation de mot de passe expirera dans :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')])

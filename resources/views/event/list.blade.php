@@ -32,15 +32,15 @@
         @foreach ($events as $event)
             <div class="rounded-xl bg-white border-2 border-gray-400 overflow-hidden">
                 <a class="relative flex sm:h-96 h-auto overflow-hidden bg-gray-300" href="{{ route('event.show', $event->slug) }}">
-                    <img class="object-cover w-full h-full border-gray-400" src="{{ $event->getFirstMediaUrl() }}" alt="{{ $event->title }}" />
+                    <img class="object-cover w-full h-full border-gray-400" src="{{ $event->getFirstMediaUrl() }}" alt="{{ $event->title }}" title="{{ $event->title }}" loading="lazy" width="100%" height="100%" />
                 </a>
                 <div class="mt-4 pb-5 px-3">
                     <a href="{{ route('event.show', $event->slug) }}">
-                        <h5 class="text-lg font-semibold leading-tight text-gray-900">{{ $event->title }}</h5>
+                        <h2 class="text-lg font-semibold leading-tight text-gray-900">{{ $event->title }}</h2>
                     </a>
                     <div class="mt-2 flex items-center justify-between">
                         <p class="w-full">
-                            <span class="text-sm text-slate-900">{{ $event->description }}</span>
+                            <span class="text-sm text-slate-900">{{ Str::limit($event->description, 80, "....") }}</span>
                         </p>
                     </div>
                 </div>

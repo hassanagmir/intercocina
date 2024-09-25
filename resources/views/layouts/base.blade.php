@@ -9,6 +9,7 @@
         <meta name="description" content="Fort d'une expérience de plus d'une décennie, Intercocia, leader en tant que fabricant de meubles de cuisine de lux.">
         <title>{{ (isset($title) ? $title . ' - ' : '') . config('app.name', 'Laravel') }}</title>
         <link rel="canonical" href="{{ request()->fullUrl() }}" />
+        <meta name="keywords" content="mobile de cuisine, Caisson , Facade, Placards, Parquets, Tiroirs, Armoire, Caissons Bas, Caissons Haut, Caissons column">
 
         {{-- Open Graph / Facebook --}}
         <meta property="og:type" content="website">
@@ -27,7 +28,6 @@
         <meta property="twitter:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
-
         <style>
             .grid {
                 display: grid !important;
