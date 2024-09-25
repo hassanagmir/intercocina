@@ -26,12 +26,17 @@ class TypeResource extends Resource
         return __("Type");
     }
 
+    protected static ?string $recordTitleAttribute = "name";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'tags', 'description'];
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
-
                 Forms\Components\Grid::make(3)
                     ->schema([
                         Forms\components\Section::make()

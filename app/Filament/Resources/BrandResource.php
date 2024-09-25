@@ -24,6 +24,13 @@ class BrandResource extends Resource
         return __("Marque");
     }
 
+    protected static ?string $recordTitleAttribute = "name";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'tags', 'description'];
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -69,11 +76,6 @@ class BrandResource extends Resource
                                     ->required(),
                             ])->columnSpan(1),
 
-
-
-
-
-
                     ])
             ]);
     }
@@ -89,10 +91,10 @@ class BrandResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label(__("Marque"))
                     ->searchable(),
-                    
+
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
-                
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Crée le"))
                     ->date()

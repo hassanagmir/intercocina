@@ -35,7 +35,19 @@ class Product extends Component
 
     public $averageRating = 0;
 
-    
+
+    public function getAvgRating()
+    {
+        $totalReviews = Review::where("product_id", $this->product->id)->count();
+        if ($totalReviews == 0) {
+            return 0;
+        }
+
+        $totalStars = Review::where('product_id', $this->product->id)->sum('stars');
+
+        return round($totalStars / $totalReviews, 2);
+    }
+
 
     public function mount()
     {
@@ -79,18 +91,6 @@ class Product extends Component
     }
 
 
-    public function getAvgRating()
-    {
-        $totalReviews = $this->product->reviews->count();
-
-        if ($totalReviews === 0) {
-            return 0;
-        }
-
-        $totalStars = Review::where('product_id', $this->product->id)->sum('stars');
-
-        return round($totalStars / $totalReviews, 2);
-    }
 
 
 

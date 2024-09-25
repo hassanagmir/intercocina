@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@alpinejs/focus": "^3.14.1",
+        "@fontsource/overpass": "^5.1.0",
         "@fontsource/raleway": "^5.0.19",
         "alpinejs": "^3.14.1",
         "alpinejs-animate": "^0.1.3",

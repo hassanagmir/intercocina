@@ -33,26 +33,21 @@
                     {{ __("Nos recommandations") }}
                 </span>
             </h2>
+
+            
             <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach ($products as $product)
-                    <x-product-card
-                        name="{{ $product->name}}"
-                        price="{{ $product->price() }}"
-                        image="{{ $product->images?->first()?->image }}"
-                        slug="{{ $product->slug }}"
-                     />
+                <x-product-card name="{{ $product->name}}" price="{{ $product->price() }}"
+                    image="{{ $product->images?->first()?->image }}" slug="{{ $product->slug }}" />
                 @endforeach
             </div>
 
-            {{-- Rating result --}}
-            <div>
-                <h2 class="mb-2 mt-3 text-2xl font-black">
-                    <span class="underline underline-offset-3 decoration-7 decoration-red-400">
-                        {{ __("Avis produit") }}
-                    </span>
-                </h2>
-                @livewire('rating', ['product' => $product], key($product->id))
+
+
+            <div class="bg-white border-2 p-4 rounded-2xl mt-10">
+                @livewire('rating-form', ['product' => $product], key($product->id))
             </div>
+
 
             {{-- Rating list --}}
             <div>

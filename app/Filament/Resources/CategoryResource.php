@@ -24,6 +24,13 @@ class CategoryResource extends Resource
         return __("Catégorie");
     }
 
+    protected static ?string $recordTitleAttribute = "name";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'tags', 'description'];
+    }
+
 
     protected static ?string $navigationGroup = "Porduits";
 

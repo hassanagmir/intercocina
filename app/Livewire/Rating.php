@@ -18,7 +18,7 @@ class Rating extends Component
         if ($totalReviews === 0) {
             $percentage = 0;
         } else {
-            $reviewsForStar = Review::where('stars', $stars)->count();
+            $reviewsForStar = Review::where('stars', $stars)->where('product_id', $this->product->id)->count();
             $percentage = ($reviewsForStar / $totalReviews) * 100;
         }
 
@@ -34,7 +34,7 @@ class Rating extends Component
     {
         $totalReviews = $this->product->reviews->count();
 
-        if ($totalReviews === 0) {
+        if ($totalReviews == 0) {
             return 0;
         }
 
