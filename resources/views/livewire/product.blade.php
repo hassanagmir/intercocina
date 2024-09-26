@@ -89,7 +89,7 @@
                     <span class="text-base font-medium text-white">{{ floatval($averageRating) }}</span>
 
                 </button>
-                <div role="status" wire:loading wire:loading.attr="disabled" class="px-4">
+                <div role="status" wire:loading wire:loading.attr="disabled" class="px-4 sm:block hidden">
                     <svg aria-hidden="true"
                         class="inline me-1.5 h-5 w-5 text-white animate-spin dark:text-gray-600 fill-red-600"
                         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
