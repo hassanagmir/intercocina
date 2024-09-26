@@ -58,7 +58,7 @@ class ProductList extends Component
             $products = [];
         }else{
             $type = Type::where('slug', $this->type)?->first();
-            $products = $type?->products ?? [];
+            $products = Product::where("type_id", $type->id)->whereNot("status", 2)->get() ?? [];
             $this->products_type = $type;
             
         }

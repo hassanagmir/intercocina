@@ -201,7 +201,10 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\SelectColumn::make('status')
+                    ->options(ProductStatusEnum::toArray())
+                    ->placeholder("__")
+                    ->label("Etat"),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
