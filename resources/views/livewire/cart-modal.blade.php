@@ -37,7 +37,7 @@
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <!-- Product image -->
                         <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="shrink-0 md:order-1">
-                            <img class="h-20 w-20 dark:hidden" src="{{ Storage::url($product['attributes']['image']) }}" width="auto" height="auto" alt="{{ $product['name'] }}">
+                            <img class="h-20 w-20" src="{{ Storage::url($product['attributes']['image']) }}" width="auto" height="auto" alt="{{ $product['name'] }}">
                         </a>
                         
                         <!-- Quantity control -->
@@ -67,14 +67,14 @@
                         <!-- Product details -->
                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                             <a href="{{ route('product.show', $product['attributes']['slug']) }}"
-                                class="text-base font-bold text-gray-900 hover:underline dark:text-white">
+                                class="text-base font-bold text-gray-900 hover:underline">
                                 {{ $product['name'] }}
                                 {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }}
                                 {{ $product['attributes']['color'] ? "(" . $product['attributes']['color_name'] . ")" : '' }}
                             </a>
                             <div class="flex items-center gap-4">
                                 <button wire:click="delete('{{ $productId }}')" type="button"
-                                    class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                                    class="inline-flex items-center text-sm font-medium text-red-600 hover:underline">
                                     <svg wire:loading.remove wire:target="delete('{{ $productId }}')"
                                         class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@
                                     </svg>
                                     <div role="status" wire:loading wire:target="delete('{{ $productId }}')">
                                         <svg aria-hidden="true"
-                                            class="inline me-1.5 h-5 w-5 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
+                                            class="inline me-1.5 h-5 w-5 text-gray-200 animate-spin fill-red-600"
                                             viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"

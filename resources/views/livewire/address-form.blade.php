@@ -18,8 +18,8 @@
         </div>
 
         <div class="">
-            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-            <select id="countries" wire:model='city' class="border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Select an option</label>
+            <select id="countries" wire:model='city' class="border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
               <option selected>Choisissez une ville</option>
               @foreach ($cities as $city)
               <option value="{{ $city->id }}">{{ $city->name }}</option>

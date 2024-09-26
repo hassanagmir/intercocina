@@ -58,7 +58,7 @@
     </div>
 </div>
     <table class="w-full text-sm text-left rtl:text-right">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
                 <th scope="col" class="px-6 py-3 flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><circle cx="12" cy="9.1" r="2.5"/><circle cx="12" cy="12" r="9"/><path d="M17 19.2c-.317-6.187-9.683-6.187-10 0"/></g></svg>
@@ -91,8 +91,8 @@
         <tbody>
 
             @foreach ($addresses as $address)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr class="bg-white border-b hover:bg-gray-50">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                    {{ $address->first_name }} {{ $address->last_name }}
                 </th>
                 <td class="px-6 py-4 font-medium">

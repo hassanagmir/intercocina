@@ -23,7 +23,7 @@
                     <div class="w-full h-5 mx-4 bg-gray-300 rounded">
                         <div class="h-5 bg-yellow-300 rounded" style="width: {{ $value }}%"></div>
                     </div>
-                    <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $value }}%</span>
+                    <span class="text-sm font-medium text-gray-500">{{ $value }}%</span>
                 </div>
                 @endforeach
             </div>

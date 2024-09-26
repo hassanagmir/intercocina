@@ -5,11 +5,11 @@
 <section class="px-4 py-20 md:max-w-6xl md:mx-auto">
     <div class="relative z-10 mx-auto px-6 md:max-w-2xl lg:max-w-5xl lg:px-12">
         <div class="mx-auto text-center lg:w-4/5">
-            <h1 class="text-xl font-black text-red-600 dark:text-white sm:text-4xl drop-shadow-md">
+            <h1 class="text-xl font-black text-red-600 sm:text-4xl drop-shadow-md">
                 <span class="hidden sm:inline-block">Clés pour Tout Savoir sur les Tendances de la Cuisine et du Design</span>
                 <div class="mx-auto block w-max">
                     <div class="relative block pb-2">
-                        <span class="absolute inset-0 z-[1] block bg-gradient-to-b from-red-600 via-red-600 to-transparent bg-clip-text text-transparent dark:from-white dark:via-white">Joignez-vous à Nous lors des Événements</span>
+                        <span class="absolute inset-0 z-[1] block bg-gradient-to-b from-red-600 via-red-600 to-transparent bg-clip-text text-transparent">Joignez-vous à Nous lors des Événements</span>
                         <span class="absolute inset-0 block bg-gradient-to-l from-[#b6b9b8] to-[#cfd0d1] bg-clip-text text-transparent">Joignez-vous à Nous lors des Événements</span>
                         <span class="block">Joignez-vous à Nous lors des Événements</span>
                     </div>

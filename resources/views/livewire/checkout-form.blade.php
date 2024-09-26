@@ -1,5 +1,5 @@
-<div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-    <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ __("Sélectionnez ou ajoutez une adresse") }}</p>
+<div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <p class="text-xl font-semibold text-gray-900">{{ __("Sélectionnez ou ajoutez une adresse") }}</p>
     @error('address')
     <div class="text-red-600 font-bold">{{ $message }}</div>
     @enderror
@@ -7,7 +7,7 @@
         @foreach ($addresses as $address)
         <li class="mb-3">
             <input type="radio" value="{{ $address->id }}" wire:model='address' id="address-{{ $address->id }}" name="hosting" value="hosting-small" class="hidden peer" required />
-            <label for="address-{{ $address->id }}" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+            <label for="address-{{ $address->id }}" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
                 <div class="block">
                     <div class="w-full text-lg font-semibold">{{ $address->first_name }} {{ $address->last_name }} ({{ $address->phone }})</div>
                     <div class="w-full">{{ $address->address_name }}, {{ $address->city->name }}</div>
@@ -85,24 +85,24 @@
     <div class="space-y-4">
       <div class="space-y-2">
         <dl class="flex items-center justify-between gap-4">
-          <dt class="text-base font-normal text-gray-500 dark:text-gray-400">{{ _("Prix d'origine")}}</dt>
-          <dd class="text-base font-bold text-gray-900 dark:text-white">{{ \Cart::getTotal() }} MAD</dd>
+          <dt class="text-base font-normal text-gray-500">{{ _("Prix d'origine")}}</dt>
+          <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
         </dl>
 
         <dl class="flex items-center justify-between gap-4">
-          <dt class="text-base font-normal text-gray-500 dark:text-gray-400">{{ _("Livraison")}}</dt>
+          <dt class="text-base font-normal text-gray-500">{{ _("Livraison")}}</dt>
           <dd class="text-base font-bold text-gray-900">0.0 MAD</dd>
         </dl>
 
         <dl class="flex items-center justify-between gap-4">
-          <dt class="text-base font-normal text-gray-500 dark:text-gray-400">{{ __("Taxe") }}</dt>
-          <dd class="text-base font-bold text-gray-900 dark:text-white">0.0 MAD</dd>
+          <dt class="text-base font-normal text-gray-500">{{ __("Taxe") }}</dt>
+          <dd class="text-base font-bold text-gray-900">0.0 MAD</dd>
         </dl>
       </div>
 
-      <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-        <dt class="text-base font-bold text-gray-900 dark:text-white">{{ __("Total") }}</dt>
-        <dd class="text-xl font-black text-gray-900 dark:text-white">{{ \Cart::getTotal() }} MAD</dd>
+      <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
+        <dt class="text-base font-bold text-gray-900">{{ __("Total") }}</dt>
+        <dd class="text-xl font-black text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
       </dl>
     </div>
 

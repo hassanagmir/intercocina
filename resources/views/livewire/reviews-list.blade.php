@@ -6,8 +6,8 @@
     <article class="bg-white border-2 mb-6 p-3 rounded-2xl">
         <div class="flex items-center mb-4">
             <img class="w-10 h-10 me-4 rounded-full" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="Hassan Agmir">
-            <div class="font-medium dark:text-white">
-                <p>{{ $review->full_name }} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 dark:text-gray-400">Révisé à {{ $review->created_at->format('M d Y')}}</time></p>
+            <div class="font-medium">
+                <p>{{ $review->full_name }} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500">Révisé à {{ $review->created_at->format('M d Y')}}</time></p>
             </div>
         </div>
         <div class="flex gap-0.5">
@@ -21,7 +21,7 @@
                 </svg>
             </template>
         </div>
-        <p class="mb-2 text-gray-500 dark:text-gray-400 whitespace-pre-line -mt-4">
+        <p class="mb-2 text-gray-500 whitespace-pre-line -mt-4">
             {{ $review->comment }}
         </p>
     </article>

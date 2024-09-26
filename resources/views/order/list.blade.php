@@ -27,7 +27,7 @@
 <div class="relative overflow-x-auto shadow-sm sm:rounded-lg text-gray-500 bg-gray-50">
     <h1 class="pt-3 px-5 text-xl font-semibold">Vos commandes</h1>
     <table class="w-full text-sm text-left rtl:text-right">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Référence
@@ -55,8 +55,8 @@
         <tbody>
 
             @forelse ($orders as $order)
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="text-nowrap px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr class="bg-white border-b hover:bg-gray-50">
+                <th scope="row" class="text-nowrap px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                    {{ $order->code }}
                 </th>
                 <td class="px-6 py-4 font-medium text-nowrap">

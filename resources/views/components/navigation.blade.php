@@ -113,7 +113,7 @@
             </nav>
         </div>
     </div>
-    <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
+    <hr class="h-px bg-gray-200 border-0">
 
     {{-- Mobile navMenu --}}
     <nav class="fixed top-0 bottom-0 left-0 right-0 p-2 backdrop-blur-sm md:p-6 xl:hidden z-50 hidden" :class="{ 'hidden': ! openMenu }" id="mobNav" x-transition>

@@ -6,12 +6,12 @@
     <div class="relative z-10 mx-auto px-6 md:max-w-2xl lg:max-w-5xl lg:px-12">
         <div class="mx-auto text-center lg:w-4/5">
             <div class="">
-                <h1 class="text-5xl font-black text-red-500 dark:text-white sm:text-6xl">
+                <h1 class="text-5xl font-black text-red-500 sm:text-6xl">
                     <span class="hidden sm:inline-block">L'excellence des cuisines</span> 
                     <br class="hidden sm:inline-block">De luxe au Maroc<br>
                     <div class="mx-auto block w-max">
                         <div class="relative block pb-2">
-                            <span class="absolute inset-0 z-[1] block bg-gradient-to-b from-red-500 via-red-500 to-transparent bg-clip-text text-transparent dark:from-white dark:via-white">INTERCOCINA</span>
+                            <span class="absolute inset-0 z-[1] block bg-gradient-to-b from-red-500 via-red-500 to-transparent bg-clip-text text-transparent">INTERCOCINA</span>
                             <span class="absolute inset-0 block bg-gradient-to-l from-[#e46161] to-[#ffffff] bg-clip-text text-transparent">INTERCOCINA</span>
                             <span class="block">INTERCOCINA</span>
                         </div>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </h1>
-                <p class="relative z-[11] my-8 text-lg text-gray-700 dark:text-gray-100">{{ __("Haute qualité")}} - {{ __("Livraison rapide")}} - {{__("Accessible")}}</p>
+                <p class="relative z-[11] my-8 text-lg text-gray-700">{{ __("Haute qualité")}} - {{ __("Livraison rapide")}} - {{__("Accessible")}}</p>
                 <div class="flex items-center justify-center gap-6">
                     <a href="/contact" class="relative flex h-9 items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-red-500 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
                         <span class="leading-none relative text-base tracking-wider text-white">{{ __("Contact" )}}</span>

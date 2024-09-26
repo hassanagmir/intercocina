@@ -11,7 +11,7 @@
                 </a>
             </div>
             <h1
-                class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
+                class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl">
                 Frequently asked questions (FAQ)</h1>
             <p class="mb-8 text-md font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48">Vous avez des questions? Vous
                 trouverez ici les réponses les plus appréciées par nos partenaires, ainsi que l'accès à des instructions
