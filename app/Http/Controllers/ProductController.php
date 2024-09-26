@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Type;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function show(Product $product){
-        $products = Product::where('type_id', $product->type_id)->paginate(4);
+        $products = Product::where('type_id', $product->type_id)->whereNot("status", ProductStatusEnum::HIDE)->paginate(4);
         return view('product.show', compact('product', 'products'));
     }
 

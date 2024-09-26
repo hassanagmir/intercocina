@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\ProductStatusEnum;
 use App\Models\Product;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -26,7 +27,7 @@ class ProductSearch extends Component
     {
 
         if($this->search != ''){
-            $products = Product::where(function ($query) {
+            $products = Product::whereNot("status", ProductStatusEnum::HIDE)->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%')
                     ->orWhere('tags', 'like', '%' . $this->search . '%');
