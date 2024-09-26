@@ -78,10 +78,9 @@ class ColorResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\ImageColumn::make('name')
-                    ->round()
-                    ->label(__("Image"))
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->circular()
+                    ->label(__("Image")),
                 Tables\Columns\TextColumn::make('name')
                     ->label(__("Couleur"))
                     ->searchable(),
