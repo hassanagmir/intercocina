@@ -39,7 +39,7 @@ class TypeResource extends Resource
             ->schema([
                 Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\components\Section::make()
+                        Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label(__("Type"))

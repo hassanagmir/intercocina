@@ -49,10 +49,12 @@
             </div>
 
 
-            {{-- Rating list --}}
-            <div>
-                @livewire('reviews-list', ['product' => $product], key($product->id))
-            </div>
+            @empty(!$product->reviews)
+                {{-- Rating list --}}
+                <div>
+                    @livewire('reviews-list', ['product' => $product], key($product->id))
+                </div>                
+            @endempty
 
         </div>
     </div>
