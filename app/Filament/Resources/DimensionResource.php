@@ -64,10 +64,15 @@ class DimensionResource extends Resource
                     ->suffix(" mm")
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('product.name')
+                Tables\Columns\TextColumn::make('code')
                     ->label(__("Produit"))
-                    ->numeric()
+                    ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->label(__("Référence"))
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('price')
                     ->badge()
                     ->label(__("Prix"))

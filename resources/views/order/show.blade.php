@@ -9,10 +9,10 @@
             <div class="space-y-6">
                 <!-- Card -->
                 @forelse($order->items as $item)
-                <div wire:key='{{ $item->product->id }}' class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                <div wire:key='{{ $item->product->id }}' class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <a href="{{ route('product.show', $item->product->slug) }}" class="shrink-0 md:order-1">
-                            <img class="h-20 w-20 dark:hidden" src="{{ Storage::url($item->product?->images->first()?->image) }}" alt="{{ $item->product->name }}">
+                            <img class="h-20 w-20" src="{{ Storage::url($item->product?->images->first()?->image) }}" alt="{{ $item->product->name }}">
                         </a>
                         <div class="flex items-center justify-between md:order-3 md:justify-end">
                             <div class="text-end md:order-4 md:w-32">
@@ -79,7 +79,7 @@
                 </dl>
               </div>
     
-              <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+              <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                 <dt class="text-base font-bold text-gray-900">{{ __("Total") }}</dt>
                 <dd class="text-xl font-black text-gray-900">{{ $order->total_amount }} MAD</dd>
               </dl>

@@ -125,6 +125,7 @@ class ProductResource extends Resource
                                             ->numeric()
                                             ->prefix('MAD'),
                                         Forms\Components\TextInput::make('code')
+                                            ->unique()
                                             ->label(__("Référence"))
                                             ->required(),
                                           

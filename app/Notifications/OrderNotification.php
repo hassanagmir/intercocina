@@ -39,16 +39,21 @@ class OrderNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('🛒 Nouvelle Commande Reçue')
-            ->view('emails.order-notification', [
-                'order_id' => $this->order->id,
-                'code' => $this->order->code,
-                'customer' => $this->order->user->full_name,
-                'total_amount' => number_format($this->order->total_amount, 2),
-                'date' => $this->order->created_at->format('d F Y'),
-                'order_url' => url('/admin/commandes/' . $this->order->id),
-            ]);
+        try {
+            return (new MailMessage)
+                ->subject('🛒 Nouvelle Commande Reçue')
+                ->view('emails.order-notification', [
+                    'order_id' => $this->order->id,
+                    'code' => $this->order->code,
+                    'customer' => $this->order->user->full_name,
+                    'total_amount' => number_format($this->order->total_amount, 2),
+                    'date' => $this->order->created_at->format('d F Y'),
+                    'order_url' => url('/admin/commandes/' . $this->order->id),
+                ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
     }
     
     /**

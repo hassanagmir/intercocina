@@ -37,17 +37,22 @@ class ClaimNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('⭕ Nouvelle Réclamation')
-            ->view('emails.claim-notification', [
-                'contact_id' => $this->claim->id,
-                'customer' => $this->claim->full_name,
-                'phone' => $this->claim->phone,
-                'customer_number' => $this->claim->client_number,
-                'subject' => $this->claim->subject,
-                'claim_message' => $this->claim->message,
-                'date' => $this->claim->created_at->format('d F Y'),
-            ]);
+        try {
+            return (new MailMessage)
+                ->subject('⭕ Nouvelle Réclamation')
+                ->view('emails.claim-notification', [
+                    'contact_id' => $this->claim->id,
+                    'customer' => $this->claim->full_name,
+                    'phone' => $this->claim->phone,
+                    'customer_number' => $this->claim->client_number,
+                    'subject' => $this->claim->subject,
+                    'claim_message' => $this->claim->message,
+                    'date' => $this->claim->created_at->format('d F Y'),
+                ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
     }
 
     /**

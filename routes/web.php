@@ -17,8 +17,10 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
+Route::get('/livewire/update', function(){
+    return redirect()->back();
+});
 
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'home')->name('home');

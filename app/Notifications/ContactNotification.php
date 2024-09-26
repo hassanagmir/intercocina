@@ -37,16 +37,22 @@ class ContactNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('📩 Nouvelle Message')
-            ->view('emails.contact-notification', [
-                'contact_id' => $this->contact->id,
-                'customer' => $this->contact->full_name,
-                'phone' => $this->contact->phone,
-                'email' => $this->contact->email,
-                'contact_message' => $this->contact->message, // Changed to 'contact_message'
-                'date' => $this->contact->created_at->format('d F Y'),
-            ]);
+
+        try {
+            return (new MailMessage)
+                ->subject('📩 Nouvelle Message')
+                ->view('emails.contact-notification', [
+                    'contact_id' => $this->contact->id,
+                    'customer' => $this->contact->full_name,
+                    'phone' => $this->contact->phone,
+                    'email' => $this->contact->email,
+                    'contact_message' => $this->contact->message, // Changed to 'contact_message'
+                    'date' => $this->contact->created_at->format('d F Y'),
+                ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
     }
 
     /**
