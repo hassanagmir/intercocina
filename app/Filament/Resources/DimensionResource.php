@@ -22,12 +22,12 @@ class DimensionResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('width')
-                            ->label(__("Largeur"))
-                            ->required()
-                            ->numeric(),
                         Forms\Components\TextInput::make('height')
                             ->label(__("Hauteur"))
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('width')
+                            ->label(__("Largeur"))
                             ->required()
                             ->numeric(),
                         Forms\Components\TextInput::make('price')
@@ -35,7 +35,12 @@ class DimensionResource extends Resource
                             ->required()
                             ->numeric()
                             ->prefix('MAD'),
+                        Forms\Components\TextInput::make('code')
+                            ->label(__("Prix"))
+                            ->required()
+                            ->uniqid(ignoreRecord: true),
                         Forms\Components\Select::make('product_id')
+                            ->searchable()
                             ->preload()
                             ->relationship('product', "name")
                             ->label(__("Produit"))
@@ -54,16 +59,18 @@ class DimensionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('width')
-                    ->label(__("Largeur"))
-                    ->suffix(" mm")
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('height')
                     ->label(__("Hauteur"))
                     ->suffix(" mm")
                     ->numeric()
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('width')
+                    ->label(__("Largeur"))
+                    ->suffix(" mm")
+                    ->numeric()
+                    ->sortable(),
+              
                 Tables\Columns\TextColumn::make('code')
                     ->label(__("Produit"))
                     ->searchable()
