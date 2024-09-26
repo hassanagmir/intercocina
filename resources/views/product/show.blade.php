@@ -4,7 +4,9 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         @livewire('product', ['product' => $product], key($product->id))
         <div class="mt-6">
-            <h2 class="sm:text-2xl text-xl font-bold">{{ __("Détails du produit")}} {{ $product->name}}</h2>
+            @if ($product->options || $product->content)
+                <h2 class="sm:text-2xl text-xl font-bold">{{ __("Détails du produit")}} {{ $product->name}}</h2>
+            @endif
             @if ($product->options)
             <div class="relative overflow-x-auto border-t-2 border-x-2 sm:rounded-lg mt-4">
                 <table class="w-full text-sm text-left rtl:text-right">
@@ -49,12 +51,12 @@
             </div>
 
 
-            @empty(!$product->reviews)
+            @if(count($product->reviews))
                 {{-- Rating list --}}
                 <div>
                     @livewire('reviews-list', ['product' => $product], key($product->id))
                 </div>                
-            @endempty
+            @endif
 
         </div>
     </div>
