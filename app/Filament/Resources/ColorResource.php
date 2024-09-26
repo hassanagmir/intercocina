@@ -77,12 +77,13 @@ class ColorResource extends Resource
     {
         return $table
             ->columns([
+
+                Tables\Columns\ImageColumn::make('name')
+                    ->round()
+                    ->label(__("Image"))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label(__("Couleur"))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('es_name')
-                    ->label(__("Couleur en espagnol"))
-                    ->placeholder("__")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
                     ->placeholder("__")
