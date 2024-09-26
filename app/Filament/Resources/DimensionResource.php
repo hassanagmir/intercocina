@@ -36,9 +36,9 @@ class DimensionResource extends Resource
                             ->numeric()
                             ->prefix('MAD'),
                         Forms\Components\TextInput::make('code')
-                            ->label(__("Prix"))
+                            ->label(__("Référence"))
                             ->required()
-                            ->uniqid(ignoreRecord: true),
+                            ->unique(ignoreRecord: true),
                         Forms\Components\Select::make('product_id')
                             ->searchable()
                             ->preload()
