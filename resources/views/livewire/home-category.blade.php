@@ -1,11 +1,11 @@
 <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
     @foreach ($categories as $category)
         <div class="rounded-xl">
-            <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-300" href="{{ route('category.show', $category->slug) }}">
+            <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-200" href="{{ route('category.show', $category->slug) }}">
             @if ($category->image)
              <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" />
             @else
-                <div class="w-full h-full bg-gray-300">
+                <div class="w-full h-full bg-gray-200">
 
                 </div>
             @endif
