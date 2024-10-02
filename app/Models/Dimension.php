@@ -38,6 +38,10 @@ class Dimension extends Model
             ->logOnly(["width", "height", "price", "product_id"]);
     }
 
+    public function color(){
+        return $this->belongsTo(Color::class);
+    }
+
 
     public function attribute(){
         return $this->belongsTo(Attribute::class);
