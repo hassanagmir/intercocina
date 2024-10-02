@@ -94,8 +94,10 @@ Route::get('upload', function () {
 
 
 Route::post('json', function (Request $request) {
+    ini_set('max_execution_time', 3600);
+    set_time_limit(3600);
     $request->validate([
-        'jsonFile' => ['required', 'file', 'mimes:json', 'max:2048'],
+        'jsonFile' => ['required', 'file', 'max:9048'],
     ]);
 
     $jsonData = json_decode($request->file('jsonFile')->getContent(), true);
