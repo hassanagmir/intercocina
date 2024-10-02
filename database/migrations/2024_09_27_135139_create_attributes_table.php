@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Address;
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(App\Models\User::class)->constrained()->cascadeOnDelete();
-            $table->string('code')->unique();
-            $table->decimal('total_amount', 10, 2);
-            $table->integer('status')->nullable();
-            $table->foreignIdFor(Address::class);
+            $table->string('name');
+            $table->text('discription')->nullable();
+            $table->foreignIdFor(Category::class)->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('attributes');
     }
 };

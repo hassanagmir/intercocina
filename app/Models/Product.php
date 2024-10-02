@@ -24,7 +24,8 @@ class Product extends Model
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
     protected $casts = [
@@ -50,7 +51,8 @@ class Product extends Model
 
     public function colors()
     {
-        return $this->belongsToMany(Color::class, 'product_colors')->withPivot('price');
+        return $this->belongsToMany(Color::class, 'product_colors')
+            ->withPivot('price');
     }
 
     public function dimensions()
@@ -80,7 +82,13 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class, 'order_items')->withPivot('quantity', 'total', 'status');
+        return $this->belongsToMany(Order::class, 'order_items')
+            ->withPivot('quantity', 'total', 'status');
+    }
+
+
+    public function attributes(){
+        return $this->belongsToMany(Attribute::class, 'product_attributes');
     }
 
 

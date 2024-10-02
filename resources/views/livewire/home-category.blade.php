@@ -3,11 +3,9 @@
         <div class="rounded-xl">
             <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-200" href="{{ route('category.show', $category->slug) }}">
             @if ($category->image)
-             <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" />
+              <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" />
             @else
-                <div class="w-full h-full bg-gray-200">
-
-                </div>
+                <img class="sm:object-cover object-contain w-full h-full bg-gray-200 border-2 overflow-hidden rounded-xl" width="auto" height="auto" src="/assets/imgs/placeholder-image.webp" alt="{{ $category->name }}" />
             @endif
             </a>
             <div class="mt-4 pb-5 ">

@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Dimension;
@@ -104,6 +105,7 @@ Route::post('json', function (Request $request) {
     }
 
     $processedData = collect($jsonData)->map(function ($item) {
+
         return DB::transaction(function () use ($item) {
             $category = Category::firstOrCreate(['name' => $item['category']]);
 
@@ -112,10 +114,19 @@ Route::post('json', function (Request $request) {
                 'category_id' => $category->id,
             ]);
 
-            $color = Color::firstOrCreate([
-                'name' => $item['color'],
-            ]);
 
+            if(isset($item['color'])){
+                $color = Color::firstOrCreate([
+                    'name' => ucfirst($item['color']),
+                ]);
+            }
+
+            if(isset($item['attribute'])){
+                $attribute = Attribute::firstOrCreate(
+                    ['name' => ucfirst($item['attribute'])],
+                    ['category_id' => $category->id]
+                );
+            }
 
 
             $product = Product::firstOrCreate([
@@ -123,17 +134,25 @@ Route::post('json', function (Request $request) {
                 'type_id' => $type->id,
             ]);
 
-            $product->colors()->syncWithoutDetaching([$color->id]);
+            if(isset($item['color'])){
+                $product->colors()->syncWithoutDetaching([$color->id]);
+            }
+
+            if(isset($item['attribute'])){
+                $product->attributes()->syncWithoutDetaching([$attribute->id]);
+            }
 
             $dimensions = explode('*', $item['dimensions']);
 
             return Dimension::firstOrCreate(
-                ['code' => $item['id']],
+                ['code' => $item['code']],
                 [
-                    'price' => $item['price'] * 1.2,
+                    'price' => $item['price'],
                     'height' => $dimensions[0],
                     'width' => $dimensions[1],
                     'product_id' => $product->id,
+                    'color_id' => isset($item['color']) ? $color->id : null,
+                    'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
                 ]
             );
         });
@@ -145,7 +164,6 @@ Route::post('json', function (Request $request) {
 
 
 // In routes/web.php
-
 Route::get('/reset-password/{token}', function (string $token) {
     return view('user.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');

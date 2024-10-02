@@ -14,7 +14,8 @@ class Dimension extends Model
     use HasFactory, HasSlug, LogsActivity;
 
     protected $fillable = [
-        'width', 'height', 'price', 'product_id', 'status', 'slug', 'code', 'image_id', 'dimension'
+        'width', 'height', 'price', 'product_id', 'status',
+        'slug', 'code', 'image_id', 'dimension', 'color_id', 'attribute_id'
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -35,6 +36,11 @@ class Dimension extends Model
     {
         return LogOptions::defaults()
             ->logOnly(["width", "height", "price", "product_id"]);
+    }
+
+
+    public function attribute(){
+        return $this->belongsTo(Attribute::class);
     }
 
 

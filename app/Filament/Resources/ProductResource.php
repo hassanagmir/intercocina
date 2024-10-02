@@ -109,12 +109,12 @@ class ProductResource extends Resource
                                     ->label(false)
                                     ->relationship()
                                     ->schema([
-                                        
+
                                         Forms\Components\TextInput::make('height')
                                             ->label(__("Hauteur"))
                                             ->required()
                                             ->numeric(),
-                                        
+
                                         Forms\Components\TextInput::make('width')
                                             ->label(__("Largeur"))
                                             ->required()
@@ -128,7 +128,7 @@ class ProductResource extends Resource
                                             ->unique(ignoreRecord: true)
                                             ->label(__("Référence"))
                                             ->required(),
-                                          
+
 
                                         Forms\Components\Select::make('image_reference')
                                             ->label(__("Référence d'image"))
@@ -141,10 +141,16 @@ class ProductResource extends Resource
                                                 }
                                                 return $incrementedArray;
                                             }),
-                                        Forms\Components\Toggle::make('status')
-                                            ->inline(false)
-                                            ->default(true)
-                                            ->required(),
+                                        // Forms\Components\Toggle::make('status')
+                                        //     ->inline(false)
+                                        //     ->default(true)
+                                        //     ->required(),
+
+                                        Forms\Components\Select::make('attribute_id')
+                                            ->label(__("Attribut"))
+                                            ->searchable()
+                                            ->placeholder("Attribut...")
+                                            ->relationship('attribute', 'name')
                                     ])
                                     ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
                                         return $data;
@@ -161,7 +167,7 @@ class ProductResource extends Resource
                         Forms\Components\KeyValue::make('options')
                             ->reorderable()
                             ->columnSpanFull(),
-                            
+
                         Forms\Components\RichEditor::make('content')
                             ->label(__("Contenu"))
                             ->columnSpanFull(),

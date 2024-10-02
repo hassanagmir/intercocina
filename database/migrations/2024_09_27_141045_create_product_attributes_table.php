@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Address;
+use App\Models\Attribute;
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreignIdFor(Address::class);
+        Schema::create('product_attributes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Product::class);
+            $table->foreignIdFor(Attribute::class);
+            $table->timestamps();
         });
     }
 
@@ -22,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('address_table');
-        });
+        Schema::dropIfExists('product_attributes');
     }
 };

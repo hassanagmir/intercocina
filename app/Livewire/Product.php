@@ -20,8 +20,11 @@ class Product extends Component
 
     #[Validate('numeric')]
     public $color;
+    #[Validate('numeric')]
+    public $attribute;
     public $dimension;
     public $price;
+
 
     public $heights = [];
     public $widths = [];
@@ -58,6 +61,24 @@ class Product extends Component
         $this->price =  $this->product->price();
 
         $this->averageRating = $this->getAvgRating();
+
+        if (count($this->product->attributes)) {
+            $this->attribute = $this->product->attributes->first()->id;
+            
+            if ($this->attribute) {
+                
+                $this->heights = array_unique($this->product->dimensions()
+                    ->where('attribute_id', $this->attribute)
+                    ->pluck('height')
+                    ->toArray());
+        
+                $this->widths = array_unique($this->product->dimensions()
+                    ->where('attribute_id', $this->attribute)
+                    ->pluck('width')
+                    ->toArray());
+            }
+        } 
+        
     }
 
 
@@ -74,19 +95,40 @@ class Product extends Component
 
     public function updated($property)
     {
-        if($this->width && $this->height){
-            $dimension =  $this->product->dimensions->where('height', $this->height)->where('width', $this->width)->first();
-            
-            if($dimension){
-                $this->dimension = $dimension;
-                $this->price = $dimension->price;
 
-                $this->reset("dimension_error");
-            }else{
-                $this->dimension = null;
-                $this->dimension_error = "La dimension " . $this->width . " x " . $this->height . " n'est pas disponible";
-            }
-            
+        if (count($this->product->attributes)) {
+            $this->heights = array_unique($this->product->dimensions()
+                ->where('attribute_id', $this->attribute)
+                ->pluck('height')
+                ->toArray());
+    
+            $this->widths = array_unique($this->product->dimensions()
+                ->where('attribute_id', $this->attribute)
+                ->pluck('width')
+                ->toArray());
+        }
+
+        if (!$this->width || !$this->height) return;
+    
+        $query = $this->product->dimensions
+            ->where('height', $this->height)
+            ->where('width', $this->width);
+    
+        if ($this->product->colors && $this->color) {
+            $query = $query->where('color_id', $this->color);
+        }
+
+
+
+        $dimension = $query->first();
+    
+        if ($dimension) {
+            $this->dimension = $dimension;
+            $this->price = $dimension->price;
+            $this->reset("dimension_error");
+        } else {
+            $this->dimension = null;
+            $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
         }
     }
 
