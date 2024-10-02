@@ -72,6 +72,7 @@ class ProductResource extends Resource
                                     ->schema([
                                         Forms\Components\FileUpload::make('image')
                                             ->image()
+                                            ->required()
                                             ->label(false)
                                     ])
                                     ->orderColumn('order')
