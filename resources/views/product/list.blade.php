@@ -2,7 +2,7 @@
 
 
 @section('content')
-<section class="px-4 py-20 md:max-w-6xl md:mx-auto">
+<section class="px-4 py-20 md:max-w-7xl md:mx-auto">
     <nav class="flex mb-4" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li class="inline-flex items-center">
@@ -34,10 +34,10 @@
                 {{__("Collection des")}} {{ $category->name }}
             </span>
         </h2>
-        <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-3">
+        <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
             @foreach ($category->types as $type)
             <div class="rounded-xl">
-                <a class="relative flex overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
+                <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
                   @if ($type->image)
                   <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
                   @else
