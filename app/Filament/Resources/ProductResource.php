@@ -213,12 +213,15 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('code')
+                    ->label("Produits")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type.name')
+                    ->label(__("Type"))
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('dimensions_count')->counts('dimensions')
+                    ->label(__("Dimensions"))
+                    ->numeric(),
                 Tables\Columns\SelectColumn::make('status')
                     ->options(ProductStatusEnum::toArray())
                     ->placeholder("__")

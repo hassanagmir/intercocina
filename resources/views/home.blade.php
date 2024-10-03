@@ -10,13 +10,13 @@
                 Notre collection de meubles de cuisine est conçue pour transformer votre espace en un lieu d'inspiration gastronomique, où chaque détail compte.
             </p>
             <div class="flex justify-center md:justify-start gap-4">
-                <a href="#contact" class="btn btn-accent-gray animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
+                <a href="{{ route('contact') }}" class="btn btn-accent-gray animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
                     {{ __("Contact") }}
                 </a>
                 @guest
-                <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
+                <a href="{{ route('user.login') }}" class="btn btn-primary animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
                     {{__("Se connecter")}}
-                </button>
+                </a>
                 @endguest
 
                 @auth

@@ -22,9 +22,8 @@
             </div>
         </div>
     </div>
-
     <div class="flex justify-center">
-        <div class="pro-detail w-full max-lg:max-w-[608px] lg:pl-8 xl:pl-16 max-lg:mx-auto max-lg:mt-8">
+        <div class="pro-detail w-full max-lg:max-w-[608px] lg:pl-8 xl:pl-12 max-lg:mx-auto max-lg:mt-6">
             <div class="sm:flex flex-initial items-center justify-between gap-6 mb-4">
                 <div class="text">
                     <h1 class="font-manrope font-bold sm:text-3xl text-2xl leading-10 text-gray-900 mb-2">{{ $product->name }}</h1>
@@ -41,9 +40,6 @@
                 </button>
             </div>
             <p>{{ $product->description }}</p>
-
-
-
             <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center mb-5 gap-y-3 flex-wrap">
                 <div class="flex items-center">
                     <div class="font-manrope font-semibold sm:text-2xl text-xl leading-9 text-gray-900">
@@ -118,15 +114,17 @@
 
             @empty (!$product->colors->count())
             <p class="font-bold text-gray-900">{{__("Couleur")}}</p>
-            <ul class="flex flex-wrap gap-2 mb-4 max-w-sm">
+            <ul class="flex flex-wrap gap-2 mb-4">
                 @foreach ($product->colors as $color)
-                <li class="color-box group text-center me-3">
+                <li class="color-box group text-center me-3 relative">
                     <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="color" wire:model.change="color" class="hidden peer" required />
                     <label for="color-{{ $color->id }}"
                         style="background-image: url({{ Storage::url($color->image)}}); background-color: {{ $color->code }};"
                         class="inline-flex bg-[{{ $color->code }}] items-center border-2 justify-between w-full p-6 text-gray-500 border-gray-200 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
                     </label>
-                    <div>{{ $color->name }}</div>
+                    <div id="tooltipExample" class="absolute -top-9 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-center text-sm text-white opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 dark:bg-white dark:text-neutral-900" role="tooltip">
+                        {{ $color->name }}
+                    </div>
                 </li>
                 @endforeach
             </ul>

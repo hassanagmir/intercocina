@@ -23,21 +23,17 @@ class ProductList extends Component
     public Category $category;
 
 
-
-
     public function mount()
     {
         $this->total_products = Product::all()->count();
-
-        // dd($this->type);
-        if($this->type == ""){
-            $type = $this->category->types->first();
-            if($type){
+        if ($this->type == "") {
+            $type = $this->category->types()->where("status", true)->first();
+            if ($type) {
                 $this->type = $this->category->types->first()->slug;
-            }else{
+            } else {
                 $this->type = null;
             }
-        }        
+        }
     }
 
     public function loadMore()
@@ -45,7 +41,8 @@ class ProductList extends Component
         $this->amount += 8;
     }
 
-    public function changeType($slug){
+    public function changeType($slug)
+    {
         $this->type = $slug;
     }
 
@@ -53,16 +50,15 @@ class ProductList extends Component
     public function render()
     {
 
-        if($this->type == ''){
+        if ($this->type == '') {
             $type = Type::first();
             $products = [];
-        }else{
+        } else {
             $type = Type::where('slug', $this->type)?->first();
             $products = Product::where("type_id", $type->id)->whereNot("status", 2)->get() ?? [];
             $this->products_type = $type;
-            
         }
-        
+
 
         return view('livewire.product-list', [
             'products' => $products,
