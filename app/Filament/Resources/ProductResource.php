@@ -181,21 +181,22 @@ class ProductResource extends Resource
                             ->label(__("Contenu"))
                             ->columnSpanFull(),
 
-                        // Forms\Components\Select::make('colore')
-                        //     ->label(__("Couleur"))
-                        //     ->relationship('colors', 'name')
-                        //     ->native(false)
-                        //     ->multiple()
-                        //     ->nullable()
-                        //     ->searchable()
-                        //     ->preload()
-                        //     ->live()
-                        //     ->createOptionForm(self::ColorForm())
-                        //     ->createOptionModalHeading(__("Color"))
-                        //     ->createOptionUsing(function (array $data): int {
-                        //         $color = Color::create($data);
-                        //         return $color->getKey();
-                        //     }),
+                        Forms\Components\Select::make('colore')
+                            ->label(__("Couleur"))
+                            ->relationship('colors', 'name')
+                            ->native(false)
+                            ->multiple()
+                            ->nullable()
+                            ->searchable(),
+                            // ->preload()
+                            // ->live()
+                            // ->createOptionForm(self::ColorForm())
+                            // ->createOptionModalHeading(__("Color"))
+                            // ->createOptionUsing(function (array $data): int {
+                            //     $color = Color::create($data);
+                            //     return $color->getKey();
+                            // }),
+                
                         Forms\Components\TagsInput::make('tags')
                             ->label(__("Mots clés"))
                             ->placeholder(__("Mot-clé"))
