@@ -42,7 +42,7 @@
                         <div class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm md:p-3">
                             <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                 <a href="{{ route('product.show', $product->slug )}}" class="shrink-0 md:order-1">
-                                    <img class="h-20 w-20" src="{{ Storage::url($product?->images->first()?->image) }}" alt="{{ $product->name }}">
+                                    <img class="h-20 w-20 object-contain" src="{{ count($product->images) ? Storage::url($product?->images->first()?->image) : "/assets/imgs/placeholder-image.webp" }}" alt="{{ $product->name }}">
                                 </a>
                                 <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                                     <a href="{{ route('product.show', $product->slug )}}" class="text-base font-bold text-gray-900 hover:underline">
