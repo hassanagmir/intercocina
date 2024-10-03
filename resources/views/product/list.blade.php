@@ -34,10 +34,10 @@
                 {{__("Collection des")}} {{ $category->name }}
             </span>
         </h2>
-        <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+        <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-3">
             @foreach ($category->types as $type)
             <div class="rounded-xl">
-                <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
+                <a class="relative flex overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
                   @if ($type->image)
                   <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
                   @else
