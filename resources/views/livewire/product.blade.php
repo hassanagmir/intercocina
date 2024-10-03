@@ -5,7 +5,7 @@
         <div class="swiper main-slide-carousel swiper-container relative mb-6">
             <div class="swiper-wrapper" id="gallery">
                 @foreach ($product->images as $image)
-                <a href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1875" data-pswp-height="2500" target="_blank">
+                <a href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1475" data-pswp-height="2000" target="_blank">
                     <img src="{{ Storage::url($image->image) }}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px]">
                 </a>
                 @endforeach
