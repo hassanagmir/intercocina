@@ -108,6 +108,7 @@ class ProductResource extends Resource
                                 Forms\Components\Repeater::make('dimensions')
                                     ->hidden(fn(Get $get): bool => $get('is_dimensions'))
                                     ->label(false)
+                                    ->lazy()
                                     ->relationship()
                                     ->schema([
 
@@ -187,15 +188,15 @@ class ProductResource extends Resource
                             ->native(false)
                             ->multiple()
                             ->nullable()
-                            ->searchable(),
-                            // ->preload()
-                            // ->live()
-                            // ->createOptionForm(self::ColorForm())
-                            // ->createOptionModalHeading(__("Color"))
-                            // ->createOptionUsing(function (array $data): int {
-                            //     $color = Color::create($data);
-                            //     return $color->getKey();
-                            // }),
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->createOptionForm(self::ColorForm())
+                            ->createOptionModalHeading(__("Color"))
+                            ->createOptionUsing(function (array $data): int {
+                                $color = Color::create($data);
+                                return $color->getKey();
+                            }),
                 
                         Forms\Components\TagsInput::make('tags')
                             ->label(__("Mots clés"))
