@@ -35,7 +35,7 @@
             </span>
         </h2>
         <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-            @foreach ($category->types as $type)
+            @foreach ($category->types()->where("status", true)->get() as $type)
             <div class="rounded-xl">
                 <a class="relative flex max-h-96 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
                   @if ($type->image)

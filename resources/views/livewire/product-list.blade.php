@@ -42,7 +42,7 @@
           @endif
       </div>
       <div class="flex items-center space-x-0 justify-end flex-wrap gap-2">
-          @foreach ($category->types as $item)
+          @foreach ($category->types()->where('status', true)->get() as $item)
           <button wire:click='changeType("{{ $item->slug }}")' type="button" class="font-bold {{ $item->slug == $type ? 'bg-red-500 text-white hover:bg-red-400' : 'bg-white hover:bg-gray-100 hover:text-primary-700'}} text-sm px-3 text-nowrap flex w-full items-center justify-center rounded-lg border border-gray-200 py-2 text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto">
               {{ $item->name }}
               <svg class="-me-0.5 ms-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
