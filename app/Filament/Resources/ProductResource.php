@@ -147,12 +147,12 @@ class ProductResource extends Resource
                                         //     ->default(true)
                                         //     ->required(),
 
-                                        // Forms\Components\Select::make('color_id')
-                                        //     ->label(__("Couleur"))
-                                        //     ->searchable()
-                                        //     ->preload()
-                                        //     ->placeholder("Couleur...")
-                                        //     ->relationship('color', 'name'),
+                                        Forms\Components\Select::make('color_id')
+                                            ->label(__("Couleur"))
+                                            ->searchable()
+                                            ->preload()
+                                            ->placeholder("Couleur...")
+                                            ->relationship('color', 'name'),
 
                                         Forms\Components\Select::make('attribute_id')
                                             ->label(__("Attribut"))

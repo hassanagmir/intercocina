@@ -22,6 +22,7 @@ class EditProduct extends EditRecord
     protected function getHeaderActions(): array
     {
         ini_set('max_execution_time', '300');
+        ini_set('memory_limit', '128M');
         return [
             Actions\DeleteAction::make()
                 ->color('danger')
