@@ -16,7 +16,7 @@
             <div class="swiper-wrapper">
                 @foreach ($product->images as $image)
                 <div class="swiper-slide thumbs-slide">
-                    <img src="{{ Storage::url($image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500">
+                    <img src="{{ Storage::url($image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36">
                 </div>
                 @endforeach
             </div>
