@@ -38,7 +38,11 @@
             @foreach ($category->types as $type)
             <div class="rounded-xl">
                 <a class="relative flex h-60 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
-                    <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
+                  @if ($type->image)
+                  <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
+                  @else
+                  <img class="object-cover w-full h-full border-2 rounded-xl" src="/assets/imgs/placeholder-image.webp" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
+                  @endif
                 </a>
                 <div class="mt-4 pb-5 ">
                     <a href="/category/{{ $category->slug }}?type={{ $type->slug }}">

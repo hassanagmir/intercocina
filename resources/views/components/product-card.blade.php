@@ -1,6 +1,10 @@
 <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
     <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl" href="{{ route('product.show', $slug) }}">
-      <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
+      @if ($image)
+        <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
+      @else
+        <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="/assets/imgs/placeholder-image.webp" alt="{{ $name }}" />
+      @endif
     </a>
     <div class="mt-4 px-5 pb-5">
       <a href="{{ route('product.show', $slug) }}">
