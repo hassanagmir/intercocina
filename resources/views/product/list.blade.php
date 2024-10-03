@@ -37,11 +37,11 @@
         <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
             @foreach ($category->types as $type)
             <div class="rounded-xl">
-                <a class="relative flex h-72 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
+                <a class="relative flex max-h-96 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
                   @if ($type->image)
-                  <img class="object-contain w-full h-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
+                  <img class="object-contain w-full" src="{{ Storage::url($type->image) }}" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
                   @else
-                  <img class="object-cover w-full h-full border-2 rounded-xl" src="/assets/imgs/placeholder-image.webp" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
+                  <img class="object-cover w-full border-2 rounded-xl" src="/assets/imgs/placeholder-image.webp" alt="{{ $type->name }}" title="{{ $type->name }}" width="auto" height="auto" loading="lazy" />
                   @endif
                 </a>
                 <div class="mt-4 pb-5 ">
