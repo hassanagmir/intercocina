@@ -10,8 +10,7 @@
         content="Fort d'une expérience de plus d'une décennie, Intercocia, leader en tant que fabricant de meubles de cuisine de lux.">
     <title>{{ (isset($title) ? $title . ' - ' : '') . config('app.name', 'Laravel') }}</title>
     <link rel="canonical" href="{{ request()->fullUrl() }}" />
-    <meta name="keywords"
-        content="mobile de cuisine, Caisson , Facade, Placards, Parquets, Tiroirs, Armoire, Caissons Bas, Caissons Haut, Caissons column">
+    <meta name="keywords" content="mobile de cuisine, Caisson , Facade, Placards, Parquets, Tiroirs, Armoire, Caissons Bas, Caissons Haut, Caissons column">
 
     {{-- Open Graph / Facebook --}}
     <meta property="og:type" content="website">
@@ -19,8 +18,7 @@
     <meta property="og:title" content="{{ isset($title) ? $title : config('app.name', 'Laravel') }}">
 
 
-    <meta property="og:description"
-        content="Fort d'une expérience de plus d'une décennie, Intercocia, leader en tant que fabricant de meubles de cuisine de lux.">
+    <meta property="og:description" content="Fort d'une expérience de plus d'une décennie, Intercocia, leader en tant que fabricant de meubles de cuisine de lux.">
     <meta property="og:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
     <link rel="icon" type="image/x-icon" href="\assets\imgs\favicon.png">
     {{-- Twitter --}}
