@@ -3,7 +3,7 @@
       @if ($image)
         <img class="sm:object-cover object-contain w-full bg-gray-200 min-h-52" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
       @else
-        <img class="sm:object-cover object-contain w-full bg-gray-200" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="/assets/imgs/placeholder-image.webp" alt="{{ $name }}" />
+        <img class="sm:object-cover object-contain w-full bg-gray-200 min-h-52" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="/assets/imgs/placeholder-image.webp" alt="{{ $name }}" />
       @endif
     </a>
     <div class="mt-4 px-5 pb-5">
