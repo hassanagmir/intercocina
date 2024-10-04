@@ -60,6 +60,7 @@
     </div>
 </section>
 
+@livewire('brands')
 
 <section class="py-20 my-4 overflow-x-hidden bg-accent-gray-50">
     <div class="px-3 max-w-3xl m-auto">
