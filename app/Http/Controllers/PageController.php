@@ -23,9 +23,8 @@ class PageController extends Controller
 
 
     public function about(){
-        $brands = Brand::all();
         $title = __("À propos");
-        return view('about', compact('brands', 'title'));
+        return view('about', compact('title'));
     }
 
 
