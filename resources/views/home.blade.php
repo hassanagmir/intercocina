@@ -60,7 +60,7 @@
     </div>
 </section>
 
-@livewire('brands')
+
 
 <section class="py-20 my-4 overflow-x-hidden bg-accent-gray-50">
     <div class="px-3 max-w-3xl m-auto">
@@ -165,7 +165,7 @@
     </div>
 </section>
 
-
+@livewire('brands')
 @livewire('reviews')
 <section class="py-16 overflow-hidden bg-accent-gray-50">
     <div class="grid gap-8 px-4 lg:grid-cols-2 md:gap-20 md:max-w-7xl md:mx-auto">
