@@ -105,70 +105,70 @@ class ProductResource extends Resource
                                             ->label('Ancien prix'),
                                     ]),
 
-                                Forms\Components\Repeater::make('dimensions')
-                                    ->hidden(fn(Get $get): bool => $get('is_dimensions'))
-                                    ->label(false)
-                                    ->lazy()
-                                    ->relationship()
-                                    ->schema([
+                                // Forms\Components\Repeater::make('dimensions')
+                                //     ->hidden(fn(Get $get): bool => $get('is_dimensions'))
+                                //     ->label(false)
+                                //     ->lazy()
+                                //     ->relationship()
+                                //     ->schema([
 
-                                        Forms\Components\TextInput::make('height')
-                                            ->label(__("Hauteur"))
-                                            ->required()
-                                            ->numeric(),
+                                //         Forms\Components\TextInput::make('height')
+                                //             ->label(__("Hauteur"))
+                                //             ->required()
+                                //             ->numeric(),
 
-                                        Forms\Components\TextInput::make('width')
-                                            ->label(__("Largeur"))
-                                            ->required()
-                                            ->numeric(),
-                                        Forms\Components\TextInput::make('price')
-                                            ->label(__("Prix"))
-                                            ->required()
-                                            ->numeric()
-                                            ->prefix('MAD'),
-                                        Forms\Components\TextInput::make('code')
-                                            ->unique(ignoreRecord: true)
-                                            ->label(__("Référence"))
-                                            ->required(),
+                                //         Forms\Components\TextInput::make('width')
+                                //             ->label(__("Largeur"))
+                                //             ->required()
+                                //             ->numeric(),
+                                //         Forms\Components\TextInput::make('price')
+                                //             ->label(__("Prix"))
+                                //             ->required()
+                                //             ->numeric()
+                                //             ->prefix('MAD'),
+                                //         Forms\Components\TextInput::make('code')
+                                //             ->unique(ignoreRecord: true)
+                                //             ->label(__("Référence"))
+                                //             ->required(),
 
 
-                                        Forms\Components\Select::make('image_reference')
-                                            ->label(__("Référence d'image"))
-                                            ->live()
-                                            ->options(function (Get $get) {
-                                                $incrementedArray = [];
-                                                $i = 0;
-                                                foreach ($get('../../images') as $key => $value) {
-                                                    $incrementedArray[$i++] = $i;
-                                                }
-                                                return $incrementedArray;
-                                            }),
-                                        // Forms\Components\Toggle::make('status')
-                                        //     ->inline(false)
-                                        //     ->default(true)
-                                        //     ->required(),
+                                //         Forms\Components\Select::make('image_reference')
+                                //             ->label(__("Référence d'image"))
+                                //             ->live()
+                                //             ->options(function (Get $get) {
+                                //                 $incrementedArray = [];
+                                //                 $i = 0;
+                                //                 foreach ($get('../../images') as $key => $value) {
+                                //                     $incrementedArray[$i++] = $i;
+                                //                 }
+                                //                 return $incrementedArray;
+                                //             }),
+                                //         // Forms\Components\Toggle::make('status')
+                                //         //     ->inline(false)
+                                //         //     ->default(true)
+                                //         //     ->required(),
 
-                                        Forms\Components\Select::make('color_id')
-                                            ->label(__("Couleur"))
-                                            ->searchable()
-                                            ->preload()
-                                            ->placeholder("Couleur...")
-                                            ->relationship('color', 'name'),
+                                //         Forms\Components\Select::make('color_id')
+                                //             ->label(__("Couleur"))
+                                //             ->searchable()
+                                //             ->preload()
+                                //             ->placeholder("Couleur...")
+                                //             ->relationship('color', 'name'),
 
-                                        Forms\Components\Select::make('attribute_id')
-                                            ->label(__("Attribut"))
-                                            ->searchable()
-                                            ->placeholder("Attribut...")
-                                            ->relationship('attribute', 'name'),
+                                //         Forms\Components\Select::make('attribute_id')
+                                //             ->label(__("Attribut"))
+                                //             ->searchable()
+                                //             ->placeholder("Attribut...")
+                                //             ->relationship('attribute', 'name'),
 
-                                    ])
-                                    ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                                        return $data;
-                                    })
-                                    ->grid(2)
-                                    ->columns(3)
-                                    ->columnSpanFull()
-                                    ->cloneable()
+                                //     ])
+                                //     ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                                //         return $data;
+                                //     })
+                                //     ->grid(2)
+                                //     ->columns(3)
+                                //     ->columnSpanFull()
+                                //     ->cloneable()
                             ]),
                     ])->columnSpanFull(),
 
