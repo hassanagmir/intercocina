@@ -5,7 +5,7 @@
 <section class="px-4 py-20 md:max-w-6xl md:mx-auto">
   <h1 class="text-4xl mb-3 font-semibold">{{ $event->title }}</h1>
   <p class="mb-4 font-semibold text-gray-800">{{ $event->description }}</p>
-  <div class="swiper">
+  <div class="swiper-evnet">
     <div class="swiper-wrapper">
       @foreach ($event->getMedia() as $image)
       <div class="swiper-slide">

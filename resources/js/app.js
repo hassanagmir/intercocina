@@ -119,7 +119,7 @@ Livewire.on('reloadPage', () => {
 
 // Events Swiper
 
-const swiper = new Swiper('.swiper', {
+const swiper = new Swiper('.swiper-evnet', {
     slidesPerView: 3,
     spaceBetween: 30,
     loop: true,
