@@ -23,7 +23,8 @@
                     <img class="w-[40px]" width="40px" height="40px" loading="lazy" src="/assets/icons/phone.png" title="Appelez-nous" alt="Appelez-nous">
                     <div>
                         <p class="text-lg font-bold ">Appelez-nous</p>
-                        <p>+212 0000000</p>
+                        <p>+212 61 54 79 00</p>
+                        <p>+212 36 35 88 89</p>
                     </div>
 
                 </div>
@@ -85,30 +86,18 @@
         <div>
             <ul class="flex items-center gap-4">
                 <li>
-                    <a href="https://ma.linkedin.com/company/intercocina" aria-label="Linkedin page link">
+                    <a href="https://www.linkedin.com/company/inter-cocina" aria-label="Linkedin page link">
                         <img src="/assets/media-icons/linkedin.png" width="30px" height="30px" loading="lazy" title="Linkedin page link"  alt="Linkedin page link">
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.facebook.com/intercocina" aria-label="facebook page link">
+                    <a href="https://www.facebook.com/IntercocinaSARL" aria-label="facebook page link">
                         <img src="/assets/media-icons/facebook.png" width="30px" height="30px" loading="lazy" title="Facebook page link" alt="Facebook page link">
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/intercocina" aria-label="Instagram page link">
+                    <a href="https://www.instagram.com/intercocinasarl" aria-label="Instagram page link">
                         <img src="/assets/media-icons/instagram.png" width="30px" height="30px" loading="lazy" title="Instagram page link" alt="Instagram page link">
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/@intercocina" aria-label="youtube channel link">
-                        <img src="/assets/media-icons/youtube.png" width="30px" height="30px" loading="lazy" title="youtube channel link" alt="youtube channel link">
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="https://www.x.com/intercocina" aria-label="X channel link">
-                        <img src="/assets/media-icons/twitter.png" width="30px" height="30px" loading="lazy" title="X link" alt="X link">
                     </a>
                 </li>
             </ul>

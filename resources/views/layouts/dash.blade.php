@@ -44,14 +44,8 @@
              
              <aside :class="{ 'translate-x-0': isActive, 'bg-red-500': !isActive }" id="cta-button-sidebar" class="fixed top-24 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
                <button @click="isActive = !isActive" class="block sm:hidden absolute top-3 right-3 py-0.5 px-2 rounded-full font-bold bg-white">X</button>
-                <div class="h-full px-3 py-4 overflow-y-auto bg-red-400 text-white pt-6">
+                <div class="h-full px-3 py-4 overflow-y-auto bg-red-400 text-white pt-16">
                    <ul class="space-y-2 font-medium">
-                      {{-- <li>
-                         <a href="#" class="flex items-center p-2 text-white-900 rounded-lg hover:bg-gray-100 group hover:text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-gray-500" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 9.429V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8.286m6-3.857V21m0-11.571h4a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2h-4m0 0H9m0 0v-7.714M9 21H5a2 2 0 0 1-2-2v-3.714a2 2 0 0 1 2-2h4"/></svg>
-                            <span class="ms-3 font-semibold ">Dashboard</span>
-                         </a>
-                      </li> --}}
                       <li>
                         <a href="{{ route('profile') }}" class="flex items-center p-2 text-white-900 rounded-lg hover:bg-gray-100 group hover:text-gray-500">
                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-gray-500" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><circle cx="12" cy="7.5" r="3"/><path d="M19.5 20.5c-.475-9.333-14.525-9.333-15 0"/></g></svg>
@@ -98,7 +92,7 @@
                 </div>
              </aside>
 
-             <div class="p-4 sm:mt-32 sm:ml-64">
+             <div class="p-4 sm:mt-40 sm:ml-64">
                 @yield('content')
              </div>
             
