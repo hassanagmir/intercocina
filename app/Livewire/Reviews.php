@@ -10,7 +10,7 @@ class Reviews extends Component
     public function render()
     {
         return view('livewire.reviews', [
-            'reviews' => Review::all()
+            'reviews' => Review::where('status', true)->get()
         ]);
     }
 }

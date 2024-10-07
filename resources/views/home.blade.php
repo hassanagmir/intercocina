@@ -10,8 +10,9 @@
                 Notre collection de meubles de cuisine est conçue pour transformer votre espace en un lieu d'inspiration gastronomique, où chaque détail compte.
             </p>
             <div class="flex justify-center md:justify-start gap-4">
-                <a href="{{ route('contact') }}" class="btn btn-accent-gray animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
-                    {{ __("Contact") }}
+                <a href="{{ route('contact') }}" class="btn btn-accent-gray animate__animated animate__fadeInUp flex items-center justify-center gap-2" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087a3 3 0 0 0 1.398 0c.52-.125 1.001-.446 1.963-1.087l6.98-4.654M7.158 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327"/></svg>
+                    <span>{{ __("Contact") }}</span>
                 </a>
                 @guest
                 <a href="{{ route('user.login') }}" class="btn btn-primary animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
@@ -20,11 +21,11 @@
                 @endguest
 
                 @auth
-                <a href="{{ route("products") }}" class="btn btn-primary animate__animated animate__fadeInUp" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
+                <a href="{{ route("products") }}" class="btn btn-primary animate__animated animate__fadeInUp flex items-center justify-center gap-2" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 21a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m-8 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M3.71 5.4h15.214c1.378 0 2.373 1.27 1.995 2.548l-1.654 5.6C19.01 14.408 18.196 15 17.27 15H8.112c-.927 0-1.742-.593-1.996-1.452zm0 0L3 3"/></svg>
                     {{__("Produits")}}
                 </a>
                 @endauth
-                
             </div>
         </div>
 
@@ -34,8 +35,6 @@
             {{-- <img class="relative z-20 rounded-3xl" src="https://placehold.co/550x300" alt="" x-animate="zoomIn"> --}}
             <img class="relative z-20 rounded-3xl aspect-video animate__animated animate__zoomIn" src="https://placehold.co/550x300" width="550" height="300" alt="" x-animate="zoomIn" style="--animate-duration: 1s;">
         </div>
-
-        
     </div>
 </x-header>
 <section class="py-16">
@@ -156,7 +155,7 @@
                     <div class="bg-accent-gray-300 w-28 h-28 md:w-52 md:h-52 rounded-full absolute -top-10 -right-3 md:-top-24 md:-right-8 lg:-top-12  lg:-right-8 z-0"
                         x-animate.intersect.threshold.75="zoomIn">
                     </div>
-                    <div class="bg-accent-red-500 w-36 h-36 md:w-56 md:h-56 rounded-full absolute bottom-16 -left-4 md:-bottom-16 md:-left-8 lg:-bottom-16 lg:-left-16 z-0"
+                    <div class="bg-accent-red-500 w-36 h-36 md:w-56 md:h-56 rounded-full absolute bottom-40 -left-4  md:-bottom-16 md:-left-8 lg:-bottom-16 lg:-left-16 z-0"
                         x-animate.intersect.threshold.75="zoomIn">
                     </div>
                 </div>

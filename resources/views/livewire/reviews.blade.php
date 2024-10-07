@@ -35,7 +35,7 @@
         <div class="mt-8 -mx-6 lg:col-span-2 lg:mx-0">
             <!-- Thumbnail Swiper -->
 
-            <div class="swiper-container">
+            <div class="swiper-container mx-3">
     
                 <!-- swiper slides -->
                 <div class="swiper-wrapper">
