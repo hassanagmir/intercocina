@@ -70,12 +70,18 @@
               @endauth
 
               @guest
-              <button  x-on:click="$dispatch('open-contact-form-modal')" type="button" class="text-md flex flex-col mt-3 items-center justify-center w-full py-3 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 font-bold">
+              <button x-on:click="$dispatch('open-contact-form-modal')" type="button" class="text-md hidden md:flex flex-col mt-3 items-center justify-center w-full py-3 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 font-bold">
                   <div class="flex gap-3">
                       <svg class="text-gray-600" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M9 12h6" /><path d="M12 9v6" /></svg>
                       <span class="text-gray-600">{{__("Ajouter une adresse")}}</span>
                   </div>
               </button>
+              <a href="{{ route('user.login') }}" class="text-md flex md:hidden flex-col mt-3 items-center justify-center w-full py-3 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 font-bold">
+                <div class="flex gap-3">
+                    <svg class="text-gray-600" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M9 12h6" /><path d="M12 9v6" /></svg>
+                    <span class="text-gray-600">{{__("Ajouter une adresse")}}</span>
+                </div>
+              </a>
               @endguest
                
             </div> 
