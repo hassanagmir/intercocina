@@ -3,31 +3,16 @@
 
 @section('content')
 <section class="px-4 py-20 md:max-w-6xl md:mx-auto">
-    <div class="relative z-10 mx-auto px-6 md:max-w-2xl lg:max-w-5xl lg:px-12">
-        <div class="mx-auto text-center lg:w-4/5">
-            <h1 class="text-xl font-black text-red-600 sm:text-4xl drop-shadow-md">
-                <span class="hidden sm:inline-block">Clés pour Tout Savoir sur les Tendances de la Cuisine et du Design</span>
-                <div class="mx-auto block w-max">
-                    <div class="relative block pb-2">
-                        <span class="absolute inset-0 z-[1] block bg-gradient-to-b from-red-600 via-red-600 to-transparent bg-clip-text text-transparent">Joignez-vous à Nous lors des Événements</span>
-                        <span class="absolute inset-0 block bg-gradient-to-l from-[#b6b9b8] to-[#cfd0d1] bg-clip-text text-transparent">Joignez-vous à Nous lors des Événements</span>
-                        <span class="block">Joignez-vous à Nous lors des Événements</span>
-                    </div>
-                    <div class="-mt-4 grow overflow-hidden">
-                        <svg class="w-60 sm:w-80" height="22" viewBox="0 0 283 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.24715 19.3744C72.4051 10.3594 228.122 -4.71194 281.724 7.12332" stroke="url(#paint0_linear_18_19)" stroke-width="4"></path>
-                            <defs>
-                                <linearGradient id="paint0_linear_18_19" x1="282" y1="5.49999" x2="40" y2="13" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#b6b9b8"></stop>
-                                    <stop offset="1" stop-color="#cfd0d1"></stop>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                </div>
-            </h1>
+    <div class="px-3 max-w-3xl m-auto">
+        <div class="">
+             <h2 class="mb-4 text-3xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
+                Joignez-vous à Nous lors des Événements
+             </h2>
+             <p class="text-center text-slate-500 md:text-lg" x-animate.intersect.delay.100="fadeInUp">
+                Clés pour Tout Savoir sur les Tendances de la Cuisine et du Design.
+             </p>
         </div>
-    </div>
+     </div>
     <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4 mt-8">
         @foreach ($events as $event)
             <div class="rounded-xl bg-white border-2 border-gray-400 overflow-hidden">
