@@ -24,7 +24,7 @@
                     <div>
                         <p class="text-lg font-bold ">Appelez-nous</p>
                         <p>+212 61 54 79 00</p>
-                        <p>+212 36 35 88 89</p>
+                        <p>+212 36 35 88 88</p>
                     </div>
 
                 </div>
