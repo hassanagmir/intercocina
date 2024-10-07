@@ -29,7 +29,7 @@ class ProductList extends Component
         if ($this->type == "") {
             $type = $this->category->types()->where("status", true)->first();
             if ($type) {
-                $this->type = $this->category->types->first()->slug;
+                $this->type = $this->category->types()->where("status", true)->first()->slug;
             } else {
                 $this->type = null;
             }
