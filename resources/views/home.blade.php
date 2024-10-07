@@ -37,7 +37,7 @@
         </div>
     </div>
 </x-header>
-<section class="py-16">
+<section class="md:py-12">
     <div class="px-4 py-16 md:max-w-5xl md:mx-auto">
         <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
             La collection des porduits Intercocina.
@@ -58,9 +58,6 @@
         </div>
     </div>
 </section>
-
-
-
 <section class="py-20 my-4 overflow-x-hidden bg-accent-gray-50">
     <div class="px-3 max-w-3xl m-auto">
        <div class="">
@@ -154,9 +151,9 @@
                     <div class="bg-accent-gray-300 w-28 h-28 md:w-52 md:h-52 rounded-full absolute -top-10 -right-3 md:-top-24 md:-right-8 lg:-top-12  lg:-right-8 z-0"
                         x-animate.intersect.threshold.75="zoomIn">
                     </div>
-                    <div class="bg-accent-red-500 w-28 h-28 md:w-56 md:h-56 rounded-full absolute bottom-44 sm:-bottom-12 md:-bottom-16 -left-4 md:-left-8 lg:-bottom-16 lg:-left-16 z-0"
+                    {{-- <div class="bg-accent-red-500 w-28 h-28 md:w-56 md:h-56 rounded-full absolute bottom-44 sm:-bottom-12 md:-bottom-16 -left-4 md:-left-8 lg:-bottom-16 lg:-left-16 z-0"
                         x-animate.intersect.threshold.75="zoomIn">
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
