@@ -32,7 +32,6 @@
         <div class="relative order-1 col-span-full xl:order-2 xl:col-span-1 lg:pt-12">
             <div class="absolute z-0 rounded-full -top-8 -right-16  w-28 h-28 md:w-52 md:h-52 bg-accent-gray-200" x-animate.delay.500="zoomIn"></div>
             <div class="absolute rounded-full -bottom-8 -left-16 md:-bottom-16 bg-accent-red-400 w-36 h-36 md:w-64 md:h-64" x-animate.delay.500="zoomIn"></div>
-            {{-- <img class="relative z-20 rounded-3xl" src="https://placehold.co/550x300" alt="" x-animate="zoomIn"> --}}
             <img class="relative z-20 rounded-3xl aspect-video animate__animated animate__zoomIn" src="https://placehold.co/550x300" width="550" height="300" alt="" x-animate="zoomIn" style="--animate-duration: 1s;">
         </div>
     </div>

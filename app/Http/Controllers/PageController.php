@@ -55,7 +55,7 @@ class PageController extends Controller
         if(!auth()->user()){
             return redirect()->route('user.login');
         }
-        $orders = Order::where('user_id', auth()->id())->paginate(6);
+        $orders = Order::where('user_id', auth()->id())->latest()->paginate(6);
         $title = auth()->user()->first_name . " " . auth()->user()->last_name;
         return view('profile', compact('title', 'orders'));
     }

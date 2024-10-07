@@ -16,6 +16,13 @@ class LoginForm extends Component
     public $remamber = "agmir";
 
 
+    public static function mount(){
+        if(auth()->user()){
+            return redirect('profile');
+        }
+    }
+
+
     public function login()
     {
         $this->validate();

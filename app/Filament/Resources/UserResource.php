@@ -25,6 +25,8 @@ class UserResource extends Resource
         return __("Utilisateur");
     }
 
+    protected static ?string $navigationGroup = "Autorisation";
+
     protected static ?string $recordTitleAttribute = "full_name";
 
     public static function getGloballySearchableAttributes(): array

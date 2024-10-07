@@ -26,6 +26,8 @@ class EventResource extends Resource
         return __("Événement");
     }
 
+    protected static ?string $navigationGroup = "Plus d'options";
+
     public static function form(Form $form): Form
     {
         return $form

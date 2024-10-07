@@ -51,6 +51,68 @@
     </main>
     <x-footer />
     @livewireScriptConfig
+    <div x-data="modal">
+        <div 
+            x-cloak 
+            x-show="showModal" 
+            x-transition.opacity.duration.200ms 
+            x-trap.inert.noscroll="showModal" 
+            @keydown.esc.window="closeModal()" 
+            @click.self="closeModal()" 
+            class="fixed inset-0 z-30 flex items-center justify-center bg-black/20 p-4 backdrop-blur-md lg:p-8 mt-16" 
+            role="dialog" 
+            aria-modal="true" 
+            aria-labelledby="videoModalTitle"
+        >
+            <!-- Modal Dialog -->
+            <div 
+                x-show="showModal" 
+                x-transition:enter="transition ease-out duration-300 delay-200" 
+                x-transition:enter-start="opacity-0 translate-y-8" 
+                x-transition:enter-end="opacity-100 translate-y-0" 
+                class="max-w-2xl w-full relative"
+            >
+                <!-- Close Button -->
+                <button 
+                    type="button" 
+                    x-show="showModal" 
+                    @click="closeModal()" 
+                    x-transition:enter="transition ease-out duration-200 delay-500" 
+                    x-transition:enter-start="opacity-0 scale-0" 
+                    x-transition:enter-end="opacity-100 scale-100" 
+                    class="absolute -top-12 right-0 flex items-center justify-center rounded-full bg-neutral-50 p-1.5 text-neutral-900 hover:opacity-75 active:opacity-100 dark:bg-neutral-900 dark:text-white" 
+                    aria-label="close modal"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <img class="max-h-[30rem] w-full" src="/ads.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('modal', () => ({
+                showModal: false,
+                init() {
+                    this.checkAndShowModal();
+                },
+                checkAndShowModal() {
+                    const adsModal = localStorage.getItem('adsModal');
+                    if (!adsModal) {
+                        this.showModal = true;
+                    }
+                },
+                closeModal() {
+                    this.showModal = false;
+                    localStorage.setItem('adsModal', 'true');
+                }
+            }));
+        });
+    </script>
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -74,6 +136,8 @@
             }
         });
     </script>
+
+
 </body>
 
 </html>

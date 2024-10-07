@@ -83,7 +83,7 @@ document.addEventListener('livewire:init', () => {
             "soundSrc": "",
             "imageSrc": "",
             "imageSize": 32
-          })
+        })
 
     });
 });
@@ -94,7 +94,7 @@ document.addEventListener('livewire:init', () => {
 Livewire.start();
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var Swipes = new Swiper('.swiper-container', {
         loop: true,
         slidesPerView: 1,
@@ -148,14 +148,15 @@ const swiper = new Swiper('.swiper-evnet', {
 });
 
 
+
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
 
 const lightbox = new PhotoSwipeLightbox({
-  gallery: '#gallery',
-  children: 'a',
-  showHideAnimationType: 'fade',
-  pswpModule: () => import('photoswipe')
+    gallery: '#gallery',
+    children: 'a',
+    showHideAnimationType: 'fade',
+    pswpModule: () => import('photoswipe')
 });
 lightbox.init();
 

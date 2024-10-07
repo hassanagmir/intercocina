@@ -30,7 +30,7 @@ class ViewOrder extends ViewRecord
 
     public function getTitle(): Htmlable
     {
-        return new HtmlString("<span class='text-xl'>{$this->getRecordTitle()} {$this->record->code}</span>");
+        return new HtmlString("<span class='text-xl'>{$this->getRecordTitle()}</span>");
     }
         
 

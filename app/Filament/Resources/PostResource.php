@@ -24,6 +24,8 @@ class PostResource extends Resource
         return __("Article");
     }
 
+    protected static ?string $navigationGroup = "Plus d'options";
+
     public static function form(Form $form): Form
     {
         return $form

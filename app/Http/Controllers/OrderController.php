@@ -12,7 +12,7 @@ class OrderController extends Controller
             return redirect()->route('user.login');
         }
 
-        $orders = Order::where("user_id", auth()->id())->paginate(30);
+        $orders = Order::where("user_id", auth()->id())->latest()->paginate(30);
         return view('order.list', compact('orders'));
     }
 

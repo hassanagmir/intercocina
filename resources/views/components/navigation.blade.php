@@ -14,7 +14,7 @@
 
                 <div class="py-4 ">
                     <a href="/">
-                        <img class="md:w-[130px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" width="auto" height="auto" alt="{{ config('app.name') }}'s logo" title="Intercocina logo" loading="lazy">
+                        <img class="md:w-[100px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" width="auto" height="auto" alt="{{ config('app.name') }}'s logo" title="Intercocina logo" loading="lazy">
                     </a>
                 </div>
 
@@ -166,5 +166,4 @@
             </svg>
         </button>
     </nav>
-
 </div>
