@@ -2,7 +2,7 @@
   <div class="my-4 items-end justify-between space-y-4 md:flex sm:space-y-0 md:mb-8">
       <div>
           <nav class="flex" aria-label="Breadcrumb">
-              <ol class="inline-flex items-center space-x-1 md:space-x-2 mt-8 rtl:space-x-reverse">
+              <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                   <li class="inline-flex items-center">
                       <a href="{{ route('home') }}" class="inline-flex items-center text-md font-bold text-gray-700 hover:text-primary-600">
                           <svg class="me-2.5 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

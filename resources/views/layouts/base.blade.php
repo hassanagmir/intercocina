@@ -45,7 +45,7 @@
 
 <body class="bg-red-50">
     <x-navigation />
-    <main class="mt-22">
+    <main class="mt-28">
         @yield('content')
     </main>
     <x-footer />
