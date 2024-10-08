@@ -27,9 +27,9 @@ class ProductList extends Component
     {
         $this->total_products = Product::all()->count();
         if ($this->type == "") {
-            $type = $this->category->types()->where("status", true)->first();
+            $type = $this->category->types()->where("status", true)->orderBy('order')->first();
             if ($type) {
-                $this->type = $this->category->types()->where("status", true)->first()->slug;
+                $this->type = $this->category->types()->where("status", true)->orderBy('order')->first()->slug;
             } else {
                 $this->type = null;
             }
@@ -54,7 +54,7 @@ class ProductList extends Component
             $type = Type::first();
             $products = [];
         } else {
-            $type = Type::where('slug', $this->type)?->first();
+            $type = Type::where('slug', $this->type)->orderBy('order')?->first();
             $products = Product::where("type_id", $type->id)->whereNot("status", 2)->get() ?? [];
             $this->products_type = $type;
         }
