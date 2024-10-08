@@ -54,7 +54,6 @@
             </div>
             <div class="flex flex-col">
                 <h3 class="py-6 text-lg text-accent-red">Ressources</h3>
-
                 <ul class="space-y-5">
                     <li class="text-slate-500 hover:text-accent-red">
                         <a href="{{ route("about") }}">À propos</a>
