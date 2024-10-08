@@ -4,7 +4,7 @@
     <div class="grid grid-cols-2 gap-8 md:gap-20 xl:gap-8 place-items-center">
         <div class="flex flex-col order-2 gap-3 pt-6 space-y-4 col-span-full md:px-4 xl:order-1 xl:col-span-1 md:pt-16 ">
             <h1 class="text-4xl font-bold leading-tight text-center md:text-left md:text-5xl md:leading-tight animate__animated animate__fadeInUp" x-animate="fadeInUp">
-                <span class="text-gray-400 font-black tracking-widest" style="font-family: sans-serif!important">INTER</span><span class="text-red-600 font-black tracking-widest" style="font-family: sans-serif!important">COCINA</span> Leader des cuisines modernes au Maroc
+                <span class="text-[#b6b6b7] font-black tracking-widest" style="font-family: 'DOCK11-Heavy', sans-serif!important">INTER</span><span class="text-[#ec2228] font-black tracking-widest" style="font-family: 'DOCK11-Heavy', sans-serif!important">COCINA</span> Leader des cuisines modernes au Maroc
             </h1>
             <p class="text-center text-slate-500 md:text-left text-lg animate__delay-200ms animate__animated animate__fadeInUp" x-animate.delay.100="fadeInUp">
                 Notre collection de meubles de cuisine est conçue pour transformer votre espace en un lieu d'inspiration gastronomique, où chaque détail compte.

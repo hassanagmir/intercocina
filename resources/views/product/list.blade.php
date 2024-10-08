@@ -2,8 +2,31 @@
 
 
 @section('content')
-<section class="px-4 py-20 md:max-w-7xl md:mx-auto">
-    <nav class="flex mb-4" aria-label="Breadcrumb">
+
+
+<section class="px-4 py-4 md:py-20 md:max-w-full md:flex gap-3">
+  <div class="w-1/4 hidden md:block">
+    
+    <div  class="sticky top-40">
+      @foreach ($categories as $category)
+      <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">{{ $category->name }}</h2>
+      <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 mb-6">
+      @foreach ($category->types()->where("status", true)->orderBy('order')->get() as $type)
+      <a href="/category/{{ $category->slug }}?type={{ $type->slug }}" class="flex items-center">
+          <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+          </svg>
+          {{ $type->name }}
+        </a>
+      @endforeach
+      </ul>
+    @endforeach
+    </div>
+  </div>
+
+
+   <div class="w-full md:w-9/12">
+      <nav class="flex mb-4" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li class="inline-flex items-center">
             <a href="{{ route('home') }}" class="inline-flex items-center text-md font-bold text-gray-700 hover:text-primary-600">
@@ -35,7 +58,7 @@
             </span>
         </h2>
         <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-            @foreach ($category->types()->where("status", true)->get() as $type)
+            @foreach ($category->types()->where("status", true)->orderBy('order')->get() as $type)
             <div class="rounded-xl">
                 <a class="relative flex max-h-96 overflow-hidden rounded-xl bg-gray-200" href="/category/{{ $category->slug }}?type={{ $type->slug }}">
                   @if ($type->image)
@@ -61,5 +84,6 @@
         </div>
         @endif
     @endforeach
+   </div>
 </section>
 @endsection

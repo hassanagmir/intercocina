@@ -27,18 +27,28 @@
     <meta property="twitter:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    <style>
+<style>
         .grid {
             display: grid !important;
         }
-
+    
         .lazy-image {
             opacity: 0;
             transition: opacity 0.3s;
         }
-
+    
         .lazy-image.loaded {
             opacity: 1;
+        }
+    
+        @font-face {
+            font-family: 'DOCK11-Heavy';
+            src: url('/fonts/DOCK11-Heavy.ttf.woff') format('woff'),
+                url('/fonts/DOCK11-Heavy.ttf.svg#DOCK11-Heavy') format('svg'),
+                url('/fonts/DOCK11-Heavy.ttf.eot'),
+                url('/fonts/DOCK11-Heavy.eot?#iefix') format('embedded-opentype');
+            font-weight: normal;
+            font-style: normal;
         }
     </style>
 </head>
@@ -91,7 +101,7 @@
         </div>
     </div>
 
-    <div class="fixed bottom-7 right-7 animate__animated animate__heartBeat animate__infinite animate__slow	3">
+    <div class="fixed bottom-7 left-7 animate__animated animate__heartBeat animate__infinite animate__slow">
         <a href="https://web.whatsapp.com/send?phone=212661547900" class="whatsapp-button" target="_blank">
           <div class="whatsapp-icon">
             <svg class="w-7 md:w-10" xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp" role="img" viewBox="0 0 512 512" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><rect width="512" height="512" rx="15%" fill="#25d366"></rect><path fill="#25d366" stroke="#ffffff" stroke-width="26" d="M123 393l14-65a138 138 0 1150 47z"></path><path fill="#ffffff" d="M308 273c-3-2-6-3-9 1l-12 16c-3 2-5 3-9 1-15-8-36-17-54-47-1-4 1-6 3-8l9-14c2-2 1-4 0-6l-12-29c-3-8-6-7-9-7h-8c-2 0-6 1-10 5-22 22-13 53 3 73 3 4 23 40 66 59 32 14 39 12 48 10 11-1 22-10 27-19 1-3 6-16 2-18"></path></g></svg>
