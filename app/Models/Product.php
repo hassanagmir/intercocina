@@ -69,7 +69,7 @@ class Product extends Model
     public function price(){
         if($this->price){
             return strval($this->price);
-        }elseif($this->dimensions){
+        }elseif(count($this->dimensions)){
             $prices = $this->dimensions()
                 ->where('status', true)
                 ->where('price', '>', 0)
