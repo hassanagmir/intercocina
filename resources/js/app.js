@@ -166,6 +166,25 @@ const swiper = new Swiper('.swiper-evnet', {
 });
 
 
+var swiperHead = new Swiper(".header-swiper", {
+    spaceBetween: 30,
+    loop:true,
+    centeredSlides: true,
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
+
 
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css';
