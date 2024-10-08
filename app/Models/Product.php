@@ -70,7 +70,10 @@ class Product extends Model
         if($this->price){
             return strval($this->price);
         }else{
-            $prices = $this->dimensions->pluck('price')->toArray();
+            $prices = $this->dimensions()
+                ->where('status', true)
+                ->where('price', '>', 0)
+                ->pluck('price')->toArray();
             return min($prices) . " - " . max($prices);
         }
     } 

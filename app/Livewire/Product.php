@@ -11,8 +11,6 @@ use Livewire\Component;
 
 class Product extends Component
 {
-
-
     public ProductModel $product;
 
     public $qty = 1;
@@ -54,8 +52,18 @@ class Product extends Component
 
     public function mount()
     {
-        $this->heights = array_unique($this->product->dimensions->pluck('height')->toArray());
-        $this->widths = array_unique($this->product->dimensions->pluck('width')->toArray());
+        $this->heights = array_unique(
+            $this->product->dimensions()
+                ->where("status", true)
+                ->where("price", ">", 0)
+                ->pluck('height')->toArray()
+        );
+        $this->widths = array_unique(
+            $this->product->dimensions()
+                ->where("status", true)
+                ->where("price", ">", 0)
+                ->pluck('width')->toArray()
+        );
 
         $this->total = \Cart::getTotal();
         $this->price =  $this->product->price();
@@ -87,6 +95,9 @@ class Product extends Component
     {
         if($this->dimension && !($this->dimension == 'Choisir un dimension')){
             $this->price = Dimension::find($this->dimension)->price;
+            if($this->price == 0){
+                $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
+            }
         }else{
             $this->price = 0;
         }
@@ -99,10 +110,14 @@ class Product extends Component
         if (count($this->product->attributes)) {
             $this->heights = array_unique($this->product->dimensions()
                 ->where('attribute_id', $this->attribute)
+                ->where("status", true)
+                ->where("price", ">", 0)
                 ->pluck('height')
                 ->toArray());
     
             $this->widths = array_unique($this->product->dimensions()
+                ->where("status", true)
+                ->where("price", ">", 0)
                 ->where('attribute_id', $this->attribute)
                 ->pluck('width')
                 ->toArray());
