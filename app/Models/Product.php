@@ -69,12 +69,14 @@ class Product extends Model
     public function price(){
         if($this->price){
             return strval($this->price);
-        }else{
+        }elseif($this->dimensions){
             $prices = $this->dimensions()
                 ->where('status', true)
                 ->where('price', '>', 0)
                 ->pluck('price')->toArray();
             return min($prices) . " - " . max($prices);
+        }else{
+            return 0;
         }
     } 
 
