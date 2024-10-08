@@ -34,7 +34,7 @@
             <div class="absolute rounded-full -bottom-8 -left-16 md:-bottom-16 bg-accent-red-400 w-36 h-36 md:w-64 md:h-64" x-animate.delay.500="zoomIn"></div>
 
 
-            <div class="relative z-20 rounded-3xl animate__animated animate__zoomIn" style="width: 34rem">
+            <div class="relative z-20 rounded-3xl animate__animated animate__zoomIn">
                 <div class="swiper header-swiper">
                     <div class="swiper-wrapper">
                       <div class="swiper-slide">

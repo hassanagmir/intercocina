@@ -119,6 +119,9 @@
     border-color: rgb(239 68 68 / 500);
 }
 
+.header-swiper{
+    width: 30rem!important;
+}
 
 .pswp__img{
     height: auto!important;
@@ -132,9 +135,7 @@
  }
 
 @media (max-width: 575.98px) { 
-    .header-swiper{
-        width: 32rem!important;
-    }
+
  }
 
 
