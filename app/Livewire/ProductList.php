@@ -50,11 +50,13 @@ class ProductList extends Component
     public function render()
     {
 
+
         if ($this->type == '') {
             $type = Type::first();
             $products = [];
         } else {
             $type = Type::where('slug', $this->type)->orderBy('order')?->first();
+            $type ?? abort(404);
             $products = Product::where("type_id", $type->id)->whereNot("status", 2)->get() ?? [];
             $this->products_type = $type;
         }

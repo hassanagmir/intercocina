@@ -171,7 +171,7 @@ var swiperHead = new Swiper(".header-swiper", {
     loop:true,
     centeredSlides: true,
     autoplay: {
-      delay: 44500,
+      delay: 6500,
       disableOnInteraction: false,
     },
     pagination: {

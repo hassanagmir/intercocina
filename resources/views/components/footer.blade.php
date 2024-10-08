@@ -15,7 +15,7 @@
                     <img class="w-[40px]" loading="lazy" width="40px" height="40px" src="/assets/icons/mail.png" alt="Envoyez-nous un email" title="Envoyez-nous un email">
                     <div>
                         <p class="text-lg font-bold text-white ">Envoyez-nous un email</p>
-                        <p class="text-white">hello@intercocina.com</p>
+                        <p class="text-white">contact@intercocina.com</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 px-6 py-3 duration-500 bg-white shadow-lg rounded-3xl hover:scale-105"
