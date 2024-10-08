@@ -74,7 +74,6 @@
             </div>
 
         </div>
-
         @livewire('subscribe-form')
     </section>
     <hr class="h-px bg-gray-200 border-0">
