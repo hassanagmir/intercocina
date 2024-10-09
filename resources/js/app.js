@@ -151,6 +151,7 @@ const swiper = new Swiper('.swiper-evnet', {
 var swiperHead = new Swiper(".header-swiper", {
     spaceBetween: 30,
     loop:true,
+    simulateTouch: false,
     centeredSlides: true,
     autoplay: {
       delay: 6500,
