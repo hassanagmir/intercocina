@@ -53,7 +53,7 @@
     </style>
 </head>
 
-<body class="bg-[#f4f1f1]" style="background-image: url('/vecteur-inter.png');background-blend-mode: lighten;">
+<body class="bg-[#f2f2f2]"  style="background-image: url('/vecteur-inter.png');background-blend-mode: lighten; background-size:460px">
     <x-navigation />
     <main class="mt-28">
         @yield('content')
