@@ -4,7 +4,7 @@
 @section('content')
 
 
-<section class="px-4 py-4 md:py-20 md:max-w-full md:flex gap-3">
+<section class="px-4 py-4 md:py-20 md:max-w-full md:flex gap-3 bg-gray-100">
   <div class="w-1/4 hidden md:block">
     
     <div  class="sticky top-40">

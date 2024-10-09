@@ -3,7 +3,7 @@
         <div class="grid grid-cols-2">
             <div class="space-y-4 xl:col-span-1 col-span-full" x-animate.intersect="fadeInRight">
                 <img class="w-[200px]" width="200px" height="200px" loading="lazy" src="/assets/imgs/intercocina-logo.png" alt="Intercocina Logo" title="Intercocina Logo">
-                <p class="text-slate-500 md:max-w-[400px]">
+                <p class="text-slate-700 font-semibold md:max-w-[400px]">
                     Nous sommes profondément honorés de vous présenter notre société, qui se distingue en tant que
                     leader incontesté dans le domaine de la fabrication sur mesure d’éléments de cuisine
                 </p>
@@ -34,37 +34,37 @@
     <section class="flex flex-col gap-16 mb-8 lg:flex-row lg:justify-between">
         <div class="flex justify-around order-2 gap-10 xl:order-1">
             <div class="flex flex-col">
-                <h3 class="py-6 text-lg text-accent-red">Pages</h3>
+                <h3 class="py-6 text-lg text-accent-red font-semibold">Pages</h3>
                 <div class="flex gap-10">
                     <ul class="space-y-5">
-                        <li class="text-slate-500 hover:text-accent-red">
+                        <li class="text-slate-700 font-semibold hover:text-accent-red">
                             <a href="{{ route('products') }}">Produits</a>
                         </li>
-                        <li class="text-slate-500 hover:text-accent-red">
+                        <li class="text-slate-700 font-semibold hover:text-accent-red">
                             <a href="{{ route('post.index') }}">Blog</a>
                         </li>
-                        <li class="text-slate-500 hover:text-accent-red">
+                        <li class="text-slate-700 font-semibold hover:text-accent-red">
                             <a href="{{ route('event.list') }}">Événements</a>
                         </li>
-                        <li class="text-slate-500 hover:text-accent-red">
+                        <li class="text-slate-700 font-semibold hover:text-accent-red">
                             <a href="#">Politique de confidentialité</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="flex flex-col">
-                <h3 class="py-6 text-lg text-accent-red">Ressources</h3>
+                <h3 class="py-6 text-lg text-accent-red font-semibold">Ressources</h3>
                 <ul class="space-y-5">
-                    <li class="text-slate-500 hover:text-accent-red">
+                    <li class="text-slate-700 font-semibold hover:text-accent-red">
                         <a href="{{ route("about") }}">À propos</a>
                     </li>
-                    <li class="text-slate-500 hover:text-accent-red">
+                    <li class="text-slate-700 font-semibold hover:text-accent-red">
                         <a href="{{ route('contact') }}">Contactez-nous</a>
                     </li>
-                    <li class="text-slate-500 hover:text-accent-red">
+                    <li class="text-slate-700 font-semibold hover:text-accent-red">
                         <a href="{{ route('faqs' )}}">FAQs</a>
                     </li>
-                    <li class="text-slate-500 hover:text-accent-red">
+                    <li class="text-slate-700 font-semibold hover:text-accent-red">
                         <a href="{{ route('claim.create' )}}">Réclamation</a>
                     </li>
                    
@@ -76,7 +76,7 @@
     </section>
     <hr class="h-px bg-gray-200 border-0">
     <div class="flex flex-col items-center gap-8 pt-8 md:justify-between lg:flex-row">
-        <p class="text-center text-slate-500 md:text-left">
+        <p class="text-center text-slate-700 md:text-left font-semibold">
             Copyright © INTERCOCINA 2024. All rights reserved. Made with ❤️ in Nador.
         </p>
         <div>

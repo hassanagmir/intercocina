@@ -6,7 +6,7 @@
             <h1 class="text-4xl font-bold leading-tight text-center md:text-left md:text-5xl md:leading-tight animate__animated animate__fadeInUp" x-animate="fadeInUp">
                 <span class="text-[#b6b6b7] font-black tracking-widest" style="font-family: 'DOCK11-Heavy', sans-serif!important">INTER</span><span class="text-[#ec2228] font-black tracking-widest" style="font-family: 'DOCK11-Heavy', sans-serif!important">COCINA</span> Leader des cuisines modernes au Maroc
             </h1>
-            <p class="text-center text-slate-500 md:text-left text-lg animate__delay-200ms animate__animated animate__fadeInUp" x-animate.delay.100="fadeInUp">
+            <p class="text-center text-slate-700 md:text-left text-lg font-semibold animate__delay-200ms animate__animated animate__fadeInUp" x-animate.delay.100="fadeInUp">
                 Notre collection de meubles de cuisine est conçue pour transformer votre espace en un lieu d'inspiration gastronomique, où chaque détail compte.
             </p>
             <div class="flex justify-center md:justify-start gap-4">
@@ -67,7 +67,7 @@
         <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
             La collection des porduits Intercocina.
         </h2>
-        <p class="text-center text-slate-500 md:text-lg" x-animate.intersect.delay.100="fadeInUp">
+        <p class="text-center text-slate-700 md:text-lg font-semibold" x-animate.intersect.delay.100="fadeInUp">
             Que vous recherchiez le style, la fonctionnalité ou la qualité, notre gamme de produits a tout pour plaire.
             Explorez dès maintenant pour dénicher vos favoris.
         </p>
