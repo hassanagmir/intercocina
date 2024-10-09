@@ -5,7 +5,7 @@
         <div class="swiper main-slide-carousel swiper-container relative mb-6">
             <div class="swiper-wrapper" id="gallery">
                 @foreach ($product->images as $image)
-                <a href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1475" data-pswp-height="2000" target="_blank">
+                <a role="Product" href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1475" data-pswp-height="2000" target="_blank">
                     <img src="{{ Storage::url($image->image) }}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px]">
                 </a>
                 @endforeach
@@ -39,7 +39,7 @@
                     </svg>
                 </a>   
                 @else
-                <button class="group transition-all duration-500 p-0.5 sm:block hidden">
+                {{-- <button class="group transition-all duration-500 p-0.5 sm:block hidden">
                     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle class="fill-red-50 transition-all duration-500 group-hover:fill-red-100" cx="30" cy="30" r="30" fill="" />
                         <path class="stroke-red-600 transition-all duration-500 group-hover:stroke-red-700"
@@ -47,7 +47,7 @@
                             stroke="" stroke-width="1.6" stroke-miterlimit="10" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                </button>
+                </button> --}}
                 @endif
 
             </div>
@@ -202,7 +202,8 @@
                         class="group text-3xl py-2 px-3 w-full border-r border-gray-400 rounded-l-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
                         -
                     </button>
-                    <input x-model.number="qty" wire:model.defer="qty" type="number"
+                    <label class="hidden" for="qty">Quantity:</label>
+                    <input x-model.number="qty" wire:model.defer="qty" type="number" name="qty" id="qty"
                         class="font-semibold text-gray-900 text-lg py-3 px-2 w-full min-[400px]:min-w-[75px] h-full bg-transparent placeholder:text-gray-900 text-center hover:text-red-600 outline-0 hover:placeholder:text-red-600">
                     <button @click="qty++; $wire.set('qty', qty)"
                         class="group text-3xl py-2 px-3 w-full border-l border-gray-400 rounded-r-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
