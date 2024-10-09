@@ -27,7 +27,7 @@
     <meta property="twitter:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-<style>
+    <style>
         .grid {
             display: grid !important;
         }
