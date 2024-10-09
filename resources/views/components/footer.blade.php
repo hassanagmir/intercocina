@@ -82,17 +82,17 @@
         <div>
             <ul class="flex items-center gap-4">
                 <li>
-                    <a href="https://www.linkedin.com/company/inter-cocina" aria-label="Linkedin page link">
+                    <a href="https://www.linkedin.com/company/inter-cocina" target="__blank" aria-label="Linkedin page link">
                         <img src="/assets/media-icons/linkedin.png" width="30px" height="30px" loading="lazy" title="Linkedin page link"  alt="Linkedin page link">
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.facebook.com/IntercocinaSARL" aria-label="facebook page link">
+                    <a href="https://www.facebook.com/IntercocinaSARL" target="__blank" aria-label="facebook page link">
                         <img src="/assets/media-icons/facebook.png" width="30px" height="30px" loading="lazy" title="Facebook page link" alt="Facebook page link">
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/intercocinasarl" aria-label="Instagram page link">
+                    <a href="https://www.instagram.com/intercocinasarl" target="__blank" aria-label="Instagram page link">
                         <img src="/assets/media-icons/instagram.png" width="30px" height="30px" loading="lazy" title="Instagram page link" alt="Instagram page link">
                     </a>
                 </li>
