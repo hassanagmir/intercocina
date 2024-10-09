@@ -2,7 +2,7 @@
 
 
 @section('content')
-<section class="px-4 py-20 md:max-w-6xl md:mx-auto">
+<section class="px-4 py-20 md:max-w-6xl md:mx-auto bg-white rounded-b-xl border">
     <div class="px-3 max-w-3xl m-auto">
         <div class="">
              <h2 class="mb-4 text-3xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">

@@ -38,23 +38,6 @@ document.addEventListener("alpine:init", () => {
         }
     }));
 
-    // Ads Modal
-    Alpine.data('modal', () => ({
-        showModal: false,
-        init() {
-            this.checkAndShowModal();
-        },
-        checkAndShowModal() {
-            const adsModal = localStorage.getItem('adsModal');
-            if (!adsModal) {
-                this.showModal = true;
-            }
-        },
-        closeModal() {
-            this.showModal = false;
-            localStorage.setItem('adsModal', 'true');
-        }
-    }));
 });
 
 
