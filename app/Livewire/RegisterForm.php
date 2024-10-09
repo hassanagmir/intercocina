@@ -22,6 +22,13 @@ class RegisterForm extends Component
     public $password_confirmation;
 
 
+    public static function mount(){
+        if(auth()->user()){
+            return redirect('profile');
+        }
+    }
+
+
     public function register()
     {
         $this->validate();
