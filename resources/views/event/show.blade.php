@@ -2,7 +2,7 @@
 
 
 @section('content')
-<section class="px-4 py-20 md:max-w-6xl md:mx-auto">
+<section class="px-4 py-20 md:max-w-6xl md:mx-auto bg-white border rounded-2xl">
   <h1 class="text-4xl mb-3 font-semibold">{{ $event->title }}</h1>
   <p class="mb-4 font-semibold text-gray-800">{{ $event->description }}</p>
   <div class="swiper swiper-evnet">
