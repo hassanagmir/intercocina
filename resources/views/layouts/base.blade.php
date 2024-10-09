@@ -60,8 +60,6 @@
     </main>
     <x-footer />
     @livewireScriptConfig
-
-
     <div class="fixed bottom-7 left-7 animate__animated animate__heartBeat animate__infinite animate__slow">
         <a href="https://web.whatsapp.com/send?phone=212661547900" class="whatsapp-button" target="_blank">
           <div class="whatsapp-icon">
@@ -69,9 +67,6 @@
           </div>
         </a>
       </div>
-      
-    
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));

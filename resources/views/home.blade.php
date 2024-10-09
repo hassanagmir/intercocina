@@ -35,28 +35,7 @@
 
 
             <div class="relative z-20 rounded-3xl animate__animated animate__zoomIn">
-                <div class="swiper header-swiper">
-                    <div class="swiper-wrapper">
-                      <div class="swiper-slide">
-                        <img src="https://placehold.co/550x300" class="rounded-3xl" width="550" height="300" alt="">
-                      </div>
-                      <div class="swiper-slide">
-                        <img src="https://placehold.co/550x300" class="rounded-3xl" width="550" height="300" alt="">
-                      </div>
-                      <div class="swiper-slide">
-                        <img src="https://placehold.co/550x300" class="rounded-3xl" width="550" height="300" alt="">
-                      </div>
-                      <div class="swiper-slide">
-                        <img src="https://placehold.co/550x300" class="rounded-3xl" width="550" height="300" alt="">
-                      </div>
-                      <div class="swiper-slide">
-                        <img src="https://placehold.co/550x300" class="rounded-3xl" width="550" height="300" alt="">
-                      </div>
-                    </div>
-                    {{-- <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div> --}}
-                    <div class="swiper-pagination"></div>
-                  </div>
+                @livewire('covers')
             </div>
             {{-- <img class="relative z-20 rounded-3xl animate__animated animate__zoomIn" src="https://placehold.co/550x300" width="550" height="300" alt="" x-animate="zoomIn" style="--animate-duration: 1s;"> --}}
         </div>
