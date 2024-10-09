@@ -12,7 +12,7 @@
             </div>
         </div>
         
-        <div class="swiper nav-for-slider">
+        <div class="swiper nav-for-slider mx-2">
             <div class="swiper-wrapper">
                 @foreach ($product->images as $image)
                 <div class="swiper-slide thumbs-slide">
