@@ -94,23 +94,24 @@
           <dt class="text-base font-normal text-gray-500">{{ _("Prix d'origine")}}</dt>
           <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
         </dl>
-
+    
         <dl class="flex items-center justify-between gap-4">
           <dt class="text-base font-normal text-gray-500">{{ _("Livraison")}}</dt>
           <dd class="text-base font-bold text-gray-900">0.0 MAD</dd>
         </dl>
-
+    
         <dl class="flex items-center justify-between gap-4">
           <dt class="text-base font-normal text-gray-500">{{ __("Taxe") }}</dt>
-          <dd class="text-base font-bold text-gray-900">0.0 MAD</dd>
+          <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() * 0.2 }} MAD</dd> <!-- 20% of the total -->
         </dl>
       </div>
-
+    
       <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
         <dt class="text-base font-bold text-gray-900">{{ __("Total") }}</dt>
-        <dd class="text-xl font-black text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
+        <dd class="text-xl font-black text-gray-900">{{ \Cart::getTotal() * 1.2 }} MAD</dd> <!-- Total including tax -->
       </dl>
     </div>
+    
 
     <div class="flex justify-end">
       <button wire:loading.attr='disabled' wire:click='save()' type="button" class="btn btn-primary gap-2 text-center flex items-start justify-center">
