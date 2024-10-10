@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\OrderStatusEnum;
+use App\Filament\Exports\OrderExporter;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Dimension;
@@ -260,10 +261,6 @@ class OrderResource extends Resource
                     })
                     ->label(__("Crée le")),
 
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->label(__("Crée le"))
-                //     ->since()
-                //     ->sortable(),
             ])
             ->filters([
                 //
@@ -277,11 +274,17 @@ class OrderResource extends Resource
                     ->iconSize(IconSize::Medium)
                     ->label(false)
                     ->tooltip(__("Voir")),
+                Tables\Actions\ExportAction::make()
+                    ->label(false)
+                    ->icon('heroicon-m-arrow-up-tray')
+                    ->exporter(OrderExporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make()
+                    Tables\Actions\DeleteBulkAction::make(),
                     // ->icon('heroicons-o-trash'),
+                    Tables\Actions\ExportBulkAction::make()
+                        ->exporter(OrderExporter::class)
                 ]),
             ]);
     }

@@ -1,4 +1,4 @@
-<div class="fixed bottom-7 left-7 animate__animated animate__heartBeat animate__infinite animate__slow">
+<div class="fixed bottom-7 left-7 animate__animated animate__heartBeat animate__infinite animate__slow z-50">
     <a href="https://web.whatsapp.com/send?phone=212661547900" class="whatsapp-button hidden lg:block" target="_blank">
         <div class="whatsapp-icon">
             <svg class="w-7 md:w-10" xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp" role="img"
