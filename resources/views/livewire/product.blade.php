@@ -118,11 +118,11 @@
                 @foreach ($product->colors as $color)
                 <li class="color-box group text-center me-3 relative">
                     <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="color" wire:model.change="color" class="hidden peer" required />
-                    <label for="color-{{ $color->id }}"
-                        style="background-image: url({{ Storage::url($color->image)}}); background-color: {{ $color->code }};"
-                        class="inline-flex bg-[{{ $color->code }}] items-center border-2 justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
+                    <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ Storage::url($color->image) }});"
+                        class="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
                     </label>
-                    <div id="tooltipExample" class="absolute -top-9 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-center text-sm text-white opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 dark:bg-white dark:text-neutral-900" role="tooltip">
+                    
+                    <div id="tooltipExample" class="absolute -top-9 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-center text-sm text-white hidden transition-all ease-out peer-hover:block peer-focus:block dark:bg-white dark:text-neutral-900" role="tooltip">
                         {{ $color->name }}
                     </div>
                 </li>
