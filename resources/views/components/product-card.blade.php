@@ -1,7 +1,7 @@
 <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
     <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl max-h-96" href="{{ route('product.show', $slug) }}">
       @if ($image)
-        <img class="sm:object-cover object-contain w-full bg-gray-200 min-h-52" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
+        <img class="sm:object-cover object-contain w-full bg-gray-200 min-h-52 lazy" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="{{ Storage::url($image) }}" alt="{{ $name }}" />
       @else
         <img class="sm:object-cover object-contain w-full bg-gray-200 min-h-52" width="auto" height="auto" title="{{ $name }}" loading="lazy" src="/assets/imgs/placeholder-image.webp" alt="{{ $name }}" />
       @endif
