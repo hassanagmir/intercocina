@@ -45,6 +45,24 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 sm:w-6" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M3 5.231L6.15 3M21 5.231L17.85 3"/><circle cx="12" cy="13" r="8"/><path d="M12 8.5v5l3 2"/></g></svg>
         <span class="font-semibold">De 9h à 16h30</span>
     </p>
+
+    <div class="flex flex-col items-stretch gap-10 my-10 md:flex-row md:justify-center md:py-24 md:my-0 xl:col-span-1 col-span-full">
+        <div class="flex items-center gap-3 px-6 py-3 duration-500 shadow-lg bg-accent-red-500 rounded-3xl hover:scale-105" x-animate.intersect="fadeInLeft">
+            <img class="w-[40px]" loading="lazy" width="40px" height="40px" src="/assets/icons/mail.png" alt="Envoyez-nous un email" title="Envoyez-nous un email">
+            <div>
+                <p class="text-lg font-bold text-white ">Envoyez-nous un email</p>
+                <p class="text-white">contact@intercocina.com</p>
+            </div>
+        </div>
+        <div class="flex text-black items-center gap-3 px-6 py-3 duration-500 bg-white shadow-lg rounded-3xl hover:scale-105" x-animate.intersect="fadeInLeft">
+            <img class="w-[40px]" width="40px" height="40px" loading="lazy" src="/assets/icons/phone.png" title="Appelez-nous" alt="Appelez-nous">
+            <div>
+                <p class="text-lg font-bold ">Appelez-nous</p>
+                <p>+212 61 54 79 00</p>
+                <p>+212 36 35 88 88</p>
+            </div>
+        </div>
+    </div>
     <div class="z-20 px-4 md:max-w-7xl md:mx-auto rounded-xl">
         <iframe class="mt-6 rounded-xl z-20 border border-3" width="100%" height="450" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13065.885552532582!2d-2.9477224!3d35.044952!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd77af82d33d19e7%3A0xd1fb4c3901718120!2sINTERCOCINA%20SARL!5e0!3m2!1sen!2sma!4v1727266250885!5m2!1sen!2sma"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
