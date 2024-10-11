@@ -77,7 +77,7 @@
           <x-product-card
               :name="$product->name"
               :price="$product->price()"
-              :image="$product->images->first()->image ?? ''"
+              :image="$product->images()->orderBy('order')->first()->image ?? ''"
               :slug="$product->slug"
           />
       @empty
