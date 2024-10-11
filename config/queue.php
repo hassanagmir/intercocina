@@ -36,6 +36,7 @@ return [
 
         'database' => [
             'driver' => 'database',
+            'enabled' => true,
             'connection' => env('DB_QUEUE_CONNECTION'),
             'table' => env('DB_QUEUE_TABLE', 'jobs'),
             'queue' => env('DB_QUEUE', 'default'),
