@@ -41,7 +41,8 @@
 
             <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach ($products as $product)
-                <x-product-card name="{{ $product->name}}" price="{{ $product->price() }}"
+                <x-product-card name="{{ $product->name}}" price="{{ $product->price() }}" 
+                    category="{{ $product?->type?->category->name }}"
                     image="{{ $product->images?->first()?->image }}" slug="{{ $product->slug }}" />
                 @endforeach
             </div>
