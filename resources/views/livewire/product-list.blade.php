@@ -1,7 +1,7 @@
 <div>
-  <div class="my-4 items-end justify-between space-y-4 md:flex sm:space-y-0 md:mb-8">
+  <div class="my-4 mt-0 items-end justify-between space-y-4 md:flex sm:space-y-0 md:mb-8">
       <div>
-          <nav class="flex" aria-label="Breadcrumb">
+          {{-- <nav class="flex" aria-label="Breadcrumb">
               <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                   <li class="inline-flex items-center">
                       <a href="{{ route('home') }}" class="inline-flex items-center text-md font-bold text-gray-700 hover:text-primary-600">
@@ -30,7 +30,7 @@
                       </div>
                   </li>
               </ol>
-          </nav>
+          </nav> --}}
           @if (!empty($type) && isset($products_type))
           <h1 class="mt-3 text-xl font-semibold text-gray-900 sm:text-2xl">
               {{ $products_type->name }}
@@ -72,13 +72,14 @@
       </div>
   </div>
 
-  <div wire:loading.remove wire:target='changeType' class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+  <div wire:loading.remove wire:target='changeType' class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
       @forelse ($products as $product)
           <x-product-card
               :name="$product->name"
               :price="$product->price()"
               :image="$product->images()->orderBy('order')->first()->image ?? ''"
               :slug="$product->slug"
+              :category="$product?->type?->category?->name"
           />
       @empty
           <div class="col-span-full flex justify-center py-6">
