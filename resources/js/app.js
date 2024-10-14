@@ -56,6 +56,7 @@ function initSwiper() {
     });
     var swiper = new Swiper(".main-slide-carousel", {
         slidesPerView: 1,
+        loop:true,
         thumbs: {
             swiper: swiper_thumbs,
         },
