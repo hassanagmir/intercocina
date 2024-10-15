@@ -51,7 +51,12 @@
                 @endif
 
             </div>
-            <p class="mb-3">{{ $product->description }}</p>
+            @if ($product->description)
+                <p class="mb-3">{{ $product->description }}</p>
+            @else
+                <p class="mb-3">{{ $product?->type->description }}</p>
+            @endif
+            
             <div class="flex flex-col min-[400px]:flex-row min-[400px]:items-center mb-5 gap-y-3 flex-wrap">
                 <div class="flex items-center">
                     <div class="font-manrope font-semibold sm:text-2xl text-xl leading-9 text-gray-900">

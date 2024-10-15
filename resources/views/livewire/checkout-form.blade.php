@@ -95,10 +95,10 @@
           <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
         </dl>
     
-        <dl class="flex items-center justify-between gap-4">
+        {{-- <dl class="flex items-center justify-between gap-4">
           <dt class="text-base font-normal text-gray-500">{{ _("Livraison")}}</dt>
           <dd class="text-base font-bold text-gray-900">0.0 MAD</dd>
-        </dl>
+        </dl> --}}
     
         <dl class="flex items-center justify-between gap-4">
           <dt class="text-base font-normal text-gray-500">{{ __("Taxe") }}</dt>
