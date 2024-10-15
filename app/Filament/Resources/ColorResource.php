@@ -56,7 +56,6 @@ class ColorResource extends Resource
                                     ->label(__("Visibilité"))
                                     ->default(true)
                                     ->required(),
-
                             ])
                             ->columns(2)
                             ->columnSpan(2),
