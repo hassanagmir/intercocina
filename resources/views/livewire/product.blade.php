@@ -118,36 +118,37 @@
             @endif
 
             @empty (!$product->colors->count())
-            <p class="font-bold text-gray-900">{{__("Couleur")}}</p>
-            <ul class="flex flex-wrap gap-2 mb-4">
-                @foreach ($product->colors as $color)
-                <li class="color-box group text-center me-3 relative">
-                    <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="color" wire:model.change="color" class="hidden peer" required />
-                    <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ Storage::url($color->image) }});"
-                        class="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
-                    </label>
-                    
-                    <div id="tooltipExample" class="absolute -top-9 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-center text-sm text-white hidden transition-all ease-out peer-hover:block peer-focus:block dark:bg-white dark:text-neutral-900" role="tooltip">
-                        {{ $color->name }}
-                    </div>
-                </li>
-                @endforeach
-            </ul>
+                <p class="font-bold text-gray-900">{{__("Couleur")}}</p>
+                <ul class="flex flex-wrap gap-2 mb-4">
+                    @foreach ($product->colors as $color)
+                    <li class="color-box group text-center me-3 relative">
+                        <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="color" wire:model.change="color" class="hidden peer" required />
+                        <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ Storage::url($color->image) }});"
+                            class="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
+                        </label>
+                        
+                        <div id="tooltipExample" class="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
+                            {{ $color->name }}
+                            <img class="w-full" src="{{ Storage::url($color->image) }}" alt="">
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
 
-            @isset($color_error)
-            <div class="my-2 text-red-700 font-semibold flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M12 9v4" />
-                    <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
-                    <path d="M12 16h.01" />
-                </svg>
+                @isset($color_error)
+                <div class="my-2 text-red-700 font-semibold flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 9v4" />
+                        <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+                        <path d="M12 16h.01" />
+                    </svg>
 
-                {{ $color_error }}
-            </div>
-            @endisset
+                    {{ $color_error }}
+                </div>
+                @endisset
 
             @endempty
 
