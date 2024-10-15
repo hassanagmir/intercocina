@@ -25,7 +25,7 @@
                     <ul class="flex items-center gap-10 ">
                         <li>
                             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                                {{ _("Accueil") }}
+                                {{ __("Accueil") }}
                             </x-nav-link>
                         </li>
 

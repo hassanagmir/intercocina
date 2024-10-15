@@ -54,12 +54,12 @@
                 <div class="space-y-4">
                   <div class="space-y-6">
                     <dl class="flex items-center justify-between gap-4">
-                      <dt class="text-base font-normal text-gray-500">{{ _("Prix d'origine")}}</dt>
+                      <dt class="text-base font-normal text-gray-500">{{ __("Prix d'origine")}}</dt>
                       <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->total_amount  }} MAD</dd>
                     </dl>
           
                     <dl class="flex items-center justify-between gap-4">
-                      <dt class="text-base font-normal text-gray-500">{{ _("Date")}}</dt>
+                      <dt class="text-base font-normal text-gray-500">{{ __("Date")}}</dt>
                       <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->created_at->format('M d Y - H:i')}}</dd>
                     </dl>
           
@@ -85,17 +85,17 @@
                 <div class="space-y-4 mt-3">
                   <div class="space-y-6">
                     <dl class="flex items-center justify-between gap-4">
-                        <dt class="text-base font-normal text-gray-500">{{ _("Client")}}</dt>
+                        <dt class="text-base font-normal text-gray-500">{{ __("Client")}}</dt>
                         <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record?->address?->first_name }} {{ $this->record?->address?->last_name }}</dd>
                       </dl>
 
                       <dl class="flex items-center justify-between gap-4">
-                        <dt class="text-base font-normal text-gray-500">{{ _("Téléphone")}}</dt>
+                        <dt class="text-base font-normal text-gray-500">{{ __("Téléphone")}}</dt>
                         <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->address?->phone }}</dd>
                       </dl>
             
                     <dl class="flex items-center justify-between gap-4">
-                      <dt class="text-base font-normal text-gray-500">{{ _("Ville")}}</dt>
+                      <dt class="text-base font-normal text-gray-500">{{ __("Ville")}}</dt>
                       <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->address?->city->name }}</dd>
                     </dl>
           

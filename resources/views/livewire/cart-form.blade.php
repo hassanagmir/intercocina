@@ -104,12 +104,12 @@
       <div class="space-y-4">
         <div class="space-y-2">
           <dl class="flex items-center justify-between gap-4">
-            <dt class="text-base font-normal text-gray-500">{{ _("Prix d'origine")}}</dt>
+            <dt class="text-base font-normal text-gray-500">{{ __("Prix d'origine")}}</dt>
             <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
           </dl>
 
           <dl class="flex items-center justify-between gap-4">
-            <dt class="text-base font-normal text-gray-500">{{ _("Livraison")}}</dt>
+            <dt class="text-base font-normal text-gray-500">{{ __("Livraison")}}</dt>
             <dd class="text-base font-bold text-gray-900">0.0 MAD</dd>
           </dl>
 
