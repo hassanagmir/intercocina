@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function show(Category $category){
-        return view("category.show", compact('category'));
+        $title = $category->name;
+        return view("category.show", compact('category', 'title'));
     }
 }

@@ -11,14 +11,17 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function show(Product $product){
-        $products = Product::where('type_id', $product->type_id)->whereNot("status", ProductStatusEnum::HIDE)->paginate(4);
-        return view('product.show', compact('product', 'products'));
+        $products = Product::where('type_id', $product->type_id)
+            ->whereNot("status", ProductStatusEnum::HIDE)
+            ->paginate(4);
+        $title = $product->name;
+        return view('product.show', compact('product', 'products', 'title'));
     }
 
     public function list(){
         $categories = Category::where("status", 1)->get();
         $title = __("Collections des produits");
-        return view('product.list', compact('categories'));
+        return view('product.list', compact('categories', 'title'));
     }
 
 

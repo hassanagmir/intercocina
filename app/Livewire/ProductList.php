@@ -64,7 +64,8 @@ class ProductList extends Component
 
         return view('livewire.product-list', [
             'products' => $products,
-            'category' => $this->category
+            'category' => $this->category,
+            'title' => $this->category->name,
         ]);
     }
 }
