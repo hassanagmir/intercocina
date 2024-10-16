@@ -1,7 +1,6 @@
 <section class="overflow-hidden  md:max-w-7xl md:mx-auto">
     <div class="px-4 py-16 sm:px-6 lg:me-0 lg:pe-0 lg:ps-8">
-        <div class="items-end justify-between max-w-7xl sm:flex sm:pe-6 lg:pe-8"
-            x-animate.intersect="fadeInRight">
+        <div class="items-end justify-between max-w-7xl sm:flex sm:pe-6 lg:pe-8" x-animate.intersect="fadeInRight">
             <div class="space-y-4">
                 <h2 class="mb-4 text-2xl font-bold md:text-4xl" x-animate.intersect="fadeInUp">
                     Témoignages
@@ -12,7 +11,7 @@
             </div>
             <div class="flex gap-4 mt-8 lg:mt-0">
                 <button aria-label="Previous slide" data-target="testimonials"
-                    class="swiper-review-prev p-3 transition border rounded-full keen-slider-previous border-accent-blue-500 text-accent-blue-500 hover:bg-accent-blue-500 hover:text-white">
+                    class="swiper-review-prev p-3 transition border rounded-full keen-slider-previous border-accent-blue-500 text-accent-blue-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor" class="size-5 rtl:rotate-180">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -20,7 +19,7 @@
                 </button>
 
                 <button aria-label="Next slide" data-target="testimonials"
-                    class="swiper-review-next p-3 transition border rounded-full keen-slider-next border-accent-blue-500 text-accent-blue-500 hover:bg-accent-blue-500 hover:text-white">
+                    class="swiper-review-next p-3 transition border rounded-full keen-slider-next border-accent-blue-500 text-accent-blue-500">
                     <svg class="size-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
@@ -28,15 +27,9 @@
                 </button>
             </div>
         </div>
-
-   
-
-
         <div class="mt-8 -mx-6 lg:col-span-2 lg:mx-0">
             <!-- Thumbnail Swiper -->
-
             <div class="swiper-container mx-3">
-    
                 <!-- swiper slides -->
                 <div class="swiper-wrapper">
                     @foreach ($reviews as $review)
