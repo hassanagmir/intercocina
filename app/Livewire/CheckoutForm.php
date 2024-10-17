@@ -58,7 +58,8 @@ class CheckoutForm extends Component
             ]);
         }
 
-        session()->flash('message', __('Mot de passe mis à jour avec succès. Veuillez vous reconnecter.'));
+        session()->flash('message', __('Votre commande a été envoyée avec succès!'));
+        \Cart::clear();
         return redirect()->route("order.list");
     }
 
