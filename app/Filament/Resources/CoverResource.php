@@ -40,8 +40,6 @@ class CoverResource extends Resource
                             ->image()
                             ->required(),
                     ])->columns(2)
-
-               
             ]);
     }
 
@@ -52,9 +50,6 @@ class CoverResource extends Resource
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('title')
                     ->label(__("Titre"))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('url')
-                ->label(__("Lien"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Créé à"))

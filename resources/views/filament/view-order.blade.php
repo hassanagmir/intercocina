@@ -30,7 +30,9 @@
                                     <span>{{ $item->dimension->height . " x " . $item->dimension->width . " mm" }}</span>
                                 @endif
                                 <br>
-                                <span class="text-sm">({{ $item?->color->name }})</span>
+                                @if ($item->color)
+                                  <span class="text-sm">({{ $item?->color->name }})</span>
+                                @endif
                             </a>
                             <div class="flex items-center gap-4">
                                
