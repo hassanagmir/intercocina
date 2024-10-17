@@ -11,6 +11,7 @@ use App\Models\Dimension;
 use App\Models\Product;
 use App\Models\Type;
 use Filament\Forms;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -152,65 +153,82 @@ class ProductResource extends Resource
                                             ->label('Ancien prix'),
                                     ]),
 
-                                    ( 1 ?
-                                    Forms\Components\Repeater::make('dimensions')
-                                    ->hidden(fn(Get $get): bool => $get('is_dimensions'))
-                                    ->label(false)
-                                    ->relationship()
-                                    ->schema([
-                                         Forms\Components\TextInput::make('height')
-                                            ->label(__("Hauteur"))
-                                            ->required()
-                                            ->numeric(),
-                                         Forms\Components\TextInput::make('width')
-                                            ->label(__("Largeur"))
-                                            ->required()
-                                            ->numeric(),
-                                         Forms\Components\TextInput::make('price')
-                                            ->label(__("Prix"))
-                                            ->required()
-                                            ->numeric()
-                                            ->prefix('MAD'),
-                                         Forms\Components\TextInput::make('code')
-                                            ->unique(ignoreRecord: true)
-                                            ->label(__("Réf"))
-                                            ->required(),
-                                         Forms\Components\Select::make('image_reference')
-                                            ->label(__("Image"))
-                                            ->options(function (Get $get) {
-                                                $incrementedArray = [];
-                                                $i = 0;
-                                                foreach ($get('../../images') as $key => $value) {
-                                                    $incrementedArray[$i++] = $i;
-                                                }
-                                                return $incrementedArray;
-                                            }),
-                                         Forms\Components\Select::make('color_id')
-                                            ->label(__("Couleur"))
-                                            ->searchable()
-                                            ->preload()
-                                            ->placeholder("...")
-                                            ->relationship('color', 'name'),
-                                         Forms\Components\Select::make('attribute_id')
-                                            ->label(__("Attribut"))
-                                            ->searchable()
-                                            ->preload()
-                                            ->placeholder("...")
-                                            ->relationship('attribute', 'name'),
-                                    ])
-                                    ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                                        return $data;
-                                    })
-                                    ->columns(7)
-                                    ->columnSpanFull()
-                                    ->itemLabel(fn (array $state): ?string => 
-                                        "{$state['height']}x{$state['width']} - {$state['price']}MAD")
-                                    ->collapsible()
-                                    ->cloneable()
-                                    ->reorderable()
-                                    ->maxItems(100)
-                                    ->addActionLabel('Ajouter une dimension')
-                                    :  Forms\Components\Grid::make())
+                                    Forms\Components\Group::make()
+                                        ->schema(function (Get $get) {
+                                            $product = Product::find($get('id'));
+                                            $dimensionCount = $product ? $product->dimensions()->count() : 0;
+                    
+                                            if ($dimensionCount > 200) {
+                                                return [
+                                                    Placeholder::make('dimensions_info')
+                                                        ->content(" Ce produit comporte {$dimensionCount} dimensions. Utilisez l'interface de gestion des dimensions séparée pour les modifier.")
+                                                        ->columns(2),
+                                                ];
+                                            }
+
+
+
+                                            return [
+                                                Forms\Components\Repeater::make('dimensions')
+                                                ->hidden(fn(Get $get): bool => $get('is_dimensions'))
+                                                ->label(false)
+                                                ->relationship()
+                                                ->schema([
+                                                     Forms\Components\TextInput::make('height')
+                                                        ->label(__("Hauteur"))
+                                                        ->required()
+                                                        ->numeric(),
+                                                     Forms\Components\TextInput::make('width')
+                                                        ->label(__("Largeur"))
+                                                        ->required()
+                                                        ->numeric(),
+                                                     Forms\Components\TextInput::make('price')
+                                                        ->label(__("Prix"))
+                                                        ->required()
+                                                        ->numeric()
+                                                        ->prefix('MAD'),
+                                                     Forms\Components\TextInput::make('code')
+                                                        ->unique(ignoreRecord: true)
+                                                        ->label(__("Réf"))
+                                                        ->required(),
+                                                     Forms\Components\Select::make('image_reference')
+                                                        ->label(__("Image"))
+                                                        ->options(function (Get $get) {
+                                                            $incrementedArray = [];
+                                                            $i = 0;
+                                                            foreach ($get('../../images') as $key => $value) {
+                                                                $incrementedArray[$i++] = $i;
+                                                            }
+                                                            return $incrementedArray;
+                                                        }),
+                                                     Forms\Components\Select::make('color_id')
+                                                        ->label(__("Couleur"))
+                                                        ->searchable()
+                                                        ->preload()
+                                                        ->placeholder("...")
+                                                        ->relationship('color', 'name'),
+                                                     Forms\Components\Select::make('attribute_id')
+                                                        ->label(__("Attribut"))
+                                                        ->searchable()
+                                                        ->preload()
+                                                        ->placeholder("...")
+                                                        ->relationship('attribute', 'name'),
+                                                ])
+                                                ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                                                    return $data;
+                                                })
+                                                ->columns(7)
+                                                ->columnSpanFull()
+                                                ->itemLabel(fn (array $state): ?string => 
+                                                    "{$state['height']}x{$state['width']} - {$state['price']}MAD")
+                                                ->collapsible()
+                                                ->cloneable()
+                                                ->reorderable()
+                                                ->maxItems(100)
+                                                ->addActionLabel('Ajouter une dimension')
+                                            ];
+                                        })
+                                
 
        
                             ]),

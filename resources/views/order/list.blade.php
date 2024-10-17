@@ -18,9 +18,8 @@
         <li>+212 (6) 61 54 79 00 </li>
         <li>+212 (5) 36 35 88 86 </li>
     </ul>
-    <button
-        class="mt-6 px-4 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-green-100 transition duration-300">
-        Retour à les produits
+    <a href="/produits" class="mt-6 px-4 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-green-100 transition duration-300">
+        {{ __("Retour à les produits") }}
     </button>
 </div>
 @endif
