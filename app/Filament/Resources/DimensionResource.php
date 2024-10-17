@@ -72,11 +72,11 @@ class DimensionResource extends Resource
                     ->sortable(),
               
                 Tables\Columns\TextColumn::make('code')
-                    ->label(__("Produit"))
+                    ->label(__("Référence"))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product.name')
-                    ->label(__("Référence"))
+                    ->label(__("Produit"))
                     ->searchable()
                     ->sortable(),
 

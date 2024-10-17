@@ -5,11 +5,14 @@ namespace App\Filament\Resources;
 use App\Enums\ProductStatusEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -54,13 +57,44 @@ class ProductResource extends Resource
                                     ->native(false)
                                     ->options(ProductStatusEnum::toArray())
                                     ->required(),
-
-                                Forms\Components\Select::make('type_id')
-                                    ->native(false)
-                                    ->preload(true)
-                                    ->searchable()
-                                    ->relationship('type', 'name')
-                                    ->required(),
+                                    
+                                    Forms\Components\Select::make('category_id')
+                                        ->native(false)
+                                        ->preload(true)
+                                        ->searchable()
+                                        ->label(__("Catégorie"))
+                                        ->options(Category::all()->pluck('name', 'id')->toArray())
+                                        ->required()
+                                        ->reactive()
+                                        ->afterStateUpdated(function (Set $set) {
+                                            $set('type_id', null);
+                                        }),
+                                    
+                                    Forms\Components\Select::make('type_id')
+                                        ->native(false)
+                                        ->preload(true)
+                                        ->label(__("Type"))
+                                        ->searchable()
+                                        ->options(function (Get $get) {
+                                            $categoryId = $get('category_id');
+                                            if (!$categoryId) {
+                                                return [];
+                                            }
+                                            return Type::where('category_id', $categoryId)->pluck('name', 'id')->toArray();
+                                        })
+                                        ->required()
+                                        ->reactive()
+                                        ->afterStateHydrated(function (Get $get, Set $set) {
+                                            // This runs in edit mode when the form is loaded
+                                            $typeId = $get('type_id');
+                                            if ($typeId) {
+                                                $categoryId = Type::find($typeId)?->category_id;
+                                                if ($categoryId) {
+                                                    $set('category_id', $categoryId);
+                                                }
+                                            }
+                                        }),
+                               
                                 Forms\Components\Textarea::make('description')
                                     ->rows(5)
                                     ->columnSpanFull(),
@@ -236,9 +270,6 @@ class ProductResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-
-
-
             ->filters([
                 //
             ])
