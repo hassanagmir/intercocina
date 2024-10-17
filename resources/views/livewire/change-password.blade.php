@@ -15,7 +15,7 @@
 
         <!-- New Password -->
         <div>
-            <label for="new_password" class="block text-md font-semibold text-gray-700">{{_("Nouveau mot de passe")}}</label>
+            <label for="new_password" class="block text-md font-semibold text-gray-700">{{ __("Nouveau mot de passe")}}</label>
             <input type="password" id="new_password" wire:model="new_password" class="w-full border-gray-200 p-3 text-xl font-black  rounded-xl border-2">
             @error('new_password') <span class="text-red-600 text-sm mt-1">{{ $message }}</span> @enderror
         </div>
