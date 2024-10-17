@@ -13,9 +13,9 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 40px 30px;">
+            <td style="padding: 32px 11px;">
                 <h1 style="color: #333333; font-size: 24px; margin-bottom: 20px;">Nouvelle Commande Reçue</h1>
-                <p style="color: #666666; font-size: 16px; margin-bottom: 30px;">Une nouvelle commande a été passée dans votre boutique.</p>
+                <p style="color: #666666; font-size: 16px; margin-bottom: 30px;">Une nouvelle commande a été passée dans le site intercocina.</p>
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 30px;">
                     <tr>
                         <td style="padding: 10px; border-bottom: 1px solid #eeeeee;">
