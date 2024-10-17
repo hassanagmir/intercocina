@@ -11,30 +11,38 @@ class UserController extends Controller
         if(!auth()->user()){
             return redirect()->route('user.login');
         }
-        return view('user.edit');
+
+        $title = "Edit le profile";
+        return view('user.edit', compact('title'));
     }
 
     public function password(){
         if(!auth()->user()){
             return redirect()->route('user.login');
         }
-        return view("user.password");
+        
+        $title = "Changer le mot de passe";
+        return view("user.password", compact('title'));
     }
 
     public function login(){
-        return view("user.login");
+        $title = "Se connecter";
+        return view("user.login", compact('title'));
     }
 
     public function register(){
-        return view("user.register");
+        $title = "S'inscrire";
+        return view("user.register", compact('title'));
     }
 
     public function forgot(){
-        return view("user.forgot-password");
+        $title = "Mot de passe oublié";
+        return view("user.forgot-password", compact('title'));
     }
 
     public function reset(){
-        return view("user.reset-password");
+        $title = "Réinitialiser le mot de passe";
+        return view("user.reset-password", compact('title'));
     }
 
 }

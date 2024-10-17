@@ -13,7 +13,8 @@ class OrderController extends Controller
         }
 
         $orders = Order::where("user_id", auth()->id())->latest()->paginate(30);
-        return view('order.list', compact('orders'));
+        $title = 'Commandes';
+        return view('order.list', compact('orders', 'title'));
     }
 
 
