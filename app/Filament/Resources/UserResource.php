@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,18 +21,37 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    public static function getModelLabel(): string
-    {
-        return __("Utilisateur");
-    }
-
     protected static ?string $navigationGroup = "Autorisation";
 
     protected static ?string $recordTitleAttribute = "full_name";
 
+
+
+
+    public static function getEloquentQuery(): Builder
+    {
+        if (auth()->user()->hasRole("commercial") || auth()->user()->hasRole("directeur_commercial")) {
+            return parent::getEloquentQuery()->role('client');
+        }
+        return parent::getEloquentQuery();
+    }
+    
+
+
+
+    public static function getModelLabel(): string
+    {
+
+        if (auth()->user()->hasRole("commercial")) {
+            return __("Clients");
+        }else{
+            return __("Utilisateur");
+        }
+    }
+
     public static function getGloballySearchableAttributes(): array
     {
-        return ['full_name', 'first_name', 'last_name', 'email', 'phone'];
+        return ['full_name', 'first_name', 'last_name', 'email', 'phone', 'code'];
     }
 
     public static function form(Form $form): Form
@@ -80,11 +100,18 @@ class UserResource extends Resource
                     ->label(__("État"))
                     ->required(),
     
-                Forms\Components\Select::make('roles')
-                    ->relationship('roles', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable()
+                (
+                    auth()->user()->hasRole('super_admin') ? 
+                    
+                    Forms\Components\Select::make('roles')
+                        ->relationship('roles', 'name')
+                        ->multiple()
+                        ->preload()
+                        ->searchable() : 
+                    
+                        Forms\Components\Grid::make()
+                )
+                
 
             ]);
     }
@@ -100,8 +127,12 @@ class UserResource extends Resource
                     ->label(__("Nom"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->placeholder("__")
                     ->label(__("Téléphone"))
                     ->searchable(),
+                Tables\Columns\TextColumn::make('code')
+                    ->placeholder("__")
+                    ->label(__("Numéro")),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->label(__("État")),
@@ -121,7 +152,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                ActivityLogTimelineTableAction::make('Activities'),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -137,11 +168,69 @@ class UserResource extends Resource
         ];
     }
 
+
+    public static function infolist(Infolists\Infolist $infolist): Infolists\Infolist
+    {
+        return $infolist
+            ->schema([
+                InfoLists\Components\Section::make()
+                    ->schema([
+                        Infolists\Components\TextEntry::make('full_name')
+                            ->label(__("Nom complet")),
+
+                        Infolists\Components\TextEntry::make('code')
+                            ->placeholder('__')
+                            ->label(__("Numéro")),
+
+                        Infolists\Components\TextEntry::make('phone')
+                            ->placeholder("__")
+                            ->label(__("Téléphone")),
+                        
+                        
+                        Infolists\Components\TextEntry::make('email')
+                            ->placeholder('__')
+                            ->label(__("E-mail")),
+        
+                        Infolists\Components\TextEntry::make('status')
+                            ->placeholder('__')
+                            ->badge()
+                            ->label(__("Etat")),
+
+                        Infolists\Components\TextEntry::make('gender')
+                            ->placeholder('__')
+                            ->badge()
+                            ->label(__("Genre"))
+
+                    ])->columns(3),
+
+                Infolists\Components\RepeatableEntry::make('addresses')
+                    ->label(__("Les adresses"))
+                    ->schema([
+                        Infolists\Components\TextEntry::make('address_name')
+                            ->icon('heroicon-m-map-pin')
+                            ->label(__("Adresse")),
+                        Infolists\Components\TextEntry::make('phone')
+                            ->icon('heroicon-m-phone')
+                            ->label(__("Téléphone")),
+                        Infolists\Components\TextEntry::make('email')
+                            ->icon('heroicon-m-envelope')
+                            ->label(__("E-mail")),
+                        Infolists\Components\TextEntry::make('city.name')
+                            ->icon('heroicon-m-building-office-2')
+                            ->label(__("Ville")),
+                    ])
+                    ->columns(2)
+
+
+            ]);
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
+            'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }

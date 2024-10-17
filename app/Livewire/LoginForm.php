@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Livewire;
+
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -26,6 +28,14 @@ class LoginForm extends Component
     public function login()
     {
         $this->validate();
+
+
+        $user = User::where('email', $this->email)->first();
+        if($user && $user->status == "inactive"){
+            session()->flash('error', __("Désolé, votre compte a été suspendu"));
+            return;
+        }
+
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             $this->dispatch("reloadPage");
         } else {

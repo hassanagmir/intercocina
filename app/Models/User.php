@@ -30,6 +30,7 @@ class User extends Authenticatable implements HasName, FilamentUser
         'email',
         "gender",
         'address',
+        'code',
         'phone', 
         'image',
         'status',
@@ -51,6 +52,10 @@ class User extends Authenticatable implements HasName, FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return (!$this->hasRole('client'));
+    }
+
+    public function addresses(){
+        return $this->hasMany(Address::class);
     }
 
 

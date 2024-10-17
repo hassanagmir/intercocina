@@ -102,6 +102,7 @@ class ProductResource extends Resource
                                                     $set('category_id', $categoryId);
                                                 }
                                             }
+
                                         }),
                                
                                 Forms\Components\Textarea::make('description')
@@ -271,10 +272,12 @@ class ProductResource extends Resource
                     ->label("Etat"),
 
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__("Date de création"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__("Date de modification"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
