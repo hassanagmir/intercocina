@@ -25,10 +25,16 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
+    public static $dimansions = 0;
+
     public static function getModelLabel(): string
     {
+       
         return __("Produit");
     }
+
+
+    
 
     protected static ?string $recordTitleAttribute = "name";
 
@@ -114,8 +120,11 @@ class ProductResource extends Resource
                                     ->defaultItems(4)
                                     ->grid(4)
                             ]),
+
+                      
                         Forms\Components\Tabs\Tab::make('Dimensions')
                             ->label(__("Tarifs"))
+                            ->live()
                             ->schema([
                                 Forms\Components\Toggle::make('is_dimensions')
                                     ->live()
@@ -139,36 +148,31 @@ class ProductResource extends Resource
                                             ->label('Ancien prix'),
                                     ]),
 
-                                Forms\Components\Repeater::make('dimensions')
+                                    ( 1 ?
+                                    Forms\Components\Repeater::make('dimensions')
                                     ->hidden(fn(Get $get): bool => $get('is_dimensions'))
                                     ->label(false)
-                                    ->lazy()
                                     ->relationship()
                                     ->schema([
-
-                                        Forms\Components\TextInput::make('height')
+                                         Forms\Components\TextInput::make('height')
                                             ->label(__("Hauteur"))
                                             ->required()
                                             ->numeric(),
-
-                                        Forms\Components\TextInput::make('width')
+                                         Forms\Components\TextInput::make('width')
                                             ->label(__("Largeur"))
                                             ->required()
                                             ->numeric(),
-                                        Forms\Components\TextInput::make('price')
+                                         Forms\Components\TextInput::make('price')
                                             ->label(__("Prix"))
                                             ->required()
                                             ->numeric()
                                             ->prefix('MAD'),
-                                        Forms\Components\TextInput::make('code')
+                                         Forms\Components\TextInput::make('code')
                                             ->unique(ignoreRecord: true)
-                                            ->label(__("Référence"))
+                                            ->label(__("Réf"))
                                             ->required(),
-
-
-                                        Forms\Components\Select::make('image_reference')
-                                            ->label(__("Référence d'image"))
-                                            ->live()
+                                         Forms\Components\Select::make('image_reference')
+                                            ->label(__("Image"))
                                             ->options(function (Get $get) {
                                                 $incrementedArray = [];
                                                 $i = 0;
@@ -177,32 +181,33 @@ class ProductResource extends Resource
                                                 }
                                                 return $incrementedArray;
                                             }),
-                                        // Forms\Components\Toggle::make('status')
-                                        //     ->inline(false)
-                                        //     ->default(true)
-                                        //     ->required(),
-
-                                        Forms\Components\Select::make('color_id')
+                                         Forms\Components\Select::make('color_id')
                                             ->label(__("Couleur"))
                                             ->searchable()
                                             ->preload()
-                                            ->placeholder("Couleur...")
+                                            ->placeholder("...")
                                             ->relationship('color', 'name'),
-
-                                        Forms\Components\Select::make('attribute_id')
+                                         Forms\Components\Select::make('attribute_id')
                                             ->label(__("Attribut"))
                                             ->searchable()
-                                            ->placeholder("Attribut...")
+                                            ->preload()
+                                            ->placeholder("...")
                                             ->relationship('attribute', 'name'),
-
                                     ])
                                     ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
                                         return $data;
                                     })
-                                    ->grid(2)
-                                    ->columns(3)
+                                    ->columns(7)
                                     ->columnSpanFull()
+                                    ->itemLabel(fn (array $state): ?string => 
+                                        "{$state['height']}x{$state['width']} - {$state['price']}MAD")
+                                    ->collapsible()
                                     ->cloneable()
+                                    ->reorderable()
+                                    ->addActionLabel('Ajouter une dimension')
+                                    :  Forms\Components\Grid::make())
+
+       
                             ]),
                     ])->columnSpanFull(),
 
