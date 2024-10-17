@@ -16,7 +16,7 @@ class OrderObserver
     public function created(Order $order): void
     {
 
-        $admins = User::role('super_admin')->get();
+        $admins = User::role(['super_admin', 'commercial', 'directeur_commercial'])->get();
         foreach($admins as $admin){
 
             // Email notificationa
