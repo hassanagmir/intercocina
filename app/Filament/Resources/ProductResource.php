@@ -7,6 +7,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Dimension;
 use App\Models\Product;
 use App\Models\Type;
 use Filament\Forms;
@@ -17,6 +18,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
@@ -25,7 +27,7 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
-    public static $dimansions = 0;
+    public static $dimansions = 300;
 
     public static function getModelLabel(): string
     {
@@ -92,6 +94,7 @@ class ProductResource extends Resource
                                         ->reactive()
                                         ->afterStateHydrated(function (Get $get, Set $set) {
                                             // This runs in edit mode when the form is loaded
+                                            // self::$dimansions = Dimension::where('product_id', $query->id)->count();
                                             $typeId = $get('type_id');
                                             if ($typeId) {
                                                 $categoryId = Type::find($typeId)?->category_id;
@@ -204,6 +207,7 @@ class ProductResource extends Resource
                                     ->collapsible()
                                     ->cloneable()
                                     ->reorderable()
+                                    ->maxItems(100)
                                     ->addActionLabel('Ajouter une dimension')
                                     :  Forms\Components\Grid::make())
 

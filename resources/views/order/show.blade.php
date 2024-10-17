@@ -25,12 +25,14 @@
                                 {{ $item->product->name }} - 
                                 {{ $item->dimension ? $item->dimension->dimension . " mm" : '' }} 
                                 {{ $item->color ? "(" .$item->color->name . ")" : ''}}
+                                [ x {{ $item->quantity }}]
                             </a>
                             <div class="flex items-center gap-4">
 
                                 <div class="inline-flex items-center text-sm font-medium text-gray-600">
                                     <div role="status">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="me-3" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.5 8H12m0 0h2.5M12 8v8m2.5 0H12m0 0H9.5m-6.793-5.705a2.41 2.41 0 0 0 0 3.41l7.588 7.588a2.41 2.41 0 0 0 3.41 0l7.588-7.588a2.41 2.41 0 0 0 0-3.41l-7.588-7.588a2.41 2.41 0 0 0-3.41 0z"/></svg>
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.778 8.395H21.25m-18.5 7.21h17.472M6.282 21.13L9.495 2.87m5.01 18.26l3.212-18.26"/></svg>
+
                                     </div>
                                     {{ $order->code }}
                                 </div>
