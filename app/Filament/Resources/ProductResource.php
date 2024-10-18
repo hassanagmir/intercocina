@@ -224,7 +224,6 @@ class ProductResource extends Resource
                                                 ->collapsible()
                                                 ->cloneable()
                                                 ->reorderable()
-                                                ->maxItems(100)
                                                 ->addActionLabel('Ajouter une dimension')
                                             ];
                                         })

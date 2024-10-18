@@ -34,6 +34,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('faqs', 'faqs')->name('faqs');
     Route::get('contact', 'contact')->name('contact');
     Route::get('page/{page:slug}', 'show')->name('page.show');
+    Route::get('placards/{slug}', 'placards')->name('placards');
 });
 
 

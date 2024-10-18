@@ -76,5 +76,10 @@ class PageController extends Controller
         return view("pages.show", compact('title', 'page'));
     }
 
+    public function placards($slug){
+        $product = Product::where("slug", $slug)->first();
+        return view("placards",  compact('product'));
+    }
+
     
 }
