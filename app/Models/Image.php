@@ -12,13 +12,17 @@ class Image extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        "image", "product_id", "order"
+        "image", "product_id", "order", "color_id"
     ];
 
 
     // Relations
     public function product(){
         return $this->belongsTo(Product::class);
+    }
+
+    public function color(){
+        return $this->belongsTo(Color::class);
     }
 
 

@@ -1,6 +1,6 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-2 bg-gray-50 py-6 rounded-xl border">
-    <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
+    <div class="slider-box w-full h-full max-lg:mx-auto mx-3">
         <!-- Main Swiper -->
         <div class="swiper main-slide-carousel swiper-container relative mb-6">
             <div class="swiper-wrapper" id="gallery">
@@ -72,7 +72,7 @@
                                     fill="currentFill" />
                             </svg>
                         </div>
-                        <span wire:loading.remove wire:target='dimensionChanaged()'>{{ $price }}</span> {{ __("MAD")}}
+                        <span wire:loading.remove wire:target='dimensionChanaged()'>0</span> {{ __("MAD")}}
                     </div>
                     <span class="ml-3 font-semibold text-lg text-green-600"> {{ $product->status->getLabel()}} </span>
                 </div>
@@ -101,8 +101,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    <span class="text-base font-medium text-white">{{ floatval($averageRating) }}</span>
-
+                    <span class="text-base font-medium text-white"></span>
                 </button>
             </div>
 
@@ -202,20 +201,7 @@
 
             <div class="mt-6 sm:flex flex-initial space-y-4 sm:space-y-0 items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
 
-                <div x-data="{ qty: $wire.qty }" x-init="$watch('qty', value => $wire.set('qty', value))"
-                    class="flex items-center justify-center border border-gray-400 rounded-full">
-                    <button @click="if (qty > 1) { qty--; $wire.set('qty', qty) }"
-                        class="group text-3xl py-2 px-3 w-full border-r border-gray-400 rounded-l-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                        -
-                    </button>
-                    <label class="hidden" for="qty">Quantity:</label>
-                    <input x-model.number="qty" wire:model.defer="qty" type="number" name="qty" id="qty"
-                        class="font-semibold text-gray-900 text-lg py-3 px-2 w-full min-[400px]:min-w-[75px] h-full bg-transparent placeholder:text-gray-900 text-center hover:text-red-600 outline-0 hover:placeholder:text-red-600">
-                    <button @click="qty++; $wire.set('qty', qty)"
-                        class="group text-3xl py-2 px-3 w-full border-l border-gray-400 rounded-r-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
-                        +
-                    </button>
-                </div>
+                
 
                 <button wire:click='add()'
                     class="group border-2 border-red-400 py-3 px-5 rounded-full bg-red-50 text-red-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-red-300 hover:bg-red-100">

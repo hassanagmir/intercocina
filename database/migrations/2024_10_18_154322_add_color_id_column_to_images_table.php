@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Color;
-use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->string("image");
-            $table->foreignIdFor(Product::class);
-            $table->integer('order')->default(0)->nullable();
-            $table->timestamps();
+        Schema::table('images', function (Blueprint $table) {
+            $table->foreignIdFor(Color::class)->nullable();
         });
     }
 
@@ -27,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::table('images', function (Blueprint $table) {
+            $table->dropColumn('color_id');
+        });
     }
 };

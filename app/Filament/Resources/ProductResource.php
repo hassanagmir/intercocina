@@ -32,12 +32,12 @@ class ProductResource extends Resource
 
     public static function getModelLabel(): string
     {
-       
+
         return __("Produit");
     }
 
 
-    
+
 
     protected static ?string $recordTitleAttribute = "name";
 
@@ -66,46 +66,45 @@ class ProductResource extends Resource
                                     ->native(false)
                                     ->options(ProductStatusEnum::toArray())
                                     ->required(),
-                                    
-                                    Forms\Components\Select::make('category_id')
-                                        ->native(false)
-                                        ->preload(true)
-                                        ->searchable()
-                                        ->label(__("Catégorie"))
-                                        ->options(Category::all()->pluck('name', 'id')->toArray())
-                                        ->required()
-                                        ->reactive()
-                                        ->afterStateUpdated(function (Set $set) {
-                                            $set('type_id', null);
-                                        }),
-                                    
-                                    Forms\Components\Select::make('type_id')
-                                        ->native(false)
-                                        ->preload(true)
-                                        ->label(__("Type"))
-                                        ->searchable()
-                                        ->options(function (Get $get) {
-                                            $categoryId = $get('category_id');
-                                            if (!$categoryId) {
-                                                return [];
-                                            }
-                                            return Type::where('category_id', $categoryId)->pluck('name', 'id')->toArray();
-                                        })
-                                        ->required()
-                                        ->reactive()
-                                        ->afterStateHydrated(function (Get $get, Set $set) {
-                                            // This runs in edit mode when the form is loaded
-                                            // self::$dimansions = Dimension::where('product_id', $query->id)->count();
-                                            $typeId = $get('type_id');
-                                            if ($typeId) {
-                                                $categoryId = Type::find($typeId)?->category_id;
-                                                if ($categoryId) {
-                                                    $set('category_id', $categoryId);
-                                                }
-                                            }
 
-                                        }),
-                               
+                                Forms\Components\Select::make('category_id')
+                                    ->native(false)
+                                    ->preload(true)
+                                    ->searchable()
+                                    ->label(__("Catégorie"))
+                                    ->options(Category::all()->pluck('name', 'id')->toArray())
+                                    ->required()
+                                    ->reactive()
+                                    ->afterStateUpdated(function (Set $set) {
+                                        $set('type_id', null);
+                                    }),
+
+                                Forms\Components\Select::make('type_id')
+                                    ->native(false)
+                                    ->preload(true)
+                                    ->label(__("Type"))
+                                    ->searchable()
+                                    ->options(function (Get $get) {
+                                        $categoryId = $get('category_id');
+                                        if (!$categoryId) {
+                                            return [];
+                                        }
+                                        return Type::where('category_id', $categoryId)->pluck('name', 'id')->toArray();
+                                    })
+                                    ->required()
+                                    ->reactive()
+                                    ->afterStateHydrated(function (Get $get, Set $set) {
+                                        // This runs in edit mode when the form is loaded
+                                        // self::$dimansions = Dimension::where('product_id', $query->id)->count();
+                                        $typeId = $get('type_id');
+                                        if ($typeId) {
+                                            $categoryId = Type::find($typeId)?->category_id;
+                                            if ($categoryId) {
+                                                $set('category_id', $categoryId);
+                                            }
+                                        }
+                                    }),
+
                                 Forms\Components\Textarea::make('description')
                                     ->rows(5)
                                     ->columnSpanFull(),
@@ -118,6 +117,12 @@ class ProductResource extends Resource
                                         Forms\Components\FileUpload::make('image')
                                             ->image()
                                             ->required()
+                                            ->label(false),
+                                        Forms\Components\Select::make('color_id')
+                                            ->relationship("color", "name")
+                                            ->placeholder(__("Sélectionnez un couleur"))
+                                            ->searchable()
+                                            ->preload()
                                             ->label(false)
                                     ])
                                     ->orderColumn('order')
@@ -126,7 +131,7 @@ class ProductResource extends Resource
                                     ->grid(4)
                             ]),
 
-                      
+
                         Forms\Components\Tabs\Tab::make('Dimensions')
                             ->label(__("Tarifs"))
                             ->live()
@@ -153,45 +158,45 @@ class ProductResource extends Resource
                                             ->label('Ancien prix'),
                                     ]),
 
-                                    Forms\Components\Group::make()
-                                        ->schema(function (Get $get) {
-                                            $product = Product::find($get('id'));
-                                            $dimensionCount = $product ? $product->dimensions()->count() : 0;
-                    
-                                            if ($dimensionCount > 200) {
-                                                return [
-                                                    Placeholder::make('dimensions_info')
-                                                        ->content(" Ce produit comporte {$dimensionCount} dimensions. Utilisez l'interface de gestion des dimensions séparée pour les modifier.")
-                                                        ->columns(2),
-                                                ];
-                                            }
+                                Forms\Components\Group::make()
+                                    ->schema(function (Get $get) {
+                                        $product = Product::find($get('id'));
+                                        $dimensionCount = $product ? $product->dimensions()->count() : 0;
 
-
-
+                                        if ($dimensionCount > 200) {
                                             return [
-                                                Forms\Components\Repeater::make('dimensions')
+                                                Placeholder::make('dimensions_info')
+                                                    ->content(" Ce produit comporte {$dimensionCount} dimensions. Utilisez l'interface de gestion des dimensions séparée pour les modifier.")
+                                                    ->columns(2),
+                                            ];
+                                        }
+
+
+
+                                        return [
+                                            Forms\Components\Repeater::make('dimensions')
                                                 ->hidden(fn(Get $get): bool => $get('is_dimensions'))
                                                 ->label(false)
                                                 ->relationship()
                                                 ->schema([
-                                                     Forms\Components\TextInput::make('height')
+                                                    Forms\Components\TextInput::make('height')
                                                         ->label(__("Hauteur"))
                                                         ->required()
                                                         ->numeric(),
-                                                     Forms\Components\TextInput::make('width')
+                                                    Forms\Components\TextInput::make('width')
                                                         ->label(__("Largeur"))
                                                         ->required()
                                                         ->numeric(),
-                                                     Forms\Components\TextInput::make('price')
+                                                    Forms\Components\TextInput::make('price')
                                                         ->label(__("Prix"))
                                                         ->required()
                                                         ->numeric()
                                                         ->prefix('MAD'),
-                                                     Forms\Components\TextInput::make('code')
+                                                    Forms\Components\TextInput::make('code')
                                                         ->unique(ignoreRecord: true)
                                                         ->label(__("Réf"))
                                                         ->required(),
-                                                     Forms\Components\Select::make('image_reference')
+                                                    Forms\Components\Select::make('image_reference')
                                                         ->label(__("Image"))
                                                         ->options(function (Get $get) {
                                                             $incrementedArray = [];
@@ -201,13 +206,13 @@ class ProductResource extends Resource
                                                             }
                                                             return $incrementedArray;
                                                         }),
-                                                     Forms\Components\Select::make('color_id')
+                                                    Forms\Components\Select::make('color_id')
                                                         ->label(__("Couleur"))
                                                         ->searchable()
                                                         ->preload()
                                                         ->placeholder("...")
                                                         ->relationship('color', 'name'),
-                                                     Forms\Components\Select::make('attribute_id')
+                                                    Forms\Components\Select::make('attribute_id')
                                                         ->label(__("Attribut"))
                                                         ->searchable()
                                                         ->preload()
@@ -219,17 +224,17 @@ class ProductResource extends Resource
                                                 })
                                                 ->columns(7)
                                                 ->columnSpanFull()
-                                                ->itemLabel(fn (array $state): ?string => 
-                                                    "{$state['height']}x{$state['width']} - {$state['price']}MAD")
+                                                ->itemLabel(fn(array $state): ?string =>
+                                                "{$state['height']}x{$state['width']} - {$state['price']}MAD")
                                                 ->collapsible()
                                                 ->cloneable()
                                                 ->reorderable()
                                                 ->addActionLabel('Ajouter une dimension')
-                                            ];
-                                        })
-                                
+                                        ];
+                                    })
 
-       
+
+
                             ]),
                     ])->columnSpanFull(),
 
@@ -258,7 +263,7 @@ class ProductResource extends Resource
                                 $color = Color::create($data);
                                 return $color->getKey();
                             }),
-                
+
                         Forms\Components\TagsInput::make('tags')
                             ->label(__("Mots clés"))
                             ->placeholder(__("Mot-clé"))
