@@ -35,7 +35,7 @@ class ContactResource extends Resource
     {
         return $form
             ->schema([
-                Forms\components\Section::make()
+                Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\TextInput::make('full_name')
                             ->label(__("Nom et prénom"))
