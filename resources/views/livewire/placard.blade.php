@@ -150,8 +150,6 @@
                 @endisset
 
             @endempty
-
-
             @empty(!$product->dimensions->count())
             <div class="font-bold">{{ __("Hauteur" )}}</div>
             <ul class="flex flex-wrap w-full gap-3">
