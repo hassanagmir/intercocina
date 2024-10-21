@@ -115,7 +115,6 @@
                 </select>
             </div>
             @endif
-
             @empty (!$product->colors->count())
                 <p class="font-bold text-gray-900">{{__("Couleur")}}</p>
                 <ul class="flex flex-wrap gap-2 mb-4">
