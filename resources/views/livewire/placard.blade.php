@@ -148,7 +148,6 @@
                     {{ $color_error }}
                 </div>
                 @endisset
-
             @endempty
             @empty(!$product->dimensions->count())
             <div class="font-bold">{{ __("Hauteur" )}}</div>
