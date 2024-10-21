@@ -191,7 +191,6 @@
                 {{ $dimension_error }}
             </div>
             @endif
-
             @endempty
             <div class="mt-6 sm:flex flex-initial space-y-4 sm:space-y-0 items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
                 <button wire:click='add()'
