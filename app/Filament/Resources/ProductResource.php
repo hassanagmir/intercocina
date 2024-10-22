@@ -61,6 +61,7 @@ class ProductResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('code')
+                                    ->unique(ignoreRecord: true)
                                     ->maxLength(255),
                                 Forms\Components\Select::make('status')
                                     ->native(false)
