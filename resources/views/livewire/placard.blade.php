@@ -203,8 +203,6 @@
                   <img src="/assets/placards/ABT GARD 02.jpg" alt="Card 1" class="w-full h-80 object-cover">
                 </div>
               </div>
-              
-        
             </div>
             {{-- <div class="swiper-pagination"></div> --}}
             <div class="swiper-button-prev"></div>
