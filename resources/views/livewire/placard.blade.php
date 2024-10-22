@@ -13,7 +13,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="flex justify-center">
                 <div class="pro-detail w-full max-lg:max-w-[608px] lg:pl-8 xl:pl-12 max-lg:mx-auto max-lg:mt-6 px-3">
                     <div class="sm:flex flex-initial items-center justify-between gap-6 mb-4">
