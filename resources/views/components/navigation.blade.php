@@ -14,13 +14,11 @@
             class="fixed top-0 left-0 bg-slate-50 boreder-b-2 border-b-gray-200 z-50 w-full shadow-sm transition-transform duration-200">
             <x-top-nav />
             <nav class="flex items-center justify-between px-4 max-w-7xl mx-auto">
-
                 <div class="py-4 ">
                     <a href="/">
                         <img class="md:w-[130px] w-[100px]" src="{{ asset('assets/imgs/intercocina-logo.png') }}" width="auto" height="auto" alt="{{ config('app.name') }}'s logo" title="Intercocina logo" loading="lazy">
                     </a>
                 </div>
-
                 <div class="hidden xl:flex">
                     <ul class="flex items-center gap-10 ">
                         <li>
