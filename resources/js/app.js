@@ -41,7 +41,7 @@ document.addEventListener("alpine:init", () => {
 
 
 
-// swiper
+// swiper Product
 function initSwiper() {
     var swiper_thumbs = new Swiper(".nav-for-slider", {
         loop: true,
@@ -61,10 +61,32 @@ function initSwiper() {
             swiper: swiper_thumbs,
         },
     });
-
-
-
 }
+
+function initSwiperPlacard() {
+    var swiper_thumbs = new Swiper(".main-placard", {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4, // Adjust the number of visible thumbs
+        freeMode: true,
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        slideToClickedSlide: true,
+        direction: 'horizontal', // Ensures sliding to the right
+
+    });
+    var swiper = new Swiper(".main-placard-carousel", {
+        slidesPerView: 1,
+        loop:true,
+        thumbs: {
+            swiper: swiper_thumbs,
+        },
+    });
+}
+
+
+initSwiperPlacard()
+
 initSwiper()
 
 Livewire.hook('morph.updated', ({ el, component }) => {
@@ -110,6 +132,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    var Swipes = new Swiper('.swiper-placard', {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-review-next',
+            prevEl: '.swiper-review-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    });
+});
 
 // Reload page
 Livewire.on('reloadPage', () => {

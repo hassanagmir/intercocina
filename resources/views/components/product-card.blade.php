@@ -10,11 +10,14 @@
       <a href="{{ route('product.show', $slug) }}">
         <h3 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ $name }}</h3>
       </a>
+
+      @if ($price != 0)
       <div class="mt-2 mb-5 flex items-center justify-between">
         <p>
           <span class="text-md font-bold text-slate-900">{{ $price }} (MAD)</span>
         </p>
       </div>
+      @endif
       <a href="{{ route('product.show', $slug) }}" class="flex items-center justify-center rounded-md bg-red-500 px-5 py-2.5 text-center text-sm font-bold text-white hover:bg-red-400">
         Découvrez
     </a>
