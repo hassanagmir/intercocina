@@ -2,11 +2,14 @@
 
 namespace App\Observers;
 
+use App\Filament\Resources\OrderResource;
+use App\Filament\Resources\UserResource;
 use App\Models\Order;
 use App\Models\User;
 use App\Notifications\OrderNotification;
+use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
-
+use Illuminate\Support\HtmlString;
 
 class OrderObserver
 {
@@ -23,9 +26,27 @@ class OrderObserver
             $admin->notify(new OrderNotification($order));
 
             // Intercocina db notifications
-            Notification::make()
-                ->title('Saved successfully')
-                ->sendToDatabase($admin);
+
+            $admin->notify(
+                Notification::make()
+                    ->title('🛒 Nouvelle Commande')
+                    ->icon('heroicon-o-shopping-cart')
+                    ->info()
+                    ->body(new HtmlString('Nouvelle commande du client ' . '<strong><a href="' . UserResource::getUrl('view', ['record' => $order->user]) . '">' . $order->user->full_name . '</a></strong>'))
+                    ->actions([
+                        Action::make('Voir')
+                            ->icon('heroicon-o-eye')
+                            ->button()
+                            ->url(OrderResource::getUrl('view', ['record' => $order]))
+                            ->color('success')
+                            ->markAsRead(),
+                        Action::make('Lu')
+                            ->icon('heroicon-o-check-circle')
+                            ->button()
+                            ->markAsRead(),
+                    ])->toDatabase()
+            );
+            
         }
 
        
