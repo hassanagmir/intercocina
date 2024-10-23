@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\DimensionExporter;
 use App\Filament\Resources\DimensionResource\Pages;
 use App\Models\Dimension;
 use Filament\Forms;
@@ -102,6 +103,8 @@ class DimensionResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ExportBulkAction::make()
+                        ->exporter(DimensionExporter::class)
                 ]),
             ]);
     }
