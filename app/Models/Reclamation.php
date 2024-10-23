@@ -15,6 +15,7 @@ class Reclamation extends Model
 {
     use HasFactory, LogsActivity;
 
+   
 
     protected $casts = [
         'status' =>  ClaimStatusEnum::class,
@@ -28,6 +29,11 @@ class Reclamation extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
+            // ->setDescriptionForEvent(function(string $eventName) {
+            //     $user = auth()->user();
+            //     return "{$user->full_name} has {$eventName} project {$this->name}";
+            // })
+            ->dontSubmitEmptyLogs()
             ->logOnly(['full_name', 'phone', 'subject', "client_number"]);
     }
 }

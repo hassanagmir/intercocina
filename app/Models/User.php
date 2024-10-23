@@ -37,8 +37,6 @@ class User extends Authenticatable implements HasName, FilamentUser
         'password',
     ];
 
-
-
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));

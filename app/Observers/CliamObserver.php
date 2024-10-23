@@ -24,14 +24,14 @@ class CliamObserver
                 Notification::make()
                     ->title('⭕ Nouvelle Reclamation')
                     ->icon('heroicon-o-document')
-                    ->info()
+                    ->warning()
                     ->body(new HtmlString('Nouvelle Reclamation du client ' . '<strong><a href="' . ReclamationResource::getUrl('view', ['record' => $reclamation]) . '">' . $reclamation->full_name . '</a></strong>'))
                     ->actions([
                         Action::make('Voir')
                             ->icon('heroicon-o-eye')
                             ->button()
                             ->url(ReclamationResource::getUrl('view', ['record' => $reclamation]))
-                            ->color('warning')
+                            ->color('success')
                             ->markAsRead(),
                         Action::make('Lu')
                             ->icon('heroicon-o-check-circle')
