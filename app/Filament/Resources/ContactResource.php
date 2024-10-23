@@ -4,10 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactResource\Pages;
 use App\Filament\Resources\ContactResource\RelationManagers;
+use App\Livewire\ViewContact;
 use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -55,6 +57,7 @@ class ContactResource extends Resource
                             ->label(__("Message"))
                             ->required()
                             ->columnSpanFull(),
+                        
                     ])->columns(3)
             ]);
     }
@@ -62,17 +65,7 @@ class ContactResource extends Resource
     public static function infolist(Infolists\Infolist $infolist): Infolists\Infolist
     {
         return $infolist->schema([
-
-            Infolists\Components\TextEntry::make('full_name')
-                ->label(__("Nom et prénom")),
-            Infolists\Components\TextEntry::make('phone')
-                ->label(__("Téléphone")),
-            Infolists\Components\TextEntry::make('email')
-                ->label(__("E-mail")),
-
-            Infolists\Components\TextEntry::make('message')
-                ->label(__("Message")),
-
+            Infolists\Components\Livewire::make(ViewContact::class)->columnSpanFull(),
         ]);
     }
 
@@ -126,7 +119,7 @@ class ContactResource extends Resource
             'index' => Pages\ListContacts::route('/'),
             'create' => Pages\CreateContact::route('/create'),
             'edit' => Pages\EditContact::route('/{record}/edit'),
-            // 'view' => Pages\ViewContact::route('/{record}/view'),
+            'view' => Pages\ViewContact::route('/{record}/view'),
         ];
     }
 }

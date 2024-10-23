@@ -29,7 +29,7 @@ class OrderExporter extends Exporter
 
             ExportColumn::make('status')
                 ->label(__("État"))
-                ->state(function(Model $model){
+                ->state(function (Model $model) {
                     return $model->status->getLabel();
                 }),
 
@@ -41,7 +41,7 @@ class OrderExporter extends Exporter
 
             ExportColumn::make('address.phone')
                 ->label(__("Téléphone")),
-            
+
 
             ExportColumn::make('address.email')
                 ->label(__("E-mail")),
