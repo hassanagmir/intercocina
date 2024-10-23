@@ -113,7 +113,7 @@ Route::post('json', function (Request $request) {
             $category = Category::firstOrCreate(['name' => $item['category']]);
 
             $type = Type::firstOrCreate([
-                'name' => "{$item['category']} {$item['type']}",
+                'name' => "{{$item['type']}",
                 'category_id' => $category->id,
             ]);
 
@@ -133,8 +133,9 @@ Route::post('json', function (Request $request) {
 
 
             $product = Product::firstOrCreate([
-                'name' => "{$item['category']} {$item['type']} {$item['name']}",
+                'name' => "{$item['type']} {$item['name']}",
                 'type_id' => $type->id,
+                'price' => isset($item['dimensions']) ? null : $item['price']
             ]);
 
             if(isset($item['color'])){
@@ -145,19 +146,24 @@ Route::post('json', function (Request $request) {
                 $product->attributes()->syncWithoutDetaching([$attribute->id]);
             }
 
-            $dimensions = explode('*', $item['dimensions']);
+            if(isset($item['dimensions'])){
+                $dimensions = explode('*', $item['dimensions']);
 
-            return Dimension::firstOrCreate(
-                ['code' => $item['code']],
-                [
-                    'price' => $item['price'],
-                    'height' => $dimensions[0],
-                    'width' => $dimensions[1],
-                    'product_id' => $product->id,
-                    'color_id' => isset($item['color']) ? $color->id : null,
-                    'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
-                ]
-            );
+                return Dimension::firstOrCreate(
+                    ['code' => $item['code']],
+                    [
+                        'price' => $item['price'],
+                        'height' => $dimensions[0],
+                        'width' => $dimensions[1],
+                        'product_id' => $product->id,
+                        'color_id' => isset($item['color']) ? $color->id : null,
+                        'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
+                    ]
+                );
+            }
+
+            return $product;
+            
         });
     });
 
