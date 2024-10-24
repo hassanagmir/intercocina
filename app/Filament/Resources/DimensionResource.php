@@ -17,6 +17,13 @@ class DimensionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $recordTitleAttribute = "dimension";
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['dimension', 'code', 'product.name'];
+    }
+
     public static function form(Form $form): Form
     {
         return $form

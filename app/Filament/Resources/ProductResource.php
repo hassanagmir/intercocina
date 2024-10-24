@@ -43,7 +43,7 @@ class ProductResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'description', 'tags'];
+        return ['name', 'description', 'tags', 'code'];
     }
 
     protected static ?string $navigationGroup = "Porduits";
