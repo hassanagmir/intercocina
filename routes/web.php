@@ -132,11 +132,14 @@ Route::post('json', function (Request $request) {
             }
 
 
-            $product = Product::firstOrCreate([
-                'name' => "{$item['type']} {$item['name']}",
-                'type_id' => $type->id,
-                'price' => isset($item['dimensions']) ? null : $item['price']
-            ]);
+            $product = Product::firstOrCreate(
+                ['code' => $item['code']],
+                [
+                    'name' => "{$item['type']} {$item['name']}",
+                    'type_id' => $type->id,
+                    'price' => isset($item['dimensions']) ? null : $item['price']
+                ]
+            );
 
             if(isset($item['color'])){
                 $product->colors()->syncWithoutDetaching([$color->id]);
