@@ -9,6 +9,16 @@
             <div class="space-y-6">
                 <!-- Card -->
                 @forelse($order->items as $item)
+                @php
+                    $dimension = '';
+                    if ($item->dimension) {
+                        $weight = $item->dimension->weight ? " - {$item->dimension->weight} {$item->dimension->weight_unit?->getLabel()}" : '';
+                        $dimension = ($item->dimension->width 
+                            ? $item->dimension->width 
+                            : $item->dimension->height) . ($item->dimension->height_unit?->getLabel() ?? '') . $weight;
+                    }
+                @endphp
+            
                 <div wire:key='{{ $item->product->id }}' class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <a href="{{ route('product.show', $item->product->slug) }}" class="shrink-0 md:order-1">
@@ -23,9 +33,9 @@
                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                             <a href="{{ route('product.show', $item->product->slug) }}" class="text-base font-bold text-gray-900 hover:underline">
                                 {{ $item->product->name }} - 
-                                {{ $item->dimension ? $item->dimension->dimension . " mm" : '' }} 
+                                {{ $dimension }}
                                 {{ $item->color ? "(" .$item->color->name . ")" : ''}}
-                                [ x {{ $item->quantity }}]
+                               [x{{ $item->quantity }}]
                             </a>
                             <div class="flex items-center gap-4">
 

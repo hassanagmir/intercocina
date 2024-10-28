@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,13 +21,6 @@ class Product extends Model
         'price', 'old_price', 'order'
     ];
 
-    public function getSlugOptions() : SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug')
-            ->doNotGenerateSlugsOnUpdate();
-    }
 
     protected $casts = [
         'options' => 'array',
@@ -34,10 +28,20 @@ class Product extends Model
     ];
 
 
+
     public function getActivityLogOptions() : LogOptions
     {
         return LogOptions::defaults()
             ->logOnly(['name', 'id', 'description', 'code', 'content', 'tags',]);
+    }
+
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
 
@@ -66,16 +70,21 @@ class Product extends Model
     }
 
 
-    public function price(){
-        if($this->price){
+    public function price()
+    {
+        if ($this->price) {
             return strval($this->price);
-        }elseif(count($this->dimensions)){
+        } elseif (count($this->dimensions)) {
             $prices = $this->dimensions()
                 ->where('status', true)
                 ->where('price', '>', 0)
                 ->pluck('price')->toArray();
-            return min($prices) . " - " . max($prices);
-        }else{
+            try {
+                return min($prices) . " - " . max($prices);
+            } catch (\Throwable $th) {
+                return 0;
+            }
+        } else {
             return 0;
         }
     } 

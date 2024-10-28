@@ -168,6 +168,7 @@
                 @endforeach
             </ul>
 
+            @if ($widths)
             <div class="font-bold">{{ __("Largeur" )}}</div>
             <ul class="flex flex-wrap w-full gap-3">
                 @foreach ($widths as $item)
@@ -182,6 +183,7 @@
                 </li>
                 @endforeach
             </ul>
+            @endif
 
             @if ($dimension_error)
             <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center">

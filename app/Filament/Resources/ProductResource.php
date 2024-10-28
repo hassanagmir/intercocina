@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\HeightUnitEnum;
 use App\Enums\ProductStatusEnum;
+use App\Enums\WeightUnitEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Category;
@@ -180,39 +182,58 @@ class ProductResource extends Resource
                                                 ->label(false)
                                                 ->relationship()
                                                 ->schema([
-                                                    Forms\Components\TextInput::make('height')
-                                                        ->label(__("Hauteur"))
+                                                    Forms\Components\TextInput::make('code')
                                                         ->required()
-                                                        ->numeric(),
-                                                    Forms\Components\TextInput::make('width')
-                                                        ->label(__("Largeur"))
-                                                        ->required()
-                                                        ->numeric(),
+                                                        ->unique(ignoreRecord: true)
+                                                        ->label(__("Réf")),
                                                     Forms\Components\TextInput::make('price')
                                                         ->label(__("Prix"))
                                                         ->required()
                                                         ->numeric()
                                                         ->prefix('MAD'),
-                                                    Forms\Components\TextInput::make('code')
-                                                        ->unique(ignoreRecord: true)
-                                                        ->label(__("Réf"))
-                                                        ->required(),
-                                                    Forms\Components\Select::make('image_reference')
-                                                        ->label(__("Image"))
-                                                        ->options(function (Get $get) {
-                                                            $incrementedArray = [];
-                                                            $i = 0;
-                                                            foreach ($get('../../images') as $key => $value) {
-                                                                $incrementedArray[$i++] = $i;
-                                                            }
-                                                            return $incrementedArray;
-                                                        }),
+                                                    Forms\Components\TextInput::make('height')
+                                                        ->label(__("Hauteur"))
+                                                        ->numeric(),
+                                                    Forms\Components\TextInput::make('width')
+                                                        ->label(__("Largeur"))
+                                                        ->numeric(),
+                                                    
+                                                    Forms\Components\TextInput::make('thicknesse')
+                                                        ->label(__("Épaisseur"))
+                                                        ->numeric(),
+                                                    Forms\Components\TextInput::make('weight')
+                                                        ->label(__("Poids"))
+                                                        ->numeric(),
+
                                                     Forms\Components\Select::make('color_id')
                                                         ->label(__("Couleur"))
                                                         ->searchable()
                                                         ->preload()
                                                         ->placeholder("...")
                                                         ->relationship('color', 'name'),
+                                                    
+                                                    
+                                                    Forms\Components\Select::make('weight_unit')
+                                                        ->label(__("L'unité de poids"))
+                                                        ->placeholder("__")
+                                                        ->options(WeightUnitEnum::toArray()),
+                                                    
+                                                    Forms\Components\Select::make('height_unit')
+                                                        ->label(__("L'unité de hauteur"))
+                                                        ->placeholder("__")
+                                                        ->options(HeightUnitEnum::toArray()),
+                                                    
+
+                                                    // Forms\Components\Select::make('image_reference')
+                                                    //     ->label(__("Image"))
+                                                    //     ->options(function (Get $get) {
+                                                    //         $incrementedArray = [];
+                                                    //         $i = 0;
+                                                    //         foreach ($get('../../images') as $key => $value) {
+                                                    //             $incrementedArray[$i++] = $i;
+                                                    //         }
+                                                    //         return $incrementedArray;
+                                                    //     }),
                                                     Forms\Components\Select::make('attribute_id')
                                                         ->label(__("Attribut"))
                                                         ->searchable()
@@ -223,16 +244,16 @@ class ProductResource extends Resource
                                                 ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
                                                     return $data;
                                                 })
-                                                ->columns(7)
+                                                ->columns(5)
                                                 ->columnSpanFull()
                                                 ->itemLabel(fn(array $state): ?string =>
-                                                "{$state['height']}x{$state['width']} - {$state['price']}MAD")
+                                                    "{$state['height']}x{$state['width']} - {$state['price']}MAD")
                                                 ->collapsible()
                                                 ->cloneable()
                                                 ->reorderable()
                                                 ->addActionLabel('Ajouter une dimension')
                                         ];
-                                    })
+                                    })  
 
 
 

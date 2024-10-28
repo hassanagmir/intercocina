@@ -55,6 +55,7 @@ class Product extends Component
         $this->heights = array_unique(
             $this->product->dimensions()
                 ->where("status", true)
+                ->whereNotNull('height')
                 ->where("price", ">", 0)
                 ->pluck('height')->toArray()
         );
@@ -62,6 +63,7 @@ class Product extends Component
             $this->product->dimensions()
                 ->where("status", true)
                 ->where("price", ">", 0)
+                ->whereNotNull('width')
                 ->pluck('width')->toArray()
         );
 
@@ -70,6 +72,8 @@ class Product extends Component
 
         $this->averageRating = $this->getAvgRating();
 
+
+        // Attributes manager
         if (count($this->product->attributes)) {
             $this->attribute = $this->product->attributes->first()->id;
             
@@ -106,11 +110,12 @@ class Product extends Component
 
     public function updated($property)
     {
-
+        // Change dimensions if the attribute changed
         if (count($this->product->attributes)) {
             $this->heights = array_unique($this->product->dimensions()
                 ->where('attribute_id', $this->attribute)
                 ->where("status", true)
+                ->whereNotNull('height')
                 ->where("price", ">", 0)
                 ->pluck('height')
                 ->toArray());
@@ -118,17 +123,28 @@ class Product extends Component
             $this->widths = array_unique($this->product->dimensions()
                 ->where("status", true)
                 ->where("price", ">", 0)
+                ->whereNotNull('width')
                 ->where('attribute_id', $this->attribute)
                 ->pluck('width')
                 ->toArray());
         }
 
-        if (!$this->width || !$this->height) return;
-    
-        $query = $this->product->dimensions
-            ->where('height', $this->height)
-            ->where('width', $this->width);
-    
+        if($this->width && $this->height){
+            if (!$this->width || !$this->height) return;
+
+            $query = $this->product->dimensions
+                ->where('height', $this->height)
+                ->where('width', $this->width);
+        }
+
+        if(!$this->width){
+            $query = $this->product->dimensions
+                ->whereNull('width')
+                ->where('height', $this->height);
+        }
+
+        
+
         if ($this->product->colors && $this->color) {
             $query = $query->where('color_id', $this->color);
         }
@@ -141,12 +157,11 @@ class Product extends Component
             $this->dimension = $dimension;
             $this->price = $dimension->price;
             $this->reset("dimension_error");
-        } else {
+        } elseif($this->width && $this->height) {
             $this->dimension = null;
             $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
         }
     }
-
 
 
 
@@ -159,20 +174,19 @@ class Product extends Component
             return;
         }
 
-        $rules = [
-            'qty' => 'required|numeric',
-            'height' => ['required_if:product.price,null'],
-            'width' => ['required_if:product.price,null'],
-        ];
+        // $rules = [
+        //     'qty' => 'required|numeric',
+        //     'height' => ['required_if:product.price,null'],
+        //     'width' => ['required_if:product.price,null'],
+        // ];
 
-        $messages = [
-            'qty.numeric' => __('La quantité doit être un nombre.'),
-            'height.required_if' => __("La hauteur du produit est requise"),
-            'width.required_if' => __("La largeur du produit est requise"),
-        ];
+        // $messages = [
+        //     'qty.numeric' => __('La quantité doit être un nombre.'),
+        //     'height.required_if' => __("La hauteur du produit est requise"),
+        //     'width.required_if' => __("La largeur du produit est requise"),
+        // ];
 
-        $this->validate($rules, $messages);
-
+        // $this->validate($rules, $messages);
 
         if ($this->dimension) {
             $price = $this->dimension->price;
@@ -185,22 +199,33 @@ class Product extends Component
 
         $color = $this->color ? $this->color : null;
 
-        \Cart::add(array(
-            'id' => ($this->dimension ? $this->dimension->id : $this->product->id) . "-". $color,
+        // Generate dimensions
+        $dimension = '';
+        if ($this->dimension) {
+            $weight = $this->dimension->weight ? " - {$this->dimension->weight} {$this->dimension->weight_unit?->getLabel()}" : '';
+            $dimension = ($this->dimension->width 
+                ? $this->dimension->width 
+                : $this->dimension->height) . ($this->dimension->height_unit?->getLabel() ?? '') . $weight;
+        }
+        // Prepare cart item data
+        $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color;
+        $colorDetails = $color ? Color::find($color) : null;
+
+        \Cart::add([
+            'id' => $cartItemId,
             'name' => $this->product->name,
             'price' => $price,
             'quantity' => $this->qty,
             'attributes' => [
                 'color' => intval($color),
-                'color_name' => $color ? Color::find($color)->name : null,
+                'color_name' => $colorDetails?->name,
                 'image' => $this->product->images?->first()?->image,
-                'dimension' => $this->dimension ? $this->dimension->dimension : false,
+                'dimension' => $this->dimension ? $dimension : false,
                 'slug' => $this->product->slug,
                 'product_id' => $this->product->id,
-                'dimension_id' => $this->dimension ? $this->dimension->id : null,
+                'dimension_id' => $this->dimension?->id,
             ]
-        ));
-        
+        ]);
         $this->qty = 1;
         $this->reset("color");
         $this->reset("width");

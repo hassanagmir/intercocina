@@ -113,7 +113,7 @@ Route::post('json', function (Request $request) {
             $category = Category::firstOrCreate(['name' => $item['category']]);
 
             $type = Type::firstOrCreate([
-                'name' => "{$item['type']}",
+                'name' => $item['type'],
                 'category_id' => $category->id,
             ]);
 
@@ -133,9 +133,8 @@ Route::post('json', function (Request $request) {
 
 
             $product = Product::firstOrCreate(
-                ['code' => $item['code']],
+                ['name' => $item['name']],
                 [
-                    'name' => "{$item['type']} {$item['name']}",
                     'type_id' => $type->id,
                     'price' => isset($item['dimensions']) ? null : $item['price']
                 ]
@@ -149,17 +148,42 @@ Route::post('json', function (Request $request) {
                 $product->attributes()->syncWithoutDetaching([$attribute->id]);
             }
 
+            if(isset($item["height_unit"])){
+                switch ($item['height_unit']) {
+                    case 'mm':
+                        $height_unit = 1;
+                        break;
+                    
+                    case 'cm':
+                        $height_unit = 2;
+                        break;
+                    
+                    case 'm':
+                        $height_unit = 3;
+                        break;
+                }    
+            }
+
+          
             if(isset($item['dimensions'])){
-                $dimensions = explode('*', $item['dimensions']);
+                if (strpos($item['dimensions'], '*') !== false) {
+                    $height = explode('*', $item['dimensions'])[0];
+                    $width = explode('*', $item['dimensions'])[1];
+                } else {
+                    $height = $item['dimensions'];
+                    $width = null;
+                }
+                
 
                 return Dimension::firstOrCreate(
                     ['code' => $item['code']],
                     [
                         'price' => $item['price'],
-                        'height' => $dimensions[0],
-                        'width' => $dimensions[1],
+                        'height' => $height,
+                        'width' => $width,
                         'product_id' => $product->id,
                         'color_id' => isset($item['color']) ? $color->id : null,
+                        'height_unit' =>  isset($height_unit) ? $height_unit : null,
                         'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
                     ]
                 );

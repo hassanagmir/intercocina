@@ -8,6 +8,8 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use App\Enums\HeightUnitEnum;
+use App\Enums\WeightUnitEnum;
 
 class Dimension extends Model
 {
@@ -15,13 +17,19 @@ class Dimension extends Model
 
     protected $fillable = [
         'width', 'height', 'price', 'product_id', 'status',
-        'slug', 'code', 'image_id', 'dimension', 'color_id', 'attribute_id'
+        'slug', 'code', 'image_id', 'dimension', 'color_id', 'attribute_id',
+        'weight_unit', 'weight', 'thicknesse', 'height_unit'
+    ];
+
+    protected $casts = [
+        'height_unit' => WeightUnitEnum::class,
+        'height_unit' => HeightUnitEnum::class,
     ];
 
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['width', 'height'])
+            ->generateSlugsFrom(['width', 'height', 'thicknesse', 'weight', 'id'])
             ->saveSlugsTo('slug');
     }
 

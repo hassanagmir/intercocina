@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\HeightUnitEnum;
+use App\Enums\WeightUnitEnum;
 use App\Filament\Exports\DimensionExporter;
 use App\Filament\Resources\DimensionResource\Pages;
 use App\Models\Dimension;
@@ -30,35 +32,64 @@ class DimensionResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('height')
-                            ->label(__("Hauteur"))
+                        Forms\Components\TextInput::make('code')
                             ->required()
-                            ->numeric(),
-                        Forms\Components\TextInput::make('width')
-                            ->label(__("Largeur"))
-                            ->required()
-                            ->numeric(),
+                            ->unique(ignoreRecord: true)
+                            ->label(__("Réf")),
+
                         Forms\Components\TextInput::make('price')
                             ->label(__("Prix"))
                             ->required()
                             ->numeric()
                             ->prefix('MAD'),
-                        Forms\Components\TextInput::make('code')
-                            ->label(__("Référence"))
-                            ->required()
-                            ->unique(ignoreRecord: true),
-                        Forms\Components\Select::make('product_id')
+
+                        Forms\Components\TextInput::make('height')
+                            ->label(__("Hauteur"))
+                            ->numeric(),
+
+                        Forms\Components\TextInput::make('width')
+                            ->label(__("Largeur"))
+                            ->numeric(),
+
+                        Forms\Components\TextInput::make('thicknesse')
+                            ->label(__("Épaisseur"))
+                            ->numeric(),
+
+                        Forms\Components\TextInput::make('weight')
+                            ->label(__("Poids"))
+                            ->numeric(),
+
+                        Forms\Components\Select::make('color_id')
+                            ->label(__("Couleur"))
                             ->searchable()
                             ->preload()
-                            ->relationship('product', "name")
-                            ->label(__("Produit"))
-                            ->required(),
+                            ->placeholder("...")
+                            ->relationship('color', 'name'),
+
+                        Forms\Components\Select::make('weight_unit')
+                            ->label(__("L'unité de poids"))
+                            ->placeholder("__")
+                            ->options(WeightUnitEnum::toArray()),
+
+                        Forms\Components\Select::make('height_unit')
+                            ->label(__("L'unité de hauteur"))
+                            ->placeholder("__")
+                            ->options(HeightUnitEnum::toArray()),
+
+                        Forms\Components\Select::make('attribute_id')
+                            ->label(__("Attribut"))
+                            ->searchable()
+                            ->preload()
+                            ->placeholder("...")
+                            ->relationship('attribute', 'name'),
+
+
                         Forms\Components\Toggle::make('status')
                             ->inline(false)
                             ->helperText('Rendre cette dimension visible pour tout le monde.')
                             ->label(__("Visibilité"))
                             ->required(),
-                    ])->columns(2)
+                    ])->columns(3)
 
             ]);
     }
@@ -67,22 +98,29 @@ class DimensionResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('code')
+                    ->label(__("Référence"))
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('height')
                     ->label(__("Hauteur"))
-                    ->suffix(" mm")
+                    ->placeholder("__")
                     ->numeric()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('width')
                     ->label(__("Largeur"))
-                    ->suffix(" mm")
+                    ->placeholder("__")
                     ->numeric()
                     ->sortable(),
-              
-                Tables\Columns\TextColumn::make('code')
-                    ->label(__("Référence"))
-                    ->searchable()
+
+                Tables\Columns\TextColumn::make('weight')
+                    ->label(__("Poids"))
+                    ->placeholder("__")
+                    ->numeric()
                     ->sortable(),
+
+
                 Tables\Columns\TextColumn::make('product.name')
                     ->label(__("Produit"))
                     ->searchable()

@@ -69,7 +69,7 @@
                             <a href="{{ route('product.show', $product['attributes']['slug']) }}"
                                 class="text-base font-bold text-gray-900 hover:underline">
                                 {{ $product['name'] }}
-                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }}
+                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] : '' }}
                                 {{ $product['attributes']['color'] ? "(" . $product['attributes']['color_name'] . ")" : '' }}
                             </a>
                             <div class="flex items-center gap-4">
