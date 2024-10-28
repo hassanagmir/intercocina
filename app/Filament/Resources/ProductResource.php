@@ -309,6 +309,11 @@ class ProductResource extends Resource
                     ->numeric()
                     ->searchable()
                     ->sortable(),
+                
+                Tables\Columns\TextColumn::make('code')
+                    ->label(__("Référence"))
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('dimensions_count')->counts('dimensions')
                     ->label(__("Dimensions"))
