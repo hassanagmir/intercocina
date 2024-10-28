@@ -140,6 +140,9 @@ Route::post('json', function (Request $request) {
                 ]
             );
 
+            $product->code = $item['code'];
+            $product->save();
+
             if(isset($item['color'])){
                 $product->colors()->syncWithoutDetaching([$color->id]);
             }
