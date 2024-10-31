@@ -18,7 +18,6 @@
                             : $item->dimension->height) . ($item->dimension->height_unit?->getLabel() ?? '') . $weight;
                     }
                 @endphp
-            
                 <div wire:key='{{ $item->product->id }}' class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <a href="{{ route('product.show', $item->product->slug) }}" class="shrink-0 md:order-1">

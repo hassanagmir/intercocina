@@ -100,8 +100,6 @@
                       <dt class="text-base font-normal text-gray-500">{{ __("Ville")}}</dt>
                       <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->address?->city->name }}</dd>
                     </dl>
-          
-                  
                     <dl class="flex items-center justify-between gap-4">
                       {{ $this->record->address?->address_name }}
                     </dl>
