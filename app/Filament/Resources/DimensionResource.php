@@ -66,6 +66,13 @@ class DimensionResource extends Resource
                             ->placeholder("...")
                             ->relationship('color', 'name'),
 
+                        Forms\Components\Select::make('product_id')
+                            ->label(__("Produit"))
+                            ->searchable()
+                            ->preload()
+                            ->placeholder("...")
+                            ->relationship('product', 'name'),
+                            
                         Forms\Components\Select::make('weight_unit')
                             ->label(__("L'unité de poids"))
                             ->placeholder("__")

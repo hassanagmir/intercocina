@@ -254,9 +254,6 @@ class ProductResource extends Resource
                                                 ->addActionLabel('Ajouter une dimension')
                                         ];
                                     })  
-
-
-
                             ]),
                     ])->columnSpanFull(),
 
