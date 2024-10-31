@@ -30,16 +30,20 @@ class ImageResource extends Resource
             ->schema([
 
                 Forms\Components\Select::make('product_id')
+                    ->label(__("Produit"))
                     ->required()
                     ->relationship('product', 'name')
                     ->preload()
                     ->searchable(),
+
                 Forms\Components\Select::make('color_id')
+                    ->label(__("Couleur"))
                     ->relationship('color', 'name')
                     ->preload()
                     ->searchable(),
 
                 Forms\Components\FileUpload::make('image')
+                    ->label(__("(Image"))
                     ->image()
                     ->required(),
             ]);
@@ -51,9 +55,12 @@ class ImageResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('product.name')
+                    ->label(__("Produit"))
                     ->searchable()
                     ->sortable(),
+                    
                 Tables\Columns\TextColumn::make('color.name')
+                    ->label(__("Couleur"))
                     ->searchable()
                     ->placeholder("__")
                     ->sortable(),
@@ -63,6 +70,7 @@ class ImageResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
