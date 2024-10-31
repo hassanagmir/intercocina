@@ -51,8 +51,10 @@ class ImageResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('product.name')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('color.name')
+                    ->searchable()
                     ->placeholder("__")
                     ->sortable(),
             ])
