@@ -34,11 +34,8 @@ class ProductResource extends Resource
 
     public static function getModelLabel(): string
     {
-
         return __("Produit");
     }
-
-
 
 
     protected static ?string $recordTitleAttribute = "name";
@@ -62,9 +59,11 @@ class ProductResource extends Resource
                                     ->label(__("Nom du produit"))
                                     ->required()
                                     ->maxLength(255),
+
                                 Forms\Components\TextInput::make('code')
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
+
                                 Forms\Components\Select::make('status')
                                     ->native(false)
                                     ->options(ProductStatusEnum::toArray())
@@ -111,6 +110,7 @@ class ProductResource extends Resource
                                 Forms\Components\Textarea::make('description')
                                     ->rows(5)
                                     ->columnSpanFull(),
+                                    
                             ])->columns(2),
                         Forms\Components\Tabs\Tab::make('Images')
                             ->schema([

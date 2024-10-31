@@ -9,7 +9,7 @@
                       <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <!-- Product image -->
                         <a href="{{ route('product.show', $item->product->slug) }}" class="shrink-0 md:order-1">
-                            <img class="h-20 w-20" src="{{ Storage::url($item->product->images?->first()->image) }}" alt="{{ $item->product->name }}">
+                            <img class="h-20" src="{{ Storage::url($item->product->images?->first()->image) }}" alt="{{ $item->product->name }}">
                         </a>
                         <!-- Quantity control -->
                         <div class="flex items-center justify-between md:order-3 md:justify-end">
