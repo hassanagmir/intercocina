@@ -2,7 +2,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 bg-gray-50 py-6 rounded-xl border">
     <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
         <!-- Main Swiper -->
-        <div class="swiper main-slide-carousel swiper-container relative mb-6">
+        <div class="swiper main-slide-carousel ml-3 swiper-container relative mb-6">
             <div class="swiper-wrapper" id="gallery">
                 @foreach ($product->images()->orderBy('order')->get() as $image)
                 <a role="Product" href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1475" data-pswp-height="2000" target="_blank">
