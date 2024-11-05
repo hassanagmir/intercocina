@@ -173,8 +173,7 @@
             <ul class="flex flex-wrap w-full gap-3">
                 @foreach ($widths as $item)
                 <li>
-                    <input wire:model.change="width" type="radio" id="width-{{ $item }}" value="{{ $item }}"
-                        name="width" class="hidden peer" />
+                    <input wire:model.change="width" type="radio" id="width-{{ $item }}" value="{{ $item }}" name="width" class="hidden peer" />
                     <label for="width-{{ $item }}" class="inline-flex items-center  justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg cursor-pointer border-2 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                         <div class="block">
                             <div class="w-full text-md font-semibold">{{ $item }}</div>

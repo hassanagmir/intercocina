@@ -31,12 +31,29 @@
             </div>
             @endif
 
+
+            @if ($product->type->category->name == "Parquets")
+            <x-floopr-ceatures />
+
+            <div class="bg-white border-2 p-4 rounded-2xl mt-10">
+                <div class="block">
+                    <h2 class="mb-8 text-2xl font-semibold">Couches</h2>
+                    <img src="https://www.kastamonuentegre.com/uploads/2022/12/fr-floorpan.png" alt="">
+                </div>
+            </div>    
+            @endif
+
+
+    
+            
             {{-- Recomendation product --}}
             <h2 class="mb-2 mt-3 text-2xl font-black">
                 <span class="underline underline-offset-3 decoration-7 decoration-red-400">
                     {{ __("Nos recommandations") }}
                 </span>
             </h2>
+
+           
 
             <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach ($products as $product)
@@ -49,6 +66,8 @@
             <div class="bg-white border-2 p-4 rounded-2xl mt-10">
                 @livewire('rating-form', ['product' => $product], key($product->id))
             </div>
+            
+
 
             @if(count($product->reviews))
                 {{-- Rating list --}}
