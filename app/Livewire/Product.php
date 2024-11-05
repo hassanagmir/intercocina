@@ -149,19 +149,24 @@ class Product extends Component
             $query = $query->where('color_id', $this->color);
         }
 
+      
 
 
-        $dimension = $query->first();
-    
-        if ($dimension) {
-            $this->dimension = $dimension;
-            $this->price = $dimension->price;
-            $this->reset("dimension_error");
-        } elseif($this->width && $this->height) {
-            $this->dimension = null;
-            $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
+        if(isset($query)){
+            $dimension = $query->first();
+            if ($dimension) {
+                $this->dimension = $dimension;
+                $this->price = $dimension->price;
+                $this->reset("dimension_error");
+            } elseif($this->width && $this->height) {
+                $this->dimension = null;
+                $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
+            }
         }
-    }
+        }
+        
+    
+  
 
 
 
