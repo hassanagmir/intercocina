@@ -163,11 +163,10 @@ class Product extends Component
                 $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
             }
         }
-        }
+    }
         
     
   
-
 
 
 
