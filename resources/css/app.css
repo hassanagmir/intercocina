@@ -21,6 +21,15 @@
     --cute-toast-z-index: 200; /* Custom z-index value */
 }
 
+.fi-topbar > nav { 
+    @apply !bg-inherit ring-0 shadow-none;
+}
+ 
+.fi-sidebar-header {
+    @apply !bg-inherit ring-0 shadow-none;
+} 
+
+
 [x-cloak] {
     display: none !important
 }

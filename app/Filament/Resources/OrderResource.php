@@ -81,7 +81,9 @@ class OrderResource extends Resource
                                     ->searchable()
                                     ->preload()
                                     ->required()
+                                    ->placeholder("__")
                                     ->live()
+                                    // ->getOptionLabelFromRecordUsing(fn ($state, $label) => false)
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         if ($get('product_id')) {
                                             $product = Product::find($get('product_id'));

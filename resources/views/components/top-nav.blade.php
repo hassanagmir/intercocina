@@ -27,7 +27,7 @@
                         d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087a3 3 0 0 0 1.398 0c.52-.125 1.001-.446 1.963-1.087l6.98-4.654M7.158 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327" />
                 </svg>
             </span>
-            <span class="transition-colors duration-200 text-sm">Contact@intercocina.com</span>
+            <a href="mailto:contact@intercocina.com" class="transition-colors duration-200 text-sm">Contact@intercocina.com</a>
         </div>
         <span class="mx-2">|</span>
         <div class="flex justify-center items-center gap-2">

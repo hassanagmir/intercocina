@@ -18,6 +18,8 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use CharrafiMed\GlobalSearchModal\Customization\Position;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -34,6 +36,11 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Rose,
             ])
+            ->renderHook(PanelsRenderHook::TOPBAR_END, function () {
+                return Blade::render('<div style="border: solid red 1px; padding: 5px;">{{ $text }}</div>', [
+                    'text' => 'INTERCOCINA',
+                ]);
+            })
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

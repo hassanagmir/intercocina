@@ -11,6 +11,14 @@
     display: none !important
 }
 
+.fi-topbar > nav { 
+    @apply !bg-inherit ring-0 shadow-none;
+}
+ 
+.fi-sidebar-header {
+    @apply !bg-inherit ring-0 shadow-none;
+} 
+
 
 @layer components {
     .prose {
