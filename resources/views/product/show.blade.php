@@ -1,8 +1,10 @@
 @extends('layouts.base')
 @section('content')
 <section class="py-6 md:py-20">
+    
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         @livewire('product', ['product' => $product], key($product->id))
+
         <div class="mt-6">
             @if ($product->options || $product->content)
             <div class="p-4 rounded-xl border bg-white">
@@ -30,6 +32,12 @@
                 </div>
             </div>
             @endif
+
+            <div>
+                <x-share-buttons :product="$product" />
+            </div>
+
+           
 
 
             @if ($product->type->category->name == "Parquets")
