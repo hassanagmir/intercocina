@@ -1,4 +1,4 @@
-<div class="bg-white rounded-lg border shadow-sm text-center py-10">
+<div class="bg-white rounded-lg border shadow-sm text-center py-10 mt-5">
     <h2 class="text-2xl font-bold mb-4">Partager Via</h2>
     @livewire('qr-code', ['product' => $product], key($product->id))
     <div class="flex flex-wrap gap-4 justify-center items-center">
