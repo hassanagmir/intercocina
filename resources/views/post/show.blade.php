@@ -10,7 +10,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="me-3" width="23" height="23" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12 6v6h4.5"/><circle cx="12" cy="12" r="9"/></g></svg>
             <span>{{ $post->created_at->format('M, d Y')}}</span>
         </div>
-        <img class="rounded-lg max-w-xl mb-3" src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" title="{{ $post->title }}" loading="lazy" width="100%" height="100%">
+        <img class="rounded-lg w-full mb-3" src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" title="{{ $post->title }}" loading="lazy" width="100%" height="100%">
         <div class="prose text-xl">{!! $post->content !!}</div>
     </article>
 </div>

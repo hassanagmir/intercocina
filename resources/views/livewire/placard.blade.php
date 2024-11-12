@@ -59,10 +59,10 @@
                     <div class="swiper-slide thumbs-slide">
                         <div class="relative">
                             <div class="peer cursor-pointer rounded-md bg-neutral-50 px-4 py-2 font-medium tracking-wide text-neutral-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black" >
-                                <img src="{{ Storage::url($image->color->image )}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36" >
+                                {{-- <img src="{{ Storage::url($image->color->image )}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36" > --}}
                             </div>
                             <div class="bottom-full min-w-[10rem] left-1/2  mb-2 z-50 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-center text-sm text-white opacity-0 transition-opacity duration-300 ease-out peer-hover:opacity-100 peer-focus:opacity-100" role="tooltip">
-                                {{ $image->color->name }}
+                                {{-- {{ $image->color->name }} --}}
                             </div>
                         </div>
                     </div>
