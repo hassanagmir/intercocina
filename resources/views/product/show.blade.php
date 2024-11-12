@@ -32,14 +32,9 @@
                 </div>
             </div>
             @endif
-
             <div>
                 <x-share-buttons :product="$product" />
             </div>
-
-           
-
-
             @if ($product->type->category->name == "Parquets")
             <x-floopr-ceatures />
 

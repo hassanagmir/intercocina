@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux.">
+    <meta name="description" content="{{ isset($description) ? $description : "Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux." }}">
     <title>{{ (isset($title) ? $title . ' - ' : '') . config('app.name', 'Laravel') }}</title>
     <link rel="canonical" href="{{ request()->fullUrl() }}" />
     <meta name="keywords" content="mobile de cuisine, Caisson , Facade, Placards, Parquets, Tiroirs, Armoire, Caissons Bas, Caissons Haut, Caissons column">
@@ -16,14 +15,14 @@
     <meta property="og:url" content="{{ request()->fullUrl() }}">
     <meta property="og:title" content="{{ isset($title) ? $title : config('app.name', 'Laravel') }}">
 
-    <meta property="og:description" content="Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux.">
+    <meta property="og:description" content="{{ isset($description) ? $description : "Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux." }}">
     <meta property="og:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
     <link rel="icon" type="image/x-icon" href="\assets\imgs\favicon.png">
     {{-- Twitter --}}
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ request()->fullUrl() }}">
     <meta property="twitter:title" content="{{ isset($title) ? $title : config('app.name', 'Laravel') }}">
-    <meta property="twitter:description" content="">
+    <meta property="twitter:description" content="{{ isset($description) ? $description : "Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux." }}">
     <meta property="twitter:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -52,7 +51,7 @@
         }
     </style>
 </head>
-    <body class="bg-[#f2f2f2]" style="background-image: url('/vecteur-inter.png');background-blend-mode: lighten; background-size:460px">
+    <body class="bg-[#f2f2f2]" style="background-image: url('/assets/bg.svg');background-blend-mode: screen; background-size:760px">
         <x-navigation />
         <main class="mt-28">
             @yield('content')

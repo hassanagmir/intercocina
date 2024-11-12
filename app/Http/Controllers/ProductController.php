@@ -15,7 +15,8 @@ class ProductController extends Controller
             ->whereNot("status", ProductStatusEnum::HIDE)
             ->paginate(4);
         $title = $product->name;
-        return view('product.show', compact('product', 'products', 'title'));
+        $description = $product->description;
+        return view('product.show', compact('product', 'products', 'title', 'description'));
     }
 
     public function list(){
