@@ -36,11 +36,11 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Rose,
             ])
-            ->renderHook(PanelsRenderHook::TOPBAR_END, function () {
-                return Blade::render('<div style="border: solid red 1px; padding: 5px;">{{ $text }}</div>', [
-                    'text' => 'INTERCOCINA',
-                ]);
-            })
+            // ->renderHook(PanelsRenderHook::TOPBAR_END, function () {
+            //     return Blade::render('<div style="border: solid red 1px; padding: 5px;">{{ $text }}</div>', [
+            //         'text' => 'INTERCOCINA',
+            //     ]);
+            // })
             ->databaseNotifications()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
