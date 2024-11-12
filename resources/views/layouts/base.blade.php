@@ -51,7 +51,7 @@
         }
     </style>
 </head>
-    <body class="bg-[#f2f2f2]" style="background-image: url('/assets/bg.svg');background-blend-mode: screen; background-size:760px">
+    <body class="bg-[#f2f2f2]" style="background-image: url('/vecteur-inter.png');background-blend-mode: lighten; background-size:460px">
         <x-navigation />
         <main class="mt-28">
             @yield('content')
