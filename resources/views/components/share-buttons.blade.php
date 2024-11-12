@@ -23,7 +23,7 @@
         </a>
     
         <!-- Telegram -->
-        <a href="https://telegram.me/share/url?url={{ request()->fullUrl()}}&text={{ $product->name }}" 
+        <a href="https://telegram.me/share/url?text={{ $product->name }}&url=👉 {{ request()->fullUrl()}}" 
            target="_blank"
            class="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-colors duration-200 sm:px-6">
             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
