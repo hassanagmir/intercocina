@@ -107,6 +107,30 @@ class ProductResource extends Resource
                                         }
                                     }),
 
+                                Forms\Components\Select::make('unit')
+                                ->searchable()
+                                ->label(__("Unit"))
+                                ->options([
+                                    'Longueur' => [
+                                        'mm' => 'mm',
+                                        'cm' => 'cm',
+                                        'm' => 'm',
+                                    ],
+                                    'Surface' => [
+                                        'mm²' => 'mm²',
+                                        'cm²' => 'cm²',
+                                        'm²' => 'm²',
+                                    ],
+                                    'Poids' => [
+                                        'g' => 'g',
+                                        'kg' => 'kg',
+                                    ],
+                                    'Volume' => [
+                                        'ml' => 'ml',
+                                        'L' => 'L',
+                                    ],
+                                ]),
+
                                 Forms\Components\Textarea::make('description')
                                     ->rows(5)
                                     ->columnSpanFull(),

@@ -98,6 +98,10 @@ Route::get('/placard', function(){
     return view('placard');
 });
 
+Route::get('/scan', function () {
+    return view('scan');
+})->name('scanner');
+
 
 Route::post('json', function (Request $request) {
     ini_set('max_execution_time', 3600);
