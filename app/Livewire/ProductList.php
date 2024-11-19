@@ -22,7 +22,7 @@ class ProductList extends Component
 
     public Category $category;
 
-
+    
     public function mount()
     {
         $this->total_products = Product::all()->count();
@@ -49,8 +49,6 @@ class ProductList extends Component
 
     public function render()
     {
-
-
         if ($this->type == '') {
             $type = Type::first();
             $products = [];
