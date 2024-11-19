@@ -35,6 +35,10 @@
 }
 
 
+/* .pswp__img{
+    margin-top: 0!important;
+} */
+
 @layer components {
     .prose {
         width: 100% !important;

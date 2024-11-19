@@ -3,10 +3,21 @@
     <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
         <!-- Main Swiper -->
         <div class="swiper main-slide-carousel ml-3 swiper-container relative mb-6">
-            <div class="swiper-wrapper" id="gallery">
+            <div class="swiper-wrapper pswp-gallery" id="gallery">
                 @foreach ($product->images()->orderBy('order')->get() as $image)
-                <a role="Product" href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="2500" data-pswp-height="3125" target="_blank" data-cropped="true">
-                    <img src="{{ Storage::url($image->image) }}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px]">
+                
+                <a
+                    href="{{ Storage::url($image->image) }}"
+                    data-pswp-width="1669"
+                    data-pswp-height="2500"
+                    target="_blank"
+                    class="swiper-slide mt-0"
+                >
+                    <img
+                        src="{{ Storage::url($image->image) }}" 
+                        alt=""
+                        class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0"
+                    />
                 </a>
                 @endforeach
             </div>
