@@ -16,6 +16,8 @@ class Product extends Component
     public $qty = 1;
     public $total = 0;
 
+    public $ref;
+
     #[Validate('numeric')]
     public $color;
     #[Validate('numeric')]
@@ -72,6 +74,11 @@ class Product extends Component
 
         $this->averageRating = $this->getAvgRating();
 
+        // Get Ref
+        if($this->product->code){
+            $this->ref = $this->product->code;
+        }
+
 
         // Attributes manager
         if (count($this->product->attributes)) {
@@ -97,8 +104,17 @@ class Product extends Component
 
     public function dimensionChanaged()
     {
+
+        // Get dimension ref 
+        if($this->dimension){
+            $this->ref = $this->dimension->code;
+        }
+
+        
         if($this->dimension && !($this->dimension == 'Choisir un dimension')){
-            $this->price = Dimension::find($this->dimension)->price;
+            $dimension = Dimension::find($this->dimension);
+            $this->price = $dimension->price;
+            
             if($this->price == 0){
                 $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
             }
