@@ -109,7 +109,6 @@ class Product extends Component
         if($this->dimension){
             $this->ref = $this->dimension->code;
         }
-
         
         if($this->dimension && !($this->dimension == 'Choisir un dimension')){
             $dimension = Dimension::find($this->dimension);

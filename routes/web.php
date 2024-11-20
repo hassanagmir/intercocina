@@ -142,7 +142,7 @@ Route::post('json', function (Request $request) {
 
 
             $product = Product::firstOrCreate(
-                ['name' => $item['name']],
+                ['name' => $category->name . " " . $type->name . " " . $item['name']],
                 [
                     'type_id' => $type->id,
                     'price' => isset($item['dimensions']) ? null : $item['price']
