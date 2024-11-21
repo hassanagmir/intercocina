@@ -122,7 +122,7 @@ Route::post('json', function (Request $request) {
             $category = Category::firstOrCreate(['name' => $item['category']]);
 
             $type = Type::firstOrCreate([
-                'name' => $item['type'],
+                'name' => "Caisson " . $item['type'],
                 'category_id' => $category->id,
             ]);
 
@@ -149,8 +149,8 @@ Route::post('json', function (Request $request) {
                 ]
             );
 
-            $product->code = $item['code'];
-            $product->save();
+            // $product->code = $item['code'];
+            // $product->save();
 
             if(isset($item['color'])){
                 $product->colors()->syncWithoutDetaching([$color->id]);
