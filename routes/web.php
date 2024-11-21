@@ -122,7 +122,7 @@ Route::post('json', function (Request $request) {
             $category = Category::firstOrCreate(['name' => $item['category']]);
 
             $type = Type::firstOrCreate([
-                'name' => $category->name . $item['type'],
+                'name' => $category->name . " ". $item['type'],
                 'category_id' => $category->id,
             ]);
 
