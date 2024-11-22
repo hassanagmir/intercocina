@@ -268,10 +268,10 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->iconSize(IconSize::Medium)
-                    ->label(false)
-                    ->tooltip(__("Modifier")),
+                // Tables\Actions\EditAction::make()
+                //     ->iconSize(IconSize::Medium)
+                //     ->label(false)
+                //     ->tooltip(__("Modifier")),
                 Tables\Actions\ViewAction::make()
                     ->iconSize(IconSize::Medium)
                     ->label(false)
@@ -303,7 +303,7 @@ class OrderResource extends Resource
         return [
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
+            // 'edit' => Pages\EditOrder::route('/{record}/edit'),
             'view' => Pages\ViewOrder::route('/{record}/view'),
         ];
     }
