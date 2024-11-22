@@ -14,11 +14,11 @@ use Livewire\Attributes\Validate;
 class CheckoutForm extends Component
 {
 
-    #[Validate('required')]
+    #[Validate('required', message: 'Ajoutez ou sélectionnez votre adresse')]
     public $address;
 
 
-    #[Validate('required')]
+    #[Validate('required', message: "Sélectionnez un mode de paiement")]
     public $payment;
 
 

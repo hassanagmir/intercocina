@@ -12,7 +12,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 17.5v-11m0 0L11 10M7.5 6.5L4 10m12.5-3.5v11m0 0L20 14m-3.5 3.5L13 14"/></svg>
         </label>
     </li>
-
     <li class="mb-3">
         <input type="radio" wire:model="payment" value="2" id="pyments-2" name="payment" class="hidden peer" required />
         <label for="pyments-2" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
@@ -40,6 +39,9 @@
   <p class="text-xl font-semibold text-gray-900">{{ __("Sélectionnez ou ajoutez une adresse") }}</p>
   @error('address')
   <div class="text-red-600 font-bold">{{ $message }}</div>
+  @enderror
+  @error('payment')
+  <div class="text-red-600 font-bold mt-2">{{ $message }}</div>
   @enderror
   <ul class="grid w-full">
       @foreach ($addresses as $address)
