@@ -18,6 +18,10 @@ class CheckoutForm extends Component
     public $address;
 
 
+    #[Validate('required')]
+    public $payment;
+
+
     public function mount()
     {
         // \Cart::clear();
@@ -43,7 +47,8 @@ class CheckoutForm extends Component
             'code' => "INTER-" . Str::random(15),
             'total_amount' => \Cart::getTotal(),
             'status' => OrderStatusEnum::ON_HOLD,
-            'address_id' => $this->address
+            'address_id' => $this->address,
+            'payment' => $this->payment
         ]);
 
         foreach (\Cart::getContent() as $product) {

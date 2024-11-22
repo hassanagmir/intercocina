@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\OrderStatusEnum;
+use App\Enums\PaymentEnum;
 use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,11 +18,12 @@ class Order extends Model
     use HasFactory, LogsActivity, Notifiable;
 
     protected $fillable = [
-        'user_id', 'code', 'total_amount', 'status', 'address_id'
+        'user_id', 'code', 'total_amount', 'status', 'address_id', 'payment'
     ];
 
     protected $casts = [
         'status' =>  OrderStatusEnum::class,
+        'payment' =>  PaymentEnum::class,
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -29,8 +31,6 @@ class Order extends Model
         return LogOptions::defaults()
             ->logOnly(['user_id', 'code', 'total_amoount']);
     }
-
-
 
     // Relationships
     public function user()

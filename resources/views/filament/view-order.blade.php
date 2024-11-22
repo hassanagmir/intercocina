@@ -17,7 +17,7 @@
                                 @if ($item->dimension)
                                 <p class="text-base font-bold text-gray-900 dark:text-white text-nowrap">{{ $item->quantity }} &#xa0; - &#xa0; {{ $item->dimension->price * $item->quantity }} MAD</p>
                                 @else
-                                <p class="text-base font-bold text-gray-900 dark:text-white text-nowrap">{{ $item->quantity }} &#xa0; - &#xa0; {{ $item->dimension->price * $item->quantity }} MAD</p>
+                                <p class="text-base font-bold text-gray-900 dark:text-white text-nowrap">{{ $item->quantity }} &#xa0; - &#xa0; {{ $item->product->price * $item->quantity }} MAD</p>
                                 @endif                                    
                             </div>
                         </div>
@@ -72,6 +72,11 @@
                                 {{ $this->record->status->getLabel()}}
                             </x-filament::badge>
                         </dd>
+                    </dl>
+
+                    <dl class="flex items-center justify-between gap-4">
+                      <dt class="text-base font-normal text-gray-500">{{ __("Méthode de paiement")}}</dt>
+                      <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->payment->getLabel() }}</dd>
                     </dl>
                   </div>
           
