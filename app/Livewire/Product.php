@@ -169,6 +169,7 @@ class Product extends Component
 
         if(isset($query)){
             $dimension = $query->first();
+
             if ($dimension) {
                 $this->dimension = $dimension;
                 $this->price = $dimension->price;
@@ -239,7 +240,7 @@ class Product extends Component
                 'color' => intval($color),
                 'color_name' => $colorDetails?->name,
                 'image' => $this->product->images?->first()?->image,
-                'dimension' => $this->dimension ? $dimension : false,
+                'dimension' => $this->dimension ? $this->dimension->dimension : false,
                 'slug' => $this->product->slug,
                 'product_id' => $this->product->id,
                 'dimension_id' => $this->dimension?->id,
