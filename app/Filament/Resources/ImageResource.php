@@ -17,7 +17,7 @@ class ImageResource extends Resource
 {
     protected static ?string $model = Image::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
 
     public static function getModelLabel(): string
     {

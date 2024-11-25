@@ -30,7 +30,7 @@ class UserResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        if (auth()->user()->hasRole("commercial") || auth()->user()->hasRole("directeur_commercial")) {
+        if (auth()->user()->hasRole(["commercial", "directeur_commercial"])) {
             return parent::getEloquentQuery()->role('client');
         }
         return parent::getEloquentQuery();
@@ -41,7 +41,6 @@ class UserResource extends Resource
 
     public static function getModelLabel(): string
     {
-
         if (auth()->user()->hasRole("commercial")) {
             return __("Clients");
         }else{
@@ -71,6 +70,9 @@ class UserResource extends Resource
                     ->label(__("Nom"))
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('code')
+                    ->label(__("Numéro"))
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('address')
                     ->label(__("Adresse"))
                     ->maxLength(255),
@@ -90,6 +92,11 @@ class UserResource extends Resource
                     ->label(__("E-mail"))
                     ->email()
                     ->maxLength(255),
+
+                
+                Forms\Components\TextInput::make('password')
+                    ->label("Mot de passe")
+                    ->password(),
              
                 Forms\Components\Select::make('status')
                     ->native(false)
@@ -109,7 +116,7 @@ class UserResource extends Resource
                         ->preload()
                         ->searchable() : 
                     
-                        Forms\Components\Grid::make()
+                    Forms\Components\Grid::make()
                 )
                 
 
