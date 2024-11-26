@@ -8,6 +8,10 @@ use Spatie\Browsershot\Browsershot;
 // use Barryvdh\DomPDF\Facade\Pdf;
 use Spatie\LaravelPdf\Facades\Pdf;
 
+use Spatie\Browsershot\Browsershot;
+
+
+
 class OrderController extends Controller
 {
     public function list(){
@@ -34,6 +38,13 @@ class OrderController extends Controller
         // $order->load('order', 'invoiceItems.product');
 
         // return view('invoice', compact('order'));
+
+
+        Browsershot::html('<h1>Test</h1>')
+            ->setNodeBinary('~/.nvm/versions/node/v20.11.0/bin/node')
+            ->setNpmBinary('~/.nvm/versions/node/v20.11.0/bin/npm')
+            ->pdf();
+            
         return Pdf::view('invoice', ['order' => $order])
         ->format('A4')
         
