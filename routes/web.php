@@ -61,6 +61,7 @@ Route::get('address/delete/{address}', [AddressController::class, 'delete'])->na
 Route::prefix('order')->group(function () {
     Route::get('list', [OrderController::class, 'list'])->name('order.list');
     Route::get('{order:code}', [OrderController::class, 'show'])->name('order.show');
+    Route::get('invoice/{order:code}', [OrderController::class, 'invoice'])->name('order.invoice');
 });
 
 
@@ -80,6 +81,8 @@ Route::prefix('blogs')->group(function(){
 
 
 Route::get('reclamation', [ClaimController::class, 'create'])->name('claim.create');
+
+
 
 
 

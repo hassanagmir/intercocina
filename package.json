@@ -27,6 +27,7 @@
         "cute-alert": "^0.0.3",
         "lightgallery": "^2.7.2",
         "photoswipe": "^5.4.4",
+        "puppeteer": "^23.9.0",
         "swiper": "^11.1.12"
     }
 }

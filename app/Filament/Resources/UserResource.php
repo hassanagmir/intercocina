@@ -38,7 +38,6 @@ class UserResource extends Resource
     
 
 
-
     public static function getModelLabel(): string
     {
         if (auth()->user()->hasRole("commercial")) {
@@ -52,6 +51,7 @@ class UserResource extends Resource
     {
         return ['full_name', 'first_name', 'last_name', 'email', 'phone', 'code'];
     }
+    
 
     public static function form(Form $form): Form
     {

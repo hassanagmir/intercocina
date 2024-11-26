@@ -46,8 +46,9 @@ class DiscountResource extends Resource
                             ->required()
                             ->label(__("Remise"))
                             ->suffix("%")
-                            ->maxLength(50)
-                            ->minLength(1)
+                            ->maxValue(30)
+                            ->minValue(0)
+                            ->integer()
                             ->numeric()
                             ->default(0),
                     ])->columns(3)
