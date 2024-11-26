@@ -8,8 +8,6 @@ use Spatie\Browsershot\Browsershot;
 // use Barryvdh\DomPDF\Facade\Pdf;
 use Spatie\LaravelPdf\Facades\Pdf;
 
-use Spatie\Browsershot\Browsershot;
-
 
 
 class OrderController extends Controller
