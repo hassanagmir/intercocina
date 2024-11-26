@@ -58,7 +58,7 @@ class ImageResource extends Resource
                     ->label(__("Produit"))
                     ->searchable()
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('color.name')
                     ->label(__("Couleur"))
                     ->searchable()
