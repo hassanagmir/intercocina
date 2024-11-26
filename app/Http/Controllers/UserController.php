@@ -12,7 +12,7 @@ class UserController extends Controller
             return redirect()->route('user.login');
         }
 
-        $title = "Edit le profile";
+        $title = __("Edit le profile");
         return view('user.edit', compact('title'));
     }
 
@@ -21,17 +21,17 @@ class UserController extends Controller
             return redirect()->route('user.login');
         }
         
-        $title = "Changer le mot de passe";
+        $title = __("Changer le mot de passe");
         return view("user.password", compact('title'));
     }
 
     public function login(){
-        $title = "Se connecter";
+        $title = __("Se connecter");
         return view("user.login", compact('title'));
     }
 
     public function register(){
-        $title = "S'inscrire";
+        $title = __("S'inscrire");
         return view("user.register", compact('title'));
     }
 
@@ -41,7 +41,7 @@ class UserController extends Controller
     }
 
     public function reset(){
-        $title = "Réinitialiser le mot de passe";
+        $title = __("Réinitialiser le mot de passe");
         return view("user.reset-password", compact('title'));
     }
 
