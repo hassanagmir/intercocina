@@ -38,9 +38,9 @@ class OrderController extends Controller
         // return view('invoice', compact('order'));
 
 
-        Browsershot::html('<h1>Test</h1>')
-            ->setNodeBinary('~/.nvm/versions/node/v20.11.0/bin/node')
-            ->setNpmBinary('~/.nvm/versions/node/v20.11.0/bin/npm');
+        // Browsershot::html('<h1>Test</h1>')
+        //     ->setNodeBinary('~/.nvm/versions/node/v20.11.0/bin/node')
+        //     ->setNpmBinary('~/.nvm/versions/node/v20.11.0/bin/npm');
             
         return Pdf::view('invoice', ['order' => $order])
         ->format('A4')
