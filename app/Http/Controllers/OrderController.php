@@ -34,13 +34,10 @@ class OrderController extends Controller
         // $order->load('order', 'invoiceItems.product');
 
         // return view('invoice', compact('order'));
-
+        $path = rand(5, 15);
         return Pdf::view('invoice', ['order' => $order])
         ->format('A4')
-        
-        // Margins for professional print layout
-        // ->margins(15, 15, 15, 15)
-        ->name("{$order->code}.pdf");
+        ->name("{$path}.pdf");
     
         // $pdf = PDF::loadView('invoice', [
         //     'order' => $order

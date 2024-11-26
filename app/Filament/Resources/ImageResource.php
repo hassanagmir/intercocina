@@ -43,7 +43,7 @@ class ImageResource extends Resource
                     ->searchable(),
 
                 Forms\Components\FileUpload::make('image')
-                    ->label(__("(Image"))
+                    ->label(__("Image"))
                     ->image()
                     ->required(),
             ]);
