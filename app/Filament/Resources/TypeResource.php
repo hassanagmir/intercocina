@@ -110,6 +110,7 @@ class TypeResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->reorderable('order')
             ->filters([
                 //
             ])
