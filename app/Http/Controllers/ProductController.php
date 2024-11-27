@@ -20,7 +20,7 @@ class ProductController extends Controller
     }
 
     public function list(){
-        $categories = Category::where("status", 1)->get();
+        $categories = Category::orderBy('order')->get();
         $title = __("Collections des produits");
         return view('product.list', compact('categories', 'title'));
     }

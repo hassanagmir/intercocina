@@ -10,7 +10,7 @@ class HomeCategory extends Component
     public function render()
     {
         return view('livewire.home-category', [
-            'categories' => Category::paginate(10)
+            'categories' => Category::where('status', true)->paginate(10)
         ]);
     }
 }
