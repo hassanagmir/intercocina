@@ -58,8 +58,8 @@ class ProductList extends Component
                     $query->whereNot("status", 2)
                           ->with(['images' => function($q) {
                               $q->orderBy('order');
-                          }, 'type.category'])
-                          ->take($this->amount);
+                          }, 'type.category']);
+                        //   ->take($this->amount);
                 }])
                 ->orderBy('order')
                 ->firstOrFail();
