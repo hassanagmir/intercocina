@@ -313,6 +313,15 @@ class ProductResource extends Resource
                             ->separator(',')
                             ->splitKeys(['Tab', ','])
                             ->default(null),
+                        
+                        Forms\Components\Select::make('attributes')
+                            ->label(__("Attributes"))
+                            ->relationship('attributes', 'name')
+                            ->native(false)
+                            ->multiple()
+                            ->nullable()
+                            ->searchable()
+                            ->preload()
                     ])->columns(2),
             ]);
     }
