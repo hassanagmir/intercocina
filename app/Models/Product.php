@@ -73,21 +73,31 @@ class Product extends Model
     public function price()
     {
         if ($this->price) {
-            return strval($this->price);
-        } elseif (count($this->dimensions)) {
-            $prices = $this->dimensions()
-                ->where('status', true)
-                ->where('price', '>', 0)
-                ->pluck('price')->toArray();
-            try {
-                return min($prices) . " - " . max($prices);
-            } catch (\Throwable $th) {
-                return 0;
-            }
-        } else {
+            return (string) $this->price;
+        }
+    
+        // Ensure 'dimensions' is already loaded
+        $dimensions = $this->relationLoaded('dimensions') 
+            ? $this->dimensions 
+            : $this->load('dimensions')->dimensions;
+    
+        $prices = $dimensions
+            ->where('status', true)
+            ->where('price', '>', 0)
+            ->pluck('price'); // Collect prices from the relationship
+    
+        if ($prices->isEmpty()) {
             return 0;
         }
-    } 
+    
+        $minPrice = $prices->min();
+        $maxPrice = $prices->max();
+    
+        return $minPrice === $maxPrice 
+            ? (string) $minPrice 
+            : "{$minPrice} - {$maxPrice}";
+    }
+    
 
 
     public function images(){

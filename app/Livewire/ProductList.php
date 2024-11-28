@@ -15,24 +15,24 @@ class ProductList extends Component
 
     #[Url()]
     public $type = "";
+
     public $amount = 8;
     public $total_products = 0;
-
     public $products_type;
 
     public Category $category;
 
-    
     public function mount()
     {
-        $this->total_products = Product::all()->count();
-        if ($this->type == "") {
-            $type = $this->category->types()->where("status", true)->orderBy('order')->first();
-            if ($type) {
-                $this->type = $this->category->types()->where("status", true)->orderBy('order')->first()->slug;
-            } else {
-                $this->type = null;
-            }
+        $this->total_products = Product::count();
+
+        if (empty($this->type)) {
+            $firstType = $this->category->types()
+                ->where("status", true)
+                ->orderBy('order')
+                ->first();
+
+            $this->type = $firstType ? $firstType->slug : null;
         }
     }
 
@@ -44,21 +44,29 @@ class ProductList extends Component
     public function changeType($slug)
     {
         $this->type = $slug;
+        $this->resetPage();
     }
-
 
     public function render()
     {
-        if ($this->type == '') {
-            $type = Type::first();
-            $products = [];
+        if (empty($this->type)) {
+            $products = collect([]);
         } else {
-            $type = Type::where('slug', $this->type)->orderBy('order')?->first();
-            $type ?? abort(404);
-            $products = Product::where("type_id", $type->id)->whereNot("status", 2)->get() ?? [];
+            // Fetch the type with eager loaded products
+            $type = Type::where('slug', $this->type)
+                ->with(['products' => function($query) {
+                    $query->whereNot("status", 2)
+                          ->with(['images' => function($q) {
+                              $q->orderBy('order');
+                          }, 'type.category'])
+                          ->take($this->amount);
+                }])
+                ->orderBy('order')
+                ->firstOrFail();
+
+            $products = $type->products;
             $this->products_type = $type;
         }
-
 
         return view('livewire.product-list', [
             'products' => $products,

@@ -20,13 +20,13 @@ class ProductController extends Controller
     }
 
     public function list(){
-        $categories = Category::orderBy('order')->get();
+        $categories = Category::with('types')->orderBy('order')->get();
         $title = __("Collections des produits");
         return view('product.list', compact('categories', 'title'));
     }
 
 
-    public function search(){
+    public function search(){ 
         return view('product.search');
     }
 }
