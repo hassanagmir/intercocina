@@ -37,7 +37,7 @@
                     </div> --}}
                 </div>
                 <div class="sm:mt-12 mt-0 order-first sm:order-last">
-                    <img src="/assets/imgs/intercocina-logo.png" loading="lazy" title="ntercocina About Us Image" alt="Intercocina About Us Image" width="auto" height="auto" class="object-cover rounded-lg">
+                    <img src="/intercocina.png" loading="lazy" title="ntercocina About Us Image" alt="Intercocina About Us Image" width="auto" height="auto" class="object-cover rounded-lg">
                 </div>
             </div>
         </div>

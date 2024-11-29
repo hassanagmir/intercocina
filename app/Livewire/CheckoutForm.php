@@ -69,8 +69,6 @@ class CheckoutForm extends Component
     }
 
 
-
-
     public function render()
     {
         $addresses = Address::where("user_id", auth()->id())->get();

@@ -28,6 +28,9 @@ class SearchModal extends Component
             $articles = Product::whereNot("status", ProductStatusEnum::HIDE)->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%')
+                    ->orWhere('code', strtoupper($this->search))
+    
+                    ->orWhereHas('dimensions', fn($query) => $query->where('code', strtoupper($this->search)))
                     ->orWhere('tags', 'like', '%' . $this->search . '%');
             })
             ->orderByRaw("
