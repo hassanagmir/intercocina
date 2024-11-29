@@ -75,8 +75,7 @@ class Product extends Model
         if ($this->price) {
             return (string) $this->price;
         }
-    
-        // Ensure 'dimensions' is already loaded
+        
         $dimensions = $this->relationLoaded('dimensions') 
             ? $this->dimensions 
             : $this->load('dimensions')->dimensions;
@@ -84,7 +83,7 @@ class Product extends Model
         $prices = $dimensions
             ->where('status', true)
             ->where('price', '>', 0)
-            ->pluck('price'); // Collect prices from the relationship
+            ->pluck('price'); 
     
         if ($prices->isEmpty()) {
             return 0;

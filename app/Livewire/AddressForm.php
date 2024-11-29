@@ -35,8 +35,6 @@ class AddressForm extends Component
     public function submit()
     {
         $this->validate();
-
-
         Address::create([
             'user_id' => auth()->id(),
             'address_name' => $this->address_name,

@@ -25,9 +25,6 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = "full_name";
 
-
-
-
     public static function getEloquentQuery(): Builder
     {
         if (auth()->user()->hasRole(["commercial", "directeur_commercial"])) {
@@ -35,8 +32,6 @@ class UserResource extends Resource
         }
         return parent::getEloquentQuery();
     }
-    
-
 
     public static function getModelLabel(): string
     {
@@ -94,9 +89,9 @@ class UserResource extends Resource
                     ->maxLength(255),
 
                 
-                Forms\Components\TextInput::make('password')
-                    ->label("Mot de passe")
-                    ->password(),
+                // Forms\Components\TextInput::make('password')
+                //     ->label("Mot de passe")
+                //     ->password(),
              
                 Forms\Components\Select::make('status')
                     ->native(false)

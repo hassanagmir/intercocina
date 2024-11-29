@@ -4,34 +4,38 @@
             <form class="space-y-4 md:space-y-6" wire:submit.prevent='register()'>
                 <div class="flex gap-2">
                     <div class="w-full">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">{{ __("Prenom") }}</label>
+                        <label for="name" class="block mb-1 text-sm font-medium text-gray-900">{{ __("Prenom") }}</label>
                         <input type="text" wire:model='first_name' class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Votre prenom">
                         @error('first_name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div  class="w-full">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900">{{ __("Nom") }}</label>
+                        <label for="name" class="block mb-1 text-sm font-medium text-gray-900">{{ __("Nom") }}</label>
                         <input type="text" wire:model='last_name' class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="Votre nom">
                         @error('last_name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">{{ __("Votre email") }}</label>
+                    <label for="phone" class="block mb-1 text-sm font-medium text-gray-900">{{ __("Téléphone") }}</label>
+                    <input type="tel" wire:model='phone' class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="0612XXXXX">
+                    @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div>
+                    <label for="email" class="block mb-1 text-sm font-medium text-gray-900">{{ __("Votre email") }}</label>
                     <input type="email" wire:model='email' class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5" placeholder="name@example.com">
                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900">{{ __("Mot de passe") }}</label>
+                    <label for="password" class="block mb-1 text-sm font-medium text-gray-900">{{ __("Mot de passe") }}</label>
                     <input type="password" wire:model='password' placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5">
                     @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900">{{ __("Confirmer le mot de passe") }}</label>
+                    <label for="password_confirmation" class="block mb-1 text-sm font-medium text-gray-900">{{ __("Confirmer le mot de passe") }}</label>
                     <input type="password" wire:model='password_confirmation' placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-red-600 focus:border-red-600 block w-full p-2.5">
                 </div>
                 @if (session()->has('error'))
                 <div class="text-red-900 mt-3 p-2 bg-red-300 border-1 border-red-950 rounded-lg">{{ session('error') }}</div>
                 @endif
-                
                 <button type="submit" class="text-white w-full bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                     <svg wire:loading wire:target='register()' aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>

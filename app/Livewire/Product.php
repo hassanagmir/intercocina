@@ -242,6 +242,7 @@ class Product extends Component
                 'image' => $this->product->images?->first()?->image,
                 'dimension' => $this->dimension ? $this->dimension->dimension : false,
                 'slug' => $this->product->slug,
+                'attribute' => $this->dimension ? $this->dimension?->attribute?->name : false,
                 'product_id' => $this->product->id,
                 'dimension_id' => $this->dimension?->id,
             ]

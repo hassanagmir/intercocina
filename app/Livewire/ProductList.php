@@ -52,7 +52,6 @@ class ProductList extends Component
         if (empty($this->type)) {
             $products = collect([]);
         } else {
-            // Fetch the type with eager loaded products
             $type = Type::where('slug', $this->type)
                 ->with(['products' => function($query) {
                     $query->whereNot("status", 2)

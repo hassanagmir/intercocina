@@ -16,6 +16,8 @@ class RegisterForm extends Component
     public $last_name;
     #[Validate('required|email|unique:users', as:"E-mail")]
     public $email;
+    #[Validate('required|min:9|max:15|unique:users', as:"Téléphone")]
+    public $phone;
     #[Validate('required|min:6|confirmed', as:"Mot de passe")]
     public $password;
 
@@ -32,11 +34,11 @@ class RegisterForm extends Component
     public function register()
     {
         $this->validate();
-
         $user = User::create([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
+            'phone' => $this->phone,
             'password' => Hash::make($this->password),
         ]);
 
