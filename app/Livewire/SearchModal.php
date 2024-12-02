@@ -19,8 +19,6 @@ class SearchModal extends Component
         $this->resetPage();
     }
 
-
-
     public function render()
     {
 
@@ -29,7 +27,6 @@ class SearchModal extends Component
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%')
                     ->orWhere('code', strtoupper($this->search))
-    
                     ->orWhereHas('dimensions', fn($query) => $query->where('code', strtoupper($this->search)))
                     ->orWhere('tags', 'like', '%' . $this->search . '%');
             })
@@ -44,9 +41,6 @@ class SearchModal extends Component
         }else{
             $articles = [];
         }
-
-
-        
         return view('livewire.search-modal', compact("articles"));
     }
 }
