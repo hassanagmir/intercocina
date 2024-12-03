@@ -26,7 +26,6 @@
                                 {{ __("Accueil") }}
                             </x-nav-link>
                         </li>
-
                         <li>
                             <div x-data="{ isOpen: false, openedWithKeyboard: false, leaveTimeout: null }" @mouseleave.prevent="leaveTimeout = setTimeout(() => { isOpen = false }, 250)" @mouseenter="leaveTimeout ? clearTimeout(leaveTimeout) : true" @keydown.esc.prevent="isOpen = false, openedWithKeyboard = false" @click.outside="isOpen = false, openedWithKeyboard = false" class="relative">
                                 <!-- Toggle Button -->
