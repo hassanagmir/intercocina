@@ -62,6 +62,7 @@ Route::prefix('order')->group(function () {
     Route::get('list', [OrderController::class, 'list'])->name('order.list');
     Route::get('{order:code}', [OrderController::class, 'show'])->name('order.show');
     Route::get('invoice/{order:code}', [OrderController::class, 'invoice'])->name('order.invoice');
+    Route::get('{order}/export', [OrderController::class, 'exportOrder'])->name('order.export');
 });
 
 
@@ -104,6 +105,8 @@ Route::get('/placard', function(){
 Route::get('/scan', function () {
     return view('scan');
 })->name('scanner');
+
+
 
 
 Route::post('json', function (Request $request) {
@@ -214,7 +217,14 @@ Route::post('json', function (Request $request) {
 
 
 
+
+
+
 // In routes/web.php
 Route::get('/reset-password/{token}', function (string $token) {
     return view('user.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
+
+
+
+

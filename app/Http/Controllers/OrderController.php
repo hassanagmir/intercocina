@@ -10,10 +10,12 @@ use Spatie\LaravelPdf\Facades\Pdf;
 
 
 
+
 class OrderController extends Controller
 {
-    public function list(){
-        if(!auth()->user()){
+    public function list()
+    {
+        if (!auth()->user()) {
             return redirect()->route('user.login');
         }
 
@@ -23,8 +25,9 @@ class OrderController extends Controller
     }
 
 
-    public function show(Order $order){
-        if(!($order->user_id == auth()->id())){
+    public function show(Order $order)
+    {
+        if (!($order->user_id == auth()->id())) {
             return abort(404);
         }
         $title = $order->code;
@@ -32,20 +35,42 @@ class OrderController extends Controller
     }
 
 
-    public function invoice(Order $order){
+    public function invoice(Order $order)
+    {
 
         // return view('invoice', compact('order'));
 
-            
+
         return Pdf::view('invoice', ['order' => $order])
-        ->format('A4')
-       
-        ->name("{$order->code}.pdf");
-    
+            ->format('A4')
+
+            ->name("{$order->code}.pdf");
+
         // $pdf = PDF::loadView('invoice', [
         //     'order' => $order
         // ]);
-    
+
         // return $pdf->download("{$order->code}.pdf");
+    }
+
+
+
+
+    public function exportOrder(Order $order)
+    {
+        $filename = $order->exportToTextFile();
+
+        return response()->download(
+            storage_path('app/exports/' . $filename),
+            $filename,
+            ['Content-Type' => 'text/plain']
+        );
+
+
+        try {
+        } catch (\Exception $e) {
+            dd("Not working");
+            return back()->with('error', 'Failed to export order: ' . $e->getMessage());
+        }
     }
 }
