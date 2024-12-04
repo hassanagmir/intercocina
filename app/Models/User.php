@@ -85,4 +85,9 @@ class User extends Authenticatable implements HasName, FilamentUser
         return LogOptions::defaults()
             ->logOnly(['full_name', 'email']);
     }
+
+
+    public function discounts(){
+        return $this->hasMany(Discount::class);
+    }
 }
