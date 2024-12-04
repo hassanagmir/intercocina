@@ -63,7 +63,7 @@
                 @livewire('rating-form', ['product' => $product], key($product->id))
             </div>
             
-            @if(count($product->reviews))
+            @if(count($product->reviews->where("status", 1)))
                 {{-- Rating list --}}
                 <div>
                     @livewire('reviews-list', ['product' => $product], key($product->id))
