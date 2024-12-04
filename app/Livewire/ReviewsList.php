@@ -19,8 +19,13 @@ class ReviewsList extends Component
 
     public function render()
     {
+        // dd(Review::where("product_id", $this->product->id)->count());
+
         return view('livewire.reviews-list', [
-            'reviews' => Review::where("product_id", $this->product->id)->latest()->paginate(14)
+            'reviews' => Review::where("product_id", $this->product->id)
+                ->where('status', true)
+                ->latest()
+                ->paginate(14)
         ]);
     }
 }

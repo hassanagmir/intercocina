@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function show(Product $product){
+        
         $products = Product::where('type_id', $product->type_id)
             ->whereNot("status", ProductStatusEnum::HIDE)
             ->paginate(4);
+
+
         $title = $product->name;
         $description = $product->description;
         return view('product.show', compact('product', 'products', 'title', 'description'));

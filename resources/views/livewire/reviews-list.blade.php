@@ -7,7 +7,7 @@
         <div class="flex items-center mb-4">
             <img class="w-10 h-10 me-4 rounded-full" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="Hassan Agmir">
             <div class="font-medium">
-                <p>{{ $review->full_name }} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500">Révisé à {{ $review->created_at->format('M d Y')}}</time></p>
+                <p>{{ $review->product_id }} - {{ $product->id}} - {{ $review->full_name }} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500">Révisé à {{ $review->created_at->format('M d Y')}}</time></p>
             </div>
         </div>
         <div class="flex gap-0.5">

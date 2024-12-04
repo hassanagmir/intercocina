@@ -27,8 +27,7 @@ class RatingForm extends Component
     {
         $data = $this->validate();
 
-        $full_data = array_merge($data, ["product_id" => $this->product->id]);
-
+        $full_data = array_merge($data, ["product_id" => $this->product->id, "status" => false]);
         Review::create($full_data);
         $this->reset(['stars', 'full_name', 'email', 'comment']);
         session()->flash('message', 'Avis soumis avec succès!');

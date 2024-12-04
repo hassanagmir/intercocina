@@ -29,6 +29,11 @@ class ReviewResource extends Resource
         return __("Avis");
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return parent::getEloquentQuery()->where('status', false)->count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
