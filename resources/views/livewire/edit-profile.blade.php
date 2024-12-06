@@ -60,7 +60,7 @@
                     @endif
 
                     @if ($user->image && !$image)
-                        <img src="{{ Storage::url($user->image) }}" alt="{{__("Image de profil actuelle")}}" class="mt-2 w-20 h-20 rounded-full object-cover">
+                        <img src="{{ url(config('app.storage'), $user->image) }}" alt="{{__("Image de profil actuelle")}}" class="mt-2 w-20 h-20 rounded-full object-cover">
                     @endif
                 </div>
             </div>

@@ -37,7 +37,7 @@
                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <!-- Product image -->
                         <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="shrink-0 md:order-1">
-                            <img class="h-20 w-20 object-cover rounded-md" src="{{ $product['attributes']['image'] ? Storage::url($product['attributes']['image']) : '/assets/imgs/placeholder-image.webp' }}" width="auto" height="auto" alt="{{ $product['name'] }}">
+                            <img class="h-20 w-20 object-cover rounded-md" src="{{ $product['attributes']['image'] ? url(config('app.storage'), $product['attributes']['image']) : '/assets/imgs/placeholder-image.webp' }}" width="auto" height="auto" alt="{{ $product['name'] }}">
                         </a>
                         
                         <!-- Quantity control -->

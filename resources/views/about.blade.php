@@ -37,7 +37,7 @@
                     </div> --}}
                 </div>
                 <div class="sm:mt-12 mt-0 order-first sm:order-last">
-                    <img src="/intercocina.png" loading="lazy" title="ntercocina About Us Image" alt="Intercocina About Us Image" width="auto" height="auto" class="object-cover rounded-lg">
+                    <img src="{{ asset('assets/imgs/intercocina.png') }}" loading="lazy" title="ntercocina About Us Image" alt="Intercocina About Us Image" width="auto" height="auto" class="object-cover rounded-lg">
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
                 <div class="mt-12 md:mt-0 sm:order-first">
-                    <img src="/assets/imgs/fabrication.jpg" alt="Intercocina About Us Image" width="auto" height="auto" title="Intercocina about" loading="lazy" class="object-cover rounded-lg shadow-sm border bg-gray-100">
+                    <img src="{{ asset('assets/imgs/fabrication.jpg') }}" alt="Intercocina About Us Image" width="auto" height="auto" title="Intercocina about" loading="lazy" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
                 <div class="max-w-lg">
                     <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Fabrication de meubles de cuisine</h2>
@@ -78,7 +78,7 @@
                     </div> --}}
                 </div>
                 <div class="sm:mt-12 mt-0 order-first sm:order-last">
-                    <img src="/assets/imgs/qualite.jpg" width="auto" height="auto" title="Intercocina about" loading="lazy" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
+                    <img src="{{ asset('assets/imgs/qualite.jpg')}}" width="auto" height="auto" title="Intercocina about" loading="lazy" alt="About Us Image" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
         <div class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
                 <div class="mt-12 md:mt-0 order-last sm:order-first">
-                    <img src="/assets/imgs/innovation.jpg" alt="Intercocina About Us Image" width="auto" height="auto" title="Intercocina about" loading="lazy" class="object-cover rounded-lg shadow-sm border bg-gray-100">
+                    <img src="{{ asset('assets/imgs/innovation.jpg') }}" alt="Intercocina About Us Image" width="auto" height="auto" title="Intercocina about" loading="lazy" class="object-cover rounded-lg shadow-sm border bg-gray-100">
                 </div>
                 <div class="max-w-lg">
                     <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Une innovation renouvelée</h2>

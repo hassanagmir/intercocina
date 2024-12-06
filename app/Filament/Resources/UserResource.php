@@ -198,19 +198,29 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('code')
+                    ->placeholder("__")
+                    ->searchable()
+                    ->label(__("Numéro")),
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__("Entreprise"))
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->placeholder("__")
+                    ->label(__("E-mail"))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('first_name')
+                    ->placeholder("__")
                     ->label(__("Prénom"))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name')
                     ->label(__("Nom"))
+                    ->placeholder("__")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->placeholder("__")
                     ->label(__("Téléphone"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('code')
-                    ->placeholder("__")
-                    ->label(__("Numéro")),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->label(__("État")),

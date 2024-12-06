@@ -6,14 +6,14 @@
             <div class="swiper-wrapper pswp-gallery" id="gallery">
                 @foreach ($product->images()->orderBy('order')->get() as $image)
                 <a
-                    href="{{ Storage::url($image->image) }}"
+                    href="{{ url(config('app.storage'), $image->image) }}"
                     data-pswp-width="1669"
                     data-pswp-height="2500"
                     target="_blank"
                     class="swiper-slide mt-0"
                 >
                     <img
-                        src="{{ Storage::url($image->image) }}" 
+                        src="{{ url(config('app.storage'), $image->image) }}" 
                         alt=""
                         class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0"
                     />
@@ -26,7 +26,7 @@
             <div class="swiper-wrapper">
                 @foreach ($product->images()->orderBy('order')->get() as $image)
                 <div class="swiper-slide thumbs-slide">
-                    <img src="{{ Storage::url($image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36">
+                    <img src="{{ url(config('app.storage'), $image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36">
                 </div>
                 @endforeach
             </div>
@@ -131,13 +131,13 @@
                     @foreach ($product->colors as $color)
                     <li class="color-box group text-center me-3 relative">
                         <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="color" wire:model.change="color" class="hidden peer" required />
-                        <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ Storage::url($color->image) }});"
+                        <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ url(config('app.storage'), $color->image) }});"
                             class="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
                         </label>
                         
                         <div id="tooltipExample" class="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
                             {{ $color->name }}
-                            <img class="w-full" src="{{ Storage::url($color->image) }}" alt="">
+                            <img class="w-full" src="{{ url(config('app.storage'), $color->image) }}" alt="">
                         </div>
                     </li>
                     @endforeach

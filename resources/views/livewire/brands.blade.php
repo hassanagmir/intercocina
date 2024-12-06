@@ -7,7 +7,7 @@
     <ul class="grid gap-8 py-5 md:grid-cols-3 mx-3">
         @foreach ($brands as $brand)
         <li class="px-4 py-6 space-y-2 text-lg duration-300 bg-white border shadow-lg text-slate-500 rounded-2xl hover:cursor-pointer hover:scale-105 " x-animate.intersect.threshold.20="zoomInUp">
-            <img class="object-cover w-full" width="100%" height="100%" title="{{ $brand->name }}" loading="lazy" src="{{ Storage::url($brand->logo) }}" alt="{{ $brand->name }}">
+            <img class="object-cover w-full" width="100%" height="100%" title="{{ $brand->name }}" loading="lazy" src="{{ url(config('app.storage'), $brand->logo) }}" alt="{{ $brand->name }}">
             <h3 class="text-lg font-semibold text-black md:text-xl">{{ $brand->name }}</h3>
             <p>
             {{ $brand->description }}

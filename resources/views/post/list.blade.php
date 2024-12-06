@@ -8,7 +8,7 @@
             @foreach ($posts as $post)
             <article class="w-full">
                 <a href="{{ route('post.show', $post->slug)}}">
-                    <img src="{{ Storage::url($post->image) }}" class="bg-[#dddddd] border h-72 mb-5 object-cover rounded-lg w-full" alt="{{ $post->title }}" width="100%" height="100%" title="{{ $post->title }}" loading="lazy">
+                    <img src="{{ url(config('app.storage'), $post->image) }}" class="bg-[#dddddd] border h-72 mb-5 object-cover rounded-lg w-full" alt="{{ $post->title }}" width="100%" height="100%" title="{{ $post->title }}" loading="lazy">
                 </a>
                 <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900">
                     <a href="{{ route('post.show', $post->slug)}}">{{ $post->title }}</a>

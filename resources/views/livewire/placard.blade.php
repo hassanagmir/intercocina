@@ -6,8 +6,8 @@
                 <div class="swiper main-slide-carousel swiper-container relative mb-6">
                     <div class="swiper-wrapper" id="gallery">
                         @foreach ($product->images()->orderBy('order')->get() as $image)
-                        <a role="Product" href="{{ Storage::url($image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1475" data-pswp-height="2000" target="_blank">
-                            <img src="{{ Storage::url($image->image) }}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px]">
+                        <a role="Product" href="{{ url(config('app.storage'), $image->image) }}" alt="{{ $product->name }}" class="swiper-slide pswp-gallery__item h-auto" data-pswp-width="1475" data-pswp-height="2000" target="_blank">
+                            <img src="{{ url(config('app.storage'), $image->image) }}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px]">
                         </a>
                         @endforeach
                     </div>
@@ -59,7 +59,7 @@
                     <div class="swiper-slide thumbs-slide">
                         <div class="relative">
                             <div class="peer cursor-pointer rounded-md bg-neutral-50 px-4 py-2 font-medium tracking-wide text-neutral-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black" >
-                                {{-- <img src="{{ Storage::url($image->color->image )}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36" > --}}
+                                {{-- <img src="{{ url(config('app.storage'), $image->color->image )}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36" > --}}
                             </div>
                             <div class="bottom-full min-w-[10rem] left-1/2  mb-2 z-50 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-center text-sm text-white opacity-0 transition-opacity duration-300 ease-out peer-hover:opacity-100 peer-focus:opacity-100" role="tooltip">
                                 {{-- {{ $image->color->name }} --}}

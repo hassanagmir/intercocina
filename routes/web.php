@@ -8,16 +8,21 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductExportController;
 use App\Http\Controllers\UserController;
 use App\Models\Attribute;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Color;
 use App\Models\Dimension;
 use App\Models\Product;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/livewire/update', function(){
     return redirect()->back();
@@ -109,7 +114,21 @@ Route::get('/scan', function () {
 
 
 
-Route::post('json', function (Request $request) {
+Route::post('json', [ProductExportController::class, 'export'])->name('json');
+
+
+// In routes/web.php
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('user.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+
+Route::get('import', function () {
+    return view('export-clients');
+})->name('import');
+
+
+Route::post('export-client', function(Request $request){
     ini_set('max_execution_time', 3600);
     set_time_limit(3600);
     $request->validate([
@@ -122,109 +141,39 @@ Route::post('json', function (Request $request) {
         return response()->json(['message' => 'Invalid JSON format'], 400);
     }
 
-    $processedData = collect($jsonData)->map(function ($item) {
-
+    $processedData = collect($jsonData)->map(function ($item){
         return DB::transaction(function () use ($item) {
-            $category = Category::firstOrCreate(['name' => $item['category']]);
 
-            $type = Type::firstOrCreate([
-                'name' => $category->name . " ". $item['type'],
-                'category_id' => $category->id,
+            if(isset($item['Ville'])){
+                $city = City::firstOrCreate([ 'name' => $item['Ville'] ], ['country_id' => 1]);
+            }
+
+            $user = User::firstOrCreate(['code' => $item['code']], [
+                'first_name' => isset($item['first_name']) ? $item['first_name'] : null,
+                'last_name' => isset($item['last_name']) ? $item['last_name'] : null,
+                'name' => ucfirst(strtolower($item['name'])),
+                'email' => isset($item['email']) ? $item['email'] : strtolower($item['code']."@client.com"),
+                'zip' => isset($item['zpi']) ? $item['zip'] : null,
+                'address' => isset($item['adresse']) ? $item['adresse'] : '' ,
+                'password' => Hash::make($item['code']),
+                'city_id' => isset($city) ? $city->id : null
             ]);
-
-
-            if(isset($item['color'])){
-                $color = Color::firstOrCreate([
-                    'name' => ucfirst($item['color']),
-                ]);
-            }
-
-            if(isset($item['attribute'])){
-                $attribute = Attribute::firstOrCreate(
-                    ['name' => ucfirst($item['attribute'])],
-                    ['category_id' => $category->id]
-                );
-            }
-
-
-            $product = Product::firstOrCreate(
-                ['name' =>  $type->name . " " . $item['name']],
-                [
-                    'type_id' => $type->id,
-                    'price' => isset($item['dimensions']) ? null : $item['price']
-                ]
-            );
-
-            // $product->code = $item['code'];
-            // $product->save();
-
-            if(isset($item['color'])){
-                $product->colors()->syncWithoutDetaching([$color->id]);
-            }
-
-            if(isset($item['attribute'])){
-                $product->attributes()->syncWithoutDetaching([$attribute->id]);
-            }
-
-            if(isset($item["height_unit"])){
-                switch ($item['height_unit']) {
-                    case 'mm':
-                        $height_unit = 1;
-                        break;
-                    
-                    case 'cm':
-                        $height_unit = 2;
-                        break;
-                    
-                    case 'm':
-                        $height_unit = 3;
-                        break;
-                }    
-            }
-
-          
-            if(isset($item['dimensions'])){
-                if (strpos($item['dimensions'], '*') !== false) {
-                    $height = explode('*', $item['dimensions'])[0];
-                    $width = explode('*', $item['dimensions'])[1];
-                } else {
-                    $height = $item['dimensions'];
-                    $width = null;
-                }
-                
-
-                return Dimension::firstOrCreate(
-                    ['code' => $item['code']],
-                    [
-                        'price' => $item['price'],
-                        'height' => $height,
-                        'width' => $width,
-                        'product_id' => $product->id,
-                        'color_id' => isset($item['color']) ? $color->id : null,
-                        'height_unit' =>  isset($height_unit) ? $height_unit : null,
-                        'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
-                    ]
-                );
-            }
-
-            return $product;
-            
         });
     });
-
     return response()->json(['data' => $processedData]);
-})->name('json');
+})->name('export-client');
 
 
 
 
 
 
-// In routes/web.php
-Route::get('/reset-password/{token}', function (string $token) {
-    return view('user.reset-password', ['token' => $token]);
-})->middleware('guest')->name('password.reset');
 
-
-
-
+// Route::get('/migrations', function () {
+//     try {
+//         Artisan::call('migrate', ['--force' => true]);
+//         return response()->json(['message' => 'Migrations executed successfully.'], 200);
+//     } catch (Exception $e) {
+//         return response()->json(['error' => $e->getMessage()], 500);
+//     }
+// });

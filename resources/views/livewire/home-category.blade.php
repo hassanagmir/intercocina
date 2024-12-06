@@ -3,9 +3,9 @@
         <div class="rounded-xl bg-white border-2 shadow-sm">
             <a class="relative flex h-60 overflow-hidden rounded-t-xl bg-gray-200" href="{{ route('category.show', $category->slug) }}">
             @if ($category->image)
-            {{-- {!! ImageHelper::responsive_image(Storage::url($category->image), 'My Responsive Image', 800, 600, '(max-width: 480px) 100vw, (max-width: 768px) 50vw, (min-width: 769px) 33vw') !!} --}}
-            {{-- @responsiveImage(Storage::url($category->image), 'My Responsive Image', 800, 600, '(max-width: 480px) 100vw, (max-width: 768px) 50vw, (min-width: 769px) 33vw') --}}
-              <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" />
+            {{-- {!! ImageHelper::responsive_image(url(config('app.storage'), $category->image), 'My Responsive Image', 800, 600, '(max-width: 480px) 100vw, (max-width: 768px) 50vw, (min-width: 769px) 33vw') !!} --}}
+            {{-- @responsiveImage(url(config('app.storage'), $category->image), 'My Responsive Image', 800, 600, '(max-width: 480px) 100vw, (max-width: 768px) 50vw, (min-width: 769px) 33vw') --}}
+              <img class="sm:object-cover object-contain w-full h-full bg-gray-200" width="auto" height="auto" src="{{ url(config('app.storage'), $category->image) }}" alt="{{ $category->name }}" />
             @else
                 <img class="sm:object-cover object-contain w-full h-full bg-gray-200 border-2 overflow-hidden rounded-xl" width="auto" height="auto" src="/assets/imgs/placeholder-image.webp" alt="{{ $category->name }}" />
             @endif

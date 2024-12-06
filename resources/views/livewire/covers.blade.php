@@ -2,7 +2,7 @@
     <div class="swiper-wrapper">
         @forelse ($covers as $cover)
         <div class="swiper-slide">
-            <img src="{{ Storage::url($cover->image) }}" class="rounded-3xl border-2" width="550" height="300" alt="{{ $cover->title}}">
+            <img src="{{ url(config('app.storage'), $cover->image) }}" class="rounded-3xl border-2" width="550" height="300" alt="{{ $cover->title}}">
         </div>
         @empty
         <div class="swiper-slide">

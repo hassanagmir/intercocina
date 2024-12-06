@@ -34,6 +34,9 @@ class User extends Authenticatable implements HasName, FilamentUser
         'phone', 
         'image',
         'status',
+        'zip',
+        'name',
+        'city_id',
         'password',
     ];
 
@@ -44,7 +47,13 @@ class User extends Authenticatable implements HasName, FilamentUser
 
     public function getFilamentName(): string
     {
-        return "{$this->first_name} {$this->last_name}";
+        if($this->first_name && $this->last_name){
+            return "{$this->first_name} {$this->last_name}";
+        }elseif($this->name){
+            return $this->name;
+        }else{
+            return $this->email;
+        }
     }
 
     public function canAccessPanel(Panel $panel): bool

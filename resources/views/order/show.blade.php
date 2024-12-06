@@ -26,7 +26,7 @@
                                     <a href="{{ route('product.show', $item->product->slug) }}">
                                         <img 
                                             class="w-24 h-24 object-cover rounded" 
-                                            src="{{ Storage::url($item->product?->images->first()?->image) }}" 
+                                            src="{{ url(config('app.storage'), $item->product?->images->first()?->image) }}" 
                                             alt="{{ $item->product->name }}"
                                         >
                                     </a>

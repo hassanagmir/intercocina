@@ -17,7 +17,7 @@
 
     <meta property="og:description" content="{{ isset($description) ? $description : "Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux." }}">
     <meta property="og:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
-    <link rel="icon" type="image/x-icon" href="\assets\imgs\favicon.png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets\imgs\favicon.png') }}">
     {{-- Twitter --}}
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ request()->fullUrl() }}">
