@@ -268,18 +268,16 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make()
-                //     ->iconSize(IconSize::Medium)
-                //     ->label(false)
-                //     ->tooltip(__("Modifier")),
+                Tables\Actions\Action::make('export')
+                    ->url(fn (Order $record): string => route('order.export', $record->id))
+                    ->iconSize(IconSize::Medium)
+                    ->icon('heroicon-m-arrow-up-tray')
+                    ->label(false)
+                    ->tooltip(__("Export")),
                 Tables\Actions\ViewAction::make()
                     ->iconSize(IconSize::Medium)
                     ->label(false)
                     ->tooltip(__("Voir")),
-                Tables\Actions\ExportAction::make()
-                    ->label(false)
-                    ->icon('heroicon-m-arrow-up-tray')
-                    ->exporter(OrderExporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

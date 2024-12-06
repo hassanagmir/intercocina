@@ -11,7 +11,7 @@ enum ProductStatusEnum: int implements HasLabel, HasColor
     case HIDE = 2;
     case OUT = 3;
     case COMING = 4;
-    case ON_REQUEST = 3;
+    case ON_REQUEST = 5;
 
 
 

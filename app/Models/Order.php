@@ -58,7 +58,7 @@ class Order extends Model
         foreach ($order->items as $item) {
             $content .= "1      0       24BDE01389      " 
                       . ($item->created_at ? $item->created_at->format('ymd') : '000000') . "        "
-                      . ($order->user->full_name) . "      " 
+                      . ($order->user->code) . "      " 
                       . ($item->dimension ? $item->dimension->code : ($item->product->code ?? 'No Code')) . "       "
                       
                       . ($item->product->name) . "        "
