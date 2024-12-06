@@ -108,9 +108,9 @@
                         </div>
                         @else
                         <li>
-                            <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
+                            <a x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
                                 {{__("Se connecter")}}
-                            </button>
+                            </a>
 
                             <template x-teleport="body">
                                 <x-auth-modal />
@@ -145,36 +145,50 @@
                     <a href="/"><img class="h-[80px] md:h-[150px]" height="80px" width="auto" src="{{ asset('assets/imgs/intercocina-logo.png') }}" alt="Interconcina logo" title="Interconcina logo" loading="lazy"></a>
                 </div>
             </li>
+            <li class="p-4">
+                @if (auth()->user())
+                <div>
+                    <a href="{{ route("profile") }}" class="flex gap-3">
+                        <img class="w-14 h-14 p-1 rounded-full ring-2 ring-gray-300" width="auto" height="auto" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
+                        <div>
+                            @if (auth()->user()->first_name && auth()->user()->last_name)
+                                <span class="text-xl font-semibold">{{ auth()->user()->full_name }}</span>
+                            @else
+                                <span class="text-xl font-semibold">{{ auth()->user()->name }}</span>
+                            @endif <br>
+                                <span>{{ auth()->user()->getRoleNames()->first() }}</span>
+                        </div>
+                    </a>
+                </div>
+                @else
+                <li class="flex gap-4 justify-center">
+                    <a href="{{ route("user.login")}}" class="btn btn-primary">
+                        {{__("Se connecter")}}
+                    </a>
+                </li>
+                @endif
+            </li>
             <li class="border-B border-inherit">
-                <a class="block p-4 text-center" href="/">{{ __("Accueil") }}</a>
+                <a class="block p-4 text-xl" href="/">{{ __("Accueil") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('products') }}">{{ __("Produits") }}</a>
+                <a class="block p-4 text-xl" href="{{ route('products') }}">{{ __("Produits") }}</a>
             </li>
 
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('cart') }}">{{ __("Panier") }} <livewire:cart-counter></a>
-            </li>
-            @if (auth()->user())
-            <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('profile') }}">{{ __("Profile") }}</a>
-            </li>
-            @else
-            <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('user.login') }}">{{ __("Se connecter") }}</a>
-            </li>
-            @endif
-            <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('event.list') }}">{{ __("Événements") }}</a>
+                <a class="block p-4 text-xl" href="{{ route('cart') }}">{{ __("Panier") }} <livewire:cart-counter></a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('about') }}">{{ __("À propos") }}</a>
+                <a class="block p-4 text-xl" href="{{ route('event.list') }}">{{ __("Événements") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('contact') }}"> {{ __("Contactez-nous") }}</a>
+                <a class="block p-4 text-xl" href="{{ route('about') }}">{{ __("À propos") }}</a>
             </li>
             <li class="border-y border-inherit">
-                <a class="block p-4 text-center" href="{{ route('post.index') }}">{{ __("Blog") }}</a>
+                <a class="block p-4 text-xl" href="{{ route('contact') }}"> {{ __("Contactez-nous") }}</a>
+            </li>
+            <li class="border-y border-inherit">
+                <a class="block p-4 text-xl" href="{{ route('post.index') }}">{{ __("Blog") }}</a>
             </li>
         </ul>
         {{-- close navMenu --}}

@@ -1,22 +1,23 @@
 @extends('layouts.base')
 @section('content')
-<section id="contact" class="px-4 py-32 md:mx-auto relative overflow-hidden bg-accent-red">
-    <div class="relative z-10 grid gap-16 px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
-        <div class="space-y-6">
+<section id="contact" class="p-1 md:px-4 py-32 md:mx-auto relative overflow-hidden bg-accent-red">
+    <div class="relative z-10 grid gap-16 p-1 md:px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
+        <div class="space-y-6 hidden md:block">
             <img class="w-52 bg-white rounded-xl p-5" loading="lazy" width="208px" height="auto" src="/assets/imgs/intercocina-logo.png" alt="Login to you intercocina account" title="Login to you intercocina account">
-            <h2 class="text-3xl font-bold text-left text-white md:text-4xl animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
-                Toujours intéressés ? Rejoignez-nous maintenant.
-            </h2>
-            <div class="space-y-2">
-                <p class="text-white text-start md:text-lg animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
-                    Accédez à tous nos serveurs et suivez facilement toutes vos commandes via notre tableau de bord intuitif. 
-                </p>
-                <p class="text-white text-start md:text-lg animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
-                    Connectez-vous dès maintenant pour tout gérer au même endroit.
-                </p>
+                <h2 class="text-3xl font-bold text-left text-white md:text-4xl animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
+                    Toujours intéressés ? Rejoignez-nous maintenant.
+                </h2>
+                <div class="space-y-2">
+                    <p class="text-white text-start md:text-lg animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
+                        Accédez à tous nos serveurs et suivez facilement toutes vos commandes via notre tableau de bord intuitif. 
+                    </p>
+                    <p class="text-white text-start md:text-lg animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">
+                        Connectez-vous dès maintenant pour tout gérer au même endroit.
+                    </p>
             </div>
         </div>
         <div x-animate.intersect="fadeInLeft" class="animate__animated animate__fadeInLeft" style="--animate-duration: 1s;">
+            <h1 class="text-xl font-bold text-center text-white mb-4">Connectez-vous à votre compte</h1>
             @if (session('message'))
                 <div class="bg-green-100 border border-green-400 mb-6 p-4 rounded-md">
                     <div class="flex">

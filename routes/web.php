@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-Route::get('/livewire/update', function(){
+Route::get('/livewire/update', function () {
     return redirect()->back();
 });
 
@@ -80,7 +80,7 @@ Route::prefix('event')->group(function () {
 });
 
 
-Route::prefix('blogs')->group(function(){
+Route::prefix('blogs')->group(function () {
     Route::get('', [PostController::class, 'index'])->name('post.index');
     Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');
 });
@@ -103,7 +103,7 @@ Route::get('upload', function () {
 })->name('upload');
 
 
-Route::get('/placard', function(){
+Route::get('/placard', function () {
     return view('placard');
 });
 
@@ -128,7 +128,7 @@ Route::get('import', function () {
 })->name('import');
 
 
-Route::post('export-client', function(Request $request){
+Route::post('export-client', function (Request $request) {
     ini_set('max_execution_time', 3600);
     set_time_limit(3600);
     $request->validate([
@@ -141,23 +141,32 @@ Route::post('export-client', function(Request $request){
         return response()->json(['message' => 'Invalid JSON format'], 400);
     }
 
-    $processedData = collect($jsonData)->map(function ($item){
+    $processedData = collect($jsonData)->map(function ($item) {
         return DB::transaction(function () use ($item) {
 
-            if(isset($item['Ville'])){
-                $city = City::firstOrCreate([ 'name' => $item['Ville'] ], ['country_id' => 1]);
+            if (isset($item['Ville'])) {
+                $city = City::firstOrCreate(['name' => $item['Ville']], ['country_id' => 1]);
             }
 
-            $user = User::firstOrCreate(['code' => $item['code']], [
-                'first_name' => isset($item['first_name']) ? $item['first_name'] : null,
-                'last_name' => isset($item['last_name']) ? $item['last_name'] : null,
-                'name' => ucfirst(strtolower($item['name'])),
-                'email' => isset($item['email']) ? $item['email'] : strtolower($item['code']."@client.com"),
-                'zip' => isset($item['zpi']) ? $item['zip'] : null,
-                'address' => isset($item['adresse']) ? $item['adresse'] : '' ,
-                'password' => Hash::make($item['code']),
-                'city_id' => isset($city) ? $city->id : null
-            ]);
+            if (isset($item['email'])) {
+                $email = strtolower($item['email']);
+            } else {
+                $email =  strtolower($item['code'] . "@client.com");
+            }
+
+
+            if (User::where("email", $email)->count() < 1) {
+                User::firstOrCreate(['code' => $item['code']], [
+                    'first_name' => isset($item['first_name']) ? $item['first_name'] : null,
+                    'last_name' => isset($item['last_name']) ? $item['last_name'] : null,
+                    'name' => ucfirst(strtolower($item['name'])),
+                    'email' => $email,
+                    'zip' => isset($item['zpi']) ? $item['zip'] : null,
+                    'address' => isset($item['adresse']) ? $item['adresse'] : '',
+                    'password' => Hash::make($item['code']),
+                    'city_id' => isset($city) ? $city->id : null
+                ]);
+            }
         });
     });
     return response()->json(['data' => $processedData]);

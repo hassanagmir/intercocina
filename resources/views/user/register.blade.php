@@ -2,8 +2,8 @@
 
 
 @section('content')
-<section id="contact" class="px-4 py-32 md:mx-auto relative overflow-hidden bg-accent-red">
-    <div class="relative z-10 grid gap-16 px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
+<section id="contact" class="px-1 md:px-4 py-32 md:mx-auto relative overflow-hidden bg-accent-red">
+    <div class="relative z-10 grid gap-16 px-1 md:px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
         <div class="space-y-6">
             <img class="w-52 bg-white rounded-xl p-5" width="208" height="auto" src="/assets/imgs/intercocina-logo.png" loading="lazy" title="Login to you intercocina account" alt="Login to you intercocina account">
             <h2 class="text-3xl font-bold text-left text-white md:text-4xl animate__animated animate__fadeInRight" x-animate.intersect="fadeInRight" style="--animate-duration: 1s;">

@@ -11,6 +11,7 @@ enum ProductStatusEnum: int implements HasLabel, HasColor
     case HIDE = 2;
     case OUT = 3;
     case COMING = 4;
+    case ON_REQUEST = 3;
 
 
 
@@ -21,6 +22,7 @@ enum ProductStatusEnum: int implements HasLabel, HasColor
             self::HIDE => "Cacher",
             self::OUT => "En rupture de stock",
             self::COMING => "À venir",
+            self::ON_REQUEST => "Sur demande"
         };
     }
 
@@ -32,6 +34,7 @@ enum ProductStatusEnum: int implements HasLabel, HasColor
             2 => "Cacher",
             3 => "En rupture de stock",
             4 => "À venir",
+            5 => "Sur demande",
         ];
     }
 
@@ -43,6 +46,7 @@ enum ProductStatusEnum: int implements HasLabel, HasColor
             self::HIDE => 'danger',
             self::OUT => 'warning',
             self::COMING => 'info',
+            self::IN => 'success',
         };
     }
 }
