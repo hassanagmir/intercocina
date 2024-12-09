@@ -42,7 +42,12 @@ class User extends Authenticatable implements HasName, FilamentUser
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+        try {
+            $this->notify(new ResetPasswordNotification($token));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+       
     }
 
     public function getFilamentName(): string
