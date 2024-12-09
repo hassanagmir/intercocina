@@ -1,23 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
-use App\Models\Brand;
-use App\Models\Event;
 use App\Models\Faq;
 use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
 
 
-    public function home(){
+    public function home()
+    {
         $products = Product::all();
         $title = __("Fabricant de meubles de cuisine de lux.");
+    
         return view('home', compact('products', 'title'));
     }
 

@@ -10,13 +10,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
 use App\Http\Controllers\UserController;
-use App\Models\Attribute;
-use App\Models\Category;
 use App\Models\City;
-use App\Models\Color;
-use App\Models\Dimension;
-use App\Models\Product;
-use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -87,9 +81,6 @@ Route::prefix('blogs')->group(function () {
 
 
 Route::get('reclamation', [ClaimController::class, 'create'])->name('claim.create');
-
-
-
 
 
 Route::get('logout', function () {
@@ -174,15 +165,11 @@ Route::post('export-client', function (Request $request) {
 
 
 
-
-
-
-
-// Route::get('/migrations', function () {
-//     try {
-//         Artisan::call('migrate', ['--force' => true]);
-//         return response()->json(['message' => 'Migrations executed successfully.'], 200);
-//     } catch (Exception $e) {
-//         return response()->json(['error' => $e->getMessage()], 500);
-//     }
-// });
+Route::get('/migrations', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        return response()->json(['message' => 'Migrations executed successfully.'], 200);
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
