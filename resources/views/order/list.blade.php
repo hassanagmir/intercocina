@@ -25,82 +25,140 @@
     </div>
 </div>
 @endif
-<div class="relative overflow-x-auto shadow-sm sm:rounded-lg text-gray-500 bg-gray-50">
-    <h1 class="pt-3 px-5 text-xl font-semibold">Vos commandes</h1>
-    <table class="w-full text-sm text-left rtl:text-right">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Référence
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Montant total
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Produits
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    État
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Crée le
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Poids
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @forelse ($orders as $order)
-            <tr class="bg-white border-b hover:bg-gray-50">
-                <th scope="row" class="text-nowrap px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                   {{ $order->code }}
-                </th>
-                <td class="px-6 py-4 font-medium text-nowrap">
-                    {{ $order->total_amount }} MAD
-                </td>
-                <td class="px-6 py-4 text-nowrap">
-                    {{ $order->items->count() }}
-                </td>
-                <td class="px-6 py-4 ">
-                    <span class="bg-{{ $order->status->getBg() }}-100 text-nowrap text-{{ $order->status->getBg() }}-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded border border-{{ $order->status->getBg() }}-600">
-                        {{ $order->status->getLabel() }}
-                    </span>
-                </td>
-                <td class="px-6 py-4 text-nowrap">
-                    {{ $order->created_at }}
-                </td>
-                <td class="px-6 py-4 text-nowrap">
-                    __
-                </td>
-                <td class="flex items-center px-6 py-4">
-                    <a href="{{ route('order.show', $order->code )}}" class="font-medium text-blue-600 hover:underline">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m8.818 15.182l6.364-6.364m-4.95 0h4.95v4.95"/><path d="M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z"/></g></svg>
-                    </a>
-                    {{-- <a href="{{ route('order.invoice', $order->code ) }}" class="font-medium text-green-600 hover:underline ms-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M19 10V5a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v5m15 0H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1"/><path d="M17.5 20v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3m-4-7h2"/></g></svg>
-                    </a>
-                    <a href="{{ route('order.export', $order->id ) }}" class="font-medium text-green-600 hover:underline ms-3">
-                        Export
-                    </a> --}}
-                    
-                </td>
-            </tr>
-            @empty
-            <tr colspan="5" class="font-semibold my text-black text-center text-md">
-                <td colspan="5" class="py-8">{{ __("Aucune commande") }}</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-
-    <div class="flex justify-center py-4">
-        {{ $orders->links() }}
+<div class="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 flex items-center space-x-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-8 h-8" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="m11 10.242l1.034 1.181c.095.109.266.1.35-.016l2.1-2.907M16.5 21a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m-8 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"/>
+                <path d="M3.71 5.4h15.214c1.378 0 2.373 1.27 1.995 2.548l-1.654 5.6C19.01 14.408 18.196 15 17.27 15H8.112c-.927 0-1.742-.593-1.996-1.452zm0 0L3 3"/>
+            </g>
+        </svg>
+        <h2 class="text-lg font-bold text-gray-800">Dernières Commandes</h2>
     </div>
+   
+    <!-- Desktop Table -->
+    <div class="hidden md:block overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-gray-100 border-b border-gray-200">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Référence</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Montant Total</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Produits</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Créé le</th>
+                    <th class="px-6 py-3"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                @forelse ($orders as $order)
+                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm font-medium text-gray-900">{{ $order->code }}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="text-sm text-gray-700 font-semibold">{{ $order->total_amount }} MAD</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {{ $order->items->count() }} articles
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center text-nowrap px-2.5 py-0.5 rounded-full text-xs font-semibold 
+                            @switch($order->status->getLabel())
+                                @case('En attente')
+                                    bg-yellow-100 text-yellow-800
+                                @case('Terminé')
+                                    bg-green-100 text-green-800
+                                @case('Annulé')
+                                    bg-red-100 text-red-800
+                                @default
+                                    bg-gray-100 text-gray-800
+                            @endswitch
+                        ">
+                            {{ $order->status->getLabel() }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ $order->created_at->format('d M Y') }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="{{ route('order.show', $order->code) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="6" class="px-6 py-12 text-center">
+                        <div class="text-gray-500 text-lg font-semibold">
+                            Aucune commande trouvée
+                        </div>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="md:hidden">
+        @forelse ($orders as $order)
+        <div class="bg-white border-b hover:bg-gray-50 transition-colors duration-200 p-4">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-semibold text-gray-900">{{ $order->code }}</span>
+                <span class="text-sm text-gray-700">{{ $order->created_at->format('d M Y') }}</span>
+            </div>
+            
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-base font-bold text-gray-800">{{ $order->total_amount }} MAD</span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {{ $order->items->count() }} articles
+                </span>
+            </div>
+            
+            <div class="flex justify-between items-center text-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 text-nowrap rounded-full text-xs font-semibold 
+                    @switch($order->status->getLabel())
+                        @case('En attente')
+                            bg-yellow-100 text-yellow-800
+                        @case('Terminé')
+                            bg-green-100 text-green-800
+                        @case('Annulé')
+                            bg-red-100 text-red-800
+                        @default
+                            bg-gray-100 text-gray-800
+                    @endswitch
+                ">
+                    {{ $order->status->getLabel() }}
+                </span>
+                <a href="{{ route('order.show', $order->code) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        @empty
+        <div class="p-6 text-center">
+            <div class="text-gray-500 text-lg font-semibold">
+                Aucune commande trouvée
+            </div>
+        </div>
+        @endforelse
+    </div>
+
+    @if ($orders->count() > 6)
+    <div class="bg-gray-50 px-6 py-4 flex justify-center border-t">
+        <a href="{{ route('order.list') }}" class="px-6 py-2 rounded-full bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors">
+            Voir toutes les commandes
+        </a>
+    </div>
+    @endif
 </div>
 
 @endsection

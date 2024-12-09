@@ -265,8 +265,8 @@
 </main>
 
 <hr class="bg-gray-200 border-0">
-@if (!config("app.debug"))
-    {{-- @livewire('ads') --}}
+@if (config("app.debug"))
+    @livewire('ads')
 @endif
 
 @endsection

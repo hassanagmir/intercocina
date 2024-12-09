@@ -135,8 +135,8 @@ Route::post('export-client', function (Request $request) {
     $processedData = collect($jsonData)->map(function ($item) {
         return DB::transaction(function () use ($item) {
 
-            if (isset($item['Ville'])) {
-                $city = City::firstOrCreate(['name' => $item['Ville']], ['country_id' => 1]);
+            if (isset($item['city'])) {
+                $city = City::firstOrCreate(['name' => $item['city']], ['country_id' => 1]);
             }
 
             if (isset($item['email'])) {
@@ -152,7 +152,8 @@ Route::post('export-client', function (Request $request) {
                     'last_name' => isset($item['last_name']) ? $item['last_name'] : null,
                     'name' => ucfirst(strtolower($item['name'])),
                     'email' => $email,
-                    'zip' => isset($item['zpi']) ? $item['zip'] : null,
+                    'zip' => isset($item['zip']) ? $item['zip'] : null,
+                    'phone' => isset($item['phone']) ? $item['phone'] : null,
                     'address' => isset($item['adresse']) ? $item['adresse'] : '',
                     'password' => Hash::make($item['code']),
                     'city_id' => isset($city) ? $city->id : null
