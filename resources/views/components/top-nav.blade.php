@@ -8,8 +8,8 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('event.list') }}" aria-label="facebook page link">
-                {{ __("Événements") }}
+            <a href="{{ route('claim.create') }}" aria-label="facebook page link">
+                {{ __("Réclamation") }}
             </a>
         </li>
         <li>

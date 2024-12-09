@@ -37,16 +37,16 @@
                                 </a>
     
                                 <div x-cloak x-show="isOpen || openedWithKeyboard" x-transition x-trap="openedWithKeyboard" @click.outside="isOpen = false, openedWithKeyboard = false" @keydown.down.prevent="$focus.wrap().next()" @keydown.up.prevent="$focus.wrap().previous()" class="absolute top-11 left-0 flex w-full min-w-[12rem] flex-col overflow-hidden rounded-md border border-neutral-300 bg-neutral-50 py-1.5" role="menu">
-                                    <a href="/category/caissons?type=caisson-bas" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
+                                    <a href="/category/caissons?type=caisson-bas" title="Caissons de cuisine" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
                                         Caissons
                                     </a>
-                                    <a href="/category/facade" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
+                                    <a href="/category/facade" title="Façades" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
                                         Façades
                                     </a>
-                                    <a href="/category/parquettes" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
-                                        Parquets
+                                    <a href="/category/parquettes" title="Parquet" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
+                                        Parquet
                                     </a>
-                                    <a href="/category/accessoiriser" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
+                                    <a href="/category/accessoiriser" title="Accessoiriser de cuisine" class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none" role="menuitem">
                                         Accessoiriser
                                     </a>
                                 </div>
@@ -152,11 +152,11 @@
                         <img class="w-14 h-14 p-1 rounded-full ring-2 ring-gray-300" width="auto" height="auto" src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="{{ auth()->user()->first_name . " " . auth()->user()->first_name }}">
                         <div>
                             @if (auth()->user()->first_name && auth()->user()->last_name)
-                                <span class="text-xl font-semibold">{{ auth()->user()->full_name }}</span>
+                                <span class="text-lg font-semibold">{{ auth()->user()->full_name }}</span>
                             @else
-                                <span class="text-xl font-semibold">{{ auth()->user()->name }}</span>
+                                <span class="text-lg font-semibold">{{ auth()->user()->name }}</span>
                             @endif <br>
-                                <span>{{ auth()->user()->getRoleNames()->first() }}</span>
+                                <span class="text-ms">{{ auth()->user()->email }}</span>
                         </div>
                     </a>
                 </div>

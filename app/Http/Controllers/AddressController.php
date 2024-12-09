@@ -11,7 +11,7 @@ class AddressController extends Controller
         if(!auth()->user()){
             return redirect()->route('user.login');
         }
-        $addresses = Address::all();
+        $addresses = Address::where('user_id', auth()->id());
         return view('address.list', compact('addresses'));
     }
 
