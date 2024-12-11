@@ -52,7 +52,7 @@ class User extends Authenticatable implements HasName, FilamentUser
     }
 
     public function city(){
-        return $this->belongsTo(city::class);
+        return $this->belongsTo(City::class);
     }
 
     public function getFilamentName(): string
