@@ -51,8 +51,11 @@
           
             <div class="mx-auto mt-6 max-w-5xl flex-1 space-y-6 lg:mt-0 lg:w-full">
               <x-filament::section>
-                <p class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ $this->record?->user?->full_name }}</p>
-          
+                @if ($this->record?->user?->name)
+                <p class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ $this->record?->user?->name }} ({{  $this->record?->user->code}})</p>  
+                @else
+                <p class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ $this->record?->user?->full_name }} ({{  $this->record?->user->code}})</p>
+                @endif
                 <div class="space-y-4">
                   <div class="space-y-6">
                     <dl class="flex items-center justify-between gap-4">

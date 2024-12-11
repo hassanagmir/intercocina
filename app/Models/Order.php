@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 
-#[ObservedBy([OrderObserver::class])]
+// #[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
     use HasFactory, LogsActivity, Notifiable;

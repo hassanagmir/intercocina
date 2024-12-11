@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-#[ObservedBy([ContactObserver::class])]
+// #[ObservedBy([ContactObserver::class])]
 class Contact extends Model
 {
     use HasFactory, LogsActivity;

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Color;
 use App\Models\Dimension;
+use App\Models\Discount;
 use App\Models\Product as ProductModel;
 use App\Models\Review;
 use Livewire\Attributes\Validate;
@@ -210,8 +211,10 @@ class Product extends Component
 
         if ($this->dimension) {
             $price = $this->dimension->price;
+            $discount = Discount::where("category_id", $this->dimension->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         } elseif ($this->product->price) {
             $price = $this->product->price;
+            $discount = Discount::where("category_id", $this->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         } else {
             $this->dimension_error = "La dimension " . $this->width . " x " . $this->height . " n'est pas disponible";
             return;
@@ -234,7 +237,7 @@ class Product extends Component
         \Cart::add([
             'id' => $cartItemId,
             'name' => $this->product->name,
-            'price' => $price,
+            'price' => $price - (($discount / 100) * $price),
             'quantity' => $this->qty,
             'attributes' => [
                 'color' => intval($color),

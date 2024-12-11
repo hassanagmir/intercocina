@@ -92,7 +92,7 @@
                         <div class="flex justify-between items-center pb-4 border-b border-gray-200">
                             <span class="text-gray-600">{{ __("Méthode de paiement") }}</span>
                             <div class="flex items-center">
-                                <span class="mr-2 text-md font-bold">{{ $order->payment->getLabel() }}</span>
+                                <span class="mr-2 text-md font-bold">{{ $order->payment ? $order->payment->getLabel() : "__" }}</span>
                             </div>
                         </div>
 

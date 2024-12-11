@@ -16,7 +16,7 @@
                     <li class="flex items-center py-3">
                         <span>{{ __("État") }}</span>
                         <span class="ml-auto">
-                            @if (auth()->user()->status == "active" )
+                            @if (auth()->user()->status->value == 1)
                             <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Actif</span>
                             @else
                             <span class="bg-red-500 py-1 px-2 rounded text-white text-sm">Inactif</span>

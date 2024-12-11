@@ -221,7 +221,7 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user')
                     ->state(function (Model $model) {
-                        return $model->user->first_name . " " . $model->user->last_name;
+                        return $model->user->name . $model->user->code ?  " (". $model->user->code . ")" : "";
                     })
                     ->label(__("Client"))
                     ->numeric()
@@ -229,8 +229,7 @@ class OrderResource extends Resource
 
                 Tables\Columns\TextColumn::make('items_count')->counts('items')
                     ->badge()
-                    ->label(__("Produits"))
-                    ->searchable(),
+                    ->label(__("Produits")),
 
                 Tables\Columns\TextColumn::make('total_amount')
                     ->badge()
@@ -250,6 +249,8 @@ class OrderResource extends Resource
                     })
                     ->placeholder("État")
                     ->label(__("État")),
+
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Crée le"))
                     ->since()

@@ -65,11 +65,9 @@ class UserResource extends Resource
                                     ->avatar(),
                                 Forms\Components\TextInput::make('first_name')
                                     ->label(__("Prénom"))
-                                    ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('last_name')
                                     ->label(__("Nom"))
-                                    ->required()
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('code')
                                     ->label(__("Numéro"))
@@ -215,9 +213,9 @@ class UserResource extends Resource
                     ->label(__("Nom"))
                     ->placeholder("__")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
+                Tables\Columns\TextColumn::make('city.name')
                     ->placeholder("__")
-                    ->label(__("Téléphone"))
+                    ->label(__("Ville"))
                     ->searchable(),
                 Tables\Columns\SelectColumn::make('status')
                     ->placeholder("__")

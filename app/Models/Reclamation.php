@@ -10,7 +10,7 @@ use App\Observers\CliamObserver;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-#[ObservedBy([CliamObserver::class])]
+// #[ObservedBy([CliamObserver::class])]
 class Reclamation extends Model
 {
     use HasFactory, LogsActivity;

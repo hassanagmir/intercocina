@@ -24,6 +24,7 @@ class CheckoutForm extends Component
 
     public function mount()
     {
+
         // \Cart::clear();
         // dd(\Cart::getContent());
     }
@@ -49,10 +50,11 @@ class CheckoutForm extends Component
         }
 
 
+
         $order = Order::create([
             'user_id' => auth()->id(),
             'code' => "INTER-" . Str::random(15),
-            'total_amount' => \Cart::getTotal(),
+            'total_amount' => \Cart::getTotal() * 1.2,
             'status' => OrderStatusEnum::ON_HOLD,
             'address_id' => $this->address,
             'payment' => $this->payment

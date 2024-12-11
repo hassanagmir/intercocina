@@ -7,31 +7,51 @@
         <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
             <div class="mx-auto w-full flex-none lg:max-w-1xl xl:max-w-3xl">
                 <div class="space-y-3">
-                    @forelse( \Cart::getContent() as $product)
-                    <div
-                        class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm md:p-2">
-                        <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                            <div class="flex items-center justify-between md:order-3 md:justify-end">
-                                <div class="text-end md:order-4 md:w-32">
-                                    <p class="text-base font-bold text-gray-900 text-nowrap">{{$product['quantity']}} &#xa0;  x &#xa0; {{ $product['price'] }} MAD</p>
-                                </div>
-                            </div>
-                            <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                    {{-- @dd(\Cart::getContent()) --}}
+                    @php
+                    $productIds = collect(\Cart::getContent())->pluck('attributes.product_id')->unique()->toArray();
+                    $dimensions = \App\Models\Dimension::whereIn('id', $productIds)->with('product')->get();
+                    $products = \App\Models\Product::whereIn('id', $productIds)->get();
+                    $discounts = \App\Models\Discount::where('user_id', auth()->id())
+                                ->whereIn('category_id', $products->pluck('type.category.id')->unique())
+                                ->get();
+                @endphp
+                
+                @forelse(\Cart::getContent() as $product)
+                    <div class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm md:p-2">
+                        @php
+                            $productItem = $product['attributes']['dimension'] 
+                                ? $dimensions->firstWhere('id', intval($product['attributes']['product_id']))->product 
+                                : $products->firstWhere('id', intval($product['attributes']['product_id']));
+
+                            $categoryId = $productItem->type->category->id ?? null;
+                            $discount = $discounts->firstWhere('category_id', $categoryId)->percentage ?? 0;
+                            $price = $product['price'] - (($discount / 100) * $product['price']);
+                        @endphp
+                        <div class="md:flex md:items-center md:gap-6 md:space-y-0 md:justify-between">
+                            <div>
                                 <a href="{{ route('product.show', $product['attributes']['slug']) }}"
                                     class="text-base font-bold text-gray-900 hover:underline">
-                                    {{ str_replace("Façade", $product['attributes']['attribute'], $product['name'])  }}
+                                    {{ str_replace("Façade", $product['attributes']['attribute'], $product['name']) }}
                                     {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }}
-                                    {{ $product['attributes']['color'] ? "(" .$product['attributes']['color_name'] . ")" : ''}}
+                                    {{ $product['attributes']['color'] ? "(" . $product['attributes']['color_name'] . ")" : '' }}
                                 </a>
+                            </div>
+                            <div class="flex items-center justify-between md:order-3 md:justify-end">
+                                <div class="text-end md:order-4">
+                                    <p class="text-base font-bold text-gray-900 text-nowrap">
+                                        {{ $product['quantity'] }} &#xa0; x &#xa0; {{{ round($product['price'], 2) }}} MAD | -{{ $discount }}%
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @empty
+                @empty
                     <div class="flex justify-center py-4">
-                        <img class="w-20"  src="/assets/imgs/empty-cart.png" width="80px" height="auto" alt="Cart empty" title="Cart empty" loading="lazy">
+                        <img class="w-20" src="/assets/imgs/empty-cart.png" width="80px" height="auto" alt="Cart empty" title="Cart empty" loading="lazy">
                     </div>
-                    @endforelse
-                    <!-- Card -->
+                @endforelse
+                
                 </div>
             </div>
             <div class="mx-auto mt-6 max-w-5xl flex-1 space-y-6 lg:mt-0 lg:w-full">

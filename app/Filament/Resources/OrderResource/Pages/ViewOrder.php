@@ -83,9 +83,9 @@ class ViewOrder extends ViewRecord
             ])->icon("heroicon-o-squares-2x2")
                 ->iconSize(IconSize::Large)
                 ->tooltip(__("État")),
-            Actions\EditAction::make()
-                ->color('info')
-                ->icon("heroicon-o-pencil-square"),
+            // Actions\EditAction::make()
+            //     ->color('info')
+            //     ->icon("heroicon-o-pencil-square"),
         ];
     }
 }
