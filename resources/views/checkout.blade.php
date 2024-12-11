@@ -40,7 +40,11 @@
                             <div class="flex items-center justify-between md:order-3 md:justify-end">
                                 <div class="text-end md:order-4">
                                     <p class="text-base font-bold text-gray-900 text-nowrap">
-                                        {{ $product['quantity'] }} &#xa0; x &#xa0; {{{ round($product['price'], 2) }}} MAD | -{{ $discount }}%
+                                        {{ $product['quantity'] }} &#xa0; x &#xa0; {{{ round($product['price'], 2) }}} MAD
+                                        @if ($discount)
+                                        | -{{ $discount }}%
+                                        @endif
+                                        
                                     </p>
                                 </div>
                             </div>
