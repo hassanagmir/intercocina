@@ -31,6 +31,12 @@ class CheckoutForm extends Component
 
     public function save()
     {
+        
+        if(auth()->user()->status->value == 2){
+            session()->flash('error_message', __("Désolé, votre compte est actuellement inactif. Veuillez contacter le support au +212 661-547900 pour plus d'informations."));
+            return;
+        }
+
 
         $this->validate();
         if (\Cart::getContent()->count() == 0) {
@@ -38,9 +44,10 @@ class CheckoutForm extends Component
         }
 
         if (Address::find($this->address)?->user_id != auth()->id()) {
-            session()->flash('message', __("Cette adresse n'est pas pour vous"));
+            session()->flash('error_message', __("Cette adresse n'est pas pour vous"));
             abort(404);
         }
+
 
         $order = Order::create([
             'user_id' => auth()->id(),

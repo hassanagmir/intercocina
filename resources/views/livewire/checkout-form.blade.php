@@ -43,6 +43,11 @@
   @error('payment')
   <div class="text-red-600 font-bold mt-2">{{ $message }}</div>
   @enderror
+
+  @if (session()->has('error_message'))
+    <div class="text-red-600 font-bold mt-2">{{ session('error_message') }}</div>
+  @endif
+
   <ul class="grid w-full">
       @foreach ($addresses as $address)
       <li class="mb-3">

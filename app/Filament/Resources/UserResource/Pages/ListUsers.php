@@ -5,6 +5,8 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListUsers extends ListRecords
 {
@@ -14,6 +16,30 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'ACTIVE' => Tab::make()
+                ->label(__("Active"))
+                ->icon("heroicon-o-clock")
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1)),
+                
+            'ALL' => Tab::make()
+                ->label(__("Tout"))
+                ->icon("heroicon-o-wallet"),
+
+            'INACTIF' => Tab::make()
+                ->label(__("Inactif"))
+                ->icon("heroicon-o-check-circle")
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2)),
+
+            'IGNORD' => Tab::make()
+                ->label(__("Ignorée"))
+                ->icon("heroicon-o-check-circle")
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3)),
         ];
     }
 }

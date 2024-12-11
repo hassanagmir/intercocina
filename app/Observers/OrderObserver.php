@@ -18,38 +18,38 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
+        try {
+            $admins = User::role(['super_admin', 'commercial', 'directeur_commercial'])->get();
+            foreach ($admins as $admin) {
 
-        $admins = User::role(['super_admin', 'commercial', 'directeur_commercial'])->get();
-        foreach($admins as $admin){
+                // Email notificationa
+                $admin->notify(new OrderNotification($order));
 
-            // Email notificationa
-            $admin->notify(new OrderNotification($order));
+                // Intercocina db notifications
 
-            // Intercocina db notifications
-
-            $admin->notify(
-                Notification::make()
-                    ->title('🛒 Nouvelle Commande')
-                    ->icon('heroicon-o-shopping-cart')
-                    ->info()
-                    ->body(new HtmlString('Nouvelle commande du client ' . '<strong><a href="' . UserResource::getUrl('view', ['record' => $order->user]) . '">' . $order->user->full_name . '</a></strong>'))
-                    ->actions([
-                        Action::make('Voir')
-                            ->icon('heroicon-o-eye')
-                            ->button()
-                            ->url(OrderResource::getUrl('view', ['record' => $order]))
-                            ->color('success')
-                            ->markAsRead(),
-                        Action::make('Lu')
-                            ->icon('heroicon-o-check-circle')
-                            ->button()
-                            ->markAsRead(),
-                    ])->toDatabase()
-            );
-            
+                $admin->notify(
+                    Notification::make()
+                        ->title('🛒 Nouvelle Commande')
+                        ->icon('heroicon-o-shopping-cart')
+                        ->info()
+                        ->body(new HtmlString('Nouvelle commande du client ' . '<strong><a href="' . UserResource::getUrl('view', ['record' => $order->user]) . '">' . $order->user->full_name . '</a></strong>'))
+                        ->actions([
+                            Action::make('Voir')
+                                ->icon('heroicon-o-eye')
+                                ->button()
+                                ->url(OrderResource::getUrl('view', ['record' => $order]))
+                                ->color('success')
+                                ->markAsRead(),
+                            Action::make('Lu')
+                                ->icon('heroicon-o-check-circle')
+                                ->button()
+                                ->markAsRead(),
+                        ])->toDatabase()
+                );
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-
-       
     }
 
     /**

@@ -174,3 +174,25 @@ Route::get('/migrations', function () {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 });
+
+
+Route::get('/run-npm/{command}', function ($command) {
+    if (!in_array($command, ['build', 'dev'])) {
+        return response()->json(['error' => 'Invalid command'], 400);
+    }
+
+    try {
+        $output = shell_exec('cd ' . base_path() . ' && npm run ' . escapeshellarg($command));
+        return response()->json([
+            'status' => 'success',
+            'message' => "npm run $command executed successfully.",
+            'output' => $output
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Error executing the command',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+});

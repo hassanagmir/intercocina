@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\UserStatusEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
@@ -100,10 +101,7 @@ class UserResource extends Resource
 
                                 Forms\Components\Select::make('status')
                                     ->native(false)
-                                    ->options([
-                                        "active" =>  "Actif",
-                                        "inactive" => "Inactif"
-                                    ])
+                                    ->options(UserStatusEnum::toArray())
                                     ->label(__("État"))
                                     ->required(),
 
@@ -221,9 +219,10 @@ class UserResource extends Resource
                     ->placeholder("__")
                     ->label(__("Téléphone"))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge()
-                    ->label(__("État")),
+                Tables\Columns\SelectColumn::make('status')
+                    ->placeholder("__")
+                    ->label(__("État"))
+                    ->options(UserStatusEnum::class),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Date d'inscription"))
                     ->dateTime()

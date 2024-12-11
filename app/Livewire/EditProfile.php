@@ -44,7 +44,7 @@ class EditProfile extends Component
             'gender' => 'nullable|in:Mâle,Femelle',
             'phone' => 'nullable|string|max:20|unique:users,phone,' . $this->user->id,
             'image' => 'nullable|image|max:1024', // 1MB Max for images
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|integer',
             'email' => 'required|email|unique:users,email,' . $this->user->id,
         ]);
 

@@ -31,10 +31,7 @@ class LoginForm extends Component
 
 
         $user = User::where('email', $this->email)->first();
-        if($user && $user->status == "inactive"){
-            session()->flash('error', __("Désolé, votre compte est actuellement inactif. Veuillez contacter le support au +212 661-547900 pour plus d'informations."));
-            return;
-        }
+      
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
             $this->dispatch("reloadPage");

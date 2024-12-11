@@ -17,29 +17,33 @@ class ContactObserver
      */
     public function created(Contact $contact): void
     {
-        $admins = User::role(['super_admin', 'commercial', 'directeur_commercial'])->get();
-        foreach($admins as $admin){
-            $admin->notify(new ContactNotification($contact));
+        try {
+            $admins = User::role(['super_admin', 'commercial', 'directeur_commercial'])->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new ContactNotification($contact));
 
-            $admin->notify(
-                Notification::make()
-                    ->title('📩 Nouvelle Message')
-                    ->icon('heroicon-o-envelope')
-                    ->info()
-                    ->body(new HtmlString('Nouvelle Message du ' . '<strong><a href="' . ContactResource::getUrl('view', ['record' => $contact]) . '">' . $contact->full_name . '</a></strong>'))
-                    ->actions([
-                        Action::make('Voir')
-                            ->icon('heroicon-o-eye')
-                            ->button()
-                            ->url(ContactResource::getUrl('view', ['record' => $contact]))
-                            ->color('success')
-                            ->markAsRead(),
-                        Action::make('Lu')
-                            ->icon('heroicon-o-check-circle')
-                            ->button()
-                            ->markAsRead(),
-                    ])->toDatabase());
-
+                $admin->notify(
+                    Notification::make()
+                        ->title('📩 Nouvelle Message')
+                        ->icon('heroicon-o-envelope')
+                        ->info()
+                        ->body(new HtmlString('Nouvelle Message du ' . '<strong><a href="' . ContactResource::getUrl('view', ['record' => $contact]) . '">' . $contact->full_name . '</a></strong>'))
+                        ->actions([
+                            Action::make('Voir')
+                                ->icon('heroicon-o-eye')
+                                ->button()
+                                ->url(ContactResource::getUrl('view', ['record' => $contact]))
+                                ->color('success')
+                                ->markAsRead(),
+                            Action::make('Lu')
+                                ->icon('heroicon-o-check-circle')
+                                ->button()
+                                ->markAsRead(),
+                        ])->toDatabase()
+                );
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 

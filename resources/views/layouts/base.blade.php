@@ -25,6 +25,7 @@
     <meta property="twitter:description" content="{{ isset($description) ? $description : "Fort d'une expérience de plus d'une décennie, Intercocina, leader en tant que fabricant de meubles de cuisine de lux." }}">
     <meta property="twitter:image" content="{{ asset('assets/imgs/intercocina-logo.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     @livewireStyles
     <style>
         .grid {
@@ -51,7 +52,7 @@
         }
     </style>
 </head>
-    <body class="bg-[#f2f2f2]" style="background-image: url('{{ asset("assets/imgs/vecteur-inter.png")}}');background-blend-mode: lighten; background-size:460px">
+    <body class="bg-[#f2f2f2]" style="background-image: url('{{ asset("imgs/vecteur-inter.png")}}');background-blend-mode: lighten; background-size:460px">
         <x-navigation />
         <main class="mt-28">
             @yield('content')
