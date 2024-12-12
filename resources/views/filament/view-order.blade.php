@@ -65,7 +65,7 @@
           
                     <dl class="flex items-center justify-between gap-4">
                       <dt class="text-base font-normal text-gray-500">{{ __("Date")}}</dt>
-                      <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->created_at->format('M d Y - H:i')}}</dd>
+                      <dd class="text-base font-bold text-gray-900 dark:text-white">{{ $this->record->created_at->format(' d/m/Y - H:i')}}</dd>
                     </dl>
           
                     <dl class="flex items-center justify-between gap-4">

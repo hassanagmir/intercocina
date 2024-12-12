@@ -26,7 +26,7 @@
 </div>
 @endif
 <div class="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
-    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 flex items-center space-x-4">
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 flex items-center space-x-4 border-b border-b-gray-300">
         <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 w-8 h-8" viewBox="0 0 24 24">
             <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                 <path d="m11 10.242l1.034 1.181c.095.109.266.1.35-.016l2.1-2.907M16.5 21a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m-8 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"/>
@@ -80,7 +80,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $order->created_at->format('d M Y') }}
+                        {{ $order->created_at->format('d/m/Y - H:i') }}
                     </td>
                     <td class="px-6 py-4">
                         <a href="{{ route('order.show', $order->code) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
@@ -110,7 +110,7 @@
         <div class="bg-white border-b hover:bg-gray-50 transition-colors duration-200 p-4">
             <div class="flex justify-between items-center mb-2">
                 <span class="text-sm font-semibold text-gray-900">{{ $order->code }}</span>
-                <span class="text-sm text-gray-700">{{ $order->created_at->format('d M Y') }}</span>
+                <span class="text-sm text-gray-700">{{ $order->created_at->format('d/m/Y - H:i')}}</span>
             </div>
             
             <div class="flex justify-between items-center mb-2">
@@ -151,14 +151,8 @@
         </div>
         @endforelse
     </div>
-
-    @if ($orders->count() > 6)
     <div class="bg-gray-50 px-6 py-4 flex justify-center border-t">
-        <a href="{{ route('order.list') }}" class="px-6 py-2 rounded-full bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors">
-            Voir toutes les commandes
-        </a>
+        {{ $orders->links()}}
     </div>
-    @endif
 </div>
-
 @endsection

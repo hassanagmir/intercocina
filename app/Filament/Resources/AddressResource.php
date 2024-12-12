@@ -32,12 +32,7 @@ class AddressResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'first_name')
-                    ->label(__("Client"))
-                    ->required()
-                    ->preload()
-                    ->searchable(),
+                Forms\Components\TextInput::make('user_id'),
                 Forms\Components\TextInput::make('address_name')
                     ->label(__("Adresse"))
                     ->required()

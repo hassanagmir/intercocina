@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
@@ -11,7 +10,7 @@ class AddressController extends Controller
         if(!auth()->user()){
             return redirect()->route('user.login');
         }
-        $addresses = Address::where('user_id', auth()->id());
+        $addresses = Address::where('user_id', auth()->user()->id)->get();
         return view('address.list', compact('addresses'));
     }
 

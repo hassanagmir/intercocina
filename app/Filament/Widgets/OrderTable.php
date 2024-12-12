@@ -63,10 +63,11 @@ class OrderTable extends BaseWidget
                     })
                     ->placeholder("État")
                     ->label(__("État")),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__("Crée le"))
-                    ->since()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->label(__("Crée le"))
+                //     ->since()
+                //     ->date('d m y')
+                //     ->sortable(),
 
 
 

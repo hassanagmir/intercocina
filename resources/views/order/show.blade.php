@@ -68,7 +68,7 @@
                         <div class="flex justify-between items-center pb-4 border-b border-gray-200">
                             <span class="text-gray-600">{{ __("Date") }}</span>
                             <div class="flex items-center">
-                                <span class="mr-2">{{ $order->created_at->format("M d, Y") }}</span>
+                                <span class="mr-2">{{ $order->created_at->format('d/m/Y - H:i') }}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                                         <path d="M3 5.231L6.15 3M21 5.231L17.85 3"/>

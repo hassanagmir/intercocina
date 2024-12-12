@@ -2,63 +2,70 @@
 
 
 @section('content')
-    
-<div class="relative overflow-x-auto sm:rounded-lg text-gray-500 bg-gray-50">
+
+<div class="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200">
     @if (session()->has('message'))
     <div class="bg-green-500 text-white p-2 m-3 rounded">
         {{ session('message') }}
     </div>
     @endif
-    <div class="sm:flex flex-initial justify-between">
-    <h1 class="pt-3 px-5 text-xl font-semibold w-full">Vos adresses</h1>
-    <div x-data="{ showModal: false }" class="w-full" @keydown.escape.window="showModal = false">
-        <!-- Trigger for Modal -->
-        <button type="button" @click="showModal = true" class="text-md float-end m-2 flex flex-col items-center justify-center py-3 px-4 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 font-bold">
-            <div class="flex gap-3">
-                <svg class="text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-plus">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-                    <path d="M9 12h6" />
-                    <path d="M12 9v6" />
+    <div class="sm:flex flex-initial justify-between border-b border-b-gray-300 bg-gradient-to-r from-blue-50 to-blue-100 p-2" >
+        <div class="flex w-1/2 items-center">
+            <svg class="text-blue-600 w-8 h-8" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12.56 20.82a.96.96 0 0 1-1.12 0C6.611 17.378 1.486 10.298 6.667 5.182A7.6 7.6 0 0 1 12 3c2 0 3.919.785 5.333 2.181c5.181 5.116.056 12.196-4.773 15.64"></path><path d="M12 12a2 2 0 1 0 0-4a2 2 0 0 0 0 4"></path></g></svg>
+            <h1 class="pt-2 px-2 text-xl font-semibold w-full">Vos adresses</h1>
+        </div>
+        <div x-data="{ showModal: false }" class="w-full" @keydown.escape.window="showModal = false">
+            <!-- Trigger for Modal -->
+            <button type="button" @click="showModal = true"
+                class="transition-all duration-300 ease-in-out 
+                    hover:scale-105 active:scale-95 
+                    text-md float-end m-2 flex items-center 
+                    text-white py-2 px-4 border-2 border-red-400 
+                    rounded-full bg-red-400 hover:bg-red-500 
+                    font-bold shadow-sm hover:shadow-lg 
+                    focus:outline-none focus:ring-2 focus:ring-red-300 
+                    focus:ring-opacity-50 group">
+              
+                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:rotate-90 transition-transform duration-300">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/>
+                    <path d="M9 12h6"/>
+                    <path d="M12 9v6"/>
                 </svg>
-                <span class="text-gray-600">{{__("Ajouter une adresse")}}</span>
-            </div>
-        </button>
-    
-        <!-- Modal -->
-        <div
-            class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-            x-show="showModal"
-            x-cloak
-            role="dialog"
-            aria-labelledby="modalTitle"
-            x-transition:enter="motion-safe:ease-out duration-300" 
-            x-transition:enter-start="opacity-0 scale-90" 
-            x-transition:enter-end="opacity-100 scale-100"
-            @click.away="showModal = false"
-        >
-            <!-- Modal inner -->
-            <div class="max-w-3xl px-6 py-4 mx-auto text-left bg-white rounded shadow-lg" style="min-width: 50%!important">
-                <!-- Title / Close -->
-                <div class="flex items-center justify-between">
-                    <h5 class="mr-3 text-black max-w-none text-2xl font-semibold" id="modalTitle">Nouvelle adresse</h5>
-    
-                    <button type="button" class="z-50 cursor-pointer" @click="showModal = false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                    <span class="text-white text-md">{{__("Ajouter une adresse")}}</span>
+               
+            </button>
+
+            <!-- Modal -->
+            <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
+                x-show="showModal" x-cloak role="dialog" aria-labelledby="modalTitle"
+                x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"
+                x-transition:enter-end="opacity-100 scale-100" @click.away="showModal = false">
+                <!-- Modal inner -->
+                <div class="max-w-3xl px-6 py-4 mx-auto text-left bg-white rounded shadow-lg"
+                    style="min-width: 50%!important">
+                    <!-- Title / Close -->
+                    <div class="flex items-center justify-between">
+                        <h5 class="mr-3 text-black max-w-none text-2xl font-semibold" id="modalTitle">Nouvelle adresse
+                        </h5>
+
+                        <button type="button" class="z-50 cursor-pointer" @click="showModal = false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    @livewire('address-form')
                 </div>
-    
-                <!-- Content -->
-                @livewire('address-form')
             </div>
         </div>
     </div>
-    </div>
-</div>
     <table class="w-full text-sm text-left rtl:text-right">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <thead class="bg-gray-100 border-b border-gray-200">
             <tr>
                 <th scope="col" class="px-6 py-3 flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><circle cx="12" cy="9.1" r="2.5"/><circle cx="12" cy="12" r="9"/><path d="M17 19.2c-.317-6.187-9.683-6.187-10 0"/></g></svg>
@@ -113,5 +120,18 @@
             @endforeach
         </tbody>
     </table>
+
+    @if (!$addresses->count())
+    <div class="text-center py-10 px-4 sm:px-6 lg:px-8">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <h3 class="mt-2 text-md font-medium text-gray-900">Aucune adresse</h3>
+        <p class="mt-1 text-md text-gray-500">Commencez par ajouter une nouvelle adresse.</p>
+    </div>
+    @endif
 </div>
+
+
 @endsection
