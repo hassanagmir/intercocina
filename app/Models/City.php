@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class City extends Model
 {
-    use HasFactory, HasSlug, LogsActivity;
+    use HasFactory, HasSlug;
 
     protected $fillable = ['name', 'country_id', 'slug'];
 
@@ -34,10 +32,5 @@ class City extends Model
         return $this->hasMany(Address::class);
     }
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['id', 'name', 'country_id']);
-    }
 
 }

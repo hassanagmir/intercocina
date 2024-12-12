@@ -7,13 +7,12 @@ use App\Observers\ContactObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
-// #[ObservedBy([ContactObserver::class])]
+
+#[ObservedBy([ContactObserver::class])]
 class Contact extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory;
 
     protected $casts = [
         'status' =>  ContactStatusEnum::class
@@ -23,9 +22,4 @@ class Contact extends Model
         'full_name', 'phone', 'email', 'message', 'status', 'subject'
     ];
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['full_name', 'phone', 'email', 'subject', "message"]);
-    }
 }

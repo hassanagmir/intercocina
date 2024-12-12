@@ -9,16 +9,14 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 
-// #[ObservedBy([OrderObserver::class])]
+#[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
-    use HasFactory, LogsActivity, Notifiable;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'user_id', 'code', 'total_amount', 'status', 'address_id', 'payment'
@@ -29,11 +27,6 @@ class Order extends Model
         'payment' =>  PaymentEnum::class,
     ];
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['user_id', 'code', 'total_amoount']);
-    }
 
     // Relationships
     public function user()
@@ -51,6 +44,7 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    // Export order .txt
     public function exportToTextFile()
     {
         $order = Order::with('items')->findOrFail($this->id);

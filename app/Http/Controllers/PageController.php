@@ -8,14 +8,10 @@ use App\Models\Product;
 
 class PageController extends Controller
 {
-
-
     public function home()
     {
-        $products = Product::all();
         $title = __("Fabricant de meubles de cuisine de lux.");
-    
-        return view('home', compact('products', 'title'));
+        return view('home', compact('title'));
     }
 
 
