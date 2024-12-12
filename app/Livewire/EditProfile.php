@@ -70,7 +70,6 @@ class EditProfile extends Component
             'address' => $this->address,
             'gender' => $this->gender,
             'phone' => $this->phone,
-            'status' => $this->status,
             'email' => $this->email,
             'name' => $this->name
         ]);
