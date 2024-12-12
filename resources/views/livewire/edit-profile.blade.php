@@ -68,7 +68,7 @@
                 
                 <div>
                     <label for="image" class="block text-dm font-semibold text-gray-700">Image de profil</label>
-                    <input type="file" id="image" wire:model="image" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    <input type="file" id="image" wire:model="image" accept=".jpg,.jpeg,.png,.gif,.svg" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                     @error('image') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
 
                     @if ($image)

@@ -26,6 +26,10 @@ class EditProfile extends Component
     {
         return [
             'name.required' => "L'entreprise est requise",
+            'image.required' => 'Un fichier image est requis.',
+            'image.image' => 'Le fichier téléchargé doit être une image.',
+            'image.mimes' => 'Seuls les fichiers de type JPEG, PNG, JPG, GIF et SVG sont autorisés.',
+            'image.max' => 'La taille de l\'image ne doit pas dépasser 2 Mo.',
         ];
     }
 
@@ -53,7 +57,7 @@ class EditProfile extends Component
             'address' => 'nullable|string|max:255',
             'gender' => 'nullable|in:Mâle,Femelle',
             'phone' => 'nullable|string|max:20|unique:users,phone,' . $this->user->id,
-            'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'email' => 'required|email|unique:users,email,' . $this->user->id,
             'name' => 'required|min:4|max:150'
         ]);
