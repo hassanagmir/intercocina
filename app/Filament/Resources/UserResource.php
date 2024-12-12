@@ -159,7 +159,7 @@ class UserResource extends Resource
 
                             ]),
 
-                            Forms\Components\Tabs\Tab::make("Remise")
+                        Forms\Components\Tabs\Tab::make("Remise")
                             ->schema([
                                 Forms\Components\Repeater::make('discounts')
                                     ->relationship('discounts')
@@ -260,12 +260,17 @@ class UserResource extends Resource
             ->schema([
                 InfoLists\Components\Section::make()
                     ->schema([
-                        Infolists\Components\TextEntry::make('full_name')
-                            ->label(__("Nom complet")),
-
                         Infolists\Components\TextEntry::make('code')
                             ->placeholder('__')
                             ->label(__("Numéro")),
+
+                        Infolists\Components\TextEntry::make('name')
+                            ->placeholder("__")
+                            ->label(__("Entreprise")),
+
+                        Infolists\Components\TextEntry::make('full_name')
+                            ->label(__("Nom complet")),
+
 
                         Infolists\Components\TextEntry::make('phone')
                             ->placeholder("__")
@@ -275,8 +280,8 @@ class UserResource extends Resource
                         Infolists\Components\TextEntry::make('email')
                             ->placeholder('__')
                             ->label(__("E-mail")),
-
                         Infolists\Components\TextEntry::make('status')
+                            ->formatStateUsing(fn ($state) => $state->name)
                             ->placeholder('__')
                             ->badge()
                             ->label(__("Etat")),
@@ -285,7 +290,6 @@ class UserResource extends Resource
                             ->placeholder('__')
                             ->badge()
                             ->label(__("Genre"))
-
                     ])->columns(3),
 
                 Infolists\Components\RepeatableEntry::make('addresses')

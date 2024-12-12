@@ -7,36 +7,52 @@
         </div>
         @endif
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="p-2 rounded-md bg-red-400 text-white mb-2">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
 
         <form wire:submit.prevent="updateProfile" enctype="multipart/form-data">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="first_name" class="block text-dm font-semibold text-gray-700">{{__("Prénom")}}</label>
-                    <input type="text" id="first_name" wire:model="first_name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    <input type="text" id="first_name" maxlength="100" wire:model="first_name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                     @error('first_name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <label for="last_name" class="block text-dm font-semibold text-gray-700">{{__("Nom")}}</label>
-                    <input type="text" id="last_name" wire:model="last_name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    <input type="text" id="last_name" maxlength="100" wire:model="last_name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                     @error('last_name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
+                    <label for="name" class="block text-dm font-semibold text-gray-700">{{ __("Entreprise")}}</label>
+                    <input type="name" id="name" maxlength="150" wire:model="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    @error('name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
                     <label for="email" class="block text-dm font-semibold text-gray-700">{{ __("E-mail")}}</label>
-                    <input type="email" id="email" wire:model="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    <input type="email" maxlength="155" id="email" wire:model="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                     @error('email') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <label for="phone" class="block text-dm font-semibold text-gray-700">{{__("Téléphone")}}</label>
-                    <input type="text" id="phone" wire:model="phone" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    <input type="text" maxlength="50" id="phone" wire:model="phone" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                     @error('phone') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <label for="address" class="block text-dm font-semibold text-gray-700">{{__("Adresse")}}</label>
-                    <input type="text" id="address" wire:model="address" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                    <input type="text" maxlength="155" id="address" wire:model="address" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                     @error('address') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
