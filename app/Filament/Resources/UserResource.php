@@ -220,7 +220,7 @@ class UserResource extends Resource
                 Tables\Columns\SelectColumn::make('status')
                     ->placeholder("__")
                     ->label(__("État"))
-                    ->options(UserStatusEnum::class),
+                    ->options(UserStatusEnum::toArray()),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__("Date d'inscription"))
                     ->dateTime()
@@ -281,7 +281,7 @@ class UserResource extends Resource
                             ->placeholder('__')
                             ->label(__("E-mail")),
                         Infolists\Components\TextEntry::make('status')
-                            ->formatStateUsing(fn ($state) => $state->name)
+                            ->formatStateUsing(fn($state) => $state->name)
                             ->placeholder('__')
                             ->badge()
                             ->label(__("Etat")),
@@ -292,24 +292,29 @@ class UserResource extends Resource
                             ->label(__("Genre"))
                     ])->columns(3),
 
-                Infolists\Components\RepeatableEntry::make('addresses')
-                    ->label(__("Les adresses"))
-                    ->schema([
-                        Infolists\Components\TextEntry::make('address_name')
-                            ->icon('heroicon-m-map-pin')
-                            ->label(__("Adresse")),
-                        Infolists\Components\TextEntry::make('phone')
-                            ->icon('heroicon-m-phone')
-                            ->label(__("Téléphone")),
-                        Infolists\Components\TextEntry::make('email')
-                            ->icon('heroicon-m-envelope')
-                            ->label(__("E-mail")),
-                        Infolists\Components\TextEntry::make('city.name')
-                            ->icon('heroicon-m-building-office-2')
-                            ->label(__("Ville")),
-                    ])
-                    ->columns(2)
 
+                Infolists\Components\Grid::make()
+                    ->columns(1)
+                    ->schema([
+                        Infolists\Components\RepeatableEntry::make('addresses')
+                            ->label(__("Les adresses"))
+                            ->schema([
+                                Infolists\Components\TextEntry::make('address_name')
+                                    ->icon('heroicon-m-map-pin')
+                                    ->label(__("Adresse")),
+                                Infolists\Components\TextEntry::make('phone')
+                                    ->icon('heroicon-m-phone')
+                                    ->label(__("Téléphone")),
+                                Infolists\Components\TextEntry::make('email')
+                                    ->icon('heroicon-m-envelope')
+                                    ->label(__("E-mail")),
+                                Infolists\Components\TextEntry::make('city.name')
+                                    ->icon('heroicon-m-building-office-2')
+                                    ->label(__("Ville")),
+                            ])
+                            ->columns(4)
+                            ->columnSpan(1)
+                    ])
 
             ]);
     }

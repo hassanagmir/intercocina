@@ -200,11 +200,14 @@
                             @endforelse
                         </tbody>
                     </table>
+                    @if ($orders->count() > 6)
                     <div class="bg-gray-50 px-6 py-4 flex justify-center border-t">
                         <a href="{{ route('order.list') }}" class="px-6 py-2 rounded-full bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors">
                             {{ __("Voir toutes les commandes") }}
                         </a>
                     </div>
+                    @endif
+                    
                 </div>
             
                 <!-- Mobile Card View -->

@@ -39,7 +39,6 @@
                         {{ __("Créer un nouveau compte !") }}
                     </a>
                 </div>
-                
             </form>
         </div>
     </div>

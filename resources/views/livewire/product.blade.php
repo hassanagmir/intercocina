@@ -157,7 +157,6 @@
                     {{ $color_error }}
                 </div>
                 @endisset
-
             @endempty
 
 
