@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Spatie\Browsershot\Browsershot;
@@ -34,16 +35,17 @@ class OrderController extends Controller
         return view('order.show', compact('order', 'title'));
     }
 
+    public function index() {
+        return \App\Http\Resources\OrderResource::collection(Order::all());
+    }
+    
 
     public function invoice(Order $order)
     {
         return Pdf::view('invoice', ['order' => $order])
             ->format('A4')
-
             ->name("{$order->code}.pdf");
     }
-
-
 
 
     public function exportOrder(Order $order)

@@ -119,6 +119,9 @@ Route::get('import', function () {
 })->name('import');
 
 
+Route::get('api/orders', [OrderController::class, 'index'])->name('order.index');
+
+
 Route::post('export-client', function (Request $request) {
     ini_set('max_execution_time', 3600);
     set_time_limit(3600);
