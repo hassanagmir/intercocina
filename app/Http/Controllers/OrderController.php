@@ -37,20 +37,10 @@ class OrderController extends Controller
 
     public function invoice(Order $order)
     {
-
-        // return view('invoice', compact('order'));
-
-
         return Pdf::view('invoice', ['order' => $order])
             ->format('A4')
 
             ->name("{$order->code}.pdf");
-
-        // $pdf = PDF::loadView('invoice', [
-        //     'order' => $order
-        // ]);
-
-        // return $pdf->download("{$order->code}.pdf");
     }
 
 
@@ -65,12 +55,5 @@ class OrderController extends Controller
             $filename,
             ['Content-Type' => 'text/plain']
         );
-
-
-        try {
-        } catch (\Exception $e) {
-            dd("Not working");
-            return back()->with('error', 'Failed to export order: ' . $e->getMessage());
-        }
     }
 }

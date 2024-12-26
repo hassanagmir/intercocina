@@ -50,7 +50,7 @@ class Order extends Model
         $order = Order::with('items')->findOrFail($this->id);
         $content = "";
         foreach ($order->items as $item) {
-            $content .= "1      0       24BDE01389      " 
+            $content .= "0      0       24BDE01389      " 
                       . ($item->created_at ? $item->created_at->format('ymd') : '000000') . "        "
                       . ($order->user->code) . "      " 
                       . ($item->dimension ? $item->dimension->code : ($item->product->code ?? 'No Code')) . "       "

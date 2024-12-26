@@ -221,8 +221,14 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user')
                     ->state(function (Model $model) {
-                        return $model->user->name . $model->user->code ?  " (". $model->user->code . ")" : "";
+                        if ($model->user->code || $model->user->name) {
+                            return $model->user->name . $model->user->code ?  " (". $model->user->code . ")" : "";
+                        }elseif ($model->user->full_name) {
+                            return $model->user->full_name;
+                        }
+                        return $model->user->email;
                     })
+                    ->placeholder("__")
                     ->label(__("Client"))
                     ->numeric()
                     ->sortable(),
