@@ -62,6 +62,7 @@ Route::prefix('order')->group(function () {
     Route::get('{order:code}', [OrderController::class, 'show'])->name('order.show');
     Route::get('invoice/{order:code}', [OrderController::class, 'invoice'])->name('order.invoice');
     Route::get('{order}/export', [OrderController::class, 'exportOrder'])->name('order.export');
+    Route::get('{order}/export-text', [OrderController::class, 'exportOrderText'])->name('order.export-text');
 });
 
 

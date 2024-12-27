@@ -63,14 +63,17 @@ class UserResource extends Resource
                                     ->alignCenter()
                                     ->columnSpanFull()
                                     ->avatar(),
+                                Forms\Components\TextInput::make('name')
+                                    ->label(__("Entreprise"))
+                                    ->maxLength(255),
+                                Forms\Components\TextInput::make('code')
+                                    ->label(__("Numéro"))
+                                    ->maxLength(255),
                                 Forms\Components\TextInput::make('first_name')
                                     ->label(__("Prénom"))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('last_name')
                                     ->label(__("Nom"))
-                                    ->maxLength(255),
-                                Forms\Components\TextInput::make('code')
-                                    ->label(__("Numéro"))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('address')
                                     ->label(__("Adresse"))

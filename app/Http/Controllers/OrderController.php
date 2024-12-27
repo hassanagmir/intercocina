@@ -58,4 +58,14 @@ class OrderController extends Controller
             ['Content-Type' => 'text/plain']
         );
     }
+
+    public function exportOrderText(Order $order){
+        $filename = $order->exportText();
+
+        return response()->download(
+            storage_path('app/exports/' . $filename),
+            $filename,
+            ['Content-Type' => 'text/plain']
+        );
+    }
 }

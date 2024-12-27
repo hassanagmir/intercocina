@@ -83,9 +83,13 @@ class ViewOrder extends ViewRecord
             ])->icon("heroicon-o-squares-2x2")
                 ->iconSize(IconSize::Large)
                 ->tooltip(__("État")),
-            // Actions\EditAction::make()
-            //     ->color('info')
-            //     ->icon("heroicon-o-pencil-square"),
+            Actions\Action::make('export')
+                ->color('info')
+                ->label('Export')
+                ->action(function(Order $record) : void{
+                    $this->redirect(route('order.export-text', $record));
+                })
+                ->icon("heroicon-o-arrow-up-tray"),
         ];
     }
 }

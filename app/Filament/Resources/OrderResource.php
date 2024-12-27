@@ -222,9 +222,9 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('user')
                     ->state(function (Model $model) {
                         if ($model->user->code || $model->user->name) {
-                            return $model->user->name . $model->user->code ?  " (". $model->user->code . ")" : "";
+                            return ucwords($model->user->name . $model->user->code ?  " (". $model->user->code . ")" : "");
                         }elseif ($model->user->full_name) {
-                            return $model->user->full_name;
+                            return ucwords($model->user->full_name);
                         }
                         return $model->user->email;
                     })
