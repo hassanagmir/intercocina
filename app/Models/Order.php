@@ -19,7 +19,12 @@ class Order extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'user_id', 'code', 'total_amount', 'status', 'address_id', 'payment'
+        'user_id',
+        'code',
+        'total_amount',
+        'status',
+        'address_id',
+        'payment'
     ];
 
     protected $casts = [
@@ -75,13 +80,13 @@ class Order extends Model
         $content = "";
         foreach ($order->items as $item) {
             $content .= "0      0       24BDE01389  "
-                      . ($item->created_at ? $item->created_at->format('ymd') : '000000') . "        "
-                      . ($order->user->code) . "      " 
-                      . ($item->dimension ? $item->dimension->code : ($item->product->code ?? 'No Code')) . "       "
-                      
-                      . ($item->product->name) . "        "
-                      . ($item->quantity ?? '0')
-                      . "\n";
+                . ($item->created_at ? $item->created_at->format('ymd') : '000000') . "        "
+                . ($order->user->code) . "      "
+                . ($item->dimension ? $item->dimension->code : ($item->product->code ?? 'No Code')) . "       "
+
+                . ($item->product->name) . "        "
+                . ($item->quantity ?? '0')
+                . "\n";
         }
         $filename = "order_{$order->code}_" . now()->format('ymd') . ".txt";
         $filepath = storage_path('app/exports/' . $filename);
@@ -89,6 +94,4 @@ class Order extends Model
         File::put($filepath, $content);
         return $filename;
     }
-
 }
-

@@ -13,7 +13,6 @@
                                     <a href="{{ route('product.show', $item->product->slug) }}" class="flex-shrink-0">
                                         <img class="h-24 w-24 object-cover rounded-lg" src="{{ url(config('app.storage'), $item->product->images?->first()->image) }}" alt="{{ $item->product->name }}">
                                     </a>
-                                    <!-- Product Details -->
                                     <div class="flex-1 min-w-0">
                                         <a href="{{ route('product.show', $item->product->slug) }}"  class="text-md font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
                                             {{ $item->product->name }} 
@@ -43,7 +42,6 @@
                                           @endif
                                         </div>
                                     </div>
-
                                     <!-- Price & Quantity -->
                                     <div class="text-right">
                                         <p class="text-lg font-semibold text-gray-900 dark:text-white">
@@ -128,12 +126,11 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
                     <div class="p-6">
                         <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">{{ __("Adresse de livraison") }}</h2>
-                        
                         <div class="space-y-4">
                             <div class="flex justify-between">
                                 <span class="text-gray-500 dark:text-gray-400">{{ __("Client") }}</span>
                                 <span class="font-medium text-gray-900 dark:text-white">
-                                    {{ $this->record?->address?->first_name }} {{ $this->record?->address?->last_name }}
+                                    {{ ucwords($this->record?->address?->first_name) }} {{ ucwords($this->record?->address?->last_name) }}
                                 </span>
                             </div>
 
