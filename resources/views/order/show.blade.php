@@ -24,8 +24,7 @@
                             <div class="md:flex items-center">
                                 <div class="md:w-1/4 mb-4 md:mb-0 md:mr-4">
                                     <a href="{{ route('product.show', $item->product->slug) }}">
-                                        <img 
-                                            class="w-24 h-24 object-cover rounded" 
+                                        <img class="w-24 h-24 object-cover rounded" 
                                             src="{{ url(config('app.storage'), $item->product?->images->first()?->image) }}" 
                                             alt="{{ $item->product->name }}"
                                         >
@@ -54,11 +53,7 @@
                         </div>
                     @empty
                         <div class="flex justify-center py-8">
-                            <img 
-                                class="w-32 h-32" 
-                                src="/assets/imgs/empty-cart.png" 
-                                alt="Cart empty"
-                            >
+                            <img class="w-32 h-32" src="/assets/imgs/empty-cart.png" alt="{{ __("Empty order") }}">
                         </div>
                     @endforelse
                 </div>

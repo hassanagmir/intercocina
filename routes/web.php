@@ -75,6 +75,11 @@ Route::prefix('event')->group(function () {
 });
 
 
+Route::get('wardrobe', function () {
+    return view('wardrobe');
+})->name('wardrobe');
+
+
 Route::prefix('blogs')->group(function () {
     Route::get('', [PostController::class, 'index'])->name('post.index');
     Route::get('{post:slug}', [PostController::class, 'show'])->name('post.show');

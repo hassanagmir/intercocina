@@ -77,7 +77,6 @@
                             <p class="text-lg font-medium text-gray-900 dark:text-white">
                                 @if ($this->record?->user?->name)
                                     {{ ucwords($this->record?->user?->name) }}
-                                    
                                 @else
                                     {{ ucwords($this->record?->user?->full_name) }}
                                 @endif

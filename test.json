@@ -1,0 +1,20 @@
+{
+    "name": "Wordrobe",
+    "hight": 180,
+    "width": 80,
+    "depth": 50,
+    "rows": [
+        {
+            "id" : "A1",
+            "columns": 3
+        },
+        {
+            "id" : "A2",
+            "columns": 2
+        },
+        {
+            "id" : "A3",
+            "columns": 3
+        }
+    ]
+}

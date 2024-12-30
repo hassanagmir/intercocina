@@ -35,6 +35,7 @@ class OrderController extends Controller
         return view('order.show', compact('order', 'title'));
     }
 
+
     public function index() {
         return \App\Http\Resources\OrderResource::collection(Order::all());
     }
