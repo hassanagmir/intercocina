@@ -75,9 +75,7 @@ Route::prefix('event')->group(function () {
 });
 
 
-Route::get('wardrobe', function () {
-    return view('wardrobe');
-})->name('wardrobe');
+
 
 
 Route::prefix('blogs')->group(function () {
@@ -103,6 +101,10 @@ Route::get('upload', function () {
 Route::get('/placard', function () {
     return view('placard');
 });
+
+Route::get('wardrobe', function () {
+    return view('wardrobe');
+})->name('wardrobe');
 
 Route::get('/scan', function () {
     return view('scan');
