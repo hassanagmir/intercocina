@@ -9,7 +9,7 @@ use Livewire\Component;
 class CreateWardrobe extends Component
 {
 
-    #[Validate('required|numeric|min:16|max:22')] 
+    #[Validate('required|numeric|min:16|max:22')]
     public $thickness;
 
     #[Validate('required|numeric')]
@@ -27,6 +27,9 @@ class CreateWardrobe extends Component
     #[Validate('required|numeric:max:200|min:50')]
     public $depth;
 
+
+    public $selectedColor = null;
+
     public $result = [
         'thickness' => '',
         'color' => '',
@@ -37,15 +40,12 @@ class CreateWardrobe extends Component
     ];
 
 
+    public function generate()
+    {
 
-    public function generate(){
-
-
-        // $this->validate();
-        $color = PanelColor::find($this->color);
         $this->result = [
             'thickness' => $this->thickness,
-            'color' => $color->name,
+            'color' => PanelColor::find($this->color),
             'doorType' => $this->doorType,
             'width' =>  $this->width,
             'height' =>   $this->height,
@@ -63,7 +63,4 @@ class CreateWardrobe extends Component
         }
         return view('livewire.create-wardrobe', compact('colors'));
     }
-
-
- 
 }
