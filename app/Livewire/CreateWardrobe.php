@@ -3,17 +3,55 @@
 namespace App\Livewire;
 
 use App\Models\PanelColor;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CreateWardrobe extends Component
 {
 
+    #[Validate('required|numeric|min:16|max:22')] 
     public $thickness;
+
+    #[Validate('required|numeric')]
     public $color;
+
+    #[Validate('required')]
     public $doorType;
+
+    #[Validate('required|numeric|max:500|min:60')]
     public $width;
+
+    #[Validate('required|numeric|max:300|min:100')]
     public $height;
+
+    #[Validate('required|numeric:max:200|min:50')]
     public $depth;
+
+    public $result = [
+        'thickness' => '',
+        'color' => '',
+        'doorType' => '',
+        'width' => '',
+        'height' => '',
+        'depth' => '',
+    ];
+
+
+
+    public function generate(){
+
+
+        // $this->validate();
+        $color = PanelColor::find($this->color);
+        $this->result = [
+            'thickness' => $this->thickness,
+            'color' => $color->name,
+            'doorType' => $this->doorType,
+            'width' =>  $this->width,
+            'height' =>   $this->height,
+            'depth' => $this->depth,
+        ];
+    }
 
 
     public function render()
@@ -25,4 +63,7 @@ class CreateWardrobe extends Component
         }
         return view('livewire.create-wardrobe', compact('colors'));
     }
+
+
+ 
 }

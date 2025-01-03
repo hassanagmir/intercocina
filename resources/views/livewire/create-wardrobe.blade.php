@@ -24,8 +24,6 @@
             </label>
         </div>
     </div>
-
-
     <div class="mx-auto container px-4 sm:px-6 lg:px-8 bg-white border shadow-sm rounded-xl mt-4 py-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div class="grid grid-cols-2 gap-2">
@@ -43,28 +41,94 @@
                     <label for="Profondeur">Profondeur (cm)</label>
                     <input type="number" wire:model.change="depth" placeholder="Profondeur" max="200" min="20" class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"  />
                 </div>
-
-                <div class="w-full max-w-sm">
-                    <label for="Profondeur">Epaisser en mm</label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <label class="group relative border-2 border-gray-200 rounded-xl cursor-pointer hover:shadow-md transition-all duration-300 h-10 w-24">
-                            <input type="radio" wire:model.change="thickness" name="thickness" value="16" class="peer hidden">
-                            <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-500 peer-checked:bg-blue-50/50 rounded-xl transition-all duration-300 flex justify-center items-center">16</div>
-                        </label>
-                        <label class="group relative border-2 border-gray-200 rounded-xl cursor-pointer hover:shadow-md transition-all duration-300 h-10 w-24">
-                            <input type="radio" wire:model.change="thickness" name="thickness" value="12" class="peer hidden">
-                            <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-500 peer-checked:bg-blue-50/50 rounded-xl transition-all duration-300 flex justify-center items-center">18</div>
-                        </label>
-                        <label class="group relative border-2 border-gray-200 rounded-xl cursor-pointer hover:shadow-md transition-all duration-300 h-10 w-24">
-                            <input type="radio" wire:model.change="thickness" name="thickness" value="22" class="peer hidden">
-                            <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-500 peer-checked:bg-blue-50/50 rounded-xl transition-all duration-300 flex justify-center items-center">22</div>
-                        </label>
-                    </div>
+            </div>
+            <div class="w-full max-w-sm">
+                <label for="Profondeur">Epaisser en mm</label>
+                <div class="grid grid-cols-3 gap-6">
+                    <label class="group relative border-2 border-gray-200 rounded-xl cursor-pointer hover:shadow-md transition-all duration-300 h-10 w-24">
+                        <input type="radio" wire:model.change="thickness" name="thickness" value="16" class="peer hidden">
+                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-500 peer-checked:bg-blue-50/50 rounded-xl transition-all duration-300 flex justify-center items-center">16</div>
+                    </label>
+                    <label class="group relative border-2 border-gray-200 rounded-xl cursor-pointer hover:shadow-md transition-all duration-300 h-10 w-24">
+                        <input type="radio" wire:model.change="thickness" name="thickness" value="12" class="peer hidden">
+                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-500 peer-checked:bg-blue-50/50 rounded-xl transition-all duration-300 flex justify-center items-center">18</div>
+                    </label>
+                    <label class="group relative border-2 border-gray-200 rounded-xl cursor-pointer hover:shadow-md transition-all duration-300 h-10 w-24">
+                        <input type="radio" wire:model.change="thickness" name="thickness" value="22" class="peer hidden">
+                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-500 peer-checked:bg-blue-50/50 rounded-xl transition-all duration-300 flex justify-center items-center">22</div>
+                    </label>
                 </div>
             </div>
         </div>
-    </div>
+        <div x-data="{modalIsOpen: false}">
+            <button @click="modalIsOpen = true" wire:click="generate()" type="button" class="cursor-pointer whitespace-nowrap rounded-md bg-red-600 mt-2 px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:bg-white dark:text-black dark:focus-visible:outline-white">
+                Valider
+            </button>
+            <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" @keydown.esc.window="modalIsOpen = false" @click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                <!-- Modal Dialog -->
+                <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-md border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+                    <!-- Dialog Header -->
+                    <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
+                        <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">Special Offer</h3>
+                        <button @click="modalIsOpen = false" aria-label="close modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Dialog Body -->
+                    <div class="grid grid-cols-2 gap-4 p-4">
+                        <ol class="max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400 p-4">
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Hauteur")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['height'] }}</span> 
+                            </li>
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Largeur")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['width'] }}</span> 
+                            </li>
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Profondeur")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['depth'] }}</span> 
+                            </li>
 
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Epaisser")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['color']->thickness }}</span> 
+                            </li>
+                        </ol>
+
+                        <ol class="max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400 p-4">
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Couleur")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['color']->name }}</span> 
+                            </li>
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Ref de couleur")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['color']->code }}</span> 
+                            </li>
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Profondeur")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['depth'] }}</span> 
+                            </li>
+
+                            <li>
+                                <span class="font-semibold text-gray-600 dark:text-white">{{ __("Epaisser")}}</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $result['thickness'] }}</span> 
+                            </li>
+                        </ol>
+                    </div>
+                   
+                        
+
+                    <!-- Dialog Footer -->
+                    <div class="flex flex-col-reverse justify-between gap-2 border-t border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20 sm:flex-row sm:items-center md:justify-end">
+                        <button @click="modalIsOpen = false" type="button" class="cursor-pointer whitespace-nowrap rounded-md px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:text-neutral-300 dark:focus-visible:outline-white">Remind me later</button>
+                        <button @click="modalIsOpen = false" type="button" class="cursor-pointer whitespace-nowrap rounded-md bg-black px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:bg-white dark:text-black dark:focus-visible:outline-white">Upgrade Now</button>
+                    </div>
+                </div>
+            </div>
+    </div>
 
     <div class="mx-auto container px-4 sm:px-6 lg:px-8 bg-white border shadow-sm rounded-xl mt-4 py-4">
         <h2 class="text-xl mb-2">Couleurs</h2>
@@ -86,5 +150,7 @@
             </label>
             @endforeach
         </div>
+    </div>
+
     </div>
 </div>
