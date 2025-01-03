@@ -66,7 +66,7 @@
             </button>
             <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" @keydown.esc.window="modalIsOpen = false" @click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
                 <!-- Modal Dialog -->
-                <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-md border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+                <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-4xl flex-col gap-4 overflow-hidden rounded-md border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
                     <!-- Dialog Header -->
                     <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
                         <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white"> Votre placard</h3>
@@ -77,8 +77,8 @@
                         </button>
                     </div>
                     <!-- Dialog Body -->
-                    <div class="grid grid-cols-2 gap-4 p-4">
-                        <ul class="max-w-md space-y-1 text-gray-500 dark:text-gray-400 p-4">
+                    <div class="grid grid-cols-3 gap-4 p-4">
+                        <ul class="max-w-md space-y-4 text-gray-500 dark:text-gray-400 p-4">
                             <li>
                                 <span class="font-semibold text-gray-600 dark:text-white">{{ __("Hauteur")}}: </span>
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ $result['height'] }} cm</span> 
@@ -98,7 +98,7 @@
                             </li>
                         </ul>
 
-                        <ul class="max-w-md space-y-1 text-gray-500 dark:text-gray-400 p-4">
+                        <ul class="max-w-md space-y-4 text-gray-500 dark:text-gray-400 p-4">
                             <li>
                                 <span class="font-semibold text-gray-600 dark:text-white">{{ __("Couleur")}} : </span>
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ $result['color'] ? $result['color']->name : "N/E" }}</span> 
@@ -108,6 +108,12 @@
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ $result['color'] ? $result['color']?->code : "N/E" }}</span> 
                             </li>
                         </ul>
+
+                        <div class="max-w-md space-y-1 text-gray-500 dark:text-gray-400 p-4">
+                            @if ($result['color'])
+                            <img class="w-full rounded-md" src="{{ Storage::url($result['color']->image) }}" alt="">
+                            @endif
+                        </div>
                     </div>
                     <!-- Dialog Footer -->
                     <div class="flex flex-col-reverse justify-between gap-2 border-t border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20 sm:flex-row sm:items-center md:justify-end">
@@ -141,6 +147,5 @@
             @endforeach
         </div>
     </div>
-
     </div>
 </div>
