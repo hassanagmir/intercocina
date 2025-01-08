@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
 use App\Http\Controllers\UserController;
 use App\Models\City;
+use App\Models\Collection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -50,6 +52,7 @@ Route::prefix('user')->group(function () {
 
 Route::prefix('')->group(function () {
     Route::get('produits', [ProductController::class, 'list'])->name("products");
+    Route::get('shop', [ProductController::class, 'list'])->name("products");
 });
 
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
@@ -76,6 +79,9 @@ Route::prefix('event')->group(function () {
 
 
 
+Route::controller(CollectionController::class)->prefix('collections')->group(function () {
+    Route::get('{collection:slug}', 'show')->name('collection.show');
+});
 
 
 Route::prefix('blogs')->group(function () {

@@ -39,6 +39,7 @@
         </div>
     </div>
 </x-header>
+
 <section class="md:py-12">
     <div class="px-4 py-16 md:max-w-5xl md:mx-auto">
         <h2 class="mb-4 text-2xl font-bold text-center md:text-4xl" x-animate.intersect="fadeInUp">
@@ -123,8 +124,13 @@
                 
             </div>
         </div>
+
+        {{--  --}}
+        
     </div>
 </section>
+
+@livewire('home-collection')
 <section class="py-20 my-4 overflow-x-hidden bg-accent-gray-50">
     <div class="px-3 max-w-3xl m-auto">
        <div class="">
