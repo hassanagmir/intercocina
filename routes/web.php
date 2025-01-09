@@ -55,6 +55,7 @@ Route::prefix('')->group(function () {
     Route::get('shop', [ProductController::class, 'list'])->name("products");
 });
 
+
 Route::get("product/{product:slug}", [ProductController::class, 'show'])->name('product.show');
 Route::get('category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('address/list', [AddressController::class, 'list'])->name('address.list');

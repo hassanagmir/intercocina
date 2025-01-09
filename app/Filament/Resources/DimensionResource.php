@@ -17,7 +17,8 @@ class DimensionResource extends Resource
 {
     protected static ?string $model = Dimension::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrows-pointing-out';
+
 
     protected static ?string $recordTitleAttribute = "dimension";
 
@@ -72,7 +73,7 @@ class DimensionResource extends Resource
                             ->preload()
                             ->placeholder("...")
                             ->relationship('product', 'name'),
-                            
+
                         Forms\Components\Select::make('weight_unit')
                             ->label(__("L'unité de poids"))
                             ->placeholder("__")
