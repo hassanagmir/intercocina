@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
-    
 
-    public function show(Collection $collection){
+
+    public function show(Collection $collection)
+    {
         $products = $collection->products;
         $title = $collection->title;
-        return view('collection.show', compact('collection', 'products', 'title'));
+        $description = $collection->description;
+        return view('collection.show', compact('collection', 'products', 'title', 'description'));
     }
 }
