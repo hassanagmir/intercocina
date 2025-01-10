@@ -41,6 +41,8 @@ class User extends Authenticatable implements HasName, FilamentUser
         'password',
     ];
 
+
+
     public function sendPasswordResetNotification($token)
     {
         try {
@@ -51,9 +53,11 @@ class User extends Authenticatable implements HasName, FilamentUser
        
     }
 
+
     public function city(){
         return $this->belongsTo(City::class);
     }
+
 
     public function getFilamentName(): string
     {
@@ -65,6 +69,7 @@ class User extends Authenticatable implements HasName, FilamentUser
             return $this->email;
         }
     }
+
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -99,6 +104,7 @@ class User extends Authenticatable implements HasName, FilamentUser
             'status' => UserStatusEnum::class
         ];
     }
+    
 
     public function getActivitylogOptions(): LogOptions
     {
