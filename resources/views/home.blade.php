@@ -59,74 +59,7 @@
                 {{ __("Voir Plus") }}
             </a>
         </div>
-        <div class="w-full mt-5" x-animate.intersect.threshold.75="zoomIn">
-            <div class="bg-accent-red rounded-3xl grid md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-2 gap-10 px-6 md:px-10 py-12">
-                <div class="px-0 w-full h-full">
-                    <div class="relative flex items-center w-full h-full">
-                        <div class="relative flex justify-center rounded-xl left-0 top-0 w-full h-full px-4 z-10 bg-[#dddddd]">
-                            <img loading="lazy" class="rounded-2xl p-6 h-[500px]" src="https://www.centimetre.com/bundles/pdepsite/img/placard/anim-exploded/elements/penderie_tablette.png" alt="INTERCOCINA SAL" title="INTERCOCINA SAL">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="">
-                    <h2 class="text-3xl text-left md:text-4xl font-bold text-white" x-animate.intersect.threshold.75="fadeInRight">
-                        {{ __("Placards de rangement sur-mesure") }}
-                    </h2>
-                    <div>
-                        <p class="text-white text-start" x-animate.intersect.threshold.75="fadeInRight">
-                            Avec nos Placards, que nous fabriquons sur commande pour répondre à vos exigences spécifiques en matière de rangement, Nous utilisons des matériaux agglomérés et MDF de haute qualité pour assurer durabilité et résistance, et offrons un large éventail de couleurs et de finitions. 
-                            Grâce à nos marques de confiance Intermate 18mm et 22mm.
-                        </p>
-                        <ul>
-                            <li class="flex gap-2 items-center text-md mt-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"/></svg>
-                                <span>Panneaux MDF et Aggloméré de haut quality</span>
-                            </li>
-
-
-                            <li class="flex gap-2 items-center text-md mt-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"/></svg>
-                                <span>Épaisseur de votre choix (16, 18, 22) mm</span>
-                            </li>
-
-                            
-
-                            <li class="flex gap-2 items-center text-md mt-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"/></svg>
-                                <span> Plus de 30 couleur disponible </span>
-                            </li>
-
-
-                            <li class="flex gap-2 items-center text-md mt-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"/></svg>
-                                <span> +20 Type de poignées </span>
-                            </li>
-
-                            <li class="flex gap-2 items-center text-md mt-4 text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M268 112l144 144-144 144M392 256H100"/></svg>
-                                <span> Fabrication rapide</span>
-                            </li>
-
-                        </ul>
-                        <div class="py-10 flex md:justify-start justify-center gap-4">
-                            <a href="" class="btn btn-accent-white-filled" x-animate.intersect.threshold.75="fadeInRight">
-                                {{ __("Voir Plus") }}
-                            </a>
-
-                            <a href="{{ route('contact') }}" class="btn btn-accent-white-filled" x-animate.intersect.threshold.75="fadeInRight">
-                                {{ __("Contactez-nous")}}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-    
-                
-            </div>
-        </div>
-
-        {{--  --}}
-        
+        {{-- Placrds --}}
     </div>
 </section>
 

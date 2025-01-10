@@ -170,6 +170,7 @@ class UserResource extends Resource
                                     ->schema([
                                         Forms\Components\Select::make('category_id')
                                             ->relationship('category', 'name')
+                                            ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                                             ->label(__("Category"))
                                             ->preload()
                                             ->searchable()

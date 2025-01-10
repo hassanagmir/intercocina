@@ -162,8 +162,6 @@ Route::post('export-client', function (Request $request) {
             } else {
                 $email =  strtolower($item['code'] . "@client.com");
             }
-
-
             if (User::where("email", $email)->count() < 1) {
                 User::firstOrCreate(['code' => $item['code']], [
                     'first_name' => isset($item['first_name']) ? $item['first_name'] : null,
