@@ -7,6 +7,9 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
+
+
 
 class ListUsers extends ListRecords
 {
@@ -30,6 +33,11 @@ class ListUsers extends ListRecords
             'ALL' => Tab::make()
                 ->label(__("Tout"))
                 ->icon("heroicon-o-wallet"),
+
+            'NEW' => Tab::make()
+                ->label(__("Nouveau"))
+                ->icon("heroicon-o-calendar")
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('created_at', '>=', Carbon::now()->subDays(30))),
 
             'INACTIF' => Tab::make()
                 ->label(__("Inactif"))
