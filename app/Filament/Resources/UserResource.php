@@ -64,9 +64,11 @@ class UserResource extends Resource
                                     ->columnSpanFull()
                                     ->avatar(),
                                 Forms\Components\TextInput::make('name')
+                                     ->unique(ignoreRecord: true)
                                     ->label(__("Entreprise"))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('code')
+                                    ->unique(ignoreRecord: true)
                                     ->label(__("Numéro"))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('first_name')
@@ -87,12 +89,14 @@ class UserResource extends Resource
                                     ->label(__("Genre")),
                                 Forms\Components\TextInput::make('phone')
                                     ->label(__("Téléphone"))
+                                    ->unique(ignoreRecord: true)
                                     ->tel()
                                     ->maxLength(255),
 
                                 Forms\Components\TextInput::make('email')
                                     ->label(__("E-mail"))
                                     ->email()
+                                    ->unique(ignoreRecord: true)
                                     ->maxLength(255),
 
 
@@ -145,6 +149,7 @@ class UserResource extends Resource
 
                                         Forms\Components\TextInput::make('phone')
                                             ->label(__("Téléphone"))
+                                            ->unique(ignoreRecord: true)
                                             ->tel()
                                             ->required()
                                             ->maxLength(255),
@@ -156,6 +161,7 @@ class UserResource extends Resource
                                             ->required(),
                                         Forms\Components\TextInput::make('email')
                                             ->label(__("E-mail"))
+                                            ->unique(ignoreRecord: true)
                                             ->email()
                                             ->maxLength(255),
                                     ])

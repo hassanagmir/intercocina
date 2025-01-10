@@ -55,6 +55,10 @@ class CollectionResource extends Resource
                                 Forms\Components\FileUpload::make('image')
                                     ->label(__("Image")),                                
                                 Forms\Components\DatePicker::make('end_date')
+                                    ->displayFormat('d F Y')
+                                    ->closeOnDateSelection()
+                                    ->locale('fr')
+                                    ->native(false)
                                     ->label(__("Date de fin")),
                                 Forms\Components\Toggle::make('status')
                                     ->label(__("État"))
