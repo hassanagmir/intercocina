@@ -15,7 +15,7 @@
         "@type": "Offer",
         "url": "{{ request()->fullUrl() }}",
         "priceCurrency": "MAD",
-        "price": "{{ $product->dimensions ? $product->dimensions->first()->price : $product->price }}",
+        "price": "{{ count($product->dimensions) ? $product->dimensions->first()->price : $product->price }}",
         "availability": "https://schema.org/InStock",
         "itemCondition": "https://schema.org/NewCondition"
       },
