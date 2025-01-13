@@ -44,6 +44,8 @@
             opacity: 1;
         }
 
+
+
         @font-face {
             font-family: 'DOCK11-Heavy';
             src: url('/fonts/DOCK11-Heavy.ttf.woff') format('woff'),
@@ -52,6 +54,51 @@
                 url('/fonts/DOCK11-Heavy.eot?#iefix') format('embedded-opentype');
             font-weight: normal;
             font-style: normal;
+        }
+
+
+        /* Image wrapper styles */
+        .image-wrapper {
+            min-height: 100%;
+            position: relative;
+        }
+
+        /* Loading spinner */
+        .loading::after {
+            content: '';
+            position: absolute;
+            background-image: url('https://inter.facepy.com/assets/imgs/placeholder-image.webp');
+            background-size: cover; /* Ensure the image covers the element */
+            background-position: center; /* Center the image */
+            width: 100%; /* Adjust width as needed */
+            height: 100%; /* Adjust height as needed */
+            display: block; /* Ensure it displays as a block */
+        }
+
+
+        /* @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        } */
+
+        /* Image styles */
+        .lazy-image {
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: block;
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+        }
+
+        /* Error message styles */
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            padding: 20px;
+            display: none;
         }
     </style>
 </head>
@@ -63,5 +110,62 @@
         <x-footer />
         @livewireScriptConfig
         <x-whatsapp-button />
+
+        <script>
+            function lazyLoading() {
+                // Wait for DOM to be ready
+                document.addEventListener('DOMContentLoaded', () => {
+                    // Create intersection observer
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const wrapper = entry.target;
+                                const img = wrapper.querySelector('.lazy-image');
+                                const errorMsg = wrapper.querySelector('.error-message');
+
+                                if (img && !img.src && img.dataset.src) {
+                                    // Load the image
+                                    img.src = img.dataset.src;
+
+                                    // Handle successful load
+                                    img.onload = () => {
+                                        wrapper.classList.remove('loading');
+                                        img.classList.add('loaded');
+                                    };
+
+                                    // Handle load error
+                                    img.onerror = () => {
+                                        wrapper.classList.remove('loading');
+                                        errorMsg.style.display = 'block';
+                                    };
+
+                                    // Stop observing after loading starts
+                                    observer.unobserve(wrapper);
+                                }
+                            }
+                        });
+                    }, {
+                        root: null,
+                        rootMargin: '50px',
+                        threshold: 0.1
+                    });
+
+                    // Start observing all image wrappers
+                    document.querySelectorAll('.image-wrapper').forEach(wrapper => {
+                        observer.observe(wrapper);
+                    });
+                });
+            }
+
+            lazyLoading();
+            document.addEventListener('livewire:load', () => {
+                lazyLoading();
+            });
+
+            document.addEventListener('livewire:update', () => {
+                lazyLoading();
+            });
+
+        </script>
     </body>
 </html>

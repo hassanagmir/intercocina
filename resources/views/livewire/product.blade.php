@@ -12,11 +12,8 @@
                     target="_blank"
                     class="swiper-slide mt-0"
                 >
-                    <img
-                        src="{{ url(config('app.storage'), $image->image) }}" 
-                        alt=""
-                        class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0"
-                    />
+
+                <x-image image="{{ url(config('app.storage'), $image->image) }}" alt="{{ $product->name}}" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0" />
                 </a>
                 @endforeach
             </div>

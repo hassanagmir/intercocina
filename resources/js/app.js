@@ -56,7 +56,7 @@ function initSwiper() {
     });
     var swiper = new Swiper(".main-slide-carousel", {
         slidesPerView: 1,
-        loop:true,
+        loop: true,
         thumbs: {
             swiper: swiper_thumbs,
         },
@@ -77,7 +77,7 @@ function initSwiperPlacard() {
     });
     var swiper = new Swiper(".main-placard-carousel", {
         slidesPerView: 1,
-        loop:true,
+        loop: true,
         thumbs: {
             swiper: swiper_thumbs,
         },
@@ -89,13 +89,23 @@ initSwiperPlacard()
 
 initSwiper()
 
+
+Livewire.start();
+
+
+
 Livewire.hook('morph.updated', ({ el, component }) => {
-    initSwiper()
+    lazyLoading();
+    initSwiper();
+    
 })
+
+
 
 
 // Alerts
 document.addEventListener('livewire:init', () => {
+    lazyLoading();
     Livewire.on('add-to-cart', (event) => {
         cuteToast({
             "type": "success",
@@ -114,7 +124,7 @@ document.addEventListener('livewire:init', () => {
 
 
 
-Livewire.start();
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -188,22 +198,22 @@ const swiper = new Swiper('.swiper-evnet', {
 
 var swiperHead = new Swiper(".header-swiper", {
     spaceBetween: 30,
-    loop:true,
+    loop: true,
     simulateTouch: false,
     centeredSlides: true,
     autoplay: {
-      delay: 6500,
-      disableOnInteraction: false,
+        delay: 6500,
+        disableOnInteraction: false,
     },
     pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
+        el: ".swiper-pagination",
+        clickable: true,
     },
     navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
     },
-  });
+});
 
 
 
@@ -237,7 +247,7 @@ const adsSwiper = new Swiper('.swiper-ads', {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
     },
-    
+
 });
 
 
