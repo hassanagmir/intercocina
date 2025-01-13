@@ -16,8 +16,9 @@ class ProductController extends Controller
 
 
         $title = $product->name;
+        $image = $product->images?->first()?->image;
         $description = $product->description;
-        return view('product.show', compact('product', 'products', 'title', 'description'));
+        return view('product.show', compact('product', 'products', 'title', 'description', 'image'));
     }
 
     public function list(){

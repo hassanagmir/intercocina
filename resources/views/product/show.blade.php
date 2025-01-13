@@ -1,5 +1,49 @@
 @extends('layouts.base')
 @section('content')
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "{{ $product->name }}",
+      "description": "{{ $product->description ?  $product->description : $product->type->description }}",
+      "image": "{{ url(config('app.storage'), $image) }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "INTERCOCINA"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ request()->fullUrl() }}",
+        "priceCurrency": "MAD",
+        "price": "{{ $product->dimensions ? $product->dimensions->first()->price : $product->price }}",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "INTERCOCINA"
+      },
+      "review": {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "4.5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Hassan Agmir"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "89",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    }
+    </script>
 <section class="py-6 md:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         @livewire('product', ['product' => $product], key($product->id))

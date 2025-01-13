@@ -249,13 +249,11 @@
                     Vous pouvez également saisir votre email pour exprimer votre intérêt! Nous vous contacterons dès
                     que la prochaine session sera disponible.
                 </p>
-
             </div>
         </div>
         <div x-animate.intersect="fadeInLeft" class="animate__animated animate__fadeInLeft" style="--animate-duration: 1s;">
             @livewire('contact-form')
         </div>
-
     </div>
 
     <div class="absolute z-0 rounded-full bg-accent-blue w-28 h-28 md:w-80 md:h-80 md:-top-36 md:-right-28 -top-12 -right-6 animate__animated animate__zoomIn" x-animate="zoomIn" style="--animate-duration: 1s;">
@@ -267,8 +265,6 @@
 
 <hr class="bg-gray-200 border-0">
 @if (!config("app.debug"))
-    
+    @livewire('ads')
 @endif
-@livewire('ads')
-
 @endsection
