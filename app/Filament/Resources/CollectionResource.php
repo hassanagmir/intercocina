@@ -26,7 +26,7 @@ class CollectionResource extends Resource
 
                 Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\components\Section::make()
+                        Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                     ->label(__("Titre"))

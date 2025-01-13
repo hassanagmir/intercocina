@@ -5,7 +5,7 @@
     <div class="w-full md:w-9/12">
         <h1 class="text-2xl font-semibold mb-4">{{ $collection->title }}</h1>
         <p class="mb-3">{{ $collection->description }}</p>
-        <img class="mb-4 rounded-lg" src="{{ asset('assets/ads/ads-10-25.png')}}" alt="">
+        <img class="mb-4 rounded-lg" src="{{ asset('assets/ads/offres.webp')}}" alt="">
         <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
             @forelse ($products as $product)
                 <x-product-card

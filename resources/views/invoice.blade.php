@@ -18,11 +18,11 @@
             <table class="w-full">
                 <tr>
                     <td class="w-1/2 border-none">
-                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('invoice-logo.png'))) }}" alt="Intercocina Logo" class="w-[302px] h-[133px]">
+                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets\imgs\invoice-logo.png'))) }}" alt="Intercocina Logo" class="w-[302px] h-[133px]">
                     </td>
                     <td class="w-1/2 text-center border-none">
                         <p class="mb-2.5 font-bold text-red-500 text-sm">Pour Consulter l'attestation de regularite fiscale</p>
-                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('tax.png'))) }}" alt="Tax Info" class="w-16 mx-auto">
+                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets\imgs\tax.png'))) }}" alt="Tax Info" class="w-16 mx-auto">
                         <div class="flex justify-between px-1">
                             <strong>Espace Cuisine</strong>
                             <strong>CL566</strong>
