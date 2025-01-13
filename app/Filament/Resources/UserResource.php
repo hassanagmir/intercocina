@@ -64,7 +64,7 @@ class UserResource extends Resource
                                     ->columnSpanFull()
                                     ->avatar(),
                                 Forms\Components\TextInput::make('name')
-                                     ->unique(ignoreRecord: true)
+                                    ->unique(ignoreRecord: true)
                                     ->label(__("Entreprise"))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('code')
@@ -98,8 +98,6 @@ class UserResource extends Resource
                                     ->email()
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
-
-
                                 // Forms\Components\TextInput::make('password')
                                 //     ->label("Mot de passe")
                                 //     ->password(),

@@ -1,4 +1,4 @@
-<section class="max-w-7xl flex m-auto py-16 px-4 overflow-hidden space-y-10">
+<section class="max-w-5xl m-auto py-16 px-4 overflow-hidden space-y-10">
  @if ($collections->count())
     <div>
         <div class="md:max-w-5xl md:mx-auto mb-5">
