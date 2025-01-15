@@ -9,6 +9,7 @@ use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Dimension;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -20,9 +21,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
-
-
+use Illuminate\Support\Facades\DB;
 
 class OrderResource extends Resource
 {
@@ -117,7 +116,7 @@ class OrderResource extends Resource
                                     ->numeric(),
 
                                 Forms\Components\Select::make('dimension_id')
-                                    ->relationship('dimension', 'dimension')
+                                    ->relationship('dimension', 'dimension', fn($query) => $query->whereNotNull("dimension"))
                                     ->afterStateUpdated(function (Set $set, Get $get) {
                                         if ($get('dimension_id') && $get('quantity')) {
                                             $dimension = Dimension::find($get('dimension_id'));
@@ -188,9 +187,7 @@ class OrderResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('user_id')
                                     ->label(__("Client"))
-                                    ->relationship('user', "full_name")
-                                    ->searchable()
-                                    ->preload()
+                                    ->options(User::whereNotNull('name')->pluck('name', 'id'))
                                     ->required(),
                                 Forms\Components\TextInput::make('code')
                                     ->label(__("Code"))

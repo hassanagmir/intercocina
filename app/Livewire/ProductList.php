@@ -53,12 +53,11 @@ class ProductList extends Component
             $products = collect([]);
         } else {
             $type = Type::where('slug', $this->type)
-                ->with(['products' => function($query) {
+                ->with(['products' => function ($query) {
                     $query->whereNot("status", 2)
-                          ->with(['images' => function($q) {
-                              $q->orderBy('order');
-                          }, 'type.category']);
-                        //   ->take($this->amount);
+                        ->with(['images' => function ($q) {
+                            $q->orderBy('order');
+                        }, 'type.category']);
                 }])
                 ->orderBy('order')
                 ->firstOrFail();
