@@ -59,7 +59,6 @@
 
         /* Image wrapper styles */
         .image-wrapper {
-            min-height: 100%;
             position: relative;
         }
 
@@ -110,64 +109,5 @@
         <x-footer />
         @livewireScriptConfig
         <x-whatsapp-button />
-
-        <script>
-            function lazyLoading() {
-                // Wait for DOM to be ready
-                document.addEventListener('DOMContentLoaded', () => {
-                    // Create intersection observer
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                const wrapper = entry.target;
-                                const img = wrapper.querySelector('.lazy-image');
-                                const errorMsg = wrapper.querySelector('.error-message');
-
-                                if (img && !img.src && img.dataset.src) {
-                                    // Load the image
-                                    img.src = img.dataset.src;
-
-                                    // Handle successful load
-                                    img.onload = () => {
-                                        wrapper.classList.remove('loading');
-                                        img.classList.add('loaded');
-                                    };
-
-                                    // Handle load error
-                                    img.onerror = () => {
-                                        wrapper.classList.remove('loading');
-                                        errorMsg.style.display = 'block';
-                                    };
-
-                                    // Stop observing after loading starts
-                                    observer.unobserve(wrapper);
-                                }
-                            }
-                        });
-                    }, {
-                        root: null,
-                        rootMargin: '50px',
-                        threshold: 0.1
-                    });
-
-                    // Start observing all image wrappers
-                    document.querySelectorAll('.image-wrapper').forEach(wrapper => {
-                        observer.observe(wrapper);
-                    });
-                });
-            }
-
-            // lazyLoading();
-            document.addEventListener('livewire:load', () => {
-                lazyLoading();
-            });
-
-            document.addEventListener('livewire:update', () => {
-                console.log("Working");
-                
-                lazyLoading();
-            });
-
-        </script>
     </body>
 </html>

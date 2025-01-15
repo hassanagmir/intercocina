@@ -90,14 +90,12 @@ initSwiperPlacard()
 initSwiper()
 
 
-Livewire.start();
+
 
 
 
 Livewire.hook('morph.updated', ({ el, component }) => {
-    lazyLoading();
     initSwiper();
-    
 })
 
 
@@ -105,7 +103,6 @@ Livewire.hook('morph.updated', ({ el, component }) => {
 
 // Alerts
 document.addEventListener('livewire:init', () => {
-    lazyLoading();
     Livewire.on('add-to-cart', (event) => {
         cuteToast({
             "type": "success",
@@ -120,8 +117,6 @@ document.addEventListener('livewire:init', () => {
 
     });
 });
-
-
 
 
 
@@ -251,6 +246,71 @@ const adsSwiper = new Swiper('.swiper-ads', {
 });
 
 
+// Create a single observer instance that can be reused
+let observer = null;
+
+function initObserver() {
+    // Clear existing observer if it exists
+    if (observer) {
+        observer.disconnect();
+    }
+
+    observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const wrapper = entry.target;
+                const img = wrapper.querySelector('.lazy-image');
+                const errorMsg = wrapper.querySelector('.error-message');
+
+                if (img && !img.src && img.dataset.src) {
+                    img.src = img.dataset.src;
+                    
+                    img.onload = () => {
+                        wrapper.classList.remove('loading');
+                        img.classList.add('loaded');
+                    };
+
+                    img.onerror = () => {
+                        wrapper.classList.remove('loading');
+                        errorMsg.style.display = 'block';
+                    };
+
+                    observer.unobserve(wrapper);
+                }
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '50px',
+        threshold: 0.1
+    });
+}
+
+function lazyLoading() {
+    // Initialize observer if it doesn't exist
+    if (!observer) {
+        initObserver();
+    }
+
+    // Get all unloaded image wrappers
+    const unloadedWrappers = document.querySelectorAll('.image-wrapper:not(.loaded)');
+    unloadedWrappers.forEach(wrapper => {
+        observer.observe(wrapper);
+    });
+}
+
+// For Livewire 3
+document.addEventListener('livewire:init', () => {
+    lazyLoading();
+});
+
+// Hook into Livewire's morphing system to catch DOM updates
+Livewire.hook('morph.updated', ({ el, component }) => {
+    // Short timeout to ensure DOM is fully updated
+    setTimeout(() => {
+        lazyLoading();
+    }, 100);
+});
 
 
-
+Livewire.start();

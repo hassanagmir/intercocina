@@ -10,10 +10,10 @@
                     data-pswp-width="1669"
                     data-pswp-height="2500"
                     target="_blank"
-                    class="swiper-slide mt-0"
+                    class="swiper-slide mt-0 image-wrapper loading"
                 >
 
-                <x-image image="{{ url(config('app.storage'), $image->image) }}" alt="{{ $product->name}}" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0" />
+                    <x-image image="{{ url(config('app.storage'), $image->image) }}" alt="{{ $product->name}}" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0" />
                 </a>
                 @endforeach
             </div>
@@ -22,7 +22,7 @@
         <div class="swiper nav-for-slider mx-2">
             <div class="swiper-wrapper">
                 @foreach ($product->images()->orderBy('order')->get() as $image)
-                <div class="swiper-slide thumbs-slide">
+                <div class="swiper-slide thumbs-slide image-wrapper loading">
                     <img src="{{ url(config('app.storage'), $image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36">
                 </div>
                 @endforeach

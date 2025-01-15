@@ -34,7 +34,6 @@
                 </svg>
             </button>
             @endforeach
-            
             <a 
                 href="{{ route('search') }}" 
                 class="sm:hidden flex m-auto justify-center items-center cursor-pointer whitespace-nowrap w-full rounded-md bg-gray-600 px-4 py-2.5 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0"

@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-    <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl max-h-96" href="{{ route('product.show', $slug) }}">
+    <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl max-h-96 image-wrapper loading" href="{{ route('product.show', $slug) }}">
       @if ($image)
           <x-image 
               image="{{ url(e(config('app.storage')), e($image)) }}" 
