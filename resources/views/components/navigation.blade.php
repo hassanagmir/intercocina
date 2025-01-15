@@ -121,8 +121,7 @@
                 </div>
 
                 <div class="flex xl:hidden">
-                    <button x-on:click="openMenu = !openMenu" aria-label="navMenu" :aria-expanded="openMenu"
-                        aria-controls="mobNav">
+                    <button x-on:click="openMenu = !openMenu" aria-label="navMenu" :aria-expanded="openMenu" aria-controls="mobNav">
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#ec2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M4 6l16 0"></path>
@@ -131,12 +130,10 @@
                         </svg>
                     </button>
                 </div>
-
             </nav>
         </div>
     </div>
     <hr class="h-px bg-gray-200 border-0">
-
     {{-- Mobile navMenu --}}
     <nav class="fixed top-0 bottom-0 left-0 right-0 p-2 backdrop-blur-sm md:p-6 xl:hidden z-50 hidden" :class="{ 'hidden': ! openMenu }" id="mobNav" x-transition>
         <ul :class="openMenu ? 'translate-x-0' : 'translate-x-full'" class="absolute top-0 bottom-0 right-0 w-10/12 py-8 text-lg transition-all bg-white drop-shadow-2xl">

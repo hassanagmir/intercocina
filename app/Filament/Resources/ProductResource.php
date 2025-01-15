@@ -19,6 +19,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -359,14 +360,20 @@ class ProductResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__("Date de modification"))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->reorderable('order')
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->searchable()
+                    ->multiple()
+                    ->preload()
+                    ->relationship('type', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

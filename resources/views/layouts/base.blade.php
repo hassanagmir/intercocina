@@ -157,12 +157,14 @@
                 });
             }
 
-            lazyLoading();
+            // lazyLoading();
             document.addEventListener('livewire:load', () => {
                 lazyLoading();
             });
 
             document.addEventListener('livewire:update', () => {
+                console.log("Working");
+                
                 lazyLoading();
             });
 

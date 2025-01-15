@@ -1,5 +1,5 @@
 <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-  <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl max-h-96" href="{{ route('product.show', $slug) }}">
+    <a class="relative mx-3 mt-3 flex overflow-hidden rounded-xl max-h-96" href="{{ route('product.show', $slug) }}">
       @if ($image)
           <x-image 
               image="{{ url(e(config('app.storage')), e($image)) }}" 
@@ -17,7 +17,7 @@
               alt="{{ e($name) }}" 
           />
       @endif
-  </a>
+    </a>
   <div class="mt-4 px-5 pb-5">
       <a href="{{ route('product.show', $slug) }}">
           <h3 class="text-lg font-semibold leading-tight text-gray-900 hover:underline">{{ e($name) }}</h3>
