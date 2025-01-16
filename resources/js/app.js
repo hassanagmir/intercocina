@@ -246,16 +246,9 @@ const adsSwiper = new Swiper('.swiper-ads', {
 });
 
 
-// Create a single observer instance that can be reused
-let observer = null;
-
+// Lazy loding
 function initObserver() {
-    // Clear existing observer if it exists
-    if (observer) {
-        observer.disconnect();
-    }
-
-    observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const wrapper = entry.target;
@@ -280,37 +273,66 @@ function initObserver() {
             }
         });
     }, {
+        // Modify these options to better handle initial viewport content
         root: null,
-        rootMargin: '50px',
-        threshold: 0.1
+        rootMargin: '50px 0px 50px 0px', // Increased margins
+        threshold: 0    // Reduced threshold to trigger earlier
     });
+
+    return observer;
 }
 
 function lazyLoading() {
-    // Initialize observer if it doesn't exist
-    if (!observer) {
-        initObserver();
-    }
+    const observer = initObserver();
+    
+    // Get all unloaded wrappers
+    const wrappers = document.querySelectorAll('.image-wrapper:not(.loaded)');
+    
+    wrappers.forEach(wrapper => {
+        // Force load images that are already in viewport on page load
+        const rect = wrapper.getBoundingClientRect();
+        const isInViewport = (
+            rect.top >= -50 && // Added buffer
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight + 50) && // Added buffer
+            rect.right <= window.innerWidth
+        );
 
-    // Get all unloaded image wrappers
-    const unloadedWrappers = document.querySelectorAll('.image-wrapper:not(.loaded)');
-    unloadedWrappers.forEach(wrapper => {
-        observer.observe(wrapper);
+        const img = wrapper.querySelector('.lazy-image');
+        
+        if (isInViewport && img && !img.src && img.dataset.src) {
+            // Immediately load images in viewport
+            img.src = img.dataset.src;
+            
+            img.onload = () => {
+                wrapper.classList.remove('loading');
+                img.classList.add('loaded');
+            };
+            
+            img.onerror = () => {
+                wrapper.classList.remove('loading');
+                wrapper.querySelector('.error-message').style.display = 'block';
+            };
+        } else {
+            // Use Intersection Observer for images outside viewport
+            observer.observe(wrapper);
+        }
     });
 }
 
-// For Livewire 3
+// Initial load
 document.addEventListener('livewire:init', () => {
-    lazyLoading();
-});
-
-// Hook into Livewire's morphing system to catch DOM updates
-Livewire.hook('morph.updated', ({ el, component }) => {
-    // Short timeout to ensure DOM is fully updated
+    // Small delay to ensure DOM is fully ready
     setTimeout(() => {
         lazyLoading();
     }, 100);
 });
 
+// Handle Livewire updates
+Livewire.hook('morph.updated', ({ el, component }) => {
+    setTimeout(() => {
+        lazyLoading();
+    }, 100);
+});
 
 Livewire.start();
