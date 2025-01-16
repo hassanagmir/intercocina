@@ -33,6 +33,7 @@
                                 <div class="md:w-3/4">
                                     <a href="{{ route('product.show', $item->product->slug) }}" class="text-lg font-semibold text-gray-900 hover:text-blue-600">
                                         {{ $item->product->name }} 
+                                        {{ $item->special_height ? $item->special_height . "*" . $item->special_width : ""}}
                                         {{ $dimension }} {{ $item?->product?->unit }}
                                         @if($item->color)
                                             ({{ $item->color->name }})

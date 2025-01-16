@@ -24,6 +24,7 @@
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                               @if ($item->dimension)
                                                   <span class="text-sm text-gray-500 dark:text-gray-400">
+                                                     ({{ $item->special_height ? $item->special_height . "*" . $item->special_width . "mm" : ""}})
                                                       ({{ $item->dimension->height . " x " . $item->dimension->width . " mm" }}) 
                                                   </span>
                                               @endif
@@ -48,7 +49,7 @@
                                             @if ($item->dimension)
                                                 {{ $item->dimension->price * $item->quantity }} MAD
                                             @else
-                                                {{ $item->product->price * $item->quantity }} MAD
+                                                {{ ($item->product->price ? $item->product->price : $item->total) * $item->quantity }} MAD
                                             @endif
                                         </p>
                                         <p class="text-sm text-gray-500 dark:text-gray-400">

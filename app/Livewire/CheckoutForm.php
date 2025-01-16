@@ -59,6 +59,7 @@ class CheckoutForm extends Component
             'address_id' => $this->address,
             'payment' => $this->payment
         ]);
+        // dd(\Cart::getContent());
 
         foreach (\Cart::getContent() as $product) {
             OrderItem::create([
@@ -68,7 +69,9 @@ class CheckoutForm extends Component
                 'quantity' => $product['quantity'],
                 'color_id' => $product['attributes']['color'],
                 'product_id' => $product['attributes']['product_id'],
-                'dimension_id' => $product['attributes']['dimension_id']
+                'dimension_id' => $product['attributes']['dimension_id'],
+                'special_height' => explode("*", $product['attributes']['dimension'])[0],
+                'special_width' => explode("*", $product['attributes']['dimension'])[1],
             ]);
         }
 

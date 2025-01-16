@@ -89,6 +89,7 @@
                 @foreach ($product->attributes as $attribute)
                     <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
                 @endforeach
+                <option value="Spéciale">Spéciale</option>
             </select>
         </div>
         @endif
@@ -111,7 +112,7 @@
                 @endforeach
             </ul>
 
-            @isset($color_error)
+            @if($color_error)
             <div class="my-2 text-red-700 font-semibold flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -124,11 +125,12 @@
 
                 {{ $color_error }}
             </div>
-            @endisset
+            @endif
         @endempty
 
 
         @empty(!$product->dimensions->count())
+        @if ($heights)
         <div class="font-bold">{{ __("Hauteur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
         <ul class="flex flex-wrap w-full gap-3">
             @foreach ($heights as $item)
@@ -142,6 +144,7 @@
             </li>
             @endforeach
         </ul>
+        @endif
 
         @if ($widths)
         <div class="font-bold">{{ __("Largeur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
@@ -157,6 +160,20 @@
             </li>
             @endforeach
         </ul>
+        @endif
+
+        @if ($this->attribute == "Spéciale")
+        <div>
+            <div>
+                <label for="height">Hauteur</label><br>
+                <input min="70" max="2800" type="number" wire:model.live="special_height" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
+            </div>
+            <div>
+                <label for="width">Largeur</label><br>
+                <input min="70" max="2100" type="number" wire:model.live="special_width" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
+            </div>
+        </div>
+        {{ number_format($special_price, 2)}} MAD
         @endif
 
         @if ($dimension_error)
@@ -175,9 +192,7 @@
         @endif
 
         @endempty
-
         <div class="mt-6 sm:flex flex-initial space-y-4 sm:space-y-0 items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
-
             <div x-data="{ qty: $wire.qty }" x-init="$watch('qty', value => $wire.set('qty', value))"
                 class="flex items-center justify-center border border-gray-400 rounded-full">
                 <button @click="if (qty > 1) { qty--; $wire.set('qty', qty) }"
@@ -193,8 +208,7 @@
                 </button>
             </div>
 
-            <button wire:click='add()'
-                class="group border-2 border-red-400 py-3 px-5 rounded-full bg-red-50 text-red-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-red-300 hover:bg-red-100">
+            <button wire:click='add()' class="group border-2 border-red-400 py-3 px-5 rounded-full bg-red-50 text-red-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-red-300 hover:bg-red-100">
                 <svg wire:loading.remove wire:target='add()'
                     class="stroke-red-600 transition-all duration-500 group-hover:red-red-600" width="22"
                     height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">

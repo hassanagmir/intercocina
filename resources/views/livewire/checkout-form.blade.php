@@ -137,7 +137,7 @@
     <div class="space-y-2">
       <dl class="flex items-center justify-between gap-4">
         <dt class="text-base font-normal text-gray-500">{{ __("Prix d'origine")}}</dt>
-        <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() }} MAD</dd>
+        <dd class="text-base font-bold text-gray-900">{{ number_format(\Cart::getTotal()) }} MAD</dd>
       </dl>
   
       {{-- <dl class="flex items-center justify-between gap-4">
@@ -147,13 +147,13 @@
   
       <dl class="flex items-center justify-between gap-4">
         <dt class="text-base font-normal text-gray-500">{{ __("Taxe") }}</dt>
-        <dd class="text-base font-bold text-gray-900">{{ \Cart::getTotal() * 0.2 }} MAD</dd> <!-- 20% of the total -->
+        <dd class="text-base font-bold text-gray-900">{{ number_format(\Cart::getTotal()) * 0.2 }} MAD</dd> <!-- 20% of the total -->
       </dl>
     </div>
   
     <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
       <dt class="text-base font-bold text-gray-900">{{ __("Total") }}</dt>
-      <dd class="text-xl font-black text-gray-900">{{ \Cart::getTotal() * 1.2 }} MAD</dd> <!-- Total including tax -->
+      <dd class="text-xl font-black text-gray-900">{{ number_format(\Cart::getTotal()) * 1.2 }} MAD</dd> <!-- Total including tax -->
     </dl>
   </div>
   

@@ -34,11 +34,35 @@ class Product extends Component
     public $height;
     public $width;
 
+ 
+
     public $color_error;
     public $dimension_error;
 
     public $averageRating = 0;
 
+
+    public $special_height;
+    public $special_width;
+    public $special_price;
+
+    public function updatedSpecialWidth()
+    {
+        $dimension = $this->product->dimensions()->first();
+    
+        if($dimension && $this->special_height && $this->special_width){
+            $originalHeight = $dimension->height;
+            $originalWidth = $dimension->width;
+            $originalPrice = $dimension->price;
+    
+            $newHeight = $this->special_height;
+            $newWidth = $this->special_width;
+    
+            $newPrice = $originalPrice * (($newHeight * $newWidth) / ($originalHeight * $originalWidth));
+    
+            $this->special_price = $newPrice;
+        }
+    }
 
     public function getAvgRating()
     {
@@ -76,7 +100,7 @@ class Product extends Component
         $this->averageRating = $this->getAvgRating();
 
         // Get Ref
-        if($this->product->code){
+        if ($this->product->code) {
             $this->ref = $this->product->code;
         }
 
@@ -84,28 +108,26 @@ class Product extends Component
         // Attributes manager
         if (count($this->product->attributes)) {
             $this->attribute = $this->product->attributes->first()->id;
-            
+
             if ($this->attribute) {
-                
+
                 $this->heights = array_unique($this->product->dimensions()
                     ->where('attribute_id', $this->attribute)
                     ->pluck('height')
                     ->toArray());
-        
+
                 $this->widths = array_unique($this->product->dimensions()
                     ->where('attribute_id', $this->attribute)
                     ->pluck('width')
                     ->toArray());
             }
-        } 
-        
+        }
     }
 
 
 
     public function dimensionChanaged()
     {
-
         // Get dimension ref 
         if($this->dimension){
             $this->ref = $this->dimension->code;
@@ -126,6 +148,8 @@ class Product extends Component
 
     public function updated($property)
     {
+
+        // $this->updateSpecialWidth();
         // Change dimensions if the attribute changed
         if (count($this->product->attributes)) {
             $this->heights = array_unique($this->product->dimensions()
@@ -181,17 +205,65 @@ class Product extends Component
             }
         }
     }
+
+
+    public function specailCart(){
+        $color = $this->color ? $this->color : null;
+
+        if ($this->dimension) {
+            $discount = Discount::where("category_id", $this->dimension->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
+        } else{
+            $discount = Discount::where("category_id", $this->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
+        }
+
+        // Prepare cart item data
+        $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color;
+        $colorDetails = $color ? Color::find($color) : null;
+
+        \Cart::add([
+            'id' => $cartItemId,
+            'name' => $this->product->name,
+            'price' => $this->special_price - (($discount / 100) * $this->special_price),
+            'quantity' => $this->qty,
+            'attributes' => [
+                'color' => intval($color),
+                'color_name' => $colorDetails?->name,
+                'image' => $this->product->images?->first()?->image,
+                'dimension' => $this->special_height. "*" . $this->special_width,
+                'slug' => $this->product->slug,
+                'attribute' => "Spéciale",
+                'product_id' => $this->product->id,
+                'dimension_id' => null,
+            ]
+        ]);
+
+        $this->qty = 1;
+        $this->reset("color");
+        $this->reset("width");
+        $this->reset("height");
+        $this->dispatch('add-to-cart');
+    }
         
-    
-  
-
-
 
     public function add()
     {
 
-        if($this->product->colors->count() && $this->color == ""){
-            $this->color_error = "Obligatoire de sélectionner une couleur"; 
+        // Color validation
+        if ($this->product->colors->count() && $this->color == "") {
+            $this->color_error = "Obligatoire de sélectionner une couleur";
+            return;
+        } else {
+            $this->color_error = false;
+        }
+
+
+        if ($this->attribute == "Spéciale") {
+            $this->validate([
+                'special_height' => 'required|numeric|max:2800|min:70',
+                'special_width' => 'required|numeric|max:2100|min:70',
+            ]);
+
+            $this->specailCart();
             return;
         }
 

@@ -90,10 +90,6 @@ initSwiperPlacard()
 initSwiper()
 
 
-
-
-
-
 Livewire.hook('morph.updated', ({ el, component }) => {
     initSwiper();
 })
@@ -117,8 +113,6 @@ document.addEventListener('livewire:init', () => {
 
     });
 });
-
-
 
 
 
