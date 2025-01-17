@@ -29,6 +29,8 @@
     <meta property="twitter:url" content="{{ request()->fullUrl() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    {{-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> --}}
     @livewireStyles
     <style>
         .grid {
@@ -99,6 +101,42 @@
             padding: 20px;
             display: none;
         }
+
+        @keyframes slide {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    .sliding-testimonials {
+        animation: slide 20s linear infinite;
+        width: 200%; /* Double width to accommodate duplicate set */
+    }
+    .testimonial-track:hover .sliding-testimonials {
+        animation-play-state: paused;
+    }
+    .blur-gradient-left {
+        background: linear-gradient(to right, #f8fafc 0%, transparent 100%);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 10;
+        pointer-events: none;
+    }
+    .blur-gradient-right {
+        background: linear-gradient(to left, #f8fafc 0%, transparent 100%);
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 10;
+        pointer-events: none;
+    }
     </style>
 </head>
     <body class="bg-[#f2f2f2]" style="background-image: url('{{ asset("imgs/vecteur-inter.png")}}');background-blend-mode: lighten; background-size:460px">
@@ -107,6 +145,14 @@
             @yield('content')
         </main>
         <x-footer />
+            {{-- <script>
+                AOS.init({
+                offset: 200,
+                duration: 600,
+                easing: 'ease-in-sine',
+                delay: 100,
+                });
+          </script> --}}
         @livewireScriptConfig
         <x-whatsapp-button />
     </body>

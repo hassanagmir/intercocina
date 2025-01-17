@@ -30,8 +30,8 @@
         </div>
 
         <div class="relative order-1 col-span-full xl:order-2 xl:col-span-1 lg:pt-12">
-            <div class="absolute z-0 rounded-full -top-8 -right-16  w-28 h-28 md:w-52 md:h-52 bg-accent-gray-200" x-animate.delay.500="zoomIn"></div>
-            <div class="absolute rounded-full -bottom-8 -left-16 md:-bottom-16 bg-accent-red-400 w-36 h-36 md:w-64 md:h-64" x-animate.delay.500="zoomIn"></div>
+            <div class="absolute z-0 rounded-full -top-8 -right-16  w-28 h-28 md:w-52 md:h-52 bg-accent-gray-200" data-aos="zoom-in"></div>
+            <div class="absolute rounded-full -bottom-8 -left-16 md:-bottom-16 bg-accent-red-400 w-36 h-36 md:w-64 md:h-64" data-aos="zoom-in"></div>
             <div class="relative z-20 rounded-3xl animate__animated animate__zoomIn">
                 @livewire('covers')
             </div>
@@ -75,9 +75,8 @@
             </p>
        </div>
     </div>
-    <div class="flex flex-col items-stretch gap-10 px-4 py-12 md:py-20 md:max-w-6xl md:mx-auto md:flex-row">
-        <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5"
-            x-animate.intersect.delay.200="fadeInUp">
+    <div class="flex flex-col items-stretch gap-10 px-4 py-12 md:py-20 md:max-w-6xl md:mx-auto md:flex-row" data-aos="fade-up" data-aos-duration="3000">
+        <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5" >
             <div class="flex justify-center">
                 <img loading="lazy" width="40" height="40" class="w-16 aspect-square my-7" src="/assets/icons/method.png" alt="">
             </div>
@@ -89,8 +88,7 @@
             </p>
         </div>
 
-        <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5"
-            x-animate.intersect.delay.200="fadeInUp">
+        <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5">
             <div class="flex justify-center">
                 <img loading="lazy" width="40" height="40" class="w-16 aspect-square my-7" src="/assets/icons/volunteer-vest.png" alt="">
             </div>
@@ -102,8 +100,7 @@
             </p>
         </div>
 
-        <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5"
-            x-animate.intersect.delay.200="fadeInUp">
+        <div class="px-4 py-6 border bg-white rounded-3xl flex-1 flex flex-col gap-5">
             <div class="flex justify-center">
                 <img loading="lazy" width="40" height="40" class="w-16 aspect-square my-7" src="/assets/icons/shipping-fast.png" alt="">
             </div>
@@ -195,15 +192,13 @@
             </div>
             <div class="grid col-start-1 row-start-1 gap-6 md:grid-cols-2">
                 <div class="space-y-6">
-                    <div x-animate.intersect="fadeInUp"
-                        class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
+                    <div x-animate.intersect="fadeInUp" class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
                         <h3 class="text-4xl font-semibold md:text-7xl">
                             <span class="text-accent-gray-500">+</span>400
                             <span class="block mt-2 text-lg font-semibold md:text-xl">Client fidèle</span>
                         </h3>
                     </div>
-                    <div x-animate.intersect="fadeInUp"
-                        class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
+                    <div x-animate.intersect="fadeInUp" class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
                         <h3 class="text-4xl font-semibold md:text-7xl">
                             <span class="text-accent-gray-500">+</span>500
                             <span class="block mt-2 text-lg font-semibold md:text-xl">Commandes en préparation</span>
@@ -212,16 +207,14 @@
                 </div>
                 <div class="space-y-6">
                     <div class="hidden md:block min-h-8"></div>
-                    <div x-animate.intersect="fadeInUp"
-                        class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
+                    <div x-animate.intersect="fadeInUp" class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl">
                         <h3 class="text-4xl font-semibold md:text-7xl">
                             <span class="text-accent-gray-500">+</span>10M
                             <span class="block mt-2 text-lg font-semibold md:text-xl">Commandes livrées</span>
                         </h3>
                     </div>
 
-                    <div x-animate.intersect="fadeInUp"
-                        class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl ">
+                    <div x-animate.intersect="fadeInUp" class="px-6 py-8 space-y-4 bg-white border shadow-xl rounded-3xl ">
                         <h3 class="text-4xl font-semibold md:text-7xl">
                             <span class="text-accent-gray-500">+</span>98
                             <span class="text-accent-gray-500">%</span>
@@ -257,8 +250,7 @@
     </div>
 
     <div class="absolute z-0 rounded-full bg-accent-blue w-28 h-28 md:w-80 md:h-80 md:-top-36 md:-right-28 -top-12 -right-6 animate__animated animate__zoomIn" x-animate="zoomIn" style="--animate-duration: 1s;">
-    </div>
-    <div class="bg-gray-300 hidden md:block w-80 h-80 rounded-full absolute z-0 md:-bottom-36 md:-left-28 animate__animated animate__zoomIn" x-animate="zoomIn" style="--animate-duration: 1s;"></div>
+    </div><div class="bg-gray-300 hidden md:block w-80 h-80 rounded-full absolute z-0 md:-bottom-36 md:-left-28 animate__animated animate__zoomIn" x-animate="zoomIn" style="--animate-duration: 1s;"></div>
 
 </section>
 </main>

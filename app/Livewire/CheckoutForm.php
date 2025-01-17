@@ -33,16 +33,13 @@ class CheckoutForm extends Component
     public function save()
     {
 
-       
-
-
         $this->validate();
 
         if(auth()->user()->status->value == 2){
             session()->flash('error_message', __("Désolé, votre compte est actuellement inactif. Veuillez contacter le support au +212 661-547900 pour plus d'informations."));
             return;
         }
-        
+
         if (\Cart::getContent()->count() == 0) {
             return $this->dispatch("reloadPage");
         }

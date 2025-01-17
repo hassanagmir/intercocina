@@ -9,9 +9,13 @@ import Animate from "alpinejs-animate";
 import focus from "@alpinejs/focus";
 import Swiper from 'swiper/bundle';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+
 Alpine.plugin(focus);
 Alpine.plugin(Animate);
 
+AOS.init();
 
 // Faqs
 document.addEventListener("alpine:init", () => {
