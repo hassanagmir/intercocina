@@ -11,7 +11,7 @@
                                 <div class="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                     <!-- Product Image -->
                                     <a href="{{ route('product.show', $item->product->slug) }}" class="flex-shrink-0">
-                                        <img class="h-24 w-24 object-cover rounded-lg" src="{{ url(config('app.storage'), $item->product->images?->first()->image) }}" alt="{{ $item->product->name }}">
+                                        <img class="h-24 w-24 object-contain rounded-lg" src="{{ url(config('app.storage'), $item->product->images?->first()->image) }}" alt="{{ $item->product->name }}">
                                     </a>
                                     <div class="flex-1 min-w-0">
                                         <a href="{{ route('product.show', $item->product->slug) }}"  class="text-md font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
@@ -19,12 +19,12 @@
                                             @if($item->dimension?->attribute)
                                               - {{ $item->dimension?->attribute?->name }}
                                             @endif
+                                            ({{ $item->special_height ? $item->special_height . "*" . $item->special_width . "mm" : ""}})
                                         </a>
                                         @if ($item->color)
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                               @if ($item->dimension)
                                                   <span class="text-sm text-gray-500 dark:text-gray-400">
-                                                     ({{ $item->special_height ? $item->special_height . "*" . $item->special_width . "mm" : ""}})
                                                       ({{ $item->dimension->height . " x " . $item->dimension->width . " mm" }}) 
                                                   </span>
                                               @endif
@@ -32,15 +32,9 @@
                                             </p>
                                         @endif
                                         <div>
-                                          @if ($item->dimension)
-                                              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                                REF: {{ $item->dimension->code }}
-                                              </p>
-                                          @else
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                                REF: {{ $item->product->code }}
+                                             @if ($item->dimension) REF: {{ $item->dimension->code }} @elseif ($item->product->code) REF: {{ $item->product->code }} @else Spéciale @endif
                                             </p>
-                                          @endif
                                         </div>
                                     </div>
                                     <!-- Price & Quantity -->

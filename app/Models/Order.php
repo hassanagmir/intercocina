@@ -59,13 +59,13 @@ class Order extends Model
         $content = "";
         foreach ($order->items as $item) {
             $content .= ""
-                . ($item->dimension ? $item->dimension->code : $item->product->code) . " "
+                . ($item->dimension ? $item->dimension->code . " " : $item->product->code . " ")
                 . ($item->product->name) . " "
-                . ($item->dimension?->attribute ? $item->dimension?->attribute->name : '') . " "
-                . ($item->dimension ? $item->dimension->dimension : '') . " "
-                . ($item->color ? $item->color->name : '') . " "
-                . ($item->dimension ? $item->dimension->price : ($item->product->price ?? '0')) . " "
-                . "QTY: " . ($item->quantity ?? '1') . " "
+                . ($item->dimension?->attribute ? $item->dimension?->attribute->name . " " : '')
+                . ($item->dimension ? $item->dimension->dimension . "" : '')
+                . ($item->color ? $item->color->name . " " : '')
+                . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0')) ) . " "
+                . "QTY: " . ($item->quantity ?? '1')
                 . "\n";
         }
         $filename = "order_{$order->code}_" . now()->format('ymd') . ".txt";

@@ -149,46 +149,50 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @forelse ($orders as $order)
-                            <tr class="hover:bg-gray-50 transition-colors duration-200">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="text-sm font-medium text-gray-900">{{ $order->code }}</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="text-sm text-gray-700 font-semibold">{{ $order->total_amount }} MAD</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                        {{ $order->items->count() }} articles
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <span class="inline-flex items-center text-nowrap px-2.5 py-0.5 rounded-full text-xs font-semibold 
-                                        @switch($order->status->getLabel())
-                                            @case('En attente')
-                                                bg-yellow-100 text-yellow-800
-                                            @case('Terminé')
-                                                bg-green-100 text-green-800
-                                            @case('Annulé')
-                                                bg-red-100 text-red-800
-                                            @default
-                                                bg-gray-100 text-gray-800
-                                        @endswitch
-                                    ">
-                                        {{ $order->status->getLabel() }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $order->created_at->format('d M Y') }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('order.show', $order->code) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </a>
-                                </td>
-                            </tr>
+                            
+                                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a href="{{ route('order.show', $order->code) }}">
+                                            <span class="text-sm font-medium text-gray-900">{{ $order->code }}</span>
+                                        </a>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-700 font-semibold">{{ $order->total_amount }} MAD</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            {{ $order->items->count() }} articles
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center text-nowrap px-2.5 py-0.5 rounded-full text-xs font-semibold 
+                                            @switch($order->status->getLabel())
+                                                @case('En attente')
+                                                    bg-yellow-100 text-yellow-800
+                                                @case('Terminé')
+                                                    bg-green-100 text-green-800
+                                                @case('Annulé')
+                                                    bg-red-100 text-red-800
+                                                @default
+                                                    bg-gray-100 text-gray-800
+                                            @endswitch
+                                        ">
+                                            {{ $order->status->getLabel() }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $order->created_at->format('d M Y') }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('order.show', $order->code) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            
                             @empty
                             <tr>
                                 <td colspan="6" class="px-6 py-12 text-center">
