@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://intercocina.com" target="_blank">
-        <img src="[https://intercocina.com/wp-content/uploads/2023/09/cropped-COPIE-184x87.png](https://intercocina.com/assets/imgs/intercocina-logo.png)\" width="400" alt="Inter Cocina Logo">
+        <img src="https://intercocina.com/assets/imgs/intercocina-logo.png" width="400" alt="Inter Cocina Logo">
     </a>
 </p>
 <h1 style="font-size: 48px; text-align: center; color: #ff0000;">INTERCOCINA</h1>
