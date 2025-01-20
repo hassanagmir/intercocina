@@ -173,7 +173,10 @@
                 <input min="70" max="2100" type="number" wire:model.live="special_width" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
             </div>
         </div>
-        {{ number_format($special_price, 2)}} MAD
+        @if ($special_price)
+            {{ number_format($special_price, 2)}} MAD
+        @endif
+        
         @endif
 
         @if ($dimension_error)

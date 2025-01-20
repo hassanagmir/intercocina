@@ -48,6 +48,22 @@ class Product extends Component
 
     public function updatedSpecialWidth()
     {
+
+        $dimension = $this->product->dimensions()
+            ->where('width', '>=', intval($this->special_width))
+            ->where('height', '>=', intval($this->special_height))
+            ->orderBy('width', 'asc') // Adjust order as needed
+            ->orderBy('height', 'asc')
+            ->first();
+        
+        if ($dimension) {
+            $this->special_price = $dimension->price;
+        } else {
+            $this->dimension_error = "La dimension {$this->special_width} x {$this->special_height} n'est pas disponible";
+        }
+    
+        return;
+
         $dimension = $this->product->dimensions()->first();
     
         if($dimension && $this->special_height && $this->special_width){
@@ -215,6 +231,9 @@ class Product extends Component
         } else{
             $discount = Discount::where("category_id", $this->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         }
+
+        $dimension = $this->product->dimensions;
+        
 
         // Prepare cart item data
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color;

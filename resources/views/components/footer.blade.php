@@ -77,7 +77,7 @@
     <hr class="h-px bg-gray-200 border-0">
     <div class="flex flex-col items-center gap-8 pt-8 md:justify-between lg:flex-row">
         <p class="text-center text-slate-700 md:text-left font-semibold">
-            Copyright © INTERCOCINA 2024. All rights reserved. Made with ❤️ in Nador.
+            Copyright © INTERCOCINA 2025. All rights reserved. Made with ❤️ in Nador.
         </p>
         <div>
             <ul class="flex items-center gap-4">

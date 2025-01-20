@@ -30,19 +30,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-const splide = new Splide( '.splide', {
-    type   : 'loop',
-    drag   : 'free',
-    focus  : 'center',
-    perPage: 6,
-    // width: "300px",
-    pagination: false,
-    autoScroll: {
-        speed: 0.5,
-    },
-} );
-
-splide.mount({ AutoScroll });
+document.addEventListener('DOMContentLoaded', function() {
+    const splideElement = document.querySelector('.splide');
+    if (splideElement) {
+        const splide = new Splide(splideElement, {
+            type: 'loop',
+            drag: 'free',
+            focus: 'center',
+            perPage: 6,
+            pagination: false,
+            autoScroll: {
+                speed: 0.5,
+            },
+        });
+        splide.mount({ AutoScroll });
+    } else {
+        console.error('.splide element not found!');
+    }
+});
 
 
 Alpine.plugin(focus);
