@@ -82,7 +82,8 @@
             </button>
         </div>
 
-        @if (count($product->attributes))
+        <div class="flex">
+            @if (count($product->attributes))
         <div>
             <p class="font-bold text-gray-900">{{__("Type de ")}} {{ $product->type?->category?->name}}</p>
             <select wire:model.change='attribute' name="attribute" id="attribute" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
@@ -93,6 +94,17 @@
             </select>
         </div>
         @endif
+
+            <div class="ms-4">
+                <p class="font-bold text-gray-900">{{ __("Special") }}</p>
+                <input wire:model.live="special" type="radio" id="special" value="1" name="heighspecialt" class="hidden peer" />
+                <label wire:load.attr='disabled' for="special" class="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg border-1 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                    <div class="block">
+                        <div class="w-full text-md font-semibold">Special</div>
+                    </div>
+                </label>
+            </div>
+        </div>
 
         @empty (!$product->colors->count())
             <p class="font-bold text-gray-900">{{__("Couleur")}}</p>
@@ -129,6 +141,7 @@
         @endempty
 
 
+     @if (!$special)
         @empty(!$product->dimensions->count())
         @if ($heights)
         <div class="font-bold">{{ __("Hauteur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
@@ -161,8 +174,11 @@
             @endforeach
         </ul>
         @endif
+     @endif
 
-        @if ($this->attribute == "Spéciale")
+       
+
+        @if (intval($this->special) == 1)
         <div>
             <div>
                 <label for="height">Hauteur</label><br>

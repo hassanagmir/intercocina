@@ -46,6 +46,10 @@ class Product extends Component
     public $special_width;
     public $special_price;
 
+    public $special;
+
+
+
     public function updatedSpecialWidth()
     {
 
@@ -165,6 +169,7 @@ class Product extends Component
     public function updated($property)
     {
 
+        // dd($this->special);
         // $this->updateSpecialWidth();
         // Change dimensions if the attribute changed
         if (count($this->product->attributes)) {
@@ -276,7 +281,7 @@ class Product extends Component
         }
 
 
-        if ($this->attribute == "Spéciale") {
+        if ($this->special) {
             $this->validate([
                 'special_height' => 'required|numeric|max:2800|min:70',
                 'special_width' => 'required|numeric|max:2100|min:70',
