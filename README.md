@@ -18,7 +18,8 @@ and the company sells their cars through it's distribution network.
 
 ## Requirements
 
-// ---
+**Laravel v11.x** 
+**PHP v8.3.x** 
 
 ## Installation
 
