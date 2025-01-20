@@ -12,6 +12,39 @@ import Swiper from 'swiper/bundle';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 
+
+import Splide from '@splidejs/splide';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.animate-marquee').forEach(function(element) {
+        element.addEventListener('mouseenter', function() {
+            this.style.animationPlayState = 'paused';
+        });
+    });
+
+    document.querySelectorAll('.animate-marquee').forEach(function(element) {
+        element.addEventListener('mouseleave', function() {
+            this.style.animationPlayState = 'running';
+        });
+    });
+});
+
+const splide = new Splide( '.splide', {
+    type   : 'loop',
+    drag   : 'free',
+    focus  : 'center',
+    perPage: 6,
+    // width: "300px",
+    pagination: false,
+    autoScroll: {
+        speed: 0.5,
+    },
+} );
+
+splide.mount({ AutoScroll });
+
+
 Alpine.plugin(focus);
 Alpine.plugin(Animate);
 

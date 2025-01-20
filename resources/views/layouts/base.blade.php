@@ -110,33 +110,7 @@
             transform: translateX(-50%);
         }
     }
-    .sliding-testimonials {
-        animation: slide 20s linear infinite;
-        width: 200%; /* Double width to accommodate duplicate set */
-    }
-    .testimonial-track:hover .sliding-testimonials {
-        animation-play-state: paused;
-    }
-    .blur-gradient-left {
-        background: linear-gradient(to right, #f8fafc 0%, transparent 100%);
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 100px;
-        z-index: 10;
-        pointer-events: none;
-    }
-    .blur-gradient-right {
-        background: linear-gradient(to left, #f8fafc 0%, transparent 100%);
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 100px;
-        z-index: 10;
-        pointer-events: none;
-    }
+
     </style>
 </head>
     <body class="bg-[#f2f2f2]" style="background-image: url('{{ asset("imgs/vecteur-inter.png")}}');background-blend-mode: lighten; background-size:460px">

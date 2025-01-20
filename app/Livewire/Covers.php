@@ -10,7 +10,7 @@ class Covers extends Component
     public function render()
     {
         return view('livewire.covers', [
-            'covers' => Cover::query()->latest()->paginate(10)
+            'covers' => Cover::where('top', true)->latest()->paginate(10)
         ]);
     }
 }

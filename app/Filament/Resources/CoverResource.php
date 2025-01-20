@@ -36,6 +36,10 @@ class CoverResource extends Resource
                         Forms\Components\TextInput::make('url')
                             ->label(__("Lien"))
                             ->maxLength(255),
+                        Forms\Components\Toggle::make('top')
+                            ->label(__("Top")),
+                        Forms\Components\Toggle::make('bottom')
+                            ->label(__("Bottom")),
                         Forms\Components\FileUpload::make('image')
                             ->image()
                             ->required(),

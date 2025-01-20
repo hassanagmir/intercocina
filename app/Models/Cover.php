@@ -9,5 +9,5 @@ class Cover extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image', 'title', 'url'];
+    protected $fillable = ['image', 'title', 'url', 'top', 'bottom'];
 }
