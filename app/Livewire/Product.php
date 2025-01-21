@@ -53,8 +53,6 @@ class Product extends Component
     public function updatedSpecialWidth()
     {
 
-        // dd("Working");
-
         $dimension = $this->product->dimensions()
             ->where('width', '>=', intval($this->special_width))
             ->where('height', '>=', intval($this->special_height))
@@ -171,6 +169,11 @@ class Product extends Component
 
     public function updated($property)
     {
+
+        if($this->special){
+            $this->updatedSpecialWidth();
+            return;
+        }
         if (count($this->product->attributes)) {
             $this->heights = array_unique($this->product->dimensions()
                 ->where('attribute_id', $this->attribute)
