@@ -54,8 +54,7 @@
             </div>
 
 
-            <svg class="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36"
-                viewBox="0 0 2 36" fill="none">
+            <svg class="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 2 36" fill="none">
                 <path d="M1 0V36" stroke="#E5E7EB" />
             </svg>
             <button class="flex items-center gap-1 rounded-lg bg-amber-400 py-1.5 px-2.5 w-max">
@@ -78,32 +77,31 @@
                     </defs>
                 </svg>
                 <span class="text-base font-medium text-white">{{ floatval($averageRating) }}</span>
-
             </button>
         </div>
 
         <div class="flex">
             @if (count($product->attributes))
-        <div>
-            <p class="font-bold text-gray-900">{{__("Type de ")}} {{ $product->type?->category?->name}}</p>
-            <select wire:model.change='attribute' name="attribute" id="attribute" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
-                @foreach ($product->attributes as $attribute)
-                    <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
-                @endforeach
-                <option value="Spéciale">Spéciale</option>
-            </select>
-        </div>
-        @endif
+            <div>
+                <p class="font-bold text-gray-900">{{__("Type de ")}} {{ $product->type?->category?->name}}</p>
+                <select wire:model.change='attribute' name="attribute" id="attribute" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
+                    @foreach ($product->attributes as $attribute)
+                        <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                    @endforeach
+                    {{-- <option value="Spéciale">Spéciale</option> --}}
+                </select>
+            </div>
+            @endif
 
+            @if ($product->attributes->count())
             <div class="ms-4">
                 <p class="font-bold text-gray-900">{{ __("Special") }}</p>
-                <input wire:model.live="special" type="radio" id="special" value="1" name="heighspecialt" class="hidden peer" />
-                <label wire:load.attr='disabled' for="special" class="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg border-1 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
-                    <div class="block">
-                        <div class="w-full text-md font-semibold">Special</div>
-                    </div>
-                </label>
+                <div class="text-black/70 mb-3 bg-white px-3 py-3 flex items-center font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
+                    <input wire:model.live="special" id="bordered-checkbox-1" type="checkbox" name="bordered-checkbox" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+                    <label for="bordered-checkbox-1" class="w-full h-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Special</label>
+                </div>
             </div>
+            @endif
         </div>
 
         @empty (!$product->colors->count())
@@ -112,10 +110,7 @@
                 @foreach ($product->colors as $color)
                 <li class="color-box group text-center me-3 relative">
                     <input type="radio" value="{{ $color->id }}" id="color-{{ $color->id }}" name="color" wire:model.change="color" class="hidden peer" required />
-                    <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ url(config('app.storage'), $color->image) }});"
-                        class="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100">
-                    </label>
-                    
+                    <label for="color-{{ $color->id }}" style="background-color: {{ $color->code }}; background-image: url({{ url(config('app.storage'), $color->image) }});" class="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100"></label>
                     <div id="tooltipExample" class="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
                         {{ $color->name }}
                         <img class="w-full" src="{{ url(config('app.storage'), $color->image) }}" alt="">
@@ -140,77 +135,75 @@
             @endif
         @endempty
 
+        {{-- Special Inputs --}}
+        @if ($special)
+            <div>
+                <div>
+                    <label for="height">Hauteur</label><br>
+                    <input min="70" max="2800" type="number" wire:model.change="special_height" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50  appearance-none invalid:text-black/30 w-64 border-2">
+                </div>
+                <div>
+                    <label for="width">Largeur</label><br>
+                    <input min="70" max="2100" type="number" wire:model.change="special_width" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50  appearance-none invalid:text-black/30 w-64 border-2">
+                </div>
+            </div>
+            @if (isset($special_price) && $special_price)
+                {{ number_format($special_price, 2) }} MAD
+            @endif
+        @endif
+
 
      @if (!$special)
         @empty(!$product->dimensions->count())
-        @if ($heights)
-        <div class="font-bold">{{ __("Hauteur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
-        <ul class="flex flex-wrap w-full gap-3">
-            @foreach ($heights as $item)
-            <li>
-                <input wire:model.live="height" wire:load.attr='disabled' type="radio" id="height-{{ $item }}" value="{{ $item }}" name="height" class="hidden peer" />
-                <label wire:load.attr='disabled' for="height-{{ $item }}" class="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg border-1 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
-                    <div class="block">
-                        <div class="w-full text-md font-semibold">{{ $item }}</div>
-                    </div>
-                </label>
-            </li>
-            @endforeach
-        </ul>
-        @endif
+            @if ($heights)
+            <div class="font-bold">{{ __("Hauteur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
+            <ul class="flex flex-wrap w-full gap-3">
+                @foreach ($heights as $item)
+                <li>
+                    <input wire:model.live="height" wire:load.attr='disabled' type="radio" id="height-{{ $item }}" value="{{ $item }}" name="height" class="hidden peer" />
+                    <label wire:load.attr='disabled' for="height-{{ $item }}" class="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg border-1 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <div class="block">
+                            <div class="w-full text-md font-semibold">{{ $item }}</div>
+                        </div>
+                    </label>
+                </li>
+                @endforeach
+            </ul>
+            @endif
 
-        @if ($widths)
-        <div class="font-bold">{{ __("Largeur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
-        <ul class="flex flex-wrap w-full gap-3">
-            @foreach ($widths as $item)
-            <li>
-                <input wire:model.change="width" type="radio" id="width-{{ $item }}" value="{{ $item }}" name="width" class="hidden peer" />
-                <label for="width-{{ $item }}" class="inline-flex items-center  justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg cursor-pointer border-2 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
-                    <div class="block">
-                        <div class="w-full text-md font-semibold">{{ $item }}</div>
-                    </div>
-                </label>
-            </li>
-            @endforeach
-        </ul>
-        @endif
+            @if ($widths)
+            <div class="font-bold">{{ __("Largeur" )}} @if ($product->unit) ({{ $product->unit }}) @endif</div>
+            <ul class="flex flex-wrap w-full gap-3">
+                @foreach ($widths as $item)
+                <li>
+                    <input wire:model.change="width" type="radio" id="width-{{ $item }}" value="{{ $item }}" name="width" class="hidden peer" />
+                    <label for="width-{{ $item }}" class="inline-flex items-center  justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg cursor-pointer border-2 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <div class="block">
+                            <div class="w-full text-md font-semibold">{{ $item }}</div>
+                        </div>
+                    </label>
+                </li>
+                @endforeach
+            </ul>
+            @endif
      @endif
 
-       
+    @if ($dimension_error)
+    <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 9v4" />
+            <path
+                d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+            <path d="M12 16h.01" />
+        </svg>
+        {{ $dimension_error }}
+    </div>
+    @endif
 
-        @if (intval($this->special) == 1)
-        <div>
-            <div>
-                <label for="height">Hauteur</label><br>
-                <input min="70" max="2800" type="number" wire:model.live="special_height" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
-            </div>
-            <div>
-                <label for="width">Largeur</label><br>
-                <input min="70" max="2100" type="number" wire:model.live="special_width" class="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
-            </div>
-        </div>
-        @if ($special_price)
-            {{ number_format($special_price, 2)}} MAD
-        @endif
-        
-        @endif
-
-        @if ($dimension_error)
-        <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M12 9v4" />
-                <path
-                    d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
-                <path d="M12 16h.01" />
-            </svg>
-            {{ $dimension_error }}
-        </div>
-        @endif
-
-        @endempty
+    @endempty
         <div class="mt-6 sm:flex flex-initial space-y-4 sm:space-y-0 items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
             <div x-data="{ qty: $wire.qty }" x-init="$watch('qty', value => $wire.set('qty', value))"
                 class="flex items-center justify-center border border-gray-400 rounded-full">

@@ -46,17 +46,20 @@ class Product extends Component
     public $special_width;
     public $special_price;
 
-    public $special;
+    public $special = false;
 
 
 
     public function updatedSpecialWidth()
     {
 
+        // dd("Working");
+
         $dimension = $this->product->dimensions()
             ->where('width', '>=', intval($this->special_width))
             ->where('height', '>=', intval($this->special_height))
-            ->orderBy('width', 'asc') // Adjust order as needed
+            ->where('attribute_id', $this->attribute)
+            ->orderBy('width', 'asc')
             ->orderBy('height', 'asc')
             ->first();
         
@@ -168,10 +171,6 @@ class Product extends Component
 
     public function updated($property)
     {
-
-        // dd($this->special);
-        // $this->updateSpecialWidth();
-        // Change dimensions if the attribute changed
         if (count($this->product->attributes)) {
             $this->heights = array_unique($this->product->dimensions()
                 ->where('attribute_id', $this->attribute)
@@ -236,8 +235,6 @@ class Product extends Component
         } else{
             $discount = Discount::where("category_id", $this->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         }
-
-        $dimension = $this->product->dimensions;
         
 
         // Prepare cart item data
@@ -271,7 +268,6 @@ class Product extends Component
 
     public function add()
     {
-
         // Color validation
         if ($this->product->colors->count() && $this->color == "") {
             $this->color_error = "Obligatoire de sélectionner une couleur";
