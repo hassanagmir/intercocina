@@ -151,6 +151,20 @@
                 {{ number_format($special_price, 2) }} MAD
             @endif
         @endif
+        @if ($dimension_error)
+        <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 9v4" />
+                <path
+                    d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+                <path d="M12 16h.01" />
+            </svg>
+            {{ $dimension_error }}
+        </div>
+        @endif
 
 
      @if (!$special)
@@ -207,15 +221,12 @@
         <div class="mt-6 sm:flex flex-initial space-y-4 sm:space-y-0 items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
             <div x-data="{ qty: $wire.qty }" x-init="$watch('qty', value => $wire.set('qty', value))"
                 class="flex items-center justify-center border border-gray-400 rounded-full">
-                <button @click="if (qty > 1) { qty--; $wire.set('qty', qty) }"
-                    class="group text-3xl py-2 px-3 w-full border-r border-gray-400 rounded-l-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
+                <button @click="if (qty > 1) { qty--; $wire.set('qty', qty) }" class="group text-3xl py-2 px-3 w-full border-r border-gray-400 rounded-l-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
                     -
                 </button>
                 <label class="hidden" for="qty">Quantity:</label>
-                <input x-model.number="qty" wire:model.defer="qty" type="number" name="qty" id="qty"
-                    class="font-semibold text-gray-900 text-lg py-3 px-2 w-full min-[400px]:min-w-[75px] h-full bg-transparent placeholder:text-gray-900 text-center hover:text-red-600 outline-0 hover:placeholder:text-red-600">
-                <button @click="qty++; $wire.set('qty', qty)"
-                    class="group text-3xl py-2 px-3 w-full border-l border-gray-400 rounded-r-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
+                <input x-model.number="qty" wire:model.defer="qty" type="number" name="qty" id="qty" class="font-semibold text-gray-900 text-lg py-3 px-2 w-full min-[400px]:min-w-[75px] h-full bg-transparent placeholder:text-gray-900 text-center hover:text-red-600 outline-0 hover:placeholder:text-red-600">
+                <button @click="qty++; $wire.set('qty', qty)" class="group text-3xl py-2 px-3 w-full border-l border-gray-400 rounded-r-full h-full flex items-center justify-center bg-white shadow-sm shadow-transparent transition-all duration-300 hover:bg-gray-50 hover:shadow-gray-300">
                     +
                 </button>
             </div>

@@ -241,7 +241,7 @@ class Product extends Component
         
 
         // Prepare cart item data
-        $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color;
+        $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color . $this->special_height . $this->special_width;
         $colorDetails = $color ? Color::find($color) : null;
 
         \Cart::add([
