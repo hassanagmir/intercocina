@@ -151,6 +151,8 @@
                 {{ number_format($special_price, 2) }} MAD
             @endif
         @endif
+
+        
         @if ($dimension_error)
         <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
