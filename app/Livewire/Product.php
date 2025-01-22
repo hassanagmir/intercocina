@@ -63,6 +63,7 @@ class Product extends Component
         
         if ($dimension) {
             $this->special_price = $dimension->price;
+            $this->dimension_error = false;
         } else {
             $this->dimension_error = "La dimension {$this->special_width} x {$this->special_height} n'est pas disponible";
         }

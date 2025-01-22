@@ -204,7 +204,7 @@
             @endif
      @endif
 
-    @if ($dimension_error)
+    {{-- @if ($dimension_error)
     <div class="mt-2 font-semibold text-red-700 flex gap-2 items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -217,7 +217,7 @@
         </svg>
         {{ $dimension_error }}
     </div>
-    @endif
+    @endif --}}
 
     @endempty
         <div class="mt-6 sm:flex flex-initial space-y-4 sm:space-y-0 items-center flex-col min-[400px]:flex-row gap-3 mb-3 min-[400px]:mb-8">
