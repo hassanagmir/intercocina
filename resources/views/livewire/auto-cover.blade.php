@@ -1,10 +1,10 @@
 
 
-<div class=" flex flex-col space-y-16 overflow-hidden">
+<div class="flex flex-col space-y-16 overflow-hidden">
     <div class="overflow-x-scroll no-scrollbar">
         <div class="splide">
             <div class="splide__track mb-10">
-                <div class="splide__list flex gap-6 ">
+                <div class="splide__list flex gap-6 mt-4">
                     @foreach($covers as $cover)
                         <section class="p-5 py-6 bg-white rounded-lg text-center shadow-sm transform duration-500 hover:-translate-y-2 cursor-pointer w-56 snap-center splide__slide shrink-0 min-w-64">
                             <a href="{{ $cover->url }}">
