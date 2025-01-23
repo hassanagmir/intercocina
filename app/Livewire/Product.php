@@ -30,11 +30,11 @@ class Product extends Component
     public $heights = [];
     public $widths = [];
 
-   
+
     public $height;
     public $width;
 
- 
+
 
     public $color_error;
     public $dimension_error;
@@ -60,28 +60,28 @@ class Product extends Component
             ->orderBy('width', 'asc')
             ->orderBy('height', 'asc')
             ->first();
-        
+
         if ($dimension) {
             $this->special_price = $dimension->price;
             $this->dimension_error = false;
         } else {
             $this->dimension_error = "La dimension {$this->special_width} x {$this->special_height} n'est pas disponible";
         }
-    
+
         return;
 
         $dimension = $this->product->dimensions()->first();
-    
-        if($dimension && $this->special_height && $this->special_width){
+
+        if ($dimension && $this->special_height && $this->special_width) {
             $originalHeight = $dimension->height;
             $originalWidth = $dimension->width;
             $originalPrice = $dimension->price;
-    
+
             $newHeight = $this->special_height;
             $newWidth = $this->special_width;
-    
+
             $newPrice = $originalPrice * (($newHeight * $newWidth) / ($originalHeight * $originalWidth));
-    
+
             $this->special_price = $newPrice;
         }
     }
@@ -151,18 +151,18 @@ class Product extends Component
     public function dimensionChanaged()
     {
         // Get dimension ref 
-        if($this->dimension){
+        if ($this->dimension) {
             $this->ref = $this->dimension->code;
         }
-        
-        if($this->dimension && !($this->dimension == 'Choisir un dimension')){
+
+        if ($this->dimension && !($this->dimension == 'Choisir un dimension')) {
             $dimension = Dimension::find($this->dimension);
             $this->price = $dimension->price;
-            
-            if($this->price == 0){
+
+            if ($this->price == 0) {
                 $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
             }
-        }else{
+        } else {
             $this->price = 0;
         }
     }
@@ -171,7 +171,7 @@ class Product extends Component
     public function updated($property)
     {
 
-        if($this->special){
+        if ($this->special) {
             $this->updatedSpecialWidth();
             return;
         }
@@ -183,7 +183,7 @@ class Product extends Component
                 ->where("price", ">", 0)
                 ->pluck('height')
                 ->toArray());
-    
+
             $this->widths = array_unique($this->product->dimensions()
                 ->where("status", true)
                 ->where("price", ">", 0)
@@ -193,7 +193,7 @@ class Product extends Component
                 ->toArray());
         }
 
-        if($this->width && $this->height){
+        if ($this->width && $this->height) {
             if (!$this->width || !$this->height) return;
 
             $query = $this->product->dimensions
@@ -201,29 +201,29 @@ class Product extends Component
                 ->where('width', $this->width);
         }
 
-        if(!$this->width){
+        if (!$this->width) {
             $query = $this->product->dimensions
                 ->whereNull('width')
                 ->where('height', $this->height);
         }
 
-        
+
 
         if ($this->product->colors && $this->color) {
             $query = $query->where('color_id', $this->color);
         }
 
-      
 
 
-        if(isset($query)){
+
+        if (isset($query)) {
             $dimension = $query->first();
 
             if ($dimension) {
                 $this->dimension = $dimension;
                 $this->price = $dimension->price;
                 $this->reset("dimension_error");
-            } elseif($this->width && $this->height) {
+            } elseif ($this->width && $this->height) {
                 $this->dimension = null;
                 $this->dimension_error = "La dimension {$this->width} x {$this->height} n'est pas disponible";
             }
@@ -231,15 +231,16 @@ class Product extends Component
     }
 
 
-    public function specailCart(){
+    public function specailCart()
+    {
         $color = $this->color ? $this->color : null;
 
         if ($this->dimension) {
             $discount = Discount::where("category_id", $this->dimension->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
-        } else{
+        } else {
             $discount = Discount::where("category_id", $this->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         }
-        
+
 
         // Prepare cart item data
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color . $this->special_height . $this->special_width;
@@ -254,7 +255,7 @@ class Product extends Component
                 'color' => intval($color),
                 'color_name' => $colorDetails?->name,
                 'image' => $this->product->images?->first()?->image,
-                'dimension' => $this->special_height. "*" . $this->special_width,
+                'dimension' => $this->special_height . "*" . $this->special_width,
                 'slug' => $this->product->slug,
                 'attribute' => "Spéciale",
                 'product_id' => $this->product->id,
@@ -268,7 +269,7 @@ class Product extends Component
         $this->reset("height");
         $this->dispatch('add-to-cart');
     }
-        
+
 
     public function add()
     {
@@ -322,8 +323,8 @@ class Product extends Component
         $dimension = '';
         if ($this->dimension) {
             $weight = $this->dimension->weight ? " - {$this->dimension->weight} {$this->dimension->weight_unit?->getLabel()}" : '';
-            $dimension = ($this->dimension->width 
-                ? $this->dimension->width 
+            $dimension = ($this->dimension->width
+                ? $this->dimension->width
                 : $this->dimension->height) . ($this->dimension->height_unit?->getLabel() ?? '') . $weight;
         }
         // Prepare cart item data
@@ -351,7 +352,6 @@ class Product extends Component
         $this->reset("width");
         $this->reset("height");
         $this->dispatch('add-to-cart');
-       
     }
 
 
