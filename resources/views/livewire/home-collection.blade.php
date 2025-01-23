@@ -30,11 +30,11 @@
             @endforeach
         </div>
         <div class="flex justify-center md:max-w-6xl md:mx-auto gap-4 animate__animated animate__fadeInUp mt-10" x-animate.intersect="fadeInUp" style="--animate-duration: 1s;">
-                <a href="http://localhost:8000/contact" class="btn btn-accent-gray animate__animated animate__fadeInUp flex items-center justify-center gap-2" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
+                <a href="http://localhost:8000/contact" class="btn btn-accent-gray animate__animated animate__fadeInUp flex items-center justify-center gap-2 p-2 md:p-3" x-animate.delay.200="fadeInUp" style="--animate-duration: 1s;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.357 7.714l6.98 4.654c.963.641 1.444.962 1.964 1.087a3 3 0 0 0 1.398 0c.52-.125 1.001-.446 1.963-1.087l6.98-4.654M7.158 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327"></path></svg>
                     <span>Contact</span>
                 </a>
-                <a href="{{ route('products') }}" class="flex gap-2 justify-center items-center btn btn-primary animate__animated animate__fadeInUp" x-animate.intersect="fadeInUp" style="--animate-duration: 1s;">
+                <a href="{{ route('products') }}" class="flex gap-2 justify-center items-center btn btn-primary animate__animated animate__fadeInUp p-2 md:p-3" x-animate.intersect="fadeInUp" style="--animate-duration: 1s;">
                     Nos produits
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m8.818 15.182l6.364-6.364m-4.95 0h4.95v4.95"/><path d="M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0"/></g></svg>
                 </a>

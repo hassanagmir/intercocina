@@ -80,7 +80,7 @@
             </button>
         </div>
 
-        <div class="flex">
+        <div class="md:flex">
             @if (count($product->attributes))
             <div>
                 <p class="font-bold text-gray-900">{{__("Type de ")}} {{ $product->type?->category?->name}}</p>
@@ -94,7 +94,7 @@
             @endif
 
             @if ($product->attributes->count())
-            <div class="ms-4">
+            <div class="md:ms-4">
                 <p class="font-bold text-gray-900">{{ __("Special") }}</p>
                 <div class="text-black/70 mb-3 bg-white px-3 py-3 flex items-center font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
                     <input wire:model.live="special" id="bordered-checkbox-1" type="checkbox" name="bordered-checkbox" class="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
