@@ -19,7 +19,7 @@
                 </div>
                 <div class="mt-auto">
                     <a href="{{ route('category.show', $category->slug) }}" class="inline-flex items-center text-sm font-medium text-primary-600 transition-colors hover:text-primary-700">
-                        {{ __("Explore Category") }}
+                        {{ __("Explorer la catégorie") }}
                         <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
