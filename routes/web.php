@@ -124,7 +124,7 @@ Route::post('json', [ProductExportController::class, 'export'])->name('json');
 
 
 // In routes/web.php
-Route::get('/reset-password/{token}', function (string $token) {
+Route::get('/reset-psasword/{token}', function (string $token) {
     return view('user.reset-password', ['token' => $token]);
 })->middleware('guest')->name('password.reset');
 
