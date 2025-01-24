@@ -369,6 +369,21 @@ Livewire.hook('morph.updated', ({ el, component }) => {
     setTimeout(() => {
         lazyLoading();
     }, 100);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.animate-marquee').forEach(function(element) {
+            element.addEventListener('mouseenter', function() {
+                this.style.animationPlayState = 'paused';
+            });
+        });
+    
+        document.querySelectorAll('.animate-marquee').forEach(function(element) {
+            element.addEventListener('mouseleave', function() {
+                this.style.animationPlayState = 'running';
+            });
+        });
+    });
+    
 });
 
 Livewire.start();

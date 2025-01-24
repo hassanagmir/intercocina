@@ -212,3 +212,17 @@ Route::get('/run-npm/{command}', function ($command) {
         ], 500);
     }
 });
+
+
+Route::get('/clear-cache', function () {
+    try {
+        Artisan::call('cache:clear');
+        return response()->json(['message' => 'Cache cleared successfully.'], 200);
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+Route::get('viewr', function () {
+    return view('viewr');
+});
