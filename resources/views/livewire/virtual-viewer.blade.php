@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row">
+<div class="flex flex-col md:flex-row px-4">
     {{-- List of images --}}
     <div class="w-full md:w-1/3 p-4">
         <div class="relative mb-4">
@@ -42,10 +42,14 @@
               </svg>
             </div>
           </div>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-4 gap-2">
             @foreach ($colors as $color)
                 <div wire:click="changeColor('{{ $color->id }}')"  class="bg-white rounded-lg text-center transform duration-300 hover:-translate-y-1 cursor-pointer w-32 snap-center splide__slide shrink-0">
-                    <img src="{{ url(config('app.storage'), $color->image) }}" alt="{{ $color->name }}" class="w-full h-auto rounded-lg">
+                    <img src="{{ url(config('app.storage'), $color->image) }}" alt="{{ $color->name }}" class="w-full h-auto rounded-t-lg">
+                    <div class="mt-2">
+                        <span class="text-sm text-gray-600">{{ $color->name }}</span><br>
+                        <span class="text-sm text-gray-600">{{ $color->code }}</span>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -56,6 +60,6 @@
         <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-2 rounded-lg opacity-90" wire:loading>
             <img src="https://letsdesign.esignserver2.com/images/ajax-loader.gif" alt="">
         </span>
-        <img src="{{ url(config('app.storage'), $image) }}" alt="" class="w-full h-auto rounded-lg shadow-md">
+        <img src="{{ url(config('app.storage'), $image) }}" alt="" class="w-full h-auto rounded-lg shadow-sm">
     </div>
 </div>
