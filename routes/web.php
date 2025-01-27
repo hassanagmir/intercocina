@@ -224,5 +224,6 @@ Route::get('/clear-cache', function () {
 });
 
 Route::get('viewr', function () {
-    return view('viewr');
+    $title = "Salle d'exposition virtuelle";
+    return view('viewr', compact('title'));
 });

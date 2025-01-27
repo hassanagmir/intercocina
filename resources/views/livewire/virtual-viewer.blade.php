@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row px-4">
+<div class="flex flex-col md:flex-row px-4 mt-3">
     {{-- List of images --}}
     <div class="w-full md:w-1/3 p-4">
         <div class="relative mb-4">
@@ -58,9 +58,9 @@
 
 
           </div>
-          <div class="grid grid-cols-3 md:grid-cols-4 gap-2">
+          <div class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 pt-3 gap-2 overflow-y-auto max-h-[50hv] sticky top-11 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-500">
             @forelse ($colors as $color)
-                <div wire:click="changeColor('{{ $color->id }}')"  class="bg-white rounded-lg shadow-sm text-center transform duration-300 hover:-translate-y-1 cursor-pointer w-32 snap-center splide__slide shrink-0">
+                <div wire:click="changeColor('{{ $color->id }}')"  class="bg-white rounded-lg shadow-sm text-center transform duration-300 hover:-translate-y-1 cursor-pointer w-32 xl:w-36 snap-center splide__slide shrink-0 {{ $color->id == $this->color ? 'border-2 border-red-500' : '' }}">
                     <img src="{{ url(config('app.storage'), $color->image) }}" alt="{{ $color->name }}" class="w-full h-auto rounded-t-lg">
                     <div class="mt-2">
                         <span class="text-sm text-gray-600">{{ $color->name }}</span><br>
@@ -74,10 +74,21 @@
     </div>
 
     {{-- Main image --}}
-    <div class="relative w-full md:w-2/3 p-4">
-        <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-2 rounded-lg opacity-90" wire:loading wire:target="changeColor">
+    <div class="relative w-full md:w-2/3">
+        <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-2 rounded-t-lg opacity-90" wire:loading wire:target="changeColor">
             <img src="https://letsdesign.esignserver2.com/images/ajax-loader.gif" alt="">
         </span>
-        <img src="{{ url(config('app.storage'), $image) }}" alt="Virtual image" class="w-full h-auto rounded-lg shadow-sm">
+        <img src="{{ url(config('app.storage'), $image) }}" alt="Virtual image" class="w-full h-auto rounded-t-lg shadow-sm">
+        <div class="p-3 bg-white rounded-b-lg flex justify-between">
+            <div>
+                <a href="{{ route('product.show', $currentColor?->product?->slug)}}" class="text-xl flex gap-2 hover:text-red-500" target="_blank">
+                    <span>{{ $currentColor->name }} {{ $currentColor->code }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="m8.818 15.182l6.364-6.364m-4.95 0h4.95v4.95"/><path d="M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z"/></g></svg>
+                </a>
+            </div>
+            <div class="text-xl">
+                <span class="text-[#b6b6b7] font-black tracking-widest" style="font-family: 'DOCK11-Heavy', sans-serif!important">INTER</span><span class="text-[#ec2228] font-black tracking-widest" style="font-family: 'DOCK11-Heavy', sans-serif!important">COCINA</span>
+            </div>
+        </div>
     </div>
 </div>

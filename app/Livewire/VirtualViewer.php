@@ -16,16 +16,21 @@ class VirtualViewer extends Component
 
     public $query;
 
+    public $currentColor;
+
     public function mount()
     {
         $this->image = \App\Models\ViewImage::first()->first()->path;
         $this->colors = \App\Models\ViewColor::all();
+        $this->currentColor = \App\Models\ViewColor::find($this->color);
+
     }
 
     public function changeColor($color)
     {
         $this->color = $color;
         $this->image = \App\Models\ViewImage::where('view_color_id', $color)->first()->path;
+        $this->currentColor = \App\Models\ViewColor::find($this->color);
     }
 
     public function search()
