@@ -24,6 +24,7 @@
                     price="{{ $product->price() }}"
                     image="{{ $product->images?->first()?->image }}"
                     slug="{{ $product->slug }}"
+                    category="{{ $product->category?->name }}"
                  />
             @endforeach
         </div>
