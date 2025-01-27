@@ -10,11 +10,16 @@ class VirtualViewer extends Component
     #[Url(as: 'color')]
     public $color;
 
+    public $colors = [];
+
     public $image;
+
+    public $query;
 
     public function mount()
     {
         $this->image = \App\Models\ViewImage::first()->first()->path;
+        $this->colors = \App\Models\ViewColor::all();
     }
 
     public function changeColor($color)
@@ -23,10 +28,22 @@ class VirtualViewer extends Component
         $this->image = \App\Models\ViewImage::where('view_color_id', $color)->first()->path;
     }
 
+    public function search()
+    {
+        $this->colors = \App\Models\ViewColor::where('name', "LIKE", "%$this->query%")
+            ->orWhere('code', "LIKE", "%$this->query%")
+            ->get();
+    }
+
+    public function clear()
+    {
+        $this->query = '';
+        $this->colors = \App\Models\ViewColor::all();
+    }
+
 
     public function render()
     {
-        $colors = \App\Models\ViewColor::all();
-        return view('livewire.virtual-viewer', compact('colors'));
+        return view('livewire.virtual-viewer');
     }
 }
