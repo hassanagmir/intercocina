@@ -24,9 +24,8 @@ class CheckoutForm extends Component
 
     public function mount()
     {
-
         // \Cart::clear();
-        // dd(\Cart::getContent());
+        dd(\Cart::getContent());
     }
 
 
@@ -62,7 +61,8 @@ class CheckoutForm extends Component
         // dd(\Cart::getContent());
 
         foreach (\Cart::getContent() as $product) {
-            OrderItem::create([
+     
+            $item = OrderItem::create([
                 'order_id' => $order->id,
                 'code' => "INTER-" . strtoupper(Str::random(15)),
                 'total' => $product['price'] * intval($product['quantity']),
@@ -70,11 +70,22 @@ class CheckoutForm extends Component
                 'color_id' => $product['attributes']['color'],
                 'product_id' => $product['attributes']['product_id'],
                 'dimension_id' => $product['attributes']['dimension_id'],
-                'special_height' => explode("*", $product['attributes']['dimension'])[0],
-                'special_width' => explode("*", $product['attributes']['dimension'])[1],
+                // 'special_height' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[0]),
+                // 'special_width' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[1]),
             ]);
+
+            if($product['attributes']['special']){
+                $item->update([
+                    'special_height' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[0]),
+                    'special_width' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[1]),
+                ]);
+            }
+
         }
 
+        
+        
+        // dd("Stop");
         session()->flash('message', __('Votre commande a été envoyée avec succès!'));
         \Cart::clear();
         return redirect()->route("order.list");

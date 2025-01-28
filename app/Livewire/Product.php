@@ -171,6 +171,7 @@ class Product extends Component
     public function updated($property)
     {
 
+
         if ($this->special) {
             $this->updatedSpecialWidth();
             return;
@@ -214,8 +215,6 @@ class Product extends Component
         }
 
 
-
-
         if (isset($query)) {
             $dimension = $query->first();
 
@@ -234,7 +233,6 @@ class Product extends Component
     public function specailCart()
     {
         $color = $this->color ? $this->color : null;
-
         if ($this->dimension) {
             $discount = Discount::where("category_id", $this->dimension->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         } else {
@@ -257,9 +255,10 @@ class Product extends Component
                 'image' => $this->product->images?->first()?->image,
                 'dimension' => $this->special_height . "*" . $this->special_width,
                 'slug' => $this->product->slug,
-                'attribute' => "Spéciale",
+                'attribute' => $this->attribute,
                 'product_id' => $this->product->id,
-                'dimension_id' => null,
+                'dimension_id' => $this->dimension?->id,
+                'special' => true,
             ]
         ]);
 
@@ -331,6 +330,7 @@ class Product extends Component
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color;
         $colorDetails = $color ? Color::find($color) : null;
 
+
         \Cart::add([
             'id' => $cartItemId,
             'name' => $this->product->name,
@@ -345,6 +345,7 @@ class Product extends Component
                 'attribute' => $this->dimension ? $this->dimension?->attribute?->name : false,
                 'product_id' => $this->product->id,
                 'dimension_id' => $this->dimension?->id,
+                'special' => false,
             ]
         ]);
         $this->qty = 1;

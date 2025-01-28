@@ -12,6 +12,14 @@ class OrderResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
+    function rm_space(string $input): string {
+        $trimmed = trim($input);
+        $cleaned = preg_replace('/\s+/', ' ', $trimmed);
+        return $cleaned;
+    }
+
+    
     public function toArray(Request $request): array
     {
         return [
@@ -24,12 +32,16 @@ class OrderResource extends JsonResource
             'customer' => $this->user->name,
             'customer_code' => $this->user->code,
             'products' => $this->items->map(function ($item) {
+                $product_name = str_replace("Façade ", "", $item->product->name);
+                $dimension = $item->dimension ? $item->dimension->dimension : '';
+                $attribute = $item?->dimension?->attribute?->name . " ";
+                $special = isset($item->special_height);
                 return [
                     'id' => $item->id,
                     'code' => $item->dimension ? $item->dimension->code : $item->product->code,
-                    'dimensions' => $item->dimension ? $item->dimension->dimension : null,
-                    'designation' => $item->product->name . " " . ($item->dimension ? $item->dimension->dimension : ''),
-                    'product_id' => $item->product_id,
+                    'dimensions' => $special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null),
+                    'designation' => $this->rm_space($attribute ."$product_name  $dimension"),
+                    'special' => $special,
                     'quantity' => $item->quantity,
                     'total' => $item->total,
                     'full_dimension' => $item->dimension ? $item->dimension : null,

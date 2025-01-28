@@ -1,9 +1,8 @@
-<div class="flex flex-col md:flex-row px-4 mt-3">
+<div class="flex flex-col md:flex-row md:px-4 mt-3">
     {{-- List of images --}}
     <div class="w-full md:w-1/3 p-4">
         <div class="relative mb-4">
-            <input
-              class="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-red-600 focus:border-red-600 focus:shadow-outline"
+            <input class="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-red-600 focus:border-red-600 focus:shadow-outline"
               id="username"
               type="text"
               wire:keyup="search"
@@ -58,7 +57,7 @@
 
 
           </div>
-          <div class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 pt-3 gap-2 overflow-y-auto max-h-[50hv] sticky top-11 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-500">
+          <div style="height: 75vh;" class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 pt-3 gap-2 overflow-y-auto max-h-[50hv] sticky top-11 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-500">
             @forelse ($colors as $color)
                 <div wire:click="changeColor('{{ $color->id }}')"  class="bg-white rounded-lg shadow-sm text-center transform duration-300 hover:-translate-y-1 cursor-pointer w-32 xl:w-36 snap-center splide__slide shrink-0 {{ $color->id == $this->color ? 'border-2 border-red-500' : '' }}">
                     <img src="{{ url(config('app.storage'), $color->image) }}" alt="{{ $color->name }}" class="w-full h-auto rounded-t-lg">
@@ -75,7 +74,7 @@
 
     {{-- Main image --}}
     <div class="relative w-full md:w-2/3">
-        <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-2 rounded-t-lg opacity-90" wire:loading wire:target="changeColor">
+        <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-2 opacity-90" wire:loading wire:target="changeColor">
             <img src="https://letsdesign.esignserver2.com/images/ajax-loader.gif" alt="">
         </span>
         <img src="{{ url(config('app.storage'), $image) }}" alt="Virtual image" class="w-full h-auto rounded-t-lg shadow-sm">

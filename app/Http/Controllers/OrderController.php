@@ -37,7 +37,7 @@ class OrderController extends Controller
 
 
     public function index() {
-        return \App\Http\Resources\OrderResource::collection(Order::all());
+        return \App\Http\Resources\OrderResource::collection(Order::where('status', 2)->get());
     }
     
 
