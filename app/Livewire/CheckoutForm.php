@@ -25,7 +25,7 @@ class CheckoutForm extends Component
     public function mount()
     {
         // \Cart::clear();
-        dd(\Cart::getContent());
+        // dd(\Cart::getContent());
     }
 
 

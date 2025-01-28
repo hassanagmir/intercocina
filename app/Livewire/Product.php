@@ -35,7 +35,6 @@ class Product extends Component
     public $width;
 
 
-
     public $color_error;
     public $dimension_error;
 
@@ -49,10 +48,8 @@ class Product extends Component
     public $special = false;
 
 
-
     public function updatedSpecialWidth()
     {
-
         $dimension = $this->product->dimensions()
             ->where('width', '>=', intval($this->special_width))
             ->where('height', '>=', intval($this->special_height))
@@ -63,6 +60,7 @@ class Product extends Component
 
         if ($dimension) {
             $this->special_price = $dimension->price;
+            $this->dimension = $dimension;
             $this->dimension_error = false;
         } else {
             $this->dimension_error = "La dimension {$this->special_width} x {$this->special_height} n'est pas disponible";
@@ -76,7 +74,6 @@ class Product extends Component
             $originalHeight = $dimension->height;
             $originalWidth = $dimension->width;
             $originalPrice = $dimension->price;
-
             $newHeight = $this->special_height;
             $newWidth = $this->special_width;
 
@@ -172,10 +169,11 @@ class Product extends Component
     {
 
 
-        if ($this->special) {
-            $this->updatedSpecialWidth();
-            return;
-        }
+        // if ($this->special) {
+        //     $this->updatedSpecialWidth();
+        //     return;
+        // }
+
         if (count($this->product->attributes)) {
             $this->heights = array_unique($this->product->dimensions()
                 ->where('attribute_id', $this->attribute)
