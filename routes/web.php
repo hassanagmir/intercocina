@@ -24,6 +24,9 @@ Route::get('/livewire/update', function () {
     return redirect()->back();
 });
 
+Route::get('api/orders', [OrderController::class, 'api_list'])->name('order.api.list');
+// Route::post('api/orders/confirm', [OrderController::class, 'confirm'])->name('order.api.list');
+
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('aprops', 'about')->name('about');
@@ -67,7 +70,11 @@ Route::prefix('order')->group(function () {
     Route::get('invoice/{order:code}', [OrderController::class, 'invoice'])->name('order.invoice');
     Route::get('{order}/export', [OrderController::class, 'exportOrder'])->name('order.export');
     Route::get('{order}/export-text', [OrderController::class, 'exportOrderText'])->name('order.export-text');
+
 });
+
+
+
 
 
 Route::get("search", [ProductController::class, 'search'])->name('search');
@@ -134,7 +141,7 @@ Route::get('import', function () {
 })->name('import');
 
 
-Route::get('api/orders', [OrderController::class, 'index'])->name('order.index');
+
 
 
 Route::post('export-client', function (Request $request) {

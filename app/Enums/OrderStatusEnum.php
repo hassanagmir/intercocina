@@ -10,7 +10,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
 {
     case ON_HOLD = 1;
     case CONFIRMED = 2;
-    case PREPARATION = 43;
+    case PREPARATION = 3;
     case READY = 4;
     case CANCELD = 5;
 

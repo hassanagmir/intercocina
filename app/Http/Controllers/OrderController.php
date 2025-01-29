@@ -37,7 +37,7 @@ class OrderController extends Controller
 
 
 
-    public function index(Request $request)
+    public function api_list(Request $request)
     {
         $apiKey = $request->header('INTER-API-KEY');
         if ($apiKey !== env('API_KEY')) {
@@ -45,6 +45,26 @@ class OrderController extends Controller
         }
         return \App\Http\Resources\OrderResource::collection(Order::where('status', 2)->get());
     }
+
+    public function confirm(Request $request)
+    {
+        $apiKey = $request->header('INTER-API-KEY');
+        if ($apiKey !== env('API_KEY')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    
+        $order = Order::where('code', $request->code)->first();
+    
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+    
+        $order->status = 3;
+        $order->save();
+    
+        return new \App\Http\Resources\OrderResource($order);
+    }
+    
     
 
     public function invoice(Order $order)
