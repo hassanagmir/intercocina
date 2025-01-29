@@ -36,14 +36,16 @@ class OrderResource extends JsonResource
                 $dimension = $item->dimension ? $item->dimension->dimension : '';
                 $attribute = $item?->dimension?->attribute?->name . " ";
                 $special = isset($item->special_height);
+                $color = $item?->dimension?->color?->name;
                 return [
                     'id' => $item->id,
                     'code' => $item->dimension ? $item->dimension->code : $item->product->code,
-                    'dimensions' => $special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null),
-                    'designation' => $this->rm_space($attribute ."$product_name  $dimension"),
+                    'dimensions' => ($special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null)),
+                    'designation' => $this->rm_space($attribute ."$product_name  $dimension $color"),
                     'special' => $special,
+                    'color' => $color,
                     'quantity' => $item->quantity,
-                    'total' => $item->total,
+                    'total' => floatval($item->total),
                     'full_dimension' => $item->dimension ? $item->dimension : null,
                 ];
             }),

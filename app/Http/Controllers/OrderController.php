@@ -36,7 +36,13 @@ class OrderController extends Controller
     }
 
 
-    public function index() {
+
+    public function index(Request $request)
+    {
+        $apiKey = $request->header('INTER-API-KEY');
+        if ($apiKey !== env('API_KEY')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
         return \App\Http\Resources\OrderResource::collection(Order::where('status', 2)->get());
     }
     
