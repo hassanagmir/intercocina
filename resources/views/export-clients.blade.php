@@ -8,7 +8,7 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('export-client') }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('json') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div>
         <label for="jsonFile">Choose JSON file:</label>

@@ -55,7 +55,8 @@ class ProductExportController extends Controller
                     ['name' =>  $type->name . " " . $item['name']],
                     [
                         'type_id' => $type->id,
-                        'price' => isset($item['dimensions']) ? null : $item['price']
+                        'price' => isset($item['dimensions']) ? null : $item['price'],
+                        'code' => isset($item['dimensions']) ? null : $item['code']
                     ]
                 );
 
@@ -88,6 +89,7 @@ class ProductExportController extends Controller
 
             
                 if(isset($item['dimensions'])){
+
                     if (strpos($item['dimensions'], '*') !== false) {
                         $height = explode('*', $item['dimensions'])[0];
                         $width = explode('*', $item['dimensions'])[1];
@@ -107,6 +109,8 @@ class ProductExportController extends Controller
                             'color_id' => isset($item['color']) ? $color->id : null,
                             'height_unit' =>  isset($height_unit) ? $height_unit : null,
                             'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
+                            'depth' => isset($item['depth']) ? $item['depth']  : null,
+                            'thicknesse' => isset($item['thickness']) ? $item['thickness']  : null,
                         ]
                     );
                 }
