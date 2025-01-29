@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class ProductExportController extends Controller
 {
-    public function export(Request $request){
+    public function export(Request $request)
+    {
         ini_set('max_execution_time', 3600);
         set_time_limit(3600);
         $request->validate([
@@ -32,18 +33,18 @@ class ProductExportController extends Controller
                 $category = Category::firstOrCreate(['name' => $item['category']]);
 
                 $type = Type::firstOrCreate([
-                    'name' => $category->name . " ". $item['type'],
+                    'name' => $category->name . " " . $item['type'],
                     'category_id' => $category->id,
                 ]);
 
 
-                if(isset($item['color'])){
+                if (isset($item['color'])) {
                     $color = Color::firstOrCreate([
                         'name' => ucfirst($item['color']),
                     ]);
                 }
 
-                if(isset($item['attribute'])){
+                if (isset($item['attribute'])) {
                     $attribute = Attribute::firstOrCreate(
                         ['name' => ucfirst($item['attribute'])],
                         ['category_id' => $category->id]
@@ -63,32 +64,32 @@ class ProductExportController extends Controller
                 // $product->code = $item['code'];
                 // $product->save();
 
-                if(isset($item['color'])){
+                if (isset($item['color'])) {
                     $product->colors()->syncWithoutDetaching([$color->id]);
                 }
 
-                if(isset($item['attribute'])){
+                if (isset($item['attribute'])) {
                     $product->attributes()->syncWithoutDetaching([$attribute->id]);
                 }
 
-                if(isset($item["height_unit"])){
+                if (isset($item["height_unit"])) {
                     switch ($item['height_unit']) {
                         case 'mm':
                             $height_unit = 1;
                             break;
-                        
+
                         case 'cm':
                             $height_unit = 2;
                             break;
-                        
+
                         case 'm':
                             $height_unit = 3;
                             break;
-                    }    
+                    }
                 }
 
-            
-                if(isset($item['dimensions'])){
+
+                if (isset($item['dimensions'])) {
 
                     if (strpos($item['dimensions'], '*') !== false) {
                         $height = explode('*', $item['dimensions'])[0];
@@ -97,7 +98,7 @@ class ProductExportController extends Controller
                         $height = $item['dimensions'];
                         $width = null;
                     }
-                    
+
 
                     return Dimension::firstOrCreate(
                         ['code' => $item['code']],
@@ -116,7 +117,6 @@ class ProductExportController extends Controller
                 }
 
                 return $product;
-                
             });
         });
 
