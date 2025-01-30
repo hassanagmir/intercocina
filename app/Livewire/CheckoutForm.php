@@ -6,6 +6,7 @@ use App\Enums\OrderStatusEnum;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Shipping;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
@@ -21,9 +22,20 @@ class CheckoutForm extends Component
     #[Validate('required', message: "Sélectionnez un mode de paiement")]
     public $payment;
 
+    #[Validate('required', message: "Sélectionnez le transport d'expédition")]
+    public $shipping;
+
+
+
+
 
     public function mount()
     {
+
+        if(auth()->user()->shipping_id){
+            $this->shipping = auth()->user()->shipping_id;
+        }
+        
         // \Cart::clear();
         // dd(\Cart::getContent());
     }
@@ -31,8 +43,8 @@ class CheckoutForm extends Component
 
     public function save()
     {
-
         $this->validate();
+        
 
         if(auth()->user()->status->value == 2){
             session()->flash('error_message', __("Désolé, votre compte est actuellement inactif. Veuillez contacter le support au +212 661-547900 pour plus d'informations."));
@@ -56,7 +68,8 @@ class CheckoutForm extends Component
             'total_amount' => \Cart::getTotal() * 1.2,
             'status' => OrderStatusEnum::ON_HOLD,
             'address_id' => $this->address,
-            'payment' => $this->payment
+            'payment' => $this->payment,
+            'shipping_id' => $this->shipping,
         ]);
         // dd(\Cart::getContent());
 
@@ -92,9 +105,10 @@ class CheckoutForm extends Component
     }
 
 
-    public function render()
+    public function render() 
     {
         $addresses = Address::where("user_id", auth()->id())->get();
-        return view('livewire.checkout-form', compact('addresses'));
+        $shippings = Shipping::all();
+        return view('livewire.checkout-form', compact('addresses', 'shippings'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Shipping;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -20,6 +21,8 @@ class EditProfile extends Component
     public $name;
     public $city;
 
+    public $shipping;
+
 
 
     public function messages(): array
@@ -36,6 +39,10 @@ class EditProfile extends Component
     public function mount()
     {
         $user = auth()->user();
+
+        if($user->shipping_id){
+            $this->shipping = $user->shipping;
+        }
 
         $this->user = $user;
         $this->first_name = $user->first_name;
@@ -59,7 +66,8 @@ class EditProfile extends Component
             'phone' => 'nullable|string|max:20|unique:users,phone,' . $this->user->id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'email' => 'required|email|unique:users,email,' . $this->user->id,
-            'name' => 'required|min:4|max:150'
+            'name' => 'required|min:4|max:150',
+            'shipping' => 'nullable|numeric|exists:shippings,id',
         ]);
 
         if ($this->image) {
@@ -83,6 +91,7 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.edit-profile');
+        $shippings = Shipping::all();
+        return view('livewire.edit-profile', compact('shippings'));
     }
 }

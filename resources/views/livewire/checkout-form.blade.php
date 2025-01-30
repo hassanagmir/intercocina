@@ -1,38 +1,28 @@
 <div>
   <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-    <p class="text-xl font-semibold text-gray-900">{{ __("Sélectionnez la méthode de paiement") }}</p>
-    <ul>
-      <li class="mb-3">
-        <input type="radio" wire:model="payment" value="1" id="pyments-1" name="payment" class="hidden peer" required />
-        <label for="pyments-1" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
-            <div class="block">
-                <div class="w-full text-lg font-semibold">Virement Bancaire</div>
-                {{-- <div class="w-full">Assurez-vous d'atteindre un total min de 399 Dhs HT en ajoutant d'autres produits ou en ajustant les quantités de vos produits.</div> --}}
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 17.5v-11m0 0L11 10M7.5 6.5L4 10m12.5-3.5v11m0 0L20 14m-3.5 3.5L13 14"/></svg>
-        </label>
-    </li>
-    <li class="mb-3">
-        <input type="radio" wire:model="payment" value="2" id="pyments-2" name="payment" class="hidden peer" required />
-        <label for="pyments-2" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
-            <div class="block">
-                <div class="w-full text-lg font-semibold">Versement Agences</div>
-                {{-- <div class="w-full">Assurez-vous d'atteindre un total min de 399 Dhs HT en ajoutant d'autres produits ou en ajustant les quantités de vos produits.</div> --}}
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8.94V18m5-9.06V18M7 8.94V18m5.447-14.894l7.764 3.908c.944.475.608 1.907-.447 1.907H4.236c-1.055 0-1.391-1.432-.447-1.907l7.764-3.908a1 1 0 0 1 .894 0M19.5 21h-15a1.5 1.5 0 0 1 0-3h15a1.5 1.5 0 0 1 0 3"/></svg>
-        </label>
-    </li>
-    <li class="mb-3">
-      <input type="radio" wire:model="payment" value="3" id="pyments-3" name="payment" class="hidden peer" required />
-      <label for="pyments-3" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">                           
-          <div class="block">
-              <div class="w-full text-lg font-semibold">Chèque à la livraison</div>
-              {{-- <div class="w-full">Assurez-vous d'atteindre un total min de 399 Dhs HT en ajoutant d'autres produits ou en ajustant les quantités de vos produits.</div> --}}
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" d="M14.75 2.5H1.25A1.2 1.2 0 0 0 0 3.64v8.72a1.2 1.2 0 0 0 1.25 1.14h13.5A1.2 1.2 0 0 0 16 12.36V3.64a1.2 1.2 0 0 0-1.25-1.14m0 9.75H1.25v-8.5h13.5z"/><path fill="currentColor" d="M7 8.62h2a.34.34 0 0 1 .33.38a.33.33 0 0 1-.33.29H7.08A.33.33 0 0 1 6.75 9H5.49a1.58 1.58 0 0 0 1.58 1.54h.31v1.26h1.24v-1.26H9A1.58 1.58 0 0 0 10.56 9a1.5 1.5 0 0 0-.34-1A1.59 1.59 0 0 0 9 7.38H7A.34.34 0 0 1 6.69 7h.01a.34.34 0 0 1 .3-.3h1.94a.34.34 0 0 1 .33.3h1.25a1.59 1.59 0 0 0-1.58-1.55h-.32V4.2H7.37v1.25H7A1.6 1.6 0 0 0 5.44 7a1.55 1.55 0 0 0 .35 1A1.59 1.59 0 0 0 7 8.62"/></svg>
-      </label>
-    </li>
-  </ul> 
+    <p class="text-md font-semibold text-gray-900">{{ __("Méthode de paiement") }}</p>
+    <select wire:model="payment" id="payment" name="payment" class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600" required>
+      <option value="" disabled selected>Select Payment Method</option>
+      <option value="1" class="py-2">
+          Virement Bancaire
+      </option>
+      <option value="2" class="py-2">
+          Versement Agences
+      </option>
+      <option value="3" class="py-2">
+          Chèque à la livraison
+      </option>
+  </select>
+  @error('payment') <div class="text-red-600 font-bold mt-2">{{ $message }}</div> @enderror
+  <div>
+    <label for="shipping" class="block text-md font-semibold text-gray-700">{{ __("Expédition") }}</label>
+    <select id="shipping" wire:model="shipping" name="shipping" class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600">
+        @foreach ($shippings as $item)
+            <option value="{{ $item->id }}">{{ $item->name }}</option>
+        @endforeach
+    </select>
+    @error('shipping') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+</div>
 </div>
 
 <div class="space-y-4 mt-5 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -40,9 +30,7 @@
   @error('address')
   <div class="text-red-600 font-bold">{{ $message }}</div>
   @enderror
-  @error('payment')
-  <div class="text-red-600 font-bold mt-2">{{ $message }}</div>
-  @enderror
+ 
 
   @if (session()->has('error_message'))
     <div class="text-red-600 font-bold mt-2">{{ session('error_message') }}</div>
@@ -108,10 +96,11 @@
           
                       <!-- Content -->
                       @livewire('address-form')
+
+                     
                   </div>
               </div>
           </div>
-          
             @endauth
 
             @guest
@@ -135,6 +124,7 @@
 
   <div class="space-y-4">
     <div class="space-y-2">
+    
       <dl class="flex items-center justify-between gap-4">
         <dt class="text-base font-normal text-gray-500">{{ __("Prix d'origine")}}</dt>
         <dd class="text-base font-bold text-gray-900">{{ number_format(\Cart::getTotal(), 2) }} MAD</dd>

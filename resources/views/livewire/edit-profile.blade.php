@@ -57,7 +57,17 @@
                 </div>
 
                 <div>
-                    <label for="gender" class="block text-dm font-semibold text-gray-700">{{"Genre"}}</label>
+                    <label for="shipping" class="block text-dm font-semibold text-gray-700">{{ __("Expédition") }}</label>
+                    <select id="shipping" wire:model="shipping" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                        @foreach ($shippings as $shipping)
+                            <option value="{{ $shipping->id }}">{{ $shipping->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('shipping') <span class="text-red-600 text-sm">{{ $shipping }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="gender" class="block text-dm font-semibold text-gray-700">{{ __("Genre") }}</label>
                     <select id="gender" wire:model="gender" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                         <option value="">Sélectionner</option>
                         <option value="Mâle">Mâle</option>
