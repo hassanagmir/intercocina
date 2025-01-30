@@ -31,6 +31,8 @@ class OrderResource extends JsonResource
             'payment' => $this->payment,
             'customer' => $this->user->name,
             'customer_code' => $this->user->code,
+            'shipping_id' => $this->shipping_id,
+            'souche' => 1,
             'products' => $this->items->map(function ($item) {
                 $product_name = str_replace("Façade ", "", $item->product->name);
                 $dimension = $item->dimension ? $item->dimension->dimension : '';

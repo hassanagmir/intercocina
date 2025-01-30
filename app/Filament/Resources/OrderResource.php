@@ -193,6 +193,11 @@ class OrderResource extends Resource
                                     ->label(__("Code"))
                                     ->required()
                                     ->maxLength(255),
+                                Forms\Components\Select::make('shipping_id')
+                                    ->relationship('shipping', 'name')
+                                    ->searchable()
+                                    ->label(__("Expédition"))
+                                    ->preload(),
                                 Forms\Components\Select::make('status')
                                     ->label(__("État"))
                                     ->native(false)
@@ -282,6 +287,10 @@ class OrderResource extends Resource
                     ->iconSize(IconSize::Medium)
                     ->label(false)
                     ->tooltip(__("Voir")),
+                Tables\Actions\EditAction::make()
+                    ->iconSize(IconSize::Medium)
+                    ->label(false)
+                    ->tooltip(__("Editer")),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -305,7 +314,7 @@ class OrderResource extends Resource
         return [
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
-            // 'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'edit' => Pages\EditOrder::route('/{record}/edit'),
             'view' => Pages\ViewOrder::route('/{record}/view'),
         ];
     }

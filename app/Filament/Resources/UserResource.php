@@ -102,6 +102,12 @@ class UserResource extends Resource
                                 //     ->label("Mot de passe")
                                 //     ->password(),
 
+                                Forms\Components\Select::make('shipping_id')
+                                    ->relationship('shipping', 'name')
+                                    ->searchable()
+                                    ->label(__("Expédition"))
+                                    ->preload(),
+
                                 Forms\Components\Select::make('status')
                                     ->native(false)
                                     ->options(UserStatusEnum::toArray())
