@@ -26,13 +26,18 @@ class Order extends Model
         'address_id',
         'payment',
         'special_height',
-        'special_width'
+        'special_width',
+        'shipping_id',
     ];
 
     protected $casts = [
         'status' =>  OrderStatusEnum::class,
         'payment' =>  PaymentEnum::class,
     ];
+
+    public function shipping(){
+        return $this->belongsTo(Shipping::class);
+    }
 
 
     // Relationships

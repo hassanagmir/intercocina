@@ -38,6 +38,7 @@ class User extends Authenticatable implements HasName, FilamentUser
         'zip',
         'name',
         'city_id',
+        'shipping_id',
         'password',
     ];
 
@@ -51,6 +52,10 @@ class User extends Authenticatable implements HasName, FilamentUser
             //throw $th;
         }
        
+    }
+
+    public function shipping(){
+        return $this->belongsTo(Shipping::class);
     }
 
 
