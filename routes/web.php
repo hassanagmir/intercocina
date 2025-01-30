@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
@@ -128,6 +129,11 @@ Route::get('/scan', function () {
 
 
 Route::post('json', [ProductExportController::class, 'export'])->name('json');
+
+Route::prefix('import')->group(function(){
+    Route::get('caisson', [ImportController::class, 'caisson'])->name('import.caisson');
+    Route::post('caisson/store', [ImportController::class, 'caisson'])->name('import.caisson.store');
+});
 
 
 // In routes/web.php

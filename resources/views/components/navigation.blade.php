@@ -108,9 +108,9 @@
                         </div>
                         @else
                         <li>
-                            <a x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
-                                {{__("Se connecter")}}
-                            </a>
+                            <button x-on:click="$dispatch('open-contact-form-modal')" class="btn btn-primary">
+                                {{ __("Se connecter") }}
+                            </button>
 
                             <template x-teleport="body">
                                 <x-auth-modal />
