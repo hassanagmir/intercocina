@@ -11,13 +11,10 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 
-
 class CheckoutForm extends Component
 {
-
     #[Validate('required', message: 'Ajoutez ou sélectionnez votre adresse')]
     public $address;
-
 
     #[Validate('required', message: "Sélectionnez un mode de paiement")]
     public $payment;
@@ -25,27 +22,36 @@ class CheckoutForm extends Component
     #[Validate('required', message: "Sélectionnez le transport d'expédition")]
     public $shipping;
 
-
-
-
+    public $shippings;
+    public $addresses;
 
     public function mount()
     {
-
-        if(auth()->user()->shipping_id){
-            $this->shipping = auth()->user()->shipping_id;
-        }
+        // Initialize collections
+        $this->shippings = Shipping::all();
+        $this->addresses = Address::where("user_id", auth()->id())->get();
         
-        // \Cart::clear();
-        // dd(\Cart::getContent());
+        // Set default shipping from user if exists
+        if (auth()->user()->shipping_id) {
+            $this->shipping = auth()->user()->shipping_id;
+        } else {
+            // Set default shipping to first available option if user doesn't have one
+            $this->shipping = $this->shippings->first()?->id;
+        }
     }
 
+    public function updatedShipping($value)
+    {
+        // Validate shipping exists when changed
+        if (!$this->shippings->contains('id', $value)) {
+            $this->shipping = $this->shippings->first()?->id;
+        }
+    }
 
     public function save()
     {
         $this->validate();
         
-
         if(auth()->user()->status->value == 2){
             session()->flash('error_message', __("Désolé, votre compte est actuellement inactif. Veuillez contacter le support au +212 661-547900 pour plus d'informations."));
             return;
@@ -60,8 +66,6 @@ class CheckoutForm extends Component
             abort(404);
         }
 
-
-
         $order = Order::create([
             'user_id' => auth()->id(),
             'code' => "INTER-" . Str::random(15),
@@ -71,10 +75,8 @@ class CheckoutForm extends Component
             'payment' => $this->payment,
             'shipping_id' => $this->shipping,
         ]);
-        // dd(\Cart::getContent());
 
         foreach (\Cart::getContent() as $product) {
-     
             $item = OrderItem::create([
                 'order_id' => $order->id,
                 'code' => "INTER-" . strtoupper(Str::random(15)),
@@ -83,8 +85,6 @@ class CheckoutForm extends Component
                 'color_id' => $product['attributes']['color'],
                 'product_id' => $product['attributes']['product_id'],
                 'dimension_id' => $product['attributes']['dimension_id'],
-                // 'special_height' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[0]),
-                // 'special_width' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[1]),
             ]);
 
             if($product['attributes']['special']){
@@ -93,22 +93,15 @@ class CheckoutForm extends Component
                     'special_width' => str_replace(" ","", explode("*", $product['attributes']['dimension'])[1]),
                 ]);
             }
-
         }
-
         
-        
-        // dd("Stop");
         session()->flash('message', __('Votre commande a été envoyée avec succès!'));
         \Cart::clear();
         return redirect()->route("order.list");
     }
 
-
-    public function render() 
+    public function render()
     {
-        $addresses = Address::where("user_id", auth()->id())->get();
-        $shippings = Shipping::all();
-        return view('livewire.checkout-form', compact('addresses', 'shippings'));
+        return view('livewire.checkout-form');
     }
 }

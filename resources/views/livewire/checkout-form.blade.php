@@ -16,7 +16,7 @@
   @error('payment') <div class="text-red-600 font-bold mt-2">{{ $message }}</div> @enderror
   <div>
     <label for="shipping" class="block text-md font-semibold text-gray-700">{{ __("Expédition") }}</label>
-    <select id="shipping" wire:model="shipping" name="shipping" class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600">
+    <select id="shipping" wire:model.live="shipping" name="shipping"  class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600">
         @foreach ($shippings as $item)
             <option value="{{ $item->id }}">{{ $item->name }}</option>
         @endforeach
