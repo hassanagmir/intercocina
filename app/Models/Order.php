@@ -56,6 +56,18 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function getTotalWithoutTva()
+    {
+        $total = 0;
+    
+        foreach ($this->items as $item) {
+            $total += floatval($item->dimension ? $item->dimension->price : $item->product->price) * $item->quantity;
+        }
+    
+        return $total;
+    }
+    
+
     public function exportText()
     {
 

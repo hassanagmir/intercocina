@@ -2,7 +2,7 @@
   <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
     <p class="text-md font-semibold text-gray-900">{{ __("Méthode de paiement") }}</p>
     <select wire:model="payment" id="payment" name="payment" class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600" required>
-      <option value="" disabled selected>Select Payment Method</option>
+      <option value="" selected>Sélectionnez le mode de paiement</option>
       <option value="1" class="py-2">
           Virement Bancaire
       </option>
@@ -17,7 +17,8 @@
   <div>
     <label for="shipping" class="block text-md font-semibold text-gray-700">{{ __("Expédition") }}</label>
     <select id="shipping" wire:model.live="shipping" name="shipping"  class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600">
-        @foreach ($shippings as $item)
+      <option value="" selected>Sélectionnez le mode d'expédition</option>  
+      @foreach ($shippings as $item)¨
             <option value="{{ $item->id }}">{{ $item->name }}</option>
         @endforeach
     </select>

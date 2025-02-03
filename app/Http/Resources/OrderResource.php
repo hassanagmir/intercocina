@@ -19,13 +19,13 @@ class OrderResource extends JsonResource
         return $cleaned;
     }
 
-    
+
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
             'code' => $this->code,
-            'total_amount' => $this->total_amount,
+            'total_amount' => $this->getTotalWithoutTva(),
             'status' => $this->status,
             'created_at' => $this->created_at,
             'payment' => $this->payment,
@@ -39,15 +39,27 @@ class OrderResource extends JsonResource
                 $attribute = $item?->dimension?->attribute?->name . " ";
                 $special = isset($item->special_height);
                 $color = $item?->dimension?->color?->name;
+
+                $discount = 0;
+                $category = $item->dimension ? $item->dimension?->product->type->category : $item->product?->type?->category;
+                foreach ($this->user->discounts as $discountItem) {
+                    if ($discountItem->category == $category) {
+                        $discount = $discountItem->percentage;
+                        break;
+                    }
+                }
+
+
                 return [
                     'id' => $item->id,
                     'code' => $item->dimension ? $item->dimension->code : $item->product->code,
+                    'discount' => $discount,
                     'dimensions' => ($special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null)),
                     'designation' => $this->rm_space($attribute ."$product_name  $dimension $color"),
                     'special' => $special,
                     'color' => $color,
                     'quantity' => $item->quantity,
-                    'total' => floatval($item->total),
+                    'total' => floatval($item->dimension ? $item->dimension->price :  $item->product->price),
                     'full_dimension' => $item->dimension ? $item->dimension : null,
                 ];
             }),

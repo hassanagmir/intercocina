@@ -27,22 +27,18 @@ class CheckoutForm extends Component
 
     public function mount()
     {
-        // Initialize collections
         $this->shippings = Shipping::all();
         $this->addresses = Address::where("user_id", auth()->id())->get();
         
-        // Set default shipping from user if exists
-        if (auth()->user()->shipping_id) {
+        if (auth()->user()?->shipping_id) {
             $this->shipping = auth()->user()->shipping_id;
         } else {
-            // Set default shipping to first available option if user doesn't have one
             $this->shipping = $this->shippings->first()?->id;
         }
     }
 
     public function updatedShipping($value)
     {
-        // Validate shipping exists when changed
         if (!$this->shippings->contains('id', $value)) {
             $this->shipping = $this->shippings->first()?->id;
         }

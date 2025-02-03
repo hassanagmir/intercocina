@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Attribute;
 use App\Models\Color;
 use App\Models\Dimension;
 use App\Models\Discount;
@@ -253,7 +254,7 @@ class Product extends Component
                 'image' => $this->product->images?->first()?->image,
                 'dimension' => $this->special_height . "*" . $this->special_width,
                 'slug' => $this->product->slug,
-                'attribute' => $this->attribute,
+                'attribute' => $this->attribute ? Attribute::find($this->attribute)->name : false,
                 'product_id' => $this->product->id,
                 'dimension_id' => $this->dimension?->id,
                 'special' => true,

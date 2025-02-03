@@ -46,6 +46,7 @@ class OrderController extends Controller
         return \App\Http\Resources\OrderResource::collection(Order::where('status', 2)->get());
     }
 
+
     public function confirm(Request $request)
     {
         $apiKey = $request->header('INTER-API-KEY');

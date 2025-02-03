@@ -7,26 +7,19 @@
         <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
             <div class="mx-auto w-full flex-none lg:max-w-1xl xl:max-w-3xl">
                 <div class="space-y-3">
-                    {{-- @dd(\Cart::getContent()) --}}
-                    @php
-                    $productIds = collect(\Cart::getContent())->pluck('attributes.product_id')->unique()->toArray();
-                    $dimensions = \App\Models\Dimension::whereIn('id', $productIds)->with('product')->get();
-                    $products = \App\Models\Product::whereIn('id', $productIds)->get();
-                    $discounts = \App\Models\Discount::where('user_id', auth()->id())
-                                ->whereIn('category_id', $products->pluck('type.category.id')->unique())
-                                ->get();
-                @endphp
-                
+                {{-- @dd(\Cart::getContent()) --}}
                 @forelse(\Cart::getContent() as $product)
                     <div class="rounded-lg border border-gray-200 bg-white p-2 shadow-sm md:p-2">
                         @php
-                            $productItem = $product['attributes']['dimension'] 
-                                ? $dimensions->firstWhere('id', intval($product['attributes']['product_id']))->product 
-                                : $products->firstWhere('id', intval($product['attributes']['product_id']));
-
-                            $categoryId = $productItem->type->category->id ?? null;
-                            $discount = $discounts->firstWhere('category_id', $categoryId)->percentage ?? 0;
-                            $price = $product['price'] - (($discount / 100) * $product['price']);
+                            $product_id = intval($product['attributes']['product_id']);
+                            $category_id = \App\Models\Product::find($product_id)->type->category->id ?? null;
+                            $discount = 0;
+                            foreach (auth()->user()->discounts as $discountItem) {
+                                if ($discountItem->category->id == $category_id) {
+                                    $discount = $discountItem->percentage;
+                                    break;
+                                }
+                            }
                         @endphp
                         <div class="md:flex md:items-center md:gap-6 md:space-y-0 md:justify-between">
                             <div>
@@ -55,7 +48,6 @@
                         <img class="w-20" src="/assets/imgs/empty-cart.png" width="80px" height="auto" alt="Cart empty" title="Cart empty" loading="lazy">
                     </div>
                 @endforelse
-                
                 </div>
             </div>
             <div class="mx-auto mt-6 max-w-5xl flex-1 space-y-6 lg:mt-0 lg:w-full">

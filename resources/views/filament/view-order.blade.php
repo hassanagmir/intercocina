@@ -15,17 +15,21 @@
                                     </a>
                                     <div class="flex-1 min-w-0">
                                         <a href="{{ route('product.show', $item->product->slug) }}"  class="text-md font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
+                                            {{ $item->dimension && $item->dimension?->attribute ? $item->dimension?->attribute->name : "" }}
                                             {{ $item->product->name }} 
-                                            @if($item->dimension?->attribute)
-                                              - {{ $item->dimension?->attribute?->name }}
+
+                                            @if ($item->special_height)
+                                                {{ $item->special_height ? "(".($item->special_height . "*" . $item->special_width . "mm") . ")" : ""}} <strong class="text-red-500">{{ __("Spécial") }}</strong>
+                                            @else
+                                                {{ $item->dimension ? $item->dimension->width : "" }} {{ $item->dimension ? "* " . $item->dimension->height : "" }} 
                                             @endif
-                                            ({{ $item->special_height ? $item->special_height . "*" . $item->special_width . "mm" : ""}})
+                                            
                                         </a>
                                         @if ($item->color)
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                               @if ($item->dimension)
                                                   <span class="text-sm text-gray-500 dark:text-gray-400">
-                                                      ({{ $item->dimension->height . " x " . $item->dimension->width . " mm" }}) 
+                                                      {{-- ({{ $dimension . " mm" }})  --}}
                                                   </span>
                                               @endif
                                                 {{ $item->color->name }}
