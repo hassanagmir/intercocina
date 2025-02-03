@@ -16,7 +16,7 @@
                                     <div class="flex-1 min-w-0">
                                         <a href="{{ route('product.show', $item->product->slug) }}"  class="text-md font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
                                             {{ $item->dimension && $item->dimension?->attribute ? $item->dimension?->attribute->name : "" }}
-                                            {{ $item->product->name }} 
+                                            {{ str_replace("Façade", "", $item->product->name) }} 
 
                                             @if ($item->special_height)
                                                 {{ $item->special_height ? "(".($item->special_height . "*" . $item->special_width . "mm") . ")" : ""}} <strong class="text-red-500">{{ __("Spécial") }}</strong>

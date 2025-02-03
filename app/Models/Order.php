@@ -74,14 +74,20 @@ class Order extends Model
 
         $order = Order::with('items')->findOrFail($this->id);
         $content = "";
+       
         foreach ($order->items as $item) {
+            if($item->special_height)
+                $dimension = ($item->special_height ? "(".($item->special_height . "*" . $item->special_width . "mm") . ")" : "") .  " Spécial";
+            else
+                $dimension = ($item->dimension ? $item->dimension->width : "") . " " . ($item->dimension ? "* " . $item->dimension->height : "");
+
             $content .= ""
                 . ($item->dimension ? $item->dimension->code . " " : $item->product->code . " ")
-                . ($item->product->name) . " "
                 . ($item->dimension?->attribute ? $item->dimension?->attribute->name . " " : '')
-                . ($item->dimension ? $item->dimension->dimension . "" : '')
+                . (str_replace("Façade", "", $item->product->name)) . " "
+                . $dimension . " "
                 . ($item->color ? $item->color->name . " " : '')
-                . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0')) ) . " "
+               . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0')) ) . " "
                 . "QTY: " . ($item->quantity ?? '1')
                 . "\n";
         }
