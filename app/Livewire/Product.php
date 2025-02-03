@@ -231,6 +231,9 @@ class Product extends Component
 
     public function specailCart()
     {
+        if($this->dimension_error){
+            return;
+        }
         $color = $this->color ? $this->color : null;
         if ($this->dimension) {
             $discount = Discount::where("category_id", $this->dimension->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
@@ -242,6 +245,8 @@ class Product extends Component
         // Prepare cart item data
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color . $this->special_height . $this->special_width;
         $colorDetails = $color ? Color::find($color) : null;
+
+     
 
         \Cart::add([
             'id' => $cartItemId,

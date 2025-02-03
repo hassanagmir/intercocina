@@ -65,10 +65,21 @@
                         </div>
                         {{-- @dump(\Cart::getContent()) --}}
                         <!-- Product details -->
+                        @php
+                            $product_id = intval($product['attributes']['product_id']);
+                            $category_id = \App\Models\Product::find($product_id)->type->category->id ?? null;
+                            $discount = 0;
+                            foreach (auth()->user()->discounts as $discountItem) {
+                                if ($discountItem->category->id == $category_id) {
+                                    $discount = $discountItem->percentage;
+                                    break;
+                                }
+                            }
+                        @endphp
                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                             <a href="{{ route('product.show', $product['attributes']['slug']) }}" class="text-base font-bold text-gray-900 hover:underline">
-                                {{ $product['name'] }}
-                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] : '' }}
+                                {{ str_replace("Façade", $product['attributes']['attribute'], $product['name']) }}
+                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }}
                                 {{ $product['attributes']['color'] ? "(" . $product['attributes']['color_name'] . ")" : '' }}
                             </a>
                             <div class="flex items-center gap-4">

@@ -87,7 +87,7 @@ class Order extends Model
                 . (str_replace("Façade", "", $item->product->name)) . " "
                 . $dimension . " "
                 . ($item->color ? $item->color->name . " " : '')
-               . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0')) ) . " "
+                . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0')) ) . " "
                 . "QTY: " . ($item->quantity ?? '1')
                 . "\n";
         }
