@@ -14,12 +14,15 @@
                             $product_id = intval($product['attributes']['product_id']);
                             $category_id = \App\Models\Product::find($product_id)->type->category->id ?? null;
                             $discount = 0;
-                            foreach (auth()->user()->discounts as $discountItem) {
-                                if ($discountItem->category->id == $category_id) {
-                                    $discount = $discountItem->percentage;
-                                    break;
+                            if (auth()->check()) {
+                                foreach (auth()->user()?->discounts as $discountItem) {
+                                    if ($discountItem->category->id == $category_id) {
+                                        $discount = $discountItem->percentage;
+                                        break;
+                                    }
                                 }
                             }
+                            
                         @endphp
                         <div class="md:flex md:items-center md:gap-6 md:space-y-0 md:justify-between">
                             <div>
