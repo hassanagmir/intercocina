@@ -126,13 +126,19 @@ Route::get('/scan', function () {
 })->name('scanner');
 
 
-
+Route::get('laca/import', function(){
+    return view('import.laca');
+})->name('laca_import');
 
 Route::post('json', [ProductExportController::class, 'export'])->name('json');
 
+
 Route::prefix('import')->group(function(){
     Route::get('caisson', [ImportController::class, 'caisson'])->name('import.caisson');
-    Route::post('caisson/store', [ImportController::class, 'caisson'])->name('import.caisson.store');
+    Route::post('caisson/store', [ImportController::class, 'caisson_store'])->name('import.caisson.store');
+
+    Route::get('laca', [ImportController::class, 'laca'])->name('import.laca');
+    Route::post('laca/store', [ImportController::class, 'laca_store'])->name('import.laca.store');
 });
 
 

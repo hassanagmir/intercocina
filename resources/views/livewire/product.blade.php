@@ -5,7 +5,8 @@
         <div class="sm:flex flex-initial items-center justify-between gap-6 mb-4">
             <div class="text">
                 <h1 class="font-manrope font-bold sm:text-3xl text-2xl leading-10 text-gray-900 mb-2">{{ $product->name }}</h1>
-                <h2 class="font-normal text-base text-gray-500">{{ $product->type->name }} @if ($this->ref), REF {{ $this->ref }} @endif</h2>
+                <h2 class="font-normal text-base text-gray-500">
+                    {{ $product->type->name }} @if ($this->ref), REF {{ $this->ref }} @endif</h2>
             </div>
             @if (auth()?->user()?->hasRole("super_admin"))
             <a  href="/admin/products/{{ $product->id }}/edit" class="group transition-all duration-500 p-0.5 sm:block hidden">
