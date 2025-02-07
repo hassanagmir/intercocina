@@ -1,52 +1,66 @@
 <div>
-    <div class="my-4 mt-0 items-end justify-between space-y-4 md:flex sm:space-y-0 md:mb-8">
-        <div>
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-3">
+            <!-- Title Section -->
             @if (!empty($type) && isset($products_type))
-            <h1 class="mt-3 text-xl font-semibold text-gray-900 sm:text-2xl">
-                {{ $products_type->name }}
-                <svg 
-                    wire:loading 
-                    wire:target='changeType' 
-                    aria-hidden="true" 
-                    role="status" 
-                    class="inline w-4 h-4 me-3 text-red animate-spin" 
-                    viewBox="0 0 100 101" 
-                    fill="none" 
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/>
-                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/>
-                </svg>
-            </h1>
+                <div class="mb-4">
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
+                        <span class="bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent">
+                            {{ $products_type->name }}
+                        </span>
+                        <svg 
+                            wire:loading 
+                            wire:target='changeType'
+                            class="inline w-5 h-5 text-red-500 animate-spin" 
+                            viewBox="0 0 24 24"
+                        >
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                    </h1>
+                </div>
             @endif
-        </div>
-        <div class="flex items-center space-x-0 justify-end flex-wrap gap-2">
-            @foreach ($category->types()->where('status', true)->orderBy('order')->get() as $item)
-            <button 
-                wire:click='changeType("{{ $item->slug }}")' 
-                type="button" 
-                aria-label="{{ __('Filter products by type') }}: {{ $item->name }}"
-                class="font-bold {{ $item->slug == $type ? 'bg-red-500 text-white hover:bg-red-400' : 'bg-white hover:bg-gray-100 hover:text-primary-700'}} text-sm px-3 text-nowrap flex w-full items-center justify-center rounded-lg border border-gray-200 py-2 text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 sm:w-auto"
-            >
-                {{ $item->name }}
-                <svg class="-me-0.5 ms-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
-                </svg>
-            </button>
-            @endforeach
-            <a 
-                href="{{ route('search') }}" 
-                class="sm:hidden flex m-auto justify-center items-center cursor-pointer whitespace-nowrap w-full rounded-md bg-gray-600 px-4 py-2.5 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0"
-                aria-label="{{ __('Open search') }}"
-            >
-                <span class="flex">
-                    {{ __('Recherche') }}  &#xa0;
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </span>
-            </a>
-            <livewire:search-modal />
+{{--     
+            @if ($category->description)
+                <p class="text-lg text-gray-600 mb-6">{{ $category->description }}</p>
+            @endif --}}
+    
+            <!-- Controls Section -->
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <!-- Type Filters -->
+                <div class="flex flex-wrap items-center justify-center gap-2">
+                    @foreach ($category->types()->where('status', true)->orderBy('order')->get() as $item)
+                        <button 
+                            wire:click='changeType("{{ $item->slug }}")' 
+                            type="button"
+                            aria-label="{{ __('Filter products by type') }}: {{ $item->name }}"
+                            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold transition-all duration-200 rounded-full shadow-sm
+                                   {{ $item->slug == $type 
+                                       ? 'bg-red-600 text-white hover:bg-red-700 shadow-red-200' 
+                                       : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-gray-300' }}"
+                        >
+                            {{ $item->name }}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                    @endforeach
+                </div>
+    
+                <!-- Search Button -->
+                <div class="md:ml-4">
+                    <a 
+                        href="{{ route('search') }}" 
+                        class="md:hidden flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                        aria-label="{{ __('Open search') }}"
+                    >
+                        <span>{{ __('Recherche') }}</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
