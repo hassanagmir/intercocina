@@ -157,7 +157,7 @@ class ImportController extends Controller
 
                 if (isset($item['color'])) {
                     $color = Color::firstOrCreate([
-                        'name' => ucfirst($item['color']),
+                        'name' => ucwords(strtolower($item['color'])),
                     ]);
                 }
 
