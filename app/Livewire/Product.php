@@ -209,11 +209,11 @@ class Product extends Component
 
 
 
-       if(isset($query)){
+        if (isset($query)) {
             if ($this->product->colors && $this->color) {
                 $query = $query->where('color_id', $this->color);
             }
-       }
+        }
 
 
         if (isset($query)) {
@@ -233,7 +233,7 @@ class Product extends Component
 
     public function specailCart()
     {
-        if($this->dimension_error){
+        if ($this->dimension_error) {
             return;
         }
         $color = $this->color ? $this->color : null;
@@ -248,7 +248,7 @@ class Product extends Component
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color . $this->special_height . $this->special_width;
         $colorDetails = $color ? Color::find($color) : null;
 
-     
+
 
         \Cart::add([
             'id' => $cartItemId,
