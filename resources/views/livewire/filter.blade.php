@@ -1,4 +1,4 @@
-<div class="sticky top-40">
+<div class="sticky top-40 h-[70vh] overflow-auto">
     @foreach ($categories as $category)
         <h2 class="mb-2 text-lg font-semibold text-gray-900">{{ $category->name }}</h2>
         <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400 mb-6">
