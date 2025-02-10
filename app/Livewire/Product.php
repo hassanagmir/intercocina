@@ -209,9 +209,11 @@ class Product extends Component
 
 
 
-        if ($this->product->colors && $this->color) {
-            $query = $query->where('color_id', $this->color);
-        }
+       if(isset($query)){
+            if ($this->product->colors && $this->color) {
+                $query = $query->where('color_id', $this->color);
+            }
+       }
 
 
         if (isset($query)) {
