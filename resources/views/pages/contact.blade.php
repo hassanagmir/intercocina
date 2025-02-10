@@ -58,7 +58,7 @@
             <img class="w-[40px]" width="40px" height="40px" loading="lazy" src="/assets/icons/phone.png" title="Appelez-nous" alt="Appelez-nous">
             <div>
                 <p class="text-lg font-bold ">Appelez-nous</p>
-                <p>+212 61 54 79 00</p>
+                <p>+212 661 54 79 00</p>
                 <p>+212 536 35 88 88</p>
             </div>
         </div>
