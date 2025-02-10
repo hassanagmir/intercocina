@@ -11,7 +11,31 @@
             <span>{{ $post->created_at->format('M, d Y')}}</span>
         </div>
         <img class="rounded-lg w-full mb-3" src="{{ url(config('app.storage'), $post->image) }}" alt="{{ $post->title }}" title="{{ $post->title }}" loading="lazy" width="100%" height="100%">
+        <div wire:loading.remove wire:target='changeType' class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 mt-4">
+            @foreach ($post->products as $product)
+                <x-product-card
+                    :name="$product->name"
+                    :price="$product->price()"
+                    :image="$product->images->first()->image ?? ''"
+                    :slug="$product->slug"
+                    :category="$product->type->category->name ?? ''"
+                    loading="lazy"
+                />
+            @endforeach
+        </div>
         <div class="prose text-lg prose-h2:font-bold prose-h2:text-2xl">{!! $post->content !!}</div>
+        <div wire:loading.remove wire:target='changeType' class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 mt-3">
+            @foreach ($post->products as $product)
+                <x-product-card
+                    :name="$product->name"
+                    :price="$product->price()"
+                    :image="$product->images->first()->image ?? ''"
+                    :slug="$product->slug"
+                    :category="$product->type->category->name ?? ''"
+                    loading="lazy"
+                />
+            @endforeach
+        </div>
     </article>
 </div>
 @endsection

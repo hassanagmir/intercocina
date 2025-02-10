@@ -17,6 +17,11 @@ class Post extends Model
         'title', 'description', 'tags', 'image', 'content', 'slug'
     ];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
 
     public function getSlugOptions() : SlugOptions
     {

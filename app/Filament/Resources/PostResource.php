@@ -41,6 +41,12 @@ class PostResource extends Resource
                                     ->required()
                                     ->maxLength(255),
 
+                                Forms\Components\Select::make('products')
+                                    ->multiple()
+                                    ->preload()
+                                    ->searchable()
+                                    ->relationship('products', 'name'),
+                                
                                 Forms\Components\Textarea::make('description')
                                     ->columnSpanFull(),
                                     
