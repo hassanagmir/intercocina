@@ -68,6 +68,14 @@
         border-radius: 15px;
     }
 
+    .prose h2 {
+      font-size: 1.5rem;
+    }
+    .prose h3 {
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
     /* .text-secondary{
         @applay block 
     } */

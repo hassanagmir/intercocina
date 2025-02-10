@@ -11,7 +11,7 @@
             <span>{{ $post->created_at->format('M, d Y')}}</span>
         </div>
         <img class="rounded-lg w-full mb-3" src="{{ url(config('app.storage'), $post->image) }}" alt="{{ $post->title }}" title="{{ $post->title }}" loading="lazy" width="100%" height="100%">
-        <div class="prose text-xl">{!! $post->content !!}</div>
+        <div class="prose text-lg prose-h2:font-bold prose-h2:text-2xl">{!! $post->content !!}</div>
     </article>
 </div>
 @endsection
