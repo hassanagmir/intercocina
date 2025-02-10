@@ -1,5 +1,5 @@
 <div x-data="{modalIsOpen: false}" class="mx-h-screen">
-    <button @click="modalIsOpen = true" title="Recherch button" type="button" class="sm:block hidden cursor-pointer whitespace-nowrap rounded-md bg-gray-600 px-4 py-2.5 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
+    <button @click="modalIsOpen = true" title="Recherch button" type="button" class="sm:block hidden cursor-pointer whitespace-nowrap rounded-full px-7 bg-gray-600 shadow-sm py-2.5 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
         <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </svg>

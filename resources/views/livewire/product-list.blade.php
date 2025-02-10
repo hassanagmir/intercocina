@@ -45,21 +45,24 @@
                             </svg>
                         </button>
                     @endforeach
+
+                     <!-- Search Button -->
+                    <div class="md:ml-4">
+                        <a 
+                            href="{{ route('search') }}" 
+                            class="md:hidden flex gap-3 cursor-pointer whitespace-nowrap rounded-full px-7 bg-gray-600 shadow-sm py-2.5 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0"
+                            aria-label="{{ __('Open search') }}"
+                        >
+                            <span>{{ __('Recherche') }}</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <livewire:search-modal />
                 </div>
     
-                <!-- Search Button -->
-                <div class="md:ml-4">
-                    <a 
-                        href="{{ route('search') }}" 
-                        class="md:hidden flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
-                        aria-label="{{ __('Open search') }}"
-                    >
-                        <span>{{ __('Recherche') }}</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                    </a>
-                </div>
+               
             </div>
         </div>
     </div>
