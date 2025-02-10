@@ -127,6 +127,9 @@
     </div>
 </section>
 
+
+
+
 <section class="py-16 overflow-x-hidden">
     <div class="px-4 max-w-6xl mx-auto" x-animate.intersect.threshold.75="zoomIn">
         <div class="bg-accent-red rounded-3xl grid md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-2  xl:gap-10 px-6 md:px-10 py-12 md:py-20">
@@ -228,6 +231,16 @@
     </div>
 </section>
 
+<div class="px-4 space-y-6 md:max-w-5xl md:mx-auto">
+    <h1 class="pt-10 pb-4 text-2xl font-bold text-center md:text-4xl animate__animated animate__fadeInUp" x-animate="fadeInUp" style="--animate-duration: 1s;">
+        Nos Articles récents
+    </h1>
+    <p class="text-center text-slate-500 md:text-lg animate__animated animate__fadeInUp" x-animate.delay.150="fadeInUp" style="--animate-duration: 1s;">
+        Découvrez nos derniers articles et inspirations pour l’aménagement de vos espaces ! Nous partageons ici des conseils, des tendances et des idées pour optimiser votre intérieur avec nos solutions de placards sur mesure.
+    </p>
+</div>
+@livewire('blog')
+
 
 <section id="contact" class="relative py-24 overflow-hidden bg-accent-red">
     <div class="relative z-10 grid gap-16 px-4 md:grid-cols-2 md:max-w-7xl md:mx-auto ">
@@ -254,6 +267,9 @@
     </div><div class="bg-gray-300 hidden md:block w-80 h-80 rounded-full absolute z-0 md:-bottom-36 md:-left-28 animate__animated animate__zoomIn" x-animate="zoomIn" style="--animate-duration: 1s;"></div>
 
 </section>
+
+
+
 </main>
 
 <hr class="bg-gray-200 border-0">

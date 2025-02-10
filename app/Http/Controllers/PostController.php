@@ -15,6 +15,8 @@ class PostController extends Controller
 
     public function show(Post $post){
         $title = $post->title;
-        return view('post.show', compact('post', 'title'));
+        $description = $post->description;
+        $image = $post->image;
+        return view('post.show', compact('post', 'title', 'description', 'image'));
     }
 }
