@@ -102,6 +102,8 @@ Route::prefix('blogs')->group(function () {
 Route::get('reclamation', [ClaimController::class, 'create'])->name('claim.create');
 
 
+
+
 Route::get('logout', function () {
     auth()->logout();
     return redirect()->route('home');
@@ -245,4 +247,10 @@ Route::get('/clear-cache', function () {
 Route::get('viewr', function () {
     $title = "Salle d'exposition virtuelle";
     return view('viewr', compact('title'));
+});
+
+
+
+Route::get('view-product', function () {
+    return view('view-product');
 });

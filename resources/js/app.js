@@ -16,6 +16,10 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
 import Splide from '@splidejs/splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 
+import React from "react";
+import ReactDOM from "react-dom/client";
+const Product = React.lazy(() => import('./components/Product.jsx'));
+
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.animate-marquee').forEach(function(element) {
         element.addEventListener('mouseenter', function() {
@@ -387,3 +391,11 @@ Livewire.hook('morph.updated', ({ el, component }) => {
 });
 
 Livewire.start();
+
+
+if (document.getElementById('product')) {
+    const root = ReactDOM.createRoot(document.getElementById('product'));
+    root.render(React.createElement(Product));
+    // Or using JSX (if babel is configured):
+    // root.render(<Product />);
+}
