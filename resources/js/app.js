@@ -18,7 +18,7 @@ import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-const Product = React.lazy(() => import('./components/Product.jsx'));
+import Product from './components/Product.jsx';
 
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.animate-marquee').forEach(function(element) {

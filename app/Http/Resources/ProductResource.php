@@ -37,9 +37,24 @@ class ProductResource extends JsonResource
                     // 'depth' => $dimension->depth
                     'thickness' => $dimension->thickness,
                     'attribute' => $dimension?->attribute?->name,
+                    'attribute_id' => $dimension?->attribute?->id,
                     'price' => $dimension->price,
                 ];
             }) : [],
+
+            'colors' => $this->colors->map(function ($color) {
+                return [
+                    'id' => $color->id,
+                    'name' => $color->name,
+                    'image' => $color->image,
+                ];
+            }),
+            'attributes' => $this->attributes->map(function ($attribute) {
+                return [
+                    'id' => $attribute->id,
+                    'name' => $attribute->name,
+                ];
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
