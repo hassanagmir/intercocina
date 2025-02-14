@@ -34,11 +34,11 @@ class ProductResource extends JsonResource
                     'color' => $dimension?->color?->name,
                     'width' => $dimension->width,
                     'height' => $dimension->height,
-                    // 'depth' => $dimension->depth
                     'thickness' => $dimension->thickness,
                     'attribute' => $dimension?->attribute?->name,
                     'attribute_id' => $dimension?->attribute?->id,
                     'price' => $dimension->price,
+                    'code' => $dimension->code,
                 ];
             }) : [],
 
