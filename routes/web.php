@@ -246,3 +246,8 @@ Route::get('viewr', function () {
     $title = "Salle d'exposition virtuelle";
     return view('viewr', compact('title'));
 });
+
+
+Route::get('view-product', function(){
+    return view('view-product');
+});

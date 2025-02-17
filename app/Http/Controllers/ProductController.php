@@ -31,4 +31,8 @@ class ProductController extends Controller
     public function search(){ 
         return view('product.search');
     }
+
+    public function show_product(Product $product){
+        return new \App\Http\Resources\ProductResource($product);
+    }
 }

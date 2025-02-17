@@ -16,6 +16,11 @@ import 'aos/dist/aos.css'; // You can also use <link> for styles
 import Splide from '@splidejs/splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.animate-marquee').forEach(function(element) {
         element.addEventListener('mouseenter', function() {
@@ -387,3 +392,5 @@ Livewire.hook('morph.updated', ({ el, component }) => {
 });
 
 Livewire.start();
+
+
