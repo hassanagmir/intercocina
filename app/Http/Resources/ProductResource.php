@@ -23,6 +23,8 @@ class ProductResource extends JsonResource
             'status' => $this->status,
             'type_id' => $this->type_id,
             'type' => $this?->type?->name,
+            'slug' => $this->slug,
+            'status' => $this->status->getLabel(),
             'category_id' => $this->type->category_id,
             'category' => $this->type->category->name,
             'images' => $this->images->map(function ($image) {
@@ -33,6 +35,7 @@ class ProductResource extends JsonResource
                     'id' => $dimension->id,
                     'dimension' => $dimension->dimension,
                     'color' => $dimension?->color?->name,
+                    'color_id' => $dimension?->color?->id,
                     'width' => $dimension->width,
                     'height' => $dimension->height,
                     'thickness' => $dimension->thickness,
