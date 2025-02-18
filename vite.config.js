@@ -14,7 +14,7 @@ export default defineConfig({
                 'resources/css/filament/admin/theme.css',
             ],
             // refresh: true,
-            
+
         }),
 
         react(),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo  } from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from './Carousel';
 
 const Product = () => {
@@ -13,6 +13,7 @@ const Product = () => {
     const [widths, setWidths] = useState([]);
     const [images, setImages] = useState([])
 
+
     // Message
     const [dimensionMessage, setDimensionMessage] = useState(null);
     const [colorMessage, setColorMessage] = useState(null);
@@ -26,6 +27,8 @@ const Product = () => {
     const [attribute, setAttribute] = useState('');
     const [special, setSpecial] = useState(false);
 
+    const [spinner, setSpinner] = useState(false);
+
     
     const [price, setPrice] = useState();
 
@@ -35,58 +38,49 @@ const Product = () => {
 
     useEffect(() => {
         getData();
+        if (attributes.length > 0) {
+            changeAttribute({ target: { value: attributes[0].id } });
+        }
     }, []);
 
+    
     async function getData() {
         try {
-            const response = await fetch('http://localhost:8000/api/product/facade-astipro-latte');
+            const response = await fetch('/api/product/facade-laca-g1-atania');
             const data = await response.json();
-
-            setColors(data.data.colors || []);
+    
             setAttributes(data.data.attributes || []);
-
-            setDimensions(data.data.dimensions || {});
+            setColors(data.data.colors || []);
+            setDimensions(Array.isArray(data.data.dimensions) ? data.data.dimensions : []);
             setData(data.data);
-
-            setPrice(data.data.price)
-
-            
-
-
-            // Set list of images
-            setImages(data.data.images.map((image)=> `https://intercocina.com/storage/public/${image}`))
-
-            if (data.data.attributes.length > 0) {
-
-                setAttribute(data.data.attributes[0]);
-                changeAttribute({ target: { value: data.data.attributes[0].id } });
-
+            setPrice(data.data.price);
+            setImages((data.data.images || []).map(image => `https://intercocina.com/storage/public/${image}`));
+    
+            if (data.data.attributes?.length > 0) {
+                setAttribute(data.data.attributes[0]); 
             }
-
-            if(data.data.dimensions.length > 0){
-
-                setHeights([...new Set(data.data.dimensions.map(item => item?.height)
-                    .filter(width => width !== undefined && width !== null))]);
-
-                setWidths([...new Set(data.data.dimensions.map(item => item?.width)
-                    .filter(width => width !== undefined && width !== null))]);
-
+    
+            if (data.data.dimensions?.length > 0) {
+                setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
+                setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
             }
-
-
+    
         } catch (error) {
-            console.log(error);
+            console.log("Error fetching data:", error);
         }
     }
+    
+
 
 
 
     const [isDirty, setIsDirty] = useState(false);
 
     const findDimension = () => {
-        const validDimensions = dimensions.filter(dim =>
-            dim.width >= width && dim.height >= height
-        );
+
+        const validDimensions = color ? dimensions.filter(dim => dim.width >= width && dim.height >= height && dim.color_id == color) :
+             dimensions.filter(dim => dim.width >= width && dim.height >= height );
+
 
         if (validDimensions.length === 0) {
             setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible.`);
@@ -170,27 +164,48 @@ const Product = () => {
 
 
     function addToCart(){
+        setSpinner(true);
+       
+        
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const cart = {
-            id: `${data.slug}${width}-${height}${dimension.id}`,
+            id: `${data.slug}${width}-${height}${dimension?.id}`,
             name: data.name,
             price: price,
             quantity: quantity,
-            attribute: {
+            attributes: {
                 color : color ? color : null ,
                 color_name: color ? dimension.color : null,
                 image: data.images[0],
                 dimension: `${width} * ${height}`,
                 slug: data.slug,
-                attribute: attribute ? attribute : null,
+                attribute: attribute,
                 product_id: data.id,
-                dimension_id: dimension.id,
+                dimension_id: dimension?.id,
                 special: special
 
             }
             
         }
 
-        console.log(cart);
+        fetch("/add-to-cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+                "Accept": "application/json"
+            },
+            credentials: 'include', // Important for cookies/session
+            body: JSON.stringify({cart})
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log("Success:", result);
+            setSpinner(false);
+        })
+        .catch(error => console.error("Error:", error));
+
+        
         
     }
 
@@ -198,9 +213,12 @@ const Product = () => {
 
     function changeAttribute(e) {
         const selectedValue = parseInt(e.target.value, 10);
+       
+        
         if (isNaN(selectedValue)) return;
         const valide_dimensions = dimensions.filter(item => item?.attribute_id === selectedValue);
         setAttribute(attributes.find((attribute) => attribute.id === selectedValue));
+        
         setHeights([...new Set(valide_dimensions.map(item => item?.height))]);
         setWidths([...new Set(valide_dimensions.map(item => item?.width))]);
     }
@@ -317,7 +335,7 @@ const Product = () => {
                                     {
                                         colors.map((color, index) => {
                                             return (
-                                                <li onClick={()=> {setColor(color.id); chanageDimension()}} className="color-box group text-center me-3 relative" key={index}>
+                                                <li onClick={()=> {setColor(color.id); chanageDimension(); findDimension()}} className="color-box group text-center me-3 relative" key={index}>
                                                     <input type="radio" value={color.id} id={`color-${color.id}`} name="color" className="hidden peer" />
                                                     <label htmlFor={`color-${color.id}`} className="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100" style={{ 'backgroundImage': `url('https://intercocina.com/storage/${color.image}')` }}></label>
                                                     <div id="tooltipExample" className="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
@@ -461,9 +479,41 @@ const Product = () => {
                             </button>
                         </div>
                         <button onClick={addToCart} className="cursor-pointer group border-2 border-red-400 py-3 px-5 rounded-full bg-red-50 text-red-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-red-300 hover:bg-red-100">
-                            <svg className="stroke-red-600 transition-all duration-500 group-hover:red-red-600" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.7394 17.875C10.7394 18.6344 10.1062 19.25 9.32511 19.25C8.54402 19.25 7.91083 18.6344 7.91083 17.875M16.3965 17.875C16.3965 18.6344 15.7633 19.25 14.9823 19.25C14.2012 19.25 13.568 18.6344 13.568 17.875M4.1394 5.5L5.46568 12.5908C5.73339 14.0221 5.86724 14.7377 6.37649 15.1605C6.88573 15.5833 7.61377 15.5833 9.06984 15.5833H15.2379C16.6941 15.5833 17.4222 15.5833 17.9314 15.1605C18.4407 14.7376 18.5745 14.0219 18.8421 12.5906L19.3564 9.84059C19.7324 7.82973 19.9203 6.8243 19.3705 6.16215C18.8207 5.5 17.7979 5.5 15.7522 5.5H4.1394ZM4.1394 5.5L3.66797 2.75" stroke="" strokeWidth="1.6" strokeLinecap="round"></path>
-                            </svg>
+                            {spinner ? (
+                                <svg
+                                    aria-hidden="true"
+                                    className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
+                                    viewBox="0 0 100 101"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                        fill="currentColor"
+                                    />
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                        fill="currentFill"
+                                    />
+                                </svg>
+                            ) : (
+                                <svg
+                                    className="stroke-red-600 transition-all duration-500 group-hover:stroke-red-600"
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 22 22"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M10.7394 17.875C10.7394 18.6344 10.1062 19.25 9.32511 19.25C8.54402 19.25 7.91083 18.6344 7.91083 17.875M16.3965 17.875C16.3965 18.6344 15.7633 19.25 14.9823 19.25C14.2012 19.25 13.568 18.6344 13.568 17.875M4.1394 5.5L5.46568 12.5908C5.73339 14.0221 5.86724 14.7377 6.37649 15.1605C6.88573 15.5833 7.61377 15.5833 9.06984 15.5833H15.2379C16.6941 15.5833 17.4222 15.5833 17.9314 15.1605C18.4407 14.7376 18.5745 14.0219 18.8421 12.5906L19.3564 9.84059C19.7324 7.82973 19.9203 6.8243 19.3705 6.16215C18.8207 5.5 17.7979 5.5 15.7522 5.5H4.1394ZM4.1394 5.5L3.66797 2.75"
+                                        stroke="currentColor"
+                                        strokeWidth="1.6"
+                                        strokeLinecap="round"
+                                    />
+                                </svg>
+                            )}
+
                             Ajouter au panier
                         </button>
                     </div>

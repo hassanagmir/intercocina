@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         // \Barryvdh\Debugbar\ServiceProvider::class,
+        \Illuminate\Session\Middleware\StartSession::class;
         
     }
 

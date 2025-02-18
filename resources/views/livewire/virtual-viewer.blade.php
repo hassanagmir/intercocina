@@ -77,7 +77,7 @@
         <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black p-2 opacity-90" wire:loading wire:target="changeColor">
             <img src="https://letsdesign.esignserver2.com/images/ajax-loader.gif" alt="">
         </span>
-        <img src="{{ url(config('app.storage'), $image) }}" alt="Virtual image" class="w-full h-auto rounded-t-lg shadow-sm">
+        <img src="{{ url(config('app.storage'), $image) }}" alt="Virtual image" class="w-full h-auto rounded-t-lg shadow-sm transition-all duration-500">
         <div class="p-3 bg-white rounded-b-lg flex justify-between">
             <div>
                 <a href="{{ route('product.show', $currentColor?->product?->slug)}}" class="text-xl flex gap-2 hover:text-red-500" target="_blank">

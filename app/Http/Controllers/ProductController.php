@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\ProductStatusEnum;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -35,4 +36,47 @@ class ProductController extends Controller
     public function show_product(Product $product){
         return new \App\Http\Resources\ProductResource($product);
     }
+
+
+
+    public function addToCart(Request $request)
+    {
+        try {
+            $item = $request->input('cart');
+            
+            // Proper null coalescing operator usage
+            \Cart::add([
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'price' => $item['price'],
+                'quantity' => $item['quantity'],
+                'attributes' => [
+                    'color' => $item['attributes']['color'] ?? null,
+                    'color_name' => $item['attributes']['color_name'] ?? null,
+                    'image' => $item['attributes']['image'] ?? null,
+                    'dimension' => $item['attributes']['dimension'] ?? null,
+                    'slug' => $item['attributes']['slug'],
+                    'attribute' => $item['attributes']['attribute']['name'],
+                    'product_id' => $item['attributes']['product_id'],
+                    'dimension_id' => $item['attributes']['dimension_id'] ?? null,
+                    'special' => $item['attributes']['special']
+                ]
+            ]);
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Product added successfully',
+                'cart_count' => \Cart::getContent()->count()
+            ], 201);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to add product to cart',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
 }
