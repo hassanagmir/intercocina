@@ -35,7 +35,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'code' => $this->code,
             'reference' => $reference,
-            'total_amount' => number_format($this->getTotalWithoutTva(), 2),
+            'total_amount' => intval($this->getTotalWithoutTva()),
             'status' => $this->status,
             'created_at' => $this->created_at,
             'payment' => $this->payment,
@@ -69,7 +69,7 @@ class OrderResource extends JsonResource
                     'special' => $special,
                     'color' => $color,
                     'quantity' => $item->quantity,
-                    'total' => number_format($item->dimension ? $item->dimension->price :  $item->product->price, 2),
+                    'total' => intval($item->dimension ? $item->dimension->price :  $item->product->price),
                     'full_dimension' => $item->dimension ? $item->dimension : null,
                 ];
             }),
