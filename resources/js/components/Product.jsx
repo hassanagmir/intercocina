@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useMemo  } from 'react';
 import Carousel from './Carousel';
 
 const Product = () => {
@@ -14,11 +14,9 @@ const Product = () => {
     const [images, setImages] = useState([])
 
     // Message
-    const [dimensionMessage, setDimnesionMessage] = useState(null);
+    const [dimensionMessage, setDimensionMessage] = useState(null);
     const [colorMessage, setColorMessage] = useState(null);
   
-
-
 
     // Attributes
     const [quantity, setQuantity] = useState(1);
@@ -28,6 +26,7 @@ const Product = () => {
     const [attribute, setAttribute] = useState('');
     const [special, setSpecial] = useState(false);
 
+    
     const [price, setPrice] = useState();
 
     const [code, setCode] = useState(null);
@@ -40,7 +39,7 @@ const Product = () => {
 
     async function getData() {
         try {
-            const response = await fetch('http://localhost:8000/api/product/facade-laca-g2-florencia');
+            const response = await fetch('http://localhost:8000/api/product/facade-astipro-latte');
             const data = await response.json();
 
             setColors(data.data.colors || []);
@@ -51,13 +50,17 @@ const Product = () => {
 
             setPrice(data.data.price)
 
+            
+
 
             // Set list of images
             setImages(data.data.images.map((image)=> `https://intercocina.com/storage/public/${image}`))
 
             if (data.data.attributes.length > 0) {
-                setAttribute([data.data.attributes[0]]);
+
+                setAttribute(data.data.attributes[0]);
                 changeAttribute({ target: { value: data.data.attributes[0].id } });
+
             }
 
             if(data.data.dimensions.length > 0){
@@ -69,7 +72,7 @@ const Product = () => {
                     .filter(width => width !== undefined && width !== null))]);
 
             }
-            
+
 
         } catch (error) {
             console.log(error);
@@ -78,18 +81,52 @@ const Product = () => {
 
 
 
+    const [isDirty, setIsDirty] = useState(false);
+
+    const findDimension = () => {
+        const validDimensions = dimensions.filter(dim =>
+            dim.width >= width && dim.height >= height
+        );
+
+        if (validDimensions.length === 0) {
+            setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible.`);
+            setPrice(null);
+            return;
+        }
+
+        const current = validDimensions.reduce((best, current) => {
+            const bestArea = best.width * best.height;
+            const currentArea = current.width * current.height;
+            return currentArea < bestArea ? current : best;
+        });
+
+        setPrice(current.price);
+        setDimensionMessage(null);
+        return current;
+    };
+
+    useEffect(() => {
+        if (isDirty && height && width) {
+            findDimension();
+            setIsDirty(false);
+        }
+    }, [height, width, isDirty]);
+    
+
+
+
 
     function chanageDimension() {
 
         if (height && width && color) {
-            const current_demension = dimensions.find((item) => item.width === width && item.height === height && item.color === color);
+            const current_demension = dimensions.find((item) => item.width === width && item.height === height && item.color_id === color);
             if (current_demension) {
                 setPrice(current_demension.price);
                 setDimension(current_demension);
                 setCode(current_demension.code);
-                setDimnesionMessage(null);
+                setDimensionMessage(null);
             } else {
-                setDimnesionMessage(`La dimension ${height} x ${width} n'est pas disponible agr`)
+                setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible agr`)
                 setCode(null);
             }
             return;
@@ -101,7 +138,7 @@ const Product = () => {
                 setPrice(current_demension.price);
                 setDimension(current_demension);
                 setCode(current_demension.code);
-                setDimnesionMessage(null);
+                setDimensionMessage(null);
             }
         }
 
@@ -113,9 +150,9 @@ const Product = () => {
                 setPrice(current_demension.price);
                 setDimension(current_demension);
                 setCode(current_demension.code);
-                setDimnesionMessage(null);
+                setDimensionMessage(null);
             } else {
-                setDimnesionMessage(`La dimension ${height} x ${width} n'est pas disponible`)
+                setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible`)
                 setCode(null);
             }
         }
@@ -126,27 +163,25 @@ const Product = () => {
                 setPrice(current_demension.price);
                 setDimension(current_demension);
                 setCode(current_demension.code);
-                setDimnesionMessage(null);
+                setDimensionMessage(null);
             }
         }
-
-       
     }
 
 
     function addToCart(){
         const cart = {
-            id: "",
+            id: `${data.slug}${width}-${height}${dimension.id}`,
             name: data.name,
             price: price,
             quantity: quantity,
             attribute: {
-                color:color,
-                color_name: "",
-                image: "",
+                color : color ? color : null ,
+                color_name: color ? dimension.color : null,
+                image: data.images[0],
                 dimension: `${width} * ${height}`,
                 slug: data.slug,
-                attribute: attribute,
+                attribute: attribute ? attribute : null,
                 product_id: data.id,
                 dimension_id: dimension.id,
                 special: special
@@ -165,7 +200,7 @@ const Product = () => {
         const selectedValue = parseInt(e.target.value, 10);
         if (isNaN(selectedValue)) return;
         const valide_dimensions = dimensions.filter(item => item?.attribute_id === selectedValue);
-        setAttribute(valide_dimensions);
+        setAttribute(attributes.find((attribute) => attribute.id === selectedValue));
         setHeights([...new Set(valide_dimensions.map(item => item?.height))]);
         setWidths([...new Set(valide_dimensions.map(item => item?.width))]);
     }
@@ -202,7 +237,7 @@ const Product = () => {
                             <div className="font-manrope font-semibold sm:text-2xl text-xl leading-9 text-gray-900">
                                 <span>{price}</span> MAD
                             </div>
-                            <span className="ml-3 font-semibold text-lg text-green-600"> Sur demande </span>
+                            <span className="ml-3 font-semibold text-lg text-green-600"> { data.status } </span>
                         </div>
 
                         <svg className="mx-5 max-[400px]:hidden" xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 2 36" fill="none">
@@ -251,17 +286,30 @@ const Product = () => {
                         {
                             attributes.length > 0 ?
                                 (<div className="md:ms-4 text-left">
-                                    <p className="font-bold text-gray-900">Special</p>
-                                    <div className="text-black/70 mb-3 bg-white px-3 py-3 flex items-center font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
-                                        <input value={special} onClick={(e) => e.target.value} id="bordered-checkbox-1" type="checkbox" name="bordered-checkbox" className="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                        <label htmlFor="bordered-checkbox-1" className="w-full h-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Special</label>
-                                    </div>
+                                    <div>
+                                        <p className="font-bold text-gray-900">Special</p>
+                                            <div className="text-black/70 mb-3 bg-white px-3 py-3 flex items-center font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
+                                            <input
+                                                checked={special}
+                                                onChange={(e) => setSpecial(e.target.checked)}
+                                                id="bordered-checkbox-1"
+                                                type="checkbox"
+                                                name="bordered-checkbox"
+                                                className="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                            />
+                                            <label htmlFor="bordered-checkbox-1" className="w-full h-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                                Special
+                                            </label>
+                                            </div>
+                                        </div>
+                                    
                                 </div>) : ""
                         }
                     </div>
 
     
                     {
+                        
                         colors.length > 0 ?
                             (<div className='text-left'>
                                 <p className="font-bold text-gray-900">Couleur</p>
@@ -269,7 +317,7 @@ const Product = () => {
                                     {
                                         colors.map((color, index) => {
                                             return (
-                                                <li onClick={()=> {setColor(color.name); chanageDimension()}} className="color-box group text-center me-3 relative" key={index}>
+                                                <li onClick={()=> {setColor(color.id); chanageDimension()}} className="color-box group text-center me-3 relative" key={index}>
                                                     <input type="radio" value={color.id} id={`color-${color.id}`} name="color" className="hidden peer" />
                                                     <label htmlFor={`color-${color.id}`} className="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100" style={{ 'backgroundImage': `url('https://intercocina.com/storage/${color.image}')` }}></label>
                                                     <div id="tooltipExample" className="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
@@ -298,11 +346,13 @@ const Product = () => {
                     }
                    
                     {
+
+                        !special &&
                         heights.length > 0 ?
                             (<div className='text-left'>
                                 <div className="font-bold">Hauteur</div>
                                 <ul className="flex flex-wrap w-full gap-3">
-                                    {heights.map((height) => (
+                                    {heights.sort().map((height) => (
                                         <li key={height} onClick={() => { chanageDimension(); setHeight(height) }}>
                                             <input type="radio" id={`height-${height}`} value={height} name="height" className="hidden peer" />
                                             <label htmlFor={`height-${height}`} className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
@@ -318,11 +368,12 @@ const Product = () => {
 
 
                     {
+                        !special &&
                         widths.length > 0 ?
                             (<div className='text-left'>
                                 <div className="font-bold">Largeur</div>
                                 <ul className="flex flex-wrap w-full gap-3">
-                                    {widths.map((width) => (
+                                    {widths.sort().map((width) => (
                                         <li key={width} onClick={() => { chanageDimension(); setWidth(width) }}>
                                             <input type="radio" id={`width-${width}`} value={width} name="width" className="hidden peer" />
                                             <label htmlFor={`width-${width}`} className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
@@ -336,7 +387,41 @@ const Product = () => {
                             </div>) : ""
                     }
 
-
+                    {special ? 
+                        <div className='text-left md:flex gap-3'>
+                            <div>
+                                <label htmlFor="height-input">Hauteur</label><br />
+                                <input
+                                    id="height-input"
+                                    type="number"
+                                    min="70"
+                                    max="2800"
+                                    className="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2"
+                                    onChange={(e) => {
+                                        const newHeight = parseInt(e.target.value, 10);
+                                        setHeight(newHeight);
+                                        setIsDirty(true);
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="width-input">Largeur</label><br />
+                                <input
+                                    id="width-input"
+                                    type="number"
+                                    min="70"
+                                    max="2100"
+                                    className="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2"
+                                    onChange={(e) => {
+                                        const newWidth = parseInt(e.target.value, 10);
+                                        setWidth(newWidth);
+                                        setIsDirty(true);
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    : ""
+                    }
 
                     {
                         dimensionMessage ? (<div className="mt-2 font-semibold text-red-700 flex gap-2 items-center">
