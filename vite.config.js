@@ -22,14 +22,4 @@ export default defineConfig({
 
     assetsInclude: ['**/*.ttf'],
     base: '/',
-    build: {
-        chunkSizeWarningLimit: 1000,
-        rollupOptions: {
-            output: {
-                manualChunks: {
-                    vendor: ['react', 'react-dom'],
-                }
-            }
-        }
-    }
 });
