@@ -22,10 +22,20 @@ class OrderResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $counts = collect($this->items)
+        ->map(fn($item) => strtok(str_replace("Façade ", "", $item->product->name), " "))
+        ->countBy();
+    
+        $maxCount = $counts->max();
+        $mostDuplicated = $counts->filter(fn($count) => $count === $maxCount)->keys();
+        
+        $reference = $mostDuplicated->count() > 1 ? $mostDuplicated->first() : $mostDuplicated->first();
+
         return [
             'id' => $this->id,
             'code' => $this->code,
-            'total_amount' => $this->getTotalWithoutTva(),
+            'reference' => $reference,
+            'total_amount' => number_format($this->getTotalWithoutTva(), 2),
             'status' => $this->status,
             'created_at' => $this->created_at,
             'payment' => $this->payment,
@@ -59,7 +69,7 @@ class OrderResource extends JsonResource
                     'special' => $special,
                     'color' => $color,
                     'quantity' => $item->quantity,
-                    'total' => floatval($item->dimension ? $item->dimension->price :  $item->product->price),
+                    'total' => number_format($item->dimension ? $item->dimension->price :  $item->product->price, 2),
                     'full_dimension' => $item->dimension ? $item->dimension : null,
                 ];
             }),
