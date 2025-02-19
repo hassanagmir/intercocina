@@ -236,7 +236,10 @@ class Product extends Component
         if ($this->dimension_error) {
             return;
         }
+
         $color = $this->color ? $this->color : null;
+
+        
         if ($this->dimension) {
             $discount = Discount::where("category_id", $this->dimension->product->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
         } else {

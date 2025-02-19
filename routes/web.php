@@ -250,7 +250,8 @@ Route::get('viewr', function () {
 });
 
 
-
-Route::get('view-product', function () {
+Route::get('view-product', function(){
     return view('view-product');
 });
+
+Route::post('add-to-cart', [ProductController::class, 'AddToCart']);

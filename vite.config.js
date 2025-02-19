@@ -11,15 +11,23 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/tiptap.css',
                 'resources/js/app.js',
+                'resources/js/main.jsx',
                 'resources/css/filament/admin/theme.css',
             ],
-            refresh: true,
+            // refresh: true,
+
         }),
         react(),
 
+        react(),
         compression(),
     ],
 
     assetsInclude: ['**/*.ttf'],
     base: '/',
+    resolve: {
+        alias: {
+            '@': '/resources/js',
+        },
+    },
 });

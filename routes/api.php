@@ -10,3 +10,6 @@ Route::post('orders/confirm', [OrderController::class, 'confirm']);
 
 
 Route::get('product/{product:slug}', [ProductController::class, 'show_product']);
+
+
+Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
