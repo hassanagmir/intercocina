@@ -255,3 +255,9 @@ Route::get('view-product', function(){
 });
 
 Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
+
+
+
+Route::get('view-product', function () {
+    return view('view-product');
+});
