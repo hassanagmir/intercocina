@@ -46,7 +46,7 @@
     </script>
 <section class="py-6 md:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class=""  id="product">
+        <div class="grid grid-cols-1 lg:grid-cols-2 bg-gray-50 py-6 rounded-xl border">
             <div class="slider-box w-full h-full max-lg:mx-auto mx-0">
                 <!-- Main Swiper -->
                 <div class="swiper main-slide-carousel ml-3 swiper-container relative mb-6">

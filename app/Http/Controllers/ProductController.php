@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\ProductStatusEnum;
 use App\Models\Category;
+use App\Models\Dimension;
+use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -41,14 +43,24 @@ class ProductController extends Controller
 
     public function addToCart(Request $request)
     {
+        
+
+
         try {
             $item = $request->input('cart');
+            if (isset($item['attributes']['dimension_id'])) {
+                $dimension = Dimension::find($item['attributes']['dimension_id']);
+                $discount = Discount::where("category_id", $dimension?->product?->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
+            } else {
+                $product = Product::find($item['attributes']['product_id']);
+                $discount = Discount::where("category_id", $product?->type?->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
+            }
             
             // Proper null coalescing operator usage
             \Cart::add([
                 'id' => $item['id'],
                 'name' => $item['name'],
-                'price' => $item['price'],
+                'price' => number_format($item['price'], 2) - (($discount / 100) * number_format($item['price'], 2)),
                 'quantity' => $item['quantity'],
                 'attributes' => [
                     'color' => $item['attributes']['color'] ?? null,
@@ -56,7 +68,7 @@ class ProductController extends Controller
                     'image' => $item['attributes']['image'] ?? null,
                     'dimension' => $item['attributes']['dimension'] ?? null,
                     'slug' => $item['attributes']['slug'],
-                    'attribute' => $item['attributes']['attribute']['name'],
+                    'attribute' => $item['attributes']['attribute'] ? $item['attributes']['attribute']['name'] : null,
                     'product_id' => $item['attributes']['product_id'],
                     'dimension_id' => $item['attributes']['dimension_id'] ?? null,
                     'special' => $item['attributes']['special']
