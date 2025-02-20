@@ -224,7 +224,7 @@ const Product = () => {
         setSpinner(true);
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const cart = {
-            id: `${data.slug}${width}-${height}${dimension?.id}`,
+            id: `${data.slug}${width}-${height}${dimension?.id}${color}${attribute?.id}`,
             name: data.name,
             price: price,
             quantity: quantity,

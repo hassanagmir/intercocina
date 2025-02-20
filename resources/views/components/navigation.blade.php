@@ -60,7 +60,7 @@
 
                                     <livewire:cart-modal />
                                     <a href="{{ route('checkout' )}}" class="flex mt-4 w-full items-center justify-center rounded-lg bg-red-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-600">
-                                        {{ __("Envoyer la commande") }}
+                                        {{ __("Voir le devis") }}
                                     </a>
                                 </div>
                             </div>

@@ -64,6 +64,8 @@ class OrderResource extends JsonResource
                     'id' => $item->id,
                     'code' => $item->dimension ? $item->dimension->code : $item->product->code,
                     'discount' => $discount,
+                    'height' => $special ? $item->special_height : ($item->dimension ? $item->dimension->height : null),
+                    'width' => $special ? $item->special_width : ($item->dimension ? $item->dimension->width : null),
                     'dimensions' => ($special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null)),
                     'designation' => $this->rm_space($attribute ."$product_name  $dimension $color"),
                     'special' => $special,
