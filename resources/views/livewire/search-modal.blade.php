@@ -44,7 +44,7 @@
                                 <a href="{{ route('product.show', $product->slug )}}" class="shrink-0 md:order-1">
                                     <img class="h-20 w-20 object-contain" src="{{ count($product->images) ? url(config('app.storage'), $product?->images->first()?->image) : "/assets/imgs/placeholder-image.webp" }}" alt="{{ $product->name }}">
                                 </a>
-                                <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+                                <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md text-left">
                                     <a href="{{ route('product.show', $product->slug )}}" class="text-base font-bold text-gray-900 hover:underline">
                                         {{ $product->name }}
                                     </a>

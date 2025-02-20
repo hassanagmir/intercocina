@@ -299,29 +299,29 @@ const Product = () => {
                 {
                     !isEmpty(data) ? <Carousel images={images} /> :
                      (<div className='h-96'>
-                        <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700 animate-pulse w-full mr-4" style={{width: "100%", height: "400px"}}>
-                            <svg className="w-10 h-10 text-gray-200 dark:text-gray-600" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                        <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 animate-pulse w-full mr-4" style={{width: "100%", height: "400px"}}>
+                            <svg className="w-10 h-10 text-gray-200" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                 <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
                             </svg>
                         </div>
                         <div className='grid grid-cols-4 gap-2 mt-4'>
-                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
-                                <svg className="w-10 h-10 text-gray-200 dark:text-gray-600" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
+                                <svg className="w-10 h-10 text-gray-200" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
                                 </svg>
                             </div>
-                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
-                                <svg className="w-10 h-10 text-gray-200 dark:text-gray-600" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
+                                <svg className="w-10 h-10 text-gray-200" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
                                 </svg>
                             </div>
-                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
-                                <svg className="w-10 h-10 text-gray-200 dark:text-gray-600" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
+                                <svg className="w-10 h-10 text-gray-200" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
                                 </svg>
                             </div>
-                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
-                                <svg className="w-10 h-10 text-gray-200 dark:text-gray-600" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                            <div className="flex items-center justify-center bg-gray-300 rounded-sm sm:w-96 animate-pulse w-full mr-4 h-20" style={{width: "100%"}}>
+                                <svg className="w-10 h-10 text-gray-200" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
                                 </svg>
                             </div>
@@ -341,7 +341,7 @@ const Product = () => {
                                     </h2>
                                 </div>
                             ) : (
-                                <div role="status" className="bg-gray-300 rounded-sm sm:w-96 dark:bg-gray-700 animate-pulse w-full mr-4 h-10">
+                                <div role="status" className="bg-gray-300 rounded-sm sm:w-96 animate-pulse w-full mr-4 h-10">
                                     <span className="sr-only">Loading...</span>
                                 </div>
                             )
@@ -361,7 +361,7 @@ const Product = () => {
                     {
                         !isEmpty(data) ? 
                          (<p className="mb-3 text-left">{data.description}</p>) : 
-                         (<div role="status" className="bg-gray-300 rounded-sm dark:bg-gray-700 animate-pulse w-full mr-4 h-10">
+                         (<div role="status" className="bg-gray-300 rounded-sm animate-pulse w-full mr-4 h-10">
                             <span className="sr-only">Loading...</span>
                         </div>)
                     }
@@ -369,13 +369,13 @@ const Product = () => {
                     {
                         isEmpty(data) ?
                         (<div>
-                            <div role="status" className="bg-gray-300 rounded-sm dark:bg-gray-700 animate-pulse w-full mr-4 h-16 mt-5">
+                            <div role="status" className="bg-gray-300 rounded-sm animate-pulse w-full mr-4 h-16 mt-5">
                                 <span className="sr-only">Loading...</span>
                             </div>
-                            <div role="status" className="bg-gray-300 rounded-sm dark:bg-gray-700 animate-pulse w-full mr-4 h-16 mt-5">
+                            <div role="status" className="bg-gray-300 rounded-sm animate-pulse w-full mr-4 h-16 mt-5">
                                 <span className="sr-only">Loading...</span>
                             </div>
-                            <div role="status" className="bg-gray-300 rounded-sm dark:bg-gray-700 animate-pulse w-full mr-4 h-16 mt-5">
+                            <div role="status" className="bg-gray-300 rounded-sm animate-pulse w-full mr-4 h-16 mt-5">
                                 <span className="sr-only">Loading...</span>
                             </div>
                         </div>) :
@@ -446,7 +446,7 @@ const Product = () => {
                                                 name="bordered-checkbox"
                                                 className="h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
                                             />
-                                            <label htmlFor="bordered-checkbox-1" className="w-full h-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            <label htmlFor="bordered-checkbox-1" className="w-full h-4 ms-2 text-sm font-medium text-gray-900">
                                                 Special
                                             </label>
                                         </div>
@@ -611,7 +611,7 @@ const Product = () => {
                         </div>
                         <button onClick={addToCart} className="cursor-pointer group border-2 border-red-400 py-3 px-5 rounded-full bg-red-50 text-red-600 font-semibold text-lg w-full flex items-center justify-center gap-2 shadow-sm shadow-transparent transition-all duration-500 hover:shadow-red-300 hover:bg-red-100">
                             {spinner ? (
-                                <svg aria-hidden="true" className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-red-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg aria-hidden="true" className="inline w-6 h-6 text-gray-200 animate-spin fill-red-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                                         fill="currentColor"
                                     />
