@@ -46,7 +46,40 @@
     </script>
 <section class="py-6 md:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div id="product"> </div>
+        <div id="product">
+            <div class="slider-box w-full h-full max-lg:mx-auto mx-0 hidden">
+                <!-- Main Swiper -->
+                <div class="swiper main-slide-carousel ml-3 swiper-container relative mb-6">
+                    <div class="swiper-wrapper pswp-gallery" id="gallery">
+                        @foreach ($product->images()->orderBy('order')->get() as $image)
+                        <a
+                            href="{{ url(config('app.storage'), $image->image) }}"
+                            data-pswp-width="1669"
+                            data-pswp-height="2500"
+                            target="_blank"
+                            class="swiper-slide mt-0 image-wrapper loading"
+                        >
+        
+                            <x-image image="{{ url(config('app.storage'), $image->image) }}" alt="{{ $product->name}}" class="max-lg:mx-auto rounded-2xl m-auto max-h-[500px] mt-0" />
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                
+                <div class="swiper nav-for-slider mx-2">
+                    <div class="swiper-wrapper">
+                        @foreach ($product->images()->orderBy('order')->get() as $image)
+                        <div class="swiper-slide thumbs-slide image-wrapper loading">
+                            <img src="{{ url(config('app.storage'), $image->image)}}" loading="lazy" title="{{ $product->name }}" alt="{{ $product->name }}" width="auto" height="auto" class="cursor-pointer rounded-xl transition-all duration-500 max-h-36">
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="hidden">
+                @livewire('product', ['product' => $product], key($product->id))
+            </div>
+        </div>
         <div class="mt-6">
             @if ($product->options || $product->content)
             <div class="p-4 rounded-xl border bg-white">
