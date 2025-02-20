@@ -96,6 +96,11 @@ const Product = () => {
                 setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
                 setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
             }
+            
+
+            if(data.data.dimensions?.length === 0 && data.data.colors?.length === 0){
+                setCode(data.data?.code);
+            }
 
         } catch (error) {
             console.log("Error fetching data:", error);
@@ -244,7 +249,7 @@ const Product = () => {
 
         }
 
-        console.log(JSON.stringify({ cart }));
+        // console.log(JSON.stringify({ cart }));
         
 
         fetch("/add-to-cart", {
