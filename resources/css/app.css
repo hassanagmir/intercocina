@@ -14,6 +14,10 @@
   display: none;
 }
 
+.swiper-slide-fully-visible{
+  width: 100px!important;
+}
+
 
 * {
     font-family: "Overpass", system-ui, -apple-system, BlinkMacSystemFont,
