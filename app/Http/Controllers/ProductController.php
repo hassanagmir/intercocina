@@ -11,8 +11,9 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function show(Product $product){
-        
+    public function show(Product $product)
+    {
+
         $products = Product::where('type_id', $product->type_id)
             ->whereNot("status", ProductStatusEnum::HIDE)
             ->paginate(4);
@@ -24,18 +25,21 @@ class ProductController extends Controller
         return view('product.show', compact('product', 'products', 'title', 'description', 'image'));
     }
 
-    public function list(){
+    public function list()
+    {
         $categories = Category::with('types')->orderBy('order')->get();
         $title = __("Collections des produits");
         return view('product.list', compact('categories', 'title'));
     }
 
 
-    public function search(){ 
+    public function search()
+    {
         return view('product.search');
     }
 
-    public function show_product(Product $product){
+    public function show_product(Product $product)
+    {
         return new \App\Http\Resources\ProductResource($product);
     }
 
@@ -43,8 +47,6 @@ class ProductController extends Controller
 
     public function addToCart(Request $request)
     {
-        
-
 
         try {
             $item = $request->input('cart');
@@ -55,12 +57,14 @@ class ProductController extends Controller
                 $product = Product::find($item['attributes']['product_id']);
                 $discount = Discount::where("category_id", $product?->type?->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
             }
-            
-            // Proper null coalescing operator usage
+
+
+            $price = (float) number_format(intval($item['price']), 2, '.', '');
+
             \Cart::add([
                 'id' => $item['id'],
                 'name' => $item['name'],
-                'price' => number_format($item['price'], 2) - (($discount / 100) * number_format($item['price'], 2)),
+                'price' => $price - (($discount / 100) * $price),
                 'quantity' => $item['quantity'],
                 'attributes' => [
                     'color' => $item['attributes']['color'] ?? null,
@@ -74,13 +78,12 @@ class ProductController extends Controller
                     'special' => $item['attributes']['special']
                 ]
             ]);
-    
+
             return response()->json([
                 'success' => true,
                 'message' => 'Product added successfully',
                 'cart_count' => \Cart::getContent()->count()
             ], 201);
-    
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -89,6 +92,4 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-
 }

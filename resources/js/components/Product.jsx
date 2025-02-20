@@ -229,7 +229,7 @@ const Product = () => {
             quantity: quantity,
             attributes: {
                 color: color ? color : null,
-                color_name: color ? dimension.color : null,
+                color_name: color && dimension ? dimension.color : color ? colors.find(item => item.id === color).name : null,
                 image: data.images[0],
                 height: height ? height : null,
                 width : width ? width : null,
