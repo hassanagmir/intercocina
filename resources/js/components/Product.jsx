@@ -98,7 +98,7 @@ const Product = () => {
             }
             
 
-            if(data.data.dimensions?.length === 0 && data.data.colors?.length === 0){
+            if(data.data.dimensions?.length === 0){
                 setCode(data.data?.code);
             }
 
