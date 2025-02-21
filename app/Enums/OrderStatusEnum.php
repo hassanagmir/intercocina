@@ -12,11 +12,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
     case CONFIRMED = 2;
     case PREPARATION = 3;
     case READY = 4;
-    case CANCELD = 5;
-
-
-
-
+    case CANCELED = 5;
 
     public function getLabel(): ?string
     {
@@ -25,10 +21,9 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
             self::CONFIRMED => "Confirmé",
             self::PREPARATION => "Préparation",
             self::READY => "Prêt",
-            self::CANCELD => "Annulé",
+            self::CANCELED => "Annulé",
         };
     }
-
 
     public static function toArray()
     {
@@ -41,7 +36,6 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
         ];
     }
 
-
     public function getColor(): string | array | null
     {
         return match ($this) {
@@ -49,7 +43,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
             self::CONFIRMED => 'warning',
             self::PREPARATION => "info",
             self::READY => "success",
-            self::CANCELD => 'danger',
+            self::CANCELED => 'danger',
         };
     }
 
@@ -60,7 +54,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
             self::CONFIRMED => 'yellow',
             self::PREPARATION => "blue",
             self::READY => "green",
-            self::CANCELD => 'red',
+            self::CANCELED => 'red',
         };
     }
 
@@ -71,7 +65,7 @@ enum OrderStatusEnum: int implements HasLabel, HasColor, HasIcon
             self::CONFIRMED => 'heroicon-m-phone-arrow-up-right',
             self::PREPARATION => 'heroicon-m-arrow-path',
             self::READY => 'heroicon-m-check-circle',
-            self::CANCELD => 'heroicon-m-x-circle',
+            self::CANCELED => 'heroicon-m-x-circle',
         };
     }
 }
