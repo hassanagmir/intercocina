@@ -21,45 +21,39 @@ class ListOrders extends ListRecords
         ];
     }
 
-
     public function getTabs(): array
     {
-        return [ // self::PREPARATION => "Préparation",
-           
-
+        return [
             'ON_HOLD' => Tab::make()
                 ->label(__("En Attente"))
                 ->icon("heroicon-o-clock")
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', OrderStatusEnum::ON_HOLD)->latest()),
-
+    
             'ALL' => Tab::make()
                 ->label(__("Tout"))
                 ->icon("heroicon-o-wallet")
                 ->modifyQueryUsing(fn(Builder $query) => $query->latest()),
-
-
+    
             'CONFIRMED' => Tab::make()
                 ->label(__("Confirmé"))
                 ->icon("heroicon-o-check-circle")
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', OrderStatusEnum::CONFIRMED)->latest()),
-
-
-            'READY' => Tab::make()
+    
+            'PREPARATION' => Tab::make()
                 ->label(__("Préparation"))
                 ->icon("heroicon-o-arrow-path")
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', OrderStatusEnum::PREPARATION)->latest()),
-
-
-            'PREPARATION' => Tab::make()
+    
+            'READY' => Tab::make()
                 ->label(__("Prêt"))
                 ->icon("heroicon-o-bell-alert")
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', OrderStatusEnum::READY)->latest()),
-
-
-            'CANCELD' => Tab::make()
+    
+            'CANCELED' => Tab::make() // Fixed typo
                 ->label(__("Annulé"))
                 ->icon("heroicon-o-x-circle")
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('status', OrderStatusEnum::CANCELD)->latest()),
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('status', OrderStatusEnum::CANCELED)->latest()), // Fixed typo
         ];
     }
+    
 }
