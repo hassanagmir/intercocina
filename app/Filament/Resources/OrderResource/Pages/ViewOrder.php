@@ -72,7 +72,7 @@ class ViewOrder extends ViewRecord
 
                 Actions\Action::make("Annulé")
                     ->action(function(Order $record) : void{
-                        $record->status = OrderStatusEnum::CANCELD;
+                        $record->status = OrderStatusEnum::CANCELED;
                         $record->save();
                         $this->notify("Commande annulé");
                     })

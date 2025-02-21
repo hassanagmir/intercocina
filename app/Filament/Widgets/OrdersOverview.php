@@ -21,7 +21,7 @@ class OrdersOverview extends BaseWidget
             SimpleStat::make(Order::class)
                 ->description(__("L'année dernière"))
                 ->label(__("Commandes"))
-                ->where('status',"<>", OrderStatusEnum::CANCELD)
+                ->where('status',"<>", OrderStatusEnum::CANCELED)
                 ->lastYears(1)
                 ->dailyCount(),
 

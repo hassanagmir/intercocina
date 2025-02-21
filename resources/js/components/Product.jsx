@@ -465,13 +465,13 @@ const Product = () => {
                                     {
                                         colors.map((color, index) => {
                                             return (
-                                                <li onClick={() => { 
+                                                <li onClick={() => {
                                                     setColor(color.id);
-                                                    if(dimensions.length > 0) {
+                                                    if (dimensions.length > 0) {
                                                         chanageDimension();
                                                         findDimension();
                                                     }
-                                                 }} className="color-box group text-center me-3 relative" key={index}>
+                                                }} className="color-box group text-center me-3 relative" key={index}>
                                                     <input type="radio" value={color.id} id={`color-${color.id}`} name="color" className="hidden peer" />
                                                     <label htmlFor={`color-${color.id}`} className="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100" style={{ 'backgroundImage': `url('https://intercocina.com/storage/public/${color.image}')` }}></label>
                                                     <div id="tooltipExample" className="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
