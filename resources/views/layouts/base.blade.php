@@ -29,8 +29,6 @@
     <meta property="twitter:url" content="{{ request()->fullUrl() }}">
     @vite(['resources/js/main.jsx', 'resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    {{-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> --}}
     {{-- @viteReactRefresh --}}
     @livewireStyles
     <style>
