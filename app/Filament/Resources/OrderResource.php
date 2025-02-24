@@ -57,23 +57,17 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-
                 Forms\Components\Grid::make(3)
                     ->schema([
-
                         Forms\Components\Repeater::make('items')
                             ->afterStateUpdated(function (Set $set, Get $get) {
-                                $items = $get('items');
-                                $total_amount = 0;
-                                foreach ($items as $item) {
-                                    $total_amount += $item['total'];
-                                }
+                                $items = $get('items') ?? [];
+                                $total_amount = array_sum(array_column($items, 'total'));
                                 $set('total_amount', $total_amount);
                             })
                             ->live()
                             ->relationship()
                             ->schema([
-
                                 Forms\Components\Select::make('product_id')
                                     ->relationship('product', 'name')
                                     ->label(__("Produit"))
@@ -82,45 +76,68 @@ class OrderResource extends Resource
                                     ->required()
                                     ->placeholder("__")
                                     ->live()
-                                    // ->getOptionLabelFromRecordUsing(fn ($state, $label) => false)
                                     ->afterStateUpdated(function (Set $set, Get $get) {
-                                        if ($get('product_id')) {
-                                            $product = Product::find($get('product_id'));
-                                            if ($product->price) {
-                                                $set("total", (intval($get("quantity")) * $product->price));
-                                                $set("price", $product->price);
-                                            } else {
-                                                $set("price", 0);
-                                                if ($get('dimension_id') && $get('quantity')) {
-                                                    $dimension = Dimension::find($get('dimension_id'));
-                                                    $set('total', intval($get('quantity')) * intval($dimension->price));
+                                        $productId = $get('product_id');
+                                        
+                                        // Eager load product with dimensions
+                                        $product = Product::with('dimensions')->find($productId);
+                                        
+                                        if ($product && $product->price) {
+                                            $set("price", $product->price);
+                                            $set("total", intval($get("quantity")) * $product->price);
+                                        } else {
+                                            $set("price", 0);
+                                            $dimensionId = $get('dimension_id');
+                                            if ($dimensionId && $product?->dimensions) {
+                                                $dimension = $product->dimensions->find($dimensionId);
+                                                if ($dimension) {
+                                                    $set("total", intval($get("quantity")) * intval($dimension->price));
                                                 }
                                             }
                                         }
                                     }),
-
-
+    
                                 Forms\Components\TextInput::make('price')
                                     ->hidden(function (Get $get, Set $set) {
-                                        if ($get("product_id")) {
-                                            if (Product::find($get("product_id"))->price) {
-                                                $set("price", Product::find($get("product_id"))->price);
-                                                return false;
-                                            } else {
-                                                return true;
-                                            }
+                                        static $products = [];
+                                        
+                                        $productId = $get("product_id");
+                                        if (!$productId) return false;
+                                        
+                                        if (!isset($products[$productId])) {
+                                            $products[$productId] = Product::find($productId);
                                         }
+                                        
+                                        $product = $products[$productId];
+                                        if ($product?->price) {
+                                            $set("price", $product->price);
+                                            return false;
+                                        }
+                                        return true;
                                     })
                                     ->live()
                                     ->label(__("Prix"))
                                     ->numeric(),
-
+    
                                 Forms\Components\Select::make('dimension_id')
-                                    ->relationship('dimension', 'dimension', fn($query) => $query->whereNotNull("dimension"))
+                                    ->relationship('dimension', 'dimension', function($query) {
+                                        return $query->whereNotNull("dimension")->with('prices');
+                                    })
                                     ->afterStateUpdated(function (Set $set, Get $get) {
-                                        if ($get('dimension_id') && $get('quantity')) {
-                                            $dimension = Dimension::find($get('dimension_id'));
-                                            $set('total', intval($get('quantity')) * intval($dimension->price));
+                                        static $dimensions = [];
+                                        
+                                        $dimensionId = $get('dimension_id');
+                                        $quantity = intval($get('quantity'));
+                                        
+                                        if ($dimensionId && $quantity) {
+                                            if (!isset($dimensions[$dimensionId])) {
+                                                $dimensions[$dimensionId] = Dimension::with('prices')->find($dimensionId);
+                                            }
+                                            
+                                            $dimension = $dimensions[$dimensionId];
+                                            if ($dimension) {
+                                                $set('total', $quantity * intval($dimension->price));
+                                            }
                                         } else {
                                             $set('total', 0);
                                         }
@@ -129,50 +146,65 @@ class OrderResource extends Resource
                                     ->preload()
                                     ->live()
                                     ->hidden(function (Get $get) {
-                                        if ($get("product_id")) {
-                                            if (Product::find($get("product_id"))->price) {
-                                                return true;
-                                            } else {
-                                                return false;
-                                            }
+                                        static $products = [];
+                                        
+                                        $productId = $get("product_id");
+                                        if (!$productId) return false;
+                                        
+                                        if (!isset($products[$productId])) {
+                                            $products[$productId] = Product::find($productId);
                                         }
+                                        
+                                        return $products[$productId]?->price ? true : false;
                                     })
                                     ->required(),
-
+    
                                 Forms\Components\Select::make('color_id')
                                     ->label(__("Couleur"))
                                     ->relationship('color', 'name')
                                     ->searchable()
                                     ->preload(),
-
+    
                                 Forms\Components\TextInput::make('quantity')
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
+                                        static $products = [];
+                                        static $dimensions = [];
+                                        
+                                        $quantity = intval($get("quantity"));
+                                        
                                         if ($get('price')) {
-                                            $product = Product::find($get('product_id'));
-                                            if ($product->price) {
-                                                $set("total", (intval($get("quantity")) * $product->price));
+                                            $productId = $get('product_id');
+                                            if (!isset($products[$productId])) {
+                                                $products[$productId] = Product::find($productId);
                                             }
-                                        } elseif ($get('dimension_id') && $get('quantity')) {
-                                            $dimension = Dimension::find($get('dimension_id'));
-                                            $set('total', intval($get('quantity')) * intval($dimension->price));
+                                            
+                                            $product = $products[$productId];
+                                            if ($product?->price) {
+                                                $set("total", $quantity * $product->price);
+                                            }
+                                        } elseif ($dimensionId = $get('dimension_id')) {
+                                            if (!isset($dimensions[$dimensionId])) {
+                                                $dimensions[$dimensionId] = Dimension::find($dimensionId);
+                                            }
+                                            
+                                            $dimension = $dimensions[$dimensionId];
+                                            if ($dimension) {
+                                                $set('total', $quantity * intval($dimension->price));
+                                            }
                                         } else {
                                             $set('total', 0);
                                         }
-
-                                        $items = $get('../../items');
-                                        $total_amount = 0;
-                                        foreach ($items as $item) {
-                                            $total_amount += $item['total'];
-                                        }
+    
+                                        // Update total amount
+                                        $items = $get('../../items') ?? [];
+                                        $total_amount = array_sum(array_column($items, 'total'));
                                         $set('../../total_amount', $total_amount);
                                     })
                                     ->required()
                                     ->numeric(),
-
-
+    
                                 Forms\Components\TextInput::make('total')
-                                    ->readOnly()
                                     ->live()
                                     ->prefix("MAD")
                                     ->required()
@@ -181,38 +213,45 @@ class OrderResource extends Resource
                             ->columnSpan(2)
                             ->label(false)
                             ->columns(2),
-
-
+    
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\Select::make('user_id')
                                     ->label(__("Client"))
-                                    ->options(User::whereNotNull('name')->pluck('name', 'id'))
+                                    ->options(
+                                        User::query()
+                                            ->whereNotNull('name')
+                                            ->select(['id', 'name'])
+                                            ->get()
+                                            ->pluck('name', 'id')
+                                    )
                                     ->required(),
+                                    
                                 Forms\Components\TextInput::make('code')
                                     ->label(__("Code"))
                                     ->required()
                                     ->maxLength(255),
+                                    
                                 Forms\Components\Select::make('shipping_id')
                                     ->relationship('shipping', 'name')
                                     ->searchable()
                                     ->label(__("Expédition"))
                                     ->preload(),
+                                    
                                 Forms\Components\Select::make('status')
                                     ->label(__("État"))
                                     ->native(false)
                                     ->options(OrderStatusEnum::toArray())
                                     ->required(),
+                                    
                                 Forms\Components\TextInput::make('total_amount')
                                     ->label(__("Montant total"))
                                     ->live()
                                     ->prefix("MAD")
-                                    ->readOnly()
                                     ->required()
                                     ->numeric(),
-
-                            ])->columnSpan(1)
-
+                            ])
+                            ->columnSpan(1)
                     ])
             ]);
     }
