@@ -1,37 +1,36 @@
 <div>
-  <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-    <p class="text-md font-semibold text-gray-900">{{ __("Méthode de paiement") }}</p>
-    <select wire:model="payment" id="payment" name="payment" class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600" required>
-      <option value="" selected>Sélectionnez le mode de paiement</option>
-      <option value="1" class="py-2">
-          Virement Bancaire
-      </option>
-      <option value="2" class="py-2">
-          Versement Agences
-      </option>
-      <option value="3" class="py-2">
-          Chèque à la livraison
-      </option>
-  </select>
-  @error('payment') <div class="text-red-600 font-bold mt-2">{{ $message }}</div> @enderror
-  <div>
-    <label for="shipping" class="block text-md font-semibold text-gray-700">{{ __("Expédition") }}</label>
-    <select id="shipping" wire:model.live="shipping" name="shipping"  class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600">
-      <option value="" selected>Sélectionnez le mode d'expédition</option>  
-      @foreach ($shippings as $item)¨
-            <option value="{{ $item->id }}">{{ $item->name }}</option>
-        @endforeach
+    <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-md font-semibold text-gray-900">{{ __("Méthode de paiement") }}</p>
+      <select wire:model="payment" id="payment" name="payment" class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600" required>
+        <option value="" selected>Sélectionnez le mode de paiement</option>
+        <option value="1" class="py-2">
+            Virement Bancaire
+        </option>
+        <option value="2" class="py-2">
+            Versement Agences
+        </option>
+        <option value="3" class="py-2">
+            Chèque à la livraison
+        </option>
     </select>
-    @error('shipping') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-</div>
-</div>
+    @error('payment') <div class="text-red-600 font-bold mt-2">{{ $message }}</div> @enderror
+    <div>
+      <label for="shipping" class="block text-md font-semibold text-gray-700">{{ __("Expédition") }}</label>
+      <select id="shipping" wire:model.live="shipping" name="shipping"  class="w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600">
+        <option value="" selected>Sélectionnez le mode d'expédition</option>  
+        @foreach ($shippings as $item)
+          <option value="{{ $item->id }}">{{ $item->name }}</option>
+        @endforeach
+      </select>
+      @error('shipping') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+    </div>
+  </div>
 
 <div class="space-y-4 mt-5 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
   <p class="text-xl font-semibold text-gray-900">{{ __("Sélectionnez ou ajoutez une adresse") }}</p>
   @error('address')
-  <div class="text-red-600 font-bold">{{ $message }}</div>
+    <div class="text-red-600 font-bold">{{ $message }}</div>
   @enderror
- 
 
   @if (session()->has('error_message'))
     <div class="text-red-600 font-bold mt-2">{{ session('error_message') }}</div>
@@ -94,11 +93,8 @@
                               </svg>
                           </button>
                       </div>
-          
                       <!-- Content -->
                       @livewire('address-form')
-
-                     
                   </div>
               </div>
           </div>
