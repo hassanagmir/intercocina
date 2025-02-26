@@ -38,13 +38,14 @@ class ProductController extends Controller
         return view('product.search');
     }
 
+
+
     public function show_product(Product $product)
     {
         return new \App\Http\Resources\ProductResource($product);
     }
 
-
-
+    
     public function addToCart(Request $request)
     {
 
