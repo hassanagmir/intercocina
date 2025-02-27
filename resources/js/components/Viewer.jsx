@@ -7,7 +7,7 @@ function Viewer() {
     const [spinner, setSpinner] = useState(false);
     const [selectedColorId, setSelectedColorId] = useState(null);
     const [fadeTransition, setFadeTransition] = useState(false);
-  
+
 
     useEffect(() => {
         getData();
@@ -19,12 +19,12 @@ function Viewer() {
             .then(res => res.json())
             .then(data => {
                 setColors(data.data);
-                
+
                 let initialColor;
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 const paramColor = urlParams.get('color');
-                if(paramColor) {
+                if (paramColor) {
                     initialColor = data.data.find(color => color.id == paramColor);
                     if (!initialColor) {
                         initialColor = data.data[0];
@@ -32,9 +32,9 @@ function Viewer() {
                 } else {
                     initialColor = data.data[0];
                 }
-                
+
                 setColor(initialColor);
-                
+
                 setImage(initialColor.images[0].path);
                 setSelectedColorId(initialColor.id);
                 setSpinner(false);
@@ -46,7 +46,7 @@ function Viewer() {
         setFadeTransition(true);
         setTimeout(() => {
             setColor(currentColor);
-            
+
             setImage(currentColor.images[0].path);
             setSelectedColorId(currentColor.id);
 
@@ -88,7 +88,7 @@ function Viewer() {
                     alt="Virtual image"
                     className={`w-full h-auto rounded-t-lg shadow-sm transition-opacity duration-100 ease-in-out ${fadeTransition ? 'opacity-95' : 'opacity-100'}`}
                 />
-                <div className="p-3 bg-white rounded-b-lg flex justify-between">
+                <div className="p-3 bg-white rounded-b-lg flex justify-between items-center">
                     <div>
                         <a href={`https://intercocina.com/product/${color.product_slug}`} className="text-xl flex gap-2 hover:text-red-500" target="_blank" rel="noreferrer">
                             <span>{color.name}</span>
@@ -100,7 +100,7 @@ function Viewer() {
                             </svg>
                         </a>
                     </div>
-                    <div className="text-xl">
+                    <div className="text-3xl">
                         <span className="text-[#b6b6b7] font-black tracking-widest" style={{ fontFamily: 'DOCK11-Heavy' }}>INTER</span>
                         <span className="text-[#ec2228] font-black tracking-widest" style={{ fontFamily: 'DOCK11-Heavy' }}>COCINA</span>
                     </div>
@@ -120,14 +120,8 @@ function Viewer() {
                     {/* Search Icon */}
                     <div className="absolute inset-y-0 left-3 flex items-center ml-3">
                         <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                         >
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />

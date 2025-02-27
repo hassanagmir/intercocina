@@ -111,27 +111,30 @@
                 <x-share-buttons :product="$product" />
             </div>
 
-            
-            
-            <div x-data="{modalIsOpen: false}">
-                <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap rounded-radius border border-primary bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0">Open Modal</button>
-                <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="z-50 fixed inset-0 z-30 flex items-end justify-center bg-black/0 p-4 pb-8 backdrop-blur-lg sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
-                    <!-- Modal Dialog -->
-                    <div class="flex flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface bg-gray-100" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" >
-                        <!-- Dialog Header -->
-                        <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4">
-                            <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong-strong">Salle d'exposition virtuelle</h3>
-                            <button x-on:click="modalIsOpen = false" aria-label="close modal">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                            </button>
+            {{-- Virtual Room --}}
+            <div class="bg-white rounded-lg border shadow-sm text-center py-10 mt-5">
+                <h2 class="text-2xl font-bold mb-4">Partager Via</h2>
+                <div x-data="{modalIsOpen: false}">
+                    <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap rounded-radius border border-primary bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0">Open Modal</button>
+                    <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="z-50 fixed inset-0 z-30 flex items-end justify-center bg-black/0 p-4 pb-8 backdrop-blur-lg sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                        <!-- Modal Dialog -->
+                        <div class="flex flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface bg-gray-100" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" >
+                            <!-- Dialog Header -->
+                            <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4">
+                                <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong-strong">Salle d'exposition virtuelle</h3>
+                                <button x-on:click="modalIsOpen = false" aria-label="close modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <!-- Dialog Body -->
+                            <div class="px-4 py-8" id="viewer"> </div>
                         </div>
-                        <!-- Dialog Body -->
-                        <div class="px-4 py-8" id="viewer"> </div>
                     </div>
                 </div>
             </div>
+
 
             @if ($product->type->category->name == "Parquets")
             <x-floopr-ceatures />
