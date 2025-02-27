@@ -31,7 +31,7 @@ const Carousel = ({ images }) => {
   return (
     <div>
       {/* Main Carousel */}
-      <div id="gallery" style={{userSelect: 'none'}}>
+      <div id="gallery" style={{ userSelect: 'none' }}>
         <Swiper
           modules={[Navigation, Pagination, Autoplay, Thumbs]}
           spaceBetween={10}
