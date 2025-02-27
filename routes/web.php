@@ -242,7 +242,7 @@ Route::get('/clear-cache', function () {
     }
 });
 
-Route::get('viewr', function () {
+Route::get('viewer', function () {
     $title = "Salle d'exposition virtuelle";
     return view('viewr', compact('title'));
 });
