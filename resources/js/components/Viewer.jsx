@@ -15,20 +15,14 @@ function Viewer() {
 
     async function getData() {
         setSpinner(true);
-        return await fetch('http://localhost:8000/api/view-colors')
+        return await fetch('/api/view-colors')
             .then(res => res.json())
             .then(data => {
                 setColors(data.data);
                 
                 let initialColor;
-
-                // Get the color from the URL parameter
                 const queryString = window.location.search;
-
-                // Create a URLSearchParams object
                 const urlParams = new URLSearchParams(queryString);
-
-                // Get specific parameter values
                 const paramColor = urlParams.get('color');
                 if(paramColor) {
                     initialColor = data.data.find(color => color.id == paramColor);
@@ -113,7 +107,7 @@ function Viewer() {
                 </div>
             </div>
 
-            <div className="w-full md:w-1/3 p-4 pt-0">
+            <div className="w-full md:w-1/3 px-4 pt-0">
                 <div className="relative mb-4">
                     <input
                         className="appearance-none border-2 pl-10 z-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-red-600 focus:border-red-600 focus:shadow-outline"
