@@ -130,5 +130,6 @@
           </script> --}}
         @livewireScriptConfig
         <x-whatsapp-button />
+        @livewire('cookie')
     </body>
 </html>
