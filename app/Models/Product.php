@@ -44,6 +44,11 @@ class Product extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
+    
+    public function color()
+    {
+        return $this->hasOne(ViewColor::class);
+    }
 
 
     // Relationships

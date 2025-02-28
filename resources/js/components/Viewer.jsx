@@ -23,7 +23,8 @@ function Viewer() {
                 let initialColor;
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
-                const paramColor = urlParams.get('color');
+                // const paramColor = urlParams.get('color');
+                const paramColor = document.getElementById('color_id').textContent;
                 if (paramColor) {
                     initialColor = data.data.find(color => color.id == paramColor);
                     if (!initialColor) {

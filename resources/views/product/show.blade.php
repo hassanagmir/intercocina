@@ -1,5 +1,6 @@
 @extends('layouts.base')
 @section('content')
+
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -108,30 +109,61 @@
             </div>
             @endif
 
-
- 
-            <div class="mt-6">
-                <div x-data="{modalIsOpen: false}">
-                    <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap rounded-radius border border-primary bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0">Open Modal</button>
-                    <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="z-50 fixed inset-0 z-30 flex items-end justify-center bg-black/0 p-4 pb-8 backdrop-blur-lg sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
-                        <!-- Modal Dialog -->
-                        <div class="flex flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface bg-gray-100" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" >
-                            <!-- Dialog Header -->
-                            <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4">
-                                <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong-strong">Salle d'exposition virtuelle</h3>
-                                <button x-on:click="modalIsOpen = false" aria-label="close modal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Dialog Body -->
-                            <div class="px-4 py-8" id="viewer"> </div>
-                        </div>
+            
+            @if ($product->color)
+            <div class="w-full mt-6" x-data="{modalIsOpen: false}">
+                <span id="color_id" class="hidden">{{$product->color->id}}</span>
+                <section x-on:click="modalIsOpen = true" class="rounded-xl p-6 relative flex flex-col transition-all duration-300 group bg-white hover:bg-red-50 border border-red-100 shadow-sm hover:shadow-md text-black">
+                  <!-- Updated testimonial content -->
+                  <div class="font-medium text-base md:text-lg text-gray-700 mb-4 grow text-center">
+                    <p class="mb-6 text-2xl">Cliquez ici pour voir la couleur actuelle dans la cuisine virtuelle.</p>
+                  </div>
+                  
+                  <!-- Virtual kitchen view button -->
+                  <div class="mb-4 flex justify-center">
+                    <span class="relative inline-flex items-center gap-2 py-2 px-4 rounded-lg bg-red-100 text-red-700 font-medium group-hover:bg-red-200 transition-colors duration-300 z-20 pointer-events-none">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                      Salle d'exposition virtuelle
+                    </span>
+                  </div>
+                </section>
+                
+                <!-- Modal separated from the section to avoid click propagation issues -->
+                <div x-cloak 
+                     x-show="modalIsOpen" 
+                     x-transition.opacity.duration.200ms 
+                     x-trap.inert.noscroll="modalIsOpen" 
+                     x-on:keydown.escape.window="modalIsOpen = false" 
+                     x-on:click.self="modalIsOpen = false" 
+                     class="z-50 fixed inset-0 flex items-end justify-center bg-black/50 p-4 pb-8 backdrop-blur-lg sm:items-center lg:p-8" 
+                     role="dialog" 
+                     aria-modal="true" 
+                     aria-labelledby="defaultModalTitle">
+                  <!-- Modal Dialog -->
+                  <div class="flex flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface bg-gray-100" 
+                       x-show="modalIsOpen" 
+                       x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" 
+                       x-transition:enter-start="scale-0" 
+                       x-transition:enter-end="scale-100"
+                       @click.away="modalIsOpen = false">
+                    <!-- Dialog Header -->
+                    <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4">
+                      <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong-strong text-xl">Salle d'exposition virtuelle</h3>
+                      <button @click="modalIsOpen = false" aria-label="close modal" class="p-2 hover:bg-gray-200 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                      </button>
                     </div>
+                    <!-- Dialog Body -->
+                    <div class="px-4 py-8" id="viewer"></div>
+                  </div>
                 </div>
-            </div>
-
+              </div>
+            @endif
             <div>
                 <x-share-buttons :product="$product" />
             </div>
@@ -176,5 +208,4 @@
         </div>
     </div>
 </section>
-
 @endsection
