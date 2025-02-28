@@ -111,7 +111,7 @@
 
             
             @if ($product->color)
-            <div class="w-full mt-6" x-data="{modalIsOpen: false}">
+            <div class="w-full mt-6 cursor-pointer" x-data="{modalIsOpen: false}">
                 <span id="color_id" class="hidden">{{$product->color->id}}</span>
                 <section x-on:click="modalIsOpen = true" class="rounded-xl p-6 relative flex flex-col transition-all duration-300 group bg-white hover:bg-red-50 border border-red-100 shadow-sm hover:shadow-md text-black">
                   <!-- Updated testimonial content -->
