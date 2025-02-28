@@ -14,7 +14,7 @@ class ViewColor extends Model
         'code',
         'product_id',
         'image',
-        'image',
+
     ];
 
     public function product()

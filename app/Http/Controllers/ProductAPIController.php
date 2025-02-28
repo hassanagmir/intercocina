@@ -12,7 +12,11 @@ class ProductAPIController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::where('status', 1)
+            ->whereHas('type', function ($query) {
+                $query->where('status', 1);
+            })
+            ->paginate(12);
         return ProductResource::collection($products);
     }
 

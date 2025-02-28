@@ -156,8 +156,6 @@ Route::get('import', function () {
 
 
 
-
-
 Route::post('export-client', function (Request $request) {
     ini_set('max_execution_time', 3600);
     set_time_limit(3600);
@@ -244,7 +242,7 @@ Route::get('/clear-cache', function () {
     }
 });
 
-Route::get('viewr', function () {
+Route::get('viewer', function () {
     $title = "Salle d'exposition virtuelle";
     return view('viewr', compact('title'));
 });

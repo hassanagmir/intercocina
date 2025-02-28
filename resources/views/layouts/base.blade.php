@@ -115,6 +115,7 @@
 </head>
     <body class="bg-[#f2f2f2]" style="background-image: url('{{ asset("imgs/vecteur-inter.png")}}');background-blend-mode: lighten; background-size:460px">
         <x-navigation />
+        <span class="hidden" id="auth">{{auth()?->user()?->hasRole('super_admin')}}</span>
         <main class="mt-28">
             @yield('content')
         </main>

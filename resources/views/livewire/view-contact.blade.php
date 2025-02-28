@@ -1,15 +1,15 @@
-{{-- <x-filament::section> --}}
-    <div>
-        <div class="flex flex-col w-full leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+
+<div>
+    <div class="flex flex-col w-full leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
             <div class="flex items-center space-x-2 rtl:space-x-reverse">
-               <span class="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                <span class="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 13.826a3.506 3.506 0 1 0 0-7.013a3.506 3.506 0 0 0 0 7.013m0 0a6 6 0 0 1 5.953 5.254M12 13.826a6 6 0 0 0-5.953 5.254m0 0A9.2 9.2 0 0 0 12 21.25a9.2 9.2 0 0 0 5.953-2.17m-11.906 0a9.25 9.25 0 1 1 11.907 0"/></svg>
                     {{ $record->full_name }}
                 </span>
-               <span class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $record->created_at->format("d, M y - H:i") }}</span>
+                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $record->created_at->format("d, M y - H:i") }}</span>
             </div>
             <h3 class="text-md font-normal text-gray-900 dark:text-white mt-3 px-6">({{ $record->subject }})</h3>
-            <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white mb-3 px-6">
+            <p class="text-sm font-normal py-2.5 text-gray-900 dark:text-white mb-3 px-6" style="white-space: pre-line">
                 {{ $record->message }}
             </p>
             <div class="flex gap-4 mt-2">
@@ -22,7 +22,5 @@
                     <a href="mailto:{{ $record->email }}">{{ $record->email }}</a>
                 </span>
             </div>
-            
-         </div>
-    </div>
-{{-- </x-filament::section> --}}
+        </div>
+</div>
