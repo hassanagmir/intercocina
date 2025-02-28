@@ -107,13 +107,9 @@
             </div>
             @endif
 
-            <div>
-                <x-share-buttons :product="$product" />
-            </div>
 
-            {{-- Virtual Room --}}
-            <div class="bg-white rounded-lg border shadow-sm text-center py-10 mt-5">
-                <h2 class="text-2xl font-bold mb-4">Partager Via</h2>
+ 
+            <div class="mt-6">
                 <div x-data="{modalIsOpen: false}">
                     <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap rounded-radius border border-primary bg-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0">Open Modal</button>
                     <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="z-50 fixed inset-0 z-30 flex items-end justify-center bg-black/0 p-4 pb-8 backdrop-blur-lg sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
@@ -135,6 +131,9 @@
                 </div>
             </div>
 
+            <div>
+                <x-share-buttons :product="$product" />
+            </div>
 
             @if ($product->type->category->name == "Parquets")
             <x-floopr-ceatures />
