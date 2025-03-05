@@ -120,7 +120,7 @@
                   </div>
                   
                   <!-- Virtual kitchen view button -->
-                  <div class="mb-4 flex justify-center">
+                  <div class="mb-4 flex justify-center" id="viewer-button">
                     <span class="relative inline-flex items-center gap-2 py-2 px-4 rounded-lg bg-red-100 text-red-700 font-medium group-hover:bg-red-200 transition-colors duration-300 z-20 pointer-events-none">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-pulse">
                         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>

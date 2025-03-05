@@ -13,6 +13,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets\imgs\favicon.png') }}">
     <link rel="canonical" href="{{ request()->fullUrl() }}" />
     <meta name="google-site-verification" content="qvGj4QxXzolE9UDquiCtVKxUzQqkKt92LtItABRoQBw" />
+    <meta name="msvalidate.01" content="E43D73FAFE61A67729EB518396B654E9" />
     {{-- Open Graph / Facebook --}}
 
     <meta property="og:url" content="{{ request()->fullUrl() }}">
