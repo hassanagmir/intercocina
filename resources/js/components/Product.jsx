@@ -42,7 +42,6 @@ const Product = () => {
         if (attributes.length > 0) {
             changeAttribute({ target: { value: attributes[0].id } });
         }
-
         document.getElementById('auth').textContent === '1' ? SetAuth(true) : SetAuth(false);
     }, []);
 
