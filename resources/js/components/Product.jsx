@@ -106,7 +106,7 @@ const Product = () => {
             }
 
         } catch (error) {
-            console.log("Error fetching data:", error);
+
         }
     }
 
@@ -132,8 +132,10 @@ const Product = () => {
             const currentArea = current.width * current.height;
             return currentArea < bestArea ? current : best;
         });
+
         setDimension(current);
         setPrice(current.price);
+        setCode(current.code);
         setDimensionMessage(null);
         return current;
     };
@@ -149,72 +151,61 @@ const Product = () => {
 
 
 
-    function chanageDimension() {
-        if(color){
-            setColorMessage(null)
+    function changeDimension() {
+        // Reset color message if color is selected
+        if (color) {
+            setColorMessage(null);
         }
-
-        if (height && width && color) {
-            const current_demension = dimensions.find((item) => item.width === width && item.height === height && item.color_id === color);
-            if (current_demension) {
-                setPrice(current_demension.price);
-                setDimension(current_demension);
-                setCode(current_demension.code);
-                setDimensionMessage(null);
-            } else {
-                setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible agr`)
-                setCode(null);
+    
+        // Helper function to update state with dimension details
+        const updateDimensionState = (dimension) => {
+            setPrice(dimension.price);
+            setDimension(dimension);
+            setCode(dimension.code);
+            setDimensionMessage(null);
+        };
+    
+        // Find matching dimension based on available parameters
+        const findMatchingDimension = () => {
+            // Prioritize full match with color, height, and width
+            if (color && height && width) {
+                return dimensions.find(
+                    item => item.width === width && 
+                            item.height === height && 
+                            item.color_id === color
+                );
             }
-            return;
-        }
-
-
-        if (height && (widths.length === 0)) {
-            const current_demension = dimensions.find((item) => item.height === height);
-            if (current_demension) {
-                setPrice(current_demension.price);
-                setDimension(current_demension);
-                setCode(current_demension.code);
-                setDimensionMessage(null);
+    
+            // Match with height and width
+            if (height && width) {
+                return dimensions.find(
+                    item => item.width === width && 
+                            item.height === height
+                );
             }
-        }
-
-
-
-        // For Height and Width
-        if (height && width) {
-            const current_demension = dimensions.find((item) => item.width === width && item.height === height);
-            if (current_demension) {
-                setPrice(current_demension.price);
-                setDimension(current_demension);
-                setCode(current_demension.code);
-                setDimensionMessage(null);
-            } else {
-                setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible`)
-                setCode(null);
+    
+            // Match with only height
+            if (height && widths.length === 0) {
+                return dimensions.find(item => item.height === height);
             }
-        }
-
-        // For onley Height
-        if (height && (widths.length === 0)) {
-            const current_demension = dimensions.find((item) => item.height === height);
-            if (current_demension) {
-                setPrice(current_demension.price);
-                setDimension(current_demension);
-                setCode(current_demension.code);
-                setDimensionMessage(null);
+    
+            // Match with only width
+            if (width && heights.length === 0) {
+                return dimensions.find(item => item.width === width);
             }
-        }
-
-        // For only Width
-        if (width && (heights.length === 0)) {
-            const current_demension = dimensions.find((item) => item.width === width);
-            if (current_demension) {
-                setPrice(current_demension.price);
-                setDimension(current_demension);
-                setCode(current_demension.code); 
-                setDimensionMessage(null);
-            }
+    
+            return null;
+        };
+    
+        // Find and process matching dimension
+        const matchedDimension = findMatchingDimension();
+    
+        if (matchedDimension) {
+            updateDimensionState(matchedDimension);
+        } else if (height && width) {
+            // Set error message for unavailable dimension
+            setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible`);
+            setCode(null);
         }
     }
 
@@ -475,7 +466,7 @@ const Product = () => {
                                                 <li onClick={() => {
                                                     setColor(color.id);
                                                     if (dimensions.length > 0) {
-                                                        chanageDimension();
+                                                        changeDimension();
                                                         findDimension();
                                                     }
                                                 }} className="color-box group text-center me-3 relative" key={index}>
@@ -506,17 +497,26 @@ const Product = () => {
                         </div> : ""
                     }
 
-                    {
-
-                        !special &&
-                            heights.length > 0 ?
-                            (<div className='text-left'>
-                                <div className="font-bold">Hauteur</div>
+                        {!special && heights.length > 0 && (
+                            <div className='text-left'>
+                                <div className="font-bold">Hauteur {data.unit ? `(${data.unit})` : ""}</div>
                                 <ul className="flex flex-wrap w-full gap-3">
                                     {heights.sort().map((height) => (
-                                        <li key={height} onClick={() => { chanageDimension(); setHeight(height) }}>
-                                            <input type="radio" id={`height-${height}`} value={height} name="height" className="hidden peer" />
-                                            <label htmlFor={`height-${height}`} className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                        <li key={height} onClick={() => { 
+                                            setHeight(height);
+                                            changeDimension(); 
+                                        }}>
+                                            <input 
+                                                type="radio" 
+                                                id={`height-${height}`} 
+                                                value={height} 
+                                                name="height" 
+                                                className="hidden peer" 
+                                            />
+                                            <label 
+                                                htmlFor={`height-${height}`} 
+                                                className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                            >
                                                 <div className="block">
                                                     <div className="w-full text-md font-semibold">{height}</div>
                                                 </div>
@@ -524,18 +524,18 @@ const Product = () => {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>) : ""
-                    }
+                            </div>
+                        )}
 
 
                     {
                         !special &&
                             widths.length > 0 ?
                             (<div className='text-left'>
-                                <div className="font-bold">Largeur</div>
+                                <div className="font-bold">Largeur { data.unit ? `(${data.unit})` : ""}</div>
                                 <ul className="flex flex-wrap w-full gap-3">
                                     {widths.sort().map((width) => (
-                                        <li key={width} onClick={() => { chanageDimension(); setWidth(width) }}>
+                                        <li key={width} onClick={() => { changeDimension(); setWidth(width) }}>
                                             <input type="radio" id={`width-${width}`} value={width} name="width" className="hidden peer" />
                                             <label htmlFor={`width-${width}`} className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                                                 <div className="block">

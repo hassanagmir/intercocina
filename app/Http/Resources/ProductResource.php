@@ -25,6 +25,7 @@ class ProductResource extends JsonResource
             'type' => $this?->type?->name,
             'slug' => $this->slug,
             'status' => $this->status->getLabel(),
+            'unit' => $this->unit,
             'category_id' => $this->type->category_id,
             'category' => $this->type->category->name,
             'images' => $this->images->map(function ($image) {
