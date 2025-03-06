@@ -13,7 +13,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
 use App\Http\Controllers\UserController;
 use App\Models\City;
-use App\Models\Collection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -46,13 +45,11 @@ Route::controller(PageController::class)->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('password', [UserController::class, 'password'])->name('password');
     Route::get('forgot-password', [UserController::class, 'forgot'])->name('forgot');
-    // Route::get('reset-password', [UserController::class, 'reset'])->name('reset');
     Route::get('edit', [UserController::class, 'edit'])->name('user.edit');
     Route::get('login', [UserController::class, 'login'])->name('user.login');
     Route::get('register', [UserController::class, 'register'])->name('user.register');
 });
 
-// Route::get('/forgot-password', \App\Http\Livewire\ForgotPassword::class)->name('password.request');
 
 Route::prefix('')->group(function () {
     Route::get('produits', [ProductController::class, 'list'])->name("products");
