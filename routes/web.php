@@ -25,7 +25,6 @@ Route::get('/livewire/update', function () {
 });
 
 Route::get('api/orders', [OrderController::class, 'api_list'])->name('order.api.list');
-// Route::post('api/orders/confirm', [OrderController::class, 'confirm'])->name('order.api.list');
 
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'home')->name('home');
