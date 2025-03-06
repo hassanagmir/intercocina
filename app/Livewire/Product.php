@@ -251,7 +251,6 @@ class Product extends Component
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color . $this->special_height . $this->special_width;
         $colorDetails = $color ? Color::find($color) : null;
 
-        dd("Special");
 
         \Cart::add([
             'id' => $cartItemId,
@@ -338,10 +337,6 @@ class Product extends Component
         // Prepare cart item data
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color;
         $colorDetails = $color ? Color::find($color) : null;
-
-
-
-        dd("Working");
        
 
         \Cart::add([
