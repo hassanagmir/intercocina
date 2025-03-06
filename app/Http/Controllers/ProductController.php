@@ -52,13 +52,14 @@ class ProductController extends Controller
         try {
             $item = $request->input('cart');
             if (isset($item['attributes']['dimension_id'])) {
+                $product = Product::find($item['attributes']['product_id']);
+
                 $dimension = Dimension::find($item['attributes']['dimension_id']);
                 $discount = Discount::where("category_id", $dimension?->product?->type->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
             } else {
                 $product = Product::find($item['attributes']['product_id']);
                 $discount = Discount::where("category_id", $product?->type?->category->id)->where('user_id', auth()->id())->first()->percentage ?? 0;
             }
-
 
             $price = (float) number_format(intval($item['price']), 2, '.', '');
 
@@ -72,6 +73,10 @@ class ProductController extends Controller
                     'color_name' => $item['attributes']['color_name'] ?? null,
                     'image' => $item['attributes']['image'] ?? null,
                     'dimension' => $item['attributes']['dimension'] ?? null,
+                    'height' => $item['attributes']['height'] ?? null,
+                    'width' => $item['attributes']['width'] ?? null,
+                    'length' => $item['attributes']['length'] ?? null,
+                    'unit' => $product->unit ?? null,
                     'slug' => $item['attributes']['slug'],
                     'attribute' => $item['attributes']['attribute'] ? $item['attributes']['attribute']['name'] : null,
                     'product_id' => $item['attributes']['product_id'],

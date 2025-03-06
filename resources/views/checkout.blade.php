@@ -29,7 +29,13 @@
                                 <a href="{{ route('product.show', $product['attributes']['slug']) }}"
                                     class="text-base font-bold text-gray-900 hover:underline">
                                     {{ str_replace("Façade", $product['attributes']['attribute'], $product['name']) }}
-                                    {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }}
+                                    @if (!$product['attributes']['dimension'] && $product['attributes']['width'])
+                                    {{ $product['attributes']['width'] }}{{ $product['attributes']['unit']}}
+                                    @endif
+                                    @if (!$product['attributes']['dimension'] && $product['attributes']['height'])
+                                        {{ $product['attributes']['height'] }}{{ $product['attributes']['unit']}}
+                                    @endif
+                                    {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . $product['attributes']['unit'] : '' }}
                                     {{ $product['attributes']['color'] ? "(" . $product['attributes']['color_name'] . ")" : '' }}
                                 </a>
                             </div>

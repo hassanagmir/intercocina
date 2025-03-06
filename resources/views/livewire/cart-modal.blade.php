@@ -68,7 +68,16 @@
                                 {{-- @dump($product['attributes']['attribute']) --}}
                                 {{-- {{ $product['name'] }} --}}
                                 {{ str_replace("Façade", $product['attributes']['attribute'], $product['name']) }}
-                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . " mm" : '' }}
+
+                                @if (!$product['attributes']['dimension'] && $product['attributes']['width'])
+                                    {{ $product['attributes']['width'] }}{{ $product['attributes']['unit']}}
+                                @endif
+
+                                @if (!$product['attributes']['dimension'] && $product['attributes']['height'])
+                                    {{ $product['attributes']['height'] }}{{ $product['attributes']['unit']}}
+                                @endif
+
+                                {{ $product['attributes']['dimension'] ? "- " . $product['attributes']['dimension'] . $product['attributes']['unit'] : '' }}
                                 {{ $product['attributes']['color'] ? "(" . $product['attributes']['color_name'] . ")" : '' }}
                             </a>
                             <div class="flex items-center gap-4">

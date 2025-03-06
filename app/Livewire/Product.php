@@ -251,7 +251,7 @@ class Product extends Component
         $cartItemId = ($this->dimension ? $this->dimension->id : $this->product->id) . "-" . $color . $this->special_height . $this->special_width;
         $colorDetails = $color ? Color::find($color) : null;
 
-
+        dd("Special");
 
         \Cart::add([
             'id' => $cartItemId,
@@ -340,6 +340,10 @@ class Product extends Component
         $colorDetails = $color ? Color::find($color) : null;
 
 
+
+        dd("Working");
+       
+
         \Cart::add([
             'id' => $cartItemId,
             'name' => $this->product->name,
@@ -349,6 +353,8 @@ class Product extends Component
                 'color' => intval($color),
                 'color_name' => $colorDetails?->name,
                 'image' => $this->product->images?->first()?->image,
+                'height' => $this->height,
+                'width' => $this->width,
                 'dimension' => $this->dimension ? $this->dimension->dimension : false,
                 'slug' => $this->product->slug,
                 'attribute' => $this->dimension ? $this->dimension?->attribute?->name : false,
