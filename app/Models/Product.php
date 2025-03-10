@@ -119,6 +119,11 @@ class Product extends Model
         return $this->belongsToMany(Attribute::class, 'product_attributes');
     }
 
+    public function related()
+    {
+        return $this->belongsToMany(Product::class, 'product_relation', 'product_id', 'related_id');
+    }
+
 
 
 }

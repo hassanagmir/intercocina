@@ -308,12 +308,7 @@ class ProductResource extends Resource
                                 return $color->getKey();
                             }),
 
-                        Forms\Components\TagsInput::make('tags')
-                            ->label(__("Mots clés"))
-                            ->placeholder(__("Mot-clé"))
-                            ->separator(',')
-                            ->splitKeys(['Tab', ','])
-                            ->default(null),
+              
                         
                         Forms\Components\Select::make('attributes')
                             ->label(__("Attributes"))
@@ -322,7 +317,23 @@ class ProductResource extends Resource
                             ->multiple()
                             ->nullable()
                             ->searchable()
-                            ->preload()
+                            ->preload(),
+
+                        Forms\Components\TagsInput::make('tags')
+                            ->label(__("Mots clés"))
+                            ->placeholder(__("Mot-clé"))
+                            ->separator(',')
+                            ->splitKeys(['Tab', ','])
+                            ->default(null),
+
+                        Forms\Components\Select::make('related')
+                            ->label(__("Produits liés"))
+                            ->relationship('related', 'name')
+                            ->native(false)
+                            ->multiple()
+                            ->nullable()
+                            ->searchable()
+                            ->preload(),
                     ])->columns(2),
             ]);
     }
