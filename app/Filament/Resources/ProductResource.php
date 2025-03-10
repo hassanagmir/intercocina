@@ -322,7 +322,16 @@ class ProductResource extends Resource
                             ->multiple()
                             ->nullable()
                             ->searchable()
-                            ->preload()
+                            ->preload(),
+                            
+                        Forms\Components\Select::make('related')
+                            ->label(__("Produits liés"))
+                            ->relationship('related', 'name')
+                            ->native(false)
+                            ->multiple()
+                            ->nullable()
+                            ->searchable()
+                            ->preload(),
                     ])->columns(2),
             ]);
     }

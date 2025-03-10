@@ -46,6 +46,7 @@
     }
     </script>
 <section class="py-6 md:py-20">
+  @dd($product->related)
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div id="product">
             <div class="slider-box w-full h-full max-lg:mx-auto mx-0 hidden">
