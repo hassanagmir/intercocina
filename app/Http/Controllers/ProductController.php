@@ -17,8 +17,6 @@ class ProductController extends Controller
         $products = Product::where('type_id', $product->type_id)
             ->whereNot("status", ProductStatusEnum::HIDE)
             ->paginate(4);
-
-
         $title = $product->name;
         $image = $product->images?->first()?->image;
         $description = $product->description;
