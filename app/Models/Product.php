@@ -25,8 +25,8 @@ class Product extends Model
     protected $casts = [
         'options' => 'array',
         'status' =>  ProductStatusEnum::class,
+        'images' => 'array',
     ];
-
 
 
     public function getActivityLogOptions() : LogOptions

@@ -9,8 +9,26 @@ class CategoryAPIController extends Controller
 {
     public function index()
     {
-        return response()->json(Category::all());
+        return response()->json(Category::select('name', 'slug', 'image', 'status', 'order')->get());
     }
+
+
+    public function show($slug)
+    {
+        $category = Category::where('slug', $slug)
+            ->with(['types:id,category_id,name,slug,image,status,order'])
+            ->first();
+    
+        if ($category) {
+            return response()->json([
+                'category' => $category,
+                'types' => $category->types
+            ]);
+        } else {
+            return response()->json(['message' => 'Category not found'], 404);
+        }
+    }
+    
 
     public function store(Request $request)
     {
@@ -18,10 +36,6 @@ class CategoryAPIController extends Controller
         return response()->json($category, 201);
     }
 
-    public function show($id)
-    {
-        return response()->json(Category::findOrFail($id));
-    }
 
     public function update(Request $request, $id)
     {
