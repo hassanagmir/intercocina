@@ -1,7 +1,6 @@
 <?php
 
-
-
+use App\Http\Controllers\CategoryAPIController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductAPIController;
 use App\Http\Controllers\ProductController;
@@ -17,5 +16,7 @@ Route::get('product/{product:slug}', [ProductController::class, 'show_product'])
 Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
 
 Route::apiResource('products', ProductAPIController::class);
+Route::apiResource('categories', CategoryAPIController::class);
+
 
 Route::get('/view-colors', [ViewColorController::class, 'index']);
