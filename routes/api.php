@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BrandAPIController;
 use App\Http\Controllers\CategoryAPIController;
+use App\Http\Controllers\ContactAPIController;
+use App\Http\Controllers\CoverAPIController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostAPIController;
 use App\Http\Controllers\ProductAPIController;
@@ -20,8 +23,14 @@ Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
 Route::apiResource('products', ProductAPIController::class);
 Route::apiResource('categories', CategoryAPIController::class);
 
-Route::apiResource('types', TypeAPIController::class);
 
+Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
+
+
+Route::apiResource('types', TypeAPIController::class);
 Route::apiResource('posts', PostAPIController::class);
+Route::apiResource('covers', CoverAPIController::class);
+Route::apiResource('contacts', ContactAPIController::class);
+Route::apiResource('brands', BrandAPIController::class);
 
 Route::get('/view-colors', [ViewColorController::class, 'index']);

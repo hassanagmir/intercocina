@@ -16,17 +16,21 @@ class Product extends Model
     use HasFactory, HasSlug, LogsActivity;
 
 
+
     protected $fillable = [
         'name', 'es_name', 'description', 'code', 'type_id', 'content', 'options', 'tags', 'status', 'slug',
         'price', 'old_price', 'order', 'unit'
     ];
 
+    protected $appends = ['price_format'];
+
 
     protected $casts = [
         'options' => 'array',
         'status' =>  ProductStatusEnum::class,
-        'images' => 'array',
+        // 'images' => 'array',
     ];
+
 
 
     public function getActivityLogOptions() : LogOptions
@@ -77,10 +81,11 @@ class Product extends Model
 
     public function price()
     {
-        if ($this->price) {
+
+        if ($this->price !== null) {
             return (string) $this->price;
         }
-        
+
         $dimensions = $this->relationLoaded('dimensions') 
             ? $this->dimensions 
             : $this->load('dimensions')->dimensions;
@@ -91,7 +96,7 @@ class Product extends Model
             ->pluck('price'); 
     
         if ($prices->isEmpty()) {
-            return 0;
+            return '0'; // Return string for consistency
         }
     
         $minPrice = $prices->min();
@@ -101,7 +106,14 @@ class Product extends Model
             ? (string) $minPrice 
             : "{$minPrice} - {$maxPrice}";
     }
+
+
     
+    public function getPriceFormatAttribute()
+    {
+        return $this->price();
+    }
+
 
 
     public function images(){

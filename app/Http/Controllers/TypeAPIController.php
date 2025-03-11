@@ -17,24 +17,21 @@ class TypeAPIController extends Controller
     {
         $type = Type::where('slug', $slug)
             ->with([
-                'products:id,type_id,name,slug,status,order',
+                'products:id,type_id,name,slug,status,order,price',
                 'products.images' => function ($query) {
-                    $query->select('id', 'product_id', 'image', 'order');
+                    $query->without('dimensions')->select('id', 'product_id', 'image', 'order');
                 }
             ])
-
             ->first();
-
+    
         if ($type) {
             return response()->json([
-                'type' => $type,
-                'products' => $type->products
+                'type' => $type // Products are already included in $type->products
             ]);
         } else {
-            return response()->json(['message' => 'type not found'], 404);
+            return response()->json(['message' => 'Type not found'], 404);
         }
     }
-
 
 
     public function store(Request $request)

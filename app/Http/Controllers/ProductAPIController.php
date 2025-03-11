@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -12,28 +13,23 @@ class ProductAPIController extends Controller
      */
     public function index()
     {
-        $products = Product::where('status', 1)
-            ->whereHas('type', function ($query) {
-                $query->where('status', 1);
-            })
-            ->paginate(12);
-        return ProductResource::collection($products);
+        return ['message' => 'index'];
     }
+    
+    
 
-    /**
-     * Store a newly created product in storage.
-     */
     public function store(Request $request)
     {
-        $product = Product::create($request->validated());
-        return new ProductResource($product);
+        return ['message' => 'store'];
     }
 
     /**
      * Display the specified product.
      */
-    public function show(Product $product)
+    public function show($slug)
     {
+        $product = Product::where('slug', $slug)
+            ->firstOrFail();
         return new ProductResource($product);
     }
 
@@ -42,10 +38,49 @@ class ProductAPIController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($request->validated());
-        return new ProductResource($product);
+        return ['message' => 'update'];
     }
 
+    public function dimensions($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        $dimensions = $product->dimensions()
+            ->select('id', 'product_id', 'width', 'price', 'code', 'color_id', 'attribute_id')
+            ->with([
+                'color:id,name',
+            ])
+            ->get();
+
+
+        $colors = $product->colors()
+            ->select('name','image')
+            ->get()
+            ->map(function ($color) {
+                return [
+                    'name' => $color->name,
+                    'image' => $color->image
+                ];
+            });
+
+        $attributes = $product->attributes()
+            ->select('name')
+            ->get();
+          
+
+                              
+        return response()->json([
+            'attributes' => $attributes,
+            'colors' => $colors,
+            'dimensions' => $dimensions,
+            
+        ]);
+    }
+    
     /**
      * Remove the specified product from storage.
      */
