@@ -26,6 +26,7 @@ Route::apiResource('categories', CategoryAPIController::class);
 
 Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
 
+Route::get('posts/home', [PostAPIController::class, 'list']);
 
 Route::apiResource('types', TypeAPIController::class);
 Route::apiResource('posts', PostAPIController::class);
