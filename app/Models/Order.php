@@ -79,7 +79,7 @@ class Order extends Model
             if($item->special_height)
                 $dimension = ($item->special_height ? "(".($item->special_height . "*" . $item->special_width . "mm") . ")" : "") .  " Spécial";
             else
-                $dimension = ($item->dimension ? $item->dimension->width : "") . " " . ($item->dimension ? "* " . $item->dimension->height : "");
+                $dimension =  ($item->dimension ? "* " . $item->dimension->height : "") . " " .  ($item->dimension ? $item->dimension->width : "");
 
             $content .= ""
                 . ($item->dimension ? $item->dimension->code . " " : $item->product->code . " ")
