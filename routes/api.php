@@ -4,10 +4,12 @@ use App\Http\Controllers\BrandAPIController;
 use App\Http\Controllers\CategoryAPIController;
 use App\Http\Controllers\ContactAPIController;
 use App\Http\Controllers\CoverAPIController;
+use App\Http\Controllers\EventAPIController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostAPIController;
 use App\Http\Controllers\ProductAPIController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewAPIController;
 use App\Http\Controllers\TypeAPIController;
 use App\Http\Controllers\ViewColorController;
 use Illuminate\Support\Facades\Route;
@@ -25,13 +27,15 @@ Route::apiResource('categories', CategoryAPIController::class);
 
 
 Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
+Route::get('products/reviews/{product:slug}', [ProductAPIController::class, 'reviews']);
 
 Route::get('posts/home', [PostAPIController::class, 'list']);
-
+Route::apiResource('reviews', ReviewAPIController::class);
 Route::apiResource('types', TypeAPIController::class);
 Route::apiResource('posts', PostAPIController::class);
 Route::apiResource('covers', CoverAPIController::class);
 Route::apiResource('contacts', ContactAPIController::class);
 Route::apiResource('brands', BrandAPIController::class);
+Route::apiResource('events', EventAPIController::class);
 
 Route::get('/view-colors', [ViewColorController::class, 'index']);

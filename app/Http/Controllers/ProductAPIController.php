@@ -33,6 +33,14 @@ class ProductAPIController extends Controller
         return new ProductResource($product);
     }
 
+    public function reviews($slug)
+    {
+        $reviews = Product::where('slug', $slug)
+            ->firstOrFail()
+            ->reviews()->where('status', 1)->paginate(10);
+        return response()->json($reviews);
+    }
+
     /**
      * Update the specified product in storage.
      */
