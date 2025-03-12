@@ -23,7 +23,6 @@
                                             @else
                                                 {{ $item->dimension ? $item->dimension->width : "" }} {{ $item->dimension ? "* " . $item->dimension->height : "" }} 
                                             @endif
-                                            
                                         </a>
                                         @if ($item->color)
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -109,6 +108,12 @@
                                 <span class="text-gray-500 dark:text-gray-400">{{ __("Mode de paiement") }}</span>
                                 <span class="font-medium text-gray-900 dark:text-white">{{ $this->record->payment->getLabel() }}</span>
                             </div>
+
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 dark:text-gray-400">{{ __("Expédition") }}</span>
+                                <span class="font-medium text-gray-900 dark:text-white">{{ $this->record?->shipping?->name }}</span>
+                            </div>
+
 
                             <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
                                 <div class="flex justify-between items-center">
