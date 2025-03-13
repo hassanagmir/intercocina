@@ -114,7 +114,6 @@
                                 <span class="font-medium text-gray-900 dark:text-white">{{ $this->record?->shipping?->name }}</span>
                             </div>
 
-
                             <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
                                 <div class="flex justify-between items-center">
                                     <span class="text-lg font-semibold text-gray-900 dark:text-white">{{ __("Total") }}</span>
