@@ -66,6 +66,18 @@ class Order extends Model
     
         return $total;
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::creating(function ($product) {
+            $product->code = "INTER-" . (static::max('id') + 1);
+        });
+    }
+    
+
+
     
 
     public function exportText()

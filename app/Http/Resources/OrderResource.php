@@ -45,9 +45,29 @@ class OrderResource extends JsonResource
             'souche' => 1,
             'products' => $this->items->map(function ($item) {
                 $product_name = str_replace("Façade ", "", $item->product->name);
-                $dimension = $item->dimension ? $item->dimension->dimension : '';
-                $attribute = $item?->dimension?->attribute?->name . " ";
                 $special = isset($item->special_height);
+
+                // if($item->dimension?->height && $item->dimension?->width){
+                //     if($special){
+                //         $dimension = $item->dimension->special_height . " * " . $item->special_width;
+                //     }else{
+                //         $dimension = $item->dimension?->height . " * " . $item->dimension?->width;
+                //     }
+                // }else{
+                //     if($special){
+                //         $dimension = $item?->dimension->special_height . "" . $item?->dimension->special_width;
+                //     }else{
+                //         $dimension = $item->dimension?->height . "" . $item->dimension?->width;
+                //     }
+                // }
+
+                $dimension = ($special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null));
+
+      
+                // $dimension = $special ? $item->special_height : ($item->dimension ? $item->dimension->height : null)
+                
+                $item->dimension ? $item->dimension->dimension : '';
+                $attribute = $item?->dimension?->attribute?->name . " ";
                 $color = $item?->dimension?->color?->name;
 
                 $discount = 0;
@@ -64,9 +84,10 @@ class OrderResource extends JsonResource
                     'id' => $item->id,
                     'code' => $item->dimension ? $item->dimension->code : $item->product->code,
                     'discount' => $discount,
+                    'depth' => $item->dimension?->dipth,
                     'height' => $special ? $item->special_height : ($item->dimension ? $item->dimension->height : null),
                     'width' => $special ? $item->special_width : ($item->dimension ? $item->dimension->width : null),
-                    'dimensions' => ($special ? $item->special_height . " * " . $item->special_width :  ($item->dimension ? $item->dimension->dimension : null)),
+                    'dimensions' => $dimension,
                     'designation' => $this->rm_space($attribute ."$product_name  $dimension $color"),
                     'special' => $special,
                     'color' => $color,

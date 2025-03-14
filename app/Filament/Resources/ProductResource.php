@@ -265,6 +265,10 @@ class ProductResource extends Resource
                                                         ->preload()
                                                         ->placeholder("...")
                                                         ->relationship('attribute', 'name'),
+
+                                                    Forms\Components\TextInput::make('depth')
+                                                        ->label(__("Profondeur"))
+                                                        ->numeric(),
                                                 ])
                                                 ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
                                                     return $data;

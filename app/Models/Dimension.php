@@ -18,7 +18,7 @@ class Dimension extends Model
     protected $fillable = [
         'width', 'height', 'price', 'product_id', 'status',
         'slug', 'code', 'image_id', 'dimension', 'color_id', 'attribute_id',
-        'weight_unit', 'weight', 'thicknesse', 'height_unit'
+        'weight_unit', 'weight', 'thicknesse', 'height_unit', 'depth'
     ];
 
     protected $casts = [
