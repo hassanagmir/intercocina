@@ -19,7 +19,7 @@ class Address extends Model
         'email'
     ];
 
-    
+
 
     public function city()
     {
