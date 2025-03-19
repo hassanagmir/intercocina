@@ -198,9 +198,6 @@ class ProductResource extends Resource
                                                     ->columns(2),
                                             ];
                                         }
-
-
-
                                         return [
                                             Forms\Components\Repeater::make('dimensions')
                                                 ->hidden(fn(Get $get): bool => $get('is_dimensions'))
