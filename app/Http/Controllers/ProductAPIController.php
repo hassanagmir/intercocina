@@ -79,7 +79,6 @@ class ProductAPIController extends Controller
         $attributes = $product->attributes()
             ->select('attributes.id', 'attributes.name')
             ->get();
-          
 
                               
         return response()->json([
