@@ -66,7 +66,7 @@ class ProductAPIController extends Controller
 
 
         $colors = $product->colors()
-            ->select('id', 'name','image')
+            ->select('id', 'name', 'image')
             ->get()
             ->map(function ($color) {
                 return [
