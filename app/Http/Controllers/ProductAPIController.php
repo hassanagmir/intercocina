@@ -58,7 +58,7 @@ class ProductAPIController extends Controller
         }
 
         $dimensions = $product->dimensions()
-            ->select('id', 'product_id', 'width', 'price', 'code', 'color_id', 'attribute_id')
+            ->select('id', 'product_id', 'width', 'height', 'price', 'code', 'color_id', 'attribute_id')
             ->with([
                 'color:id,name',
             ])
