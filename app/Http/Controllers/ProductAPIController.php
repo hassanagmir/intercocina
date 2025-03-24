@@ -77,7 +77,7 @@ class ProductAPIController extends Controller
             });
 
         $attributes = $product->attributes()
-            ->select('name')
+            ->select('attributes.id', 'attributes.name')
             ->get();
           
 
