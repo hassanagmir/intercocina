@@ -9,12 +9,12 @@ class PostAPIController extends Controller
 {
     public function index()
     {
-        return response()->json(Post::select('title', 'slug', 'image', 'description')->paginate(20));
+        return response()->json(Post::select('title', 'slug', 'image', 'created_at')->latest()->paginate(20));
     }
 
     public function list()
     {
-        return response()->json(Post::select('title', 'slug', 'image', 'description')->paginate(3));
+        return response()->json(Post::select('title', 'slug', 'image', 'created_at')->latest()->take(3)->get());
     }
     
 
