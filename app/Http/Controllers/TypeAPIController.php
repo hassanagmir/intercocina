@@ -25,9 +25,7 @@ class TypeAPIController extends Controller
             ->first();
     
         if ($type) {
-            return response()->json([
-                'type' => $type // Products are already included in $type->products
-            ]);
+            return response()->json($type);
         } else {
             return response()->json(['message' => 'Type not found'], 404);
         }
