@@ -9,7 +9,7 @@ class CategoryAPIController extends Controller
 {
     public function index()
     {
-        return response()->json(Category::select('name', 'slug', 'image', 'status', 'order')->get());
+        return response()->json(Category::select('name', 'slug', 'image', 'status', 'order', 'description')->get());
     }
 
 
