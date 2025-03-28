@@ -22,6 +22,8 @@ class Product extends Model
         'price', 'old_price', 'order', 'unit'
     ];
 
+    protected $hidden = ['dimensions'];
+
     protected $appends = ['price_format'];
 
 

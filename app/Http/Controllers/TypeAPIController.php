@@ -13,24 +13,25 @@ class TypeAPIController extends Controller
     }
 
 
+    // In your controller
     public function show($slug)
     {
         $type = Type::where('slug', $slug)
             ->with([
-                'products:id,type_id,name,slug,status,order,price',
+                'products' => function ($query) {
+                    $query->select('id', 'type_id', 'name', 'slug', 'status', 'order', 'price');
+                },
                 'products.images' => function ($query) {
-                    $query->without('dimensions')->select('id', 'product_id', 'image', 'order');
+                    $query->select('id', 'product_id', 'image', 'order');
                 }
             ])
             ->first();
     
-        if ($type) {
-            return response()->json($type);
-        } else {
-            return response()->json(['message' => 'Type not found'], 404);
-        }
+        return $type 
+            ? response()->json($type) 
+            : response()->json(['message' => 'Type not found'], 404);
     }
-
+    
 
     public function store(Request $request)
     {

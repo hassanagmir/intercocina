@@ -23,11 +23,13 @@ class Type extends Model
             ->saveSlugsTo('slug');
     }
 
-    // Relationships
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+
+        // Relationships
+        public function products()
+        {
+            return $this->hasMany(Product::class);
+        }
+
 
 
     public function category(){
