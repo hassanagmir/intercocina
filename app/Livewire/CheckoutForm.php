@@ -27,6 +27,7 @@ class CheckoutForm extends Component
 
     public function mount()
     {
+;
         $this->shippings = Shipping::all();
         $this->addresses = Address::where("user_id", auth()->id())->get();
         
@@ -73,6 +74,7 @@ class CheckoutForm extends Component
         ]);
 
         foreach (\Cart::getContent() as $product) {
+            // dd($product['attributes']['dimension_id']);
             $item = OrderItem::create([
                 'order_id' => $order->id,
                 'code' => "INTER-" . strtoupper(Str::random(15)),

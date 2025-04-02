@@ -40,7 +40,7 @@ const Product = () => {
     useEffect(() => {
         getData();
         if (attributes.length > 0) {
-            changeAttribute({ target: { value: attributes[0].id } });
+            // changeAttribute({ target: { value: 1 } });
         }
         document.getElementById('auth').textContent === '1' ? SetAuth(true) : SetAuth(false);
     }, []);
@@ -50,6 +50,7 @@ const Product = () => {
         return Object.keys(obj).length === 0;
     }
 
+    
     function validation() {
         if (colors.length > 0 && (!color)) {
             setColorMessage("Obligatoire de sélectionner une couleur");
@@ -94,10 +95,10 @@ const Product = () => {
                 setAttribute(data.data.attributes[0]);
             }
 
-            if (data.data.dimensions?.length > 0) {
-                setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
-                setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
-            }
+            // if (data.data.dimensions?.length > 0) {
+            //     setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
+            //     setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
+            // }
             
 
             if(data.data.dimensions?.length === 0){
@@ -172,6 +173,7 @@ const Product = () => {
                     item => item.width === width && 
                             item.height === height && 
                             item.color_id === color
+                            // item.attribute_id === attribute.id
                 );
             }
     
@@ -180,12 +182,13 @@ const Product = () => {
                 return dimensions.find(
                     item => item.width === width && 
                             item.height === height
+                            && item.attribute_id === attribute.id
                 );
             }
     
             // Match with only height
             if (height && widths.length === 0) {
-                return dimensions.find(item => item.height === height);
+                return dimensions.find(item => item.height === height );
             }
     
             // Match with only width
@@ -214,8 +217,6 @@ const Product = () => {
         if (!validation()) {
             return;
         }
-
-
 
 
         setSpinner(true);
@@ -275,9 +276,11 @@ const Product = () => {
 
     function changeAttribute(e) {
         const selectedValue = parseInt(e.target.value, 10);
+   
 
 
         if (isNaN(selectedValue)) return;
+        
         const valide_dimensions = dimensions.filter(item => item?.attribute_id === selectedValue);
         setAttribute(attributes.find((attribute) => attribute.id === selectedValue));
 
@@ -418,6 +421,7 @@ const Product = () => {
                                 (<div>
                                     <p className="font-bold text-gray-900">Type de  Façade</p>
                                     <select onChange={changeAttribute} name="attribute" id="attribute" className="text-black/70 mb-3 bg-white px-3 py-2 font-semibold transition-all cursor-pointer hover:border-blue-600/30 border-gray-200 rounded-lg outline-blue-600/50 appearance-none invalid:text-black/30 w-64 border-2">
+                                        <option value="" selected>Sélectionnez le type</option>
                                         {
                                             attributes.map((attribute, index) => {
                                                 return (
