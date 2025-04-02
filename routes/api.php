@@ -13,6 +13,10 @@ use App\Http\Controllers\ReviewAPIController;
 use App\Http\Controllers\TypeAPIController;
 use App\Http\Controllers\ViewColorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+
+
 
 Route::post('orders/confirm', [OrderController::class, 'confirm']);
 
@@ -39,3 +43,15 @@ Route::apiResource('brands', BrandAPIController::class);
 Route::apiResource('events', EventAPIController::class);
 
 Route::get('/view-colors', [ViewColorController::class, 'index']);
+
+
+
+
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

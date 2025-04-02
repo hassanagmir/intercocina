@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Models;
-
+use Laravel\Sanctum\HasApiTokens;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+
+
 
 use App\Enums\UserStatusEnum;
 use App\Notifications\ResetPasswordNotification;
@@ -18,7 +21,7 @@ use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable implements HasName, FilamentUser
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
