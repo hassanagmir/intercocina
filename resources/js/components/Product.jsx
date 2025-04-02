@@ -67,6 +67,14 @@ const Product = () => {
             setDimensionMessage("Obligatoire de sélectionner la largeur");
             return false;
         }
+
+        // console.log("dimensions", dimensions.length, "width", width, "height", height);
+        
+
+        if(dimensions.length > 0 && !width && !height){
+            setDimensionMessage("Obligatoire de sélectionner la dimension");
+            return false;
+        }
         setDimensionMessage(null);
         return true
 
