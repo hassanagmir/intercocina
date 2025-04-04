@@ -9,7 +9,13 @@ class TypeAPIController extends Controller
 {
     public function index()
     {
-        return response()->json(Type::select('name', 'slug', 'image', 'status', 'order', 'category_id')->get());
+        return response()->json(
+            Type::with(['category' => function ($query) {
+                    $query->select('id', 'name', 'slug');
+                }])
+                ->select('name', 'slug', 'image', 'status', 'order', 'category_id') // Include 'category_id' for the relation to work
+                ->get()
+        );
     }
 
 

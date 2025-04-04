@@ -8,7 +8,7 @@ use Livewire\Attributes\Validate;
 
 class ForgotForm extends Component
 {
-    #[Validate('email|required', as:"E-mail")]
+    #[Validate('email|required', as: "E-mail")]
     public $email;
 
     public function render()

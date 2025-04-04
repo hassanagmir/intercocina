@@ -35,6 +35,7 @@ class ClaimForm extends Component
         'message.required' => 'Le message est obligatoire.',
         'message.string' => 'Le message doit être une chaîne de caractères.',
     ];
+    
 
     public function submit()
     {

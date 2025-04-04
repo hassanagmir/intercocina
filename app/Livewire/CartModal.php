@@ -13,7 +13,6 @@ class CartModal extends Component
 
     public function mount(): void
     {
-
         // \Cart::clear();
         $this->updateCartItems();
     }
