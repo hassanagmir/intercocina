@@ -33,24 +33,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const splideElement = document.querySelector('.splide');
-    if (splideElement) {
-        const splide = new Splide(splideElement, {
-            type: 'loop',
-            drag: 'free',
-            focus: 'center',
-            perPage: 6,
-            pagination: false,
-            autoScroll: {
-                speed: 0.5,
-            },
+document.addEventListener('DOMContentLoaded', function () {
+    const splideElements = document.querySelectorAll('.splide');
+
+    if (splideElements.length) {
+        splideElements.forEach(el => {
+            const splide = new Splide(el, {
+                type: 'loop',
+                drag: 'free',
+                focus: 'center',
+                perPage: 6,
+                pagination: false,
+                autoScroll: {
+                    speed: 0.5,
+                },
+            });
+            splide.mount({ AutoScroll });
         });
-        splide.mount({ AutoScroll });
     } else {
-        console.error('.splide element not found!');
+        // console.error('.splide element not found!');
     }
 });
+
 
 
 Alpine.plugin(focus);
