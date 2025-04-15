@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             splide.mount({ AutoScroll });
         });
     } else {
-        // console.error('.splide element not found!');
+        console.error('.splide element not found!');
     }
 });
 

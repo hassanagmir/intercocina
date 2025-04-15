@@ -102,11 +102,11 @@ const Product = () => {
             if (data.data.attributes?.length > 0) {
                 setAttribute(data.data.attributes[0]);
             }
-
-            // if (data.data.dimensions?.length > 0) {
-            //     setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
-            //     setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
-            // }
+            
+            if (data?.data?.attributes.length === 0) {
+                setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
+                setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
+            }
             
 
             if(data.data.dimensions?.length === 0){
@@ -160,7 +160,8 @@ const Product = () => {
 
 
     function changeDimension() {
-        // Reset color message if color is selected
+
+        
         if (color) {
             setColorMessage(null);
         }
