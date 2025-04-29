@@ -161,6 +161,8 @@ const Product = () => {
 
     function changeDimension() {
 
+        console.log(dimensions)
+
         
         if (color) {
             setColorMessage(null);
@@ -178,21 +180,20 @@ const Product = () => {
         const findMatchingDimension = () => {
             // Prioritize full match with color, height, and width
             if (color && height && width) {
-                return dimensions.find(
-                    item => item.width === width && 
-                            item.height === height && 
-                            item.color_id === color
-                            // item.attribute_id === attribute.id
-                );
+                if (attribute) {
+                    return dimensions.find(item => item.width === width && item.height === height && item.color_id === color);
+                } else {
+                    return dimensions.find(item => item.width === width && item.height === height && item.color_id === color && item.attribute_id === attribute.id);
+                }
             }
     
             // Match with height and width
             if (height && width) {
-                return dimensions.find(
-                    item => item.width === width && 
-                            item.height === height
-                            && item.attribute_id === attribute.id
-                );
+                if (attribute) {
+                    return dimensions.find(item => item.width === width && item.height === height && item.attribute_id === attribute.id);
+                } else {
+                    return dimensions.find(item => item.width === width && item.height === height);
+                }
             }
     
             // Match with only height
@@ -513,29 +514,31 @@ const Product = () => {
                             <div className='text-left'>
                                 <div className="font-bold">Hauteur {data.unit ? `(${data.unit})` : ""}</div>
                                 <ul className="flex flex-wrap w-full gap-3">
-                                    {heights.sort().map((height) => (
+                                    {[...heights] // clone to avoid mutating original
+                                        .sort((a, b) => a - b) // numeric ascending sort
+                                        .map((height) => (
                                         <li key={height} onClick={() => { 
                                             setHeight(height);
                                             changeDimension(); 
                                         }}>
                                             <input 
-                                                type="radio" 
-                                                id={`height-${height}`} 
-                                                value={height} 
-                                                name="height" 
-                                                className="hidden peer" 
+                                            type="radio" 
+                                            id={`height-${height}`} 
+                                            value={height} 
+                                            name="height" 
+                                            className="hidden peer" 
                                             />
                                             <label 
-                                                htmlFor={`height-${height}`} 
-                                                className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                                            htmlFor={`height-${height}`} 
+                                            className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
                                             >
-                                                <div className="block">
-                                                    <div className="w-full text-md font-semibold">{height}</div>
-                                                </div>
+                                            <div className="block">
+                                                <div className="w-full text-md font-semibold">{height}</div>
+                                            </div>
                                             </label>
                                         </li>
-                                    ))}
-                                </ul>
+                                        ))}
+                                    </ul>
                             </div>
                         )}
 

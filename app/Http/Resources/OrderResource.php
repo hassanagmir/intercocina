@@ -42,7 +42,7 @@ class OrderResource extends JsonResource
             'customer' => $this->user->name,
             'customer_code' => $this->user->code,
             'shipping_id' => $this->shipping_id,
-            'souche' => 1,
+            'souche' => 0,
             'products' => $this->items->map(function ($item) {
                 $product_name = str_replace("Façade ", "", $item->product->name);
                 $special = isset($item->special_height);
