@@ -3,7 +3,6 @@ import Carousel from './Carousel';
 
 const Product = () => {
 
-
     const [data, setData] = useState({});
     const [colors, setColors] = useState([]);
     const [attributes, setAttributes] = useState([]);
@@ -68,9 +67,6 @@ const Product = () => {
             return false;
         }
 
-        // console.log("dimensions", dimensions.length, "width", width, "height", height);
-        
-
         if(dimensions.length > 0 && !width && !height){
             setDimensionMessage("Obligatoire de sélectionner la dimension");
             return false;
@@ -130,7 +126,7 @@ const Product = () => {
 
 
         if (validDimensions.length === 0) {
-            setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible.`);
+            setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible. (1)`);
             setPrice(null);
             return;
         }
@@ -160,10 +156,6 @@ const Product = () => {
 
 
     function changeDimension() {
-
-        console.log(dimensions)
-
-        
         if (color) {
             setColorMessage(null);
         }
@@ -181,10 +173,14 @@ const Product = () => {
             // Prioritize full match with color, height, and width
             if (color && height && width) {
                 if (attribute) {
-                    return dimensions.find(item => item.width === width && item.height === height && item.color_id === color);
-                } else {
+                    
                     return dimensions.find(item => item.width === width && item.height === height && item.color_id === color && item.attribute_id === attribute.id);
+                } else {
+                     return dimensions.find(item => item.width === width && item.height === height && item.color_id === color);
+                    
                 }
+
+              
             }
     
             // Match with height and width
@@ -205,6 +201,7 @@ const Product = () => {
             if (width && heights.length === 0) {
                 return dimensions.find(item => item.width === width);
             }
+            
     
             return null;
         };
@@ -216,7 +213,7 @@ const Product = () => {
             updateDimensionState(matchedDimension);
         } else if (height && width) {
             // Set error message for unavailable dimension
-            setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible`);
+            setDimensionMessage(`La dimension ${height} x ${width} n'est pas disponible (2)`);
             setCode(null);
         }
     }
@@ -253,7 +250,6 @@ const Product = () => {
 
         }
 
-        // console.log(JSON.stringify({ cart }));
         
 
         fetch("/add-to-cart", {
@@ -519,7 +515,10 @@ const Product = () => {
                                         .map((height) => (
                                         <li key={height} onClick={() => { 
                                             setHeight(height);
-                                            changeDimension(); 
+                                            if (dimensions.length > 0) {
+                                                changeDimension();
+                                                findDimension();
+                                            }
                                         }}>
                                             <input 
                                             type="radio" 
@@ -577,6 +576,10 @@ const Product = () => {
                                         const newHeight = parseInt(e.target.value, 10);
                                         setHeight(newHeight);
                                         setIsDirty(true);
+                                        if (dimensions.length > 0) {
+                                            changeDimension();
+                                            findDimension();
+                                        }
                                     }}
                                 />
                             </div>
@@ -592,6 +595,10 @@ const Product = () => {
                                         const newWidth = parseInt(e.target.value, 10);
                                         setWidth(newWidth);
                                         setIsDirty(true);
+                                        if (dimensions.length > 0) {
+                                            changeDimension();
+                                            findDimension();
+                                        }
                                     }}
                                 />
                             </div>

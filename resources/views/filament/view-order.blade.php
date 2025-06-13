@@ -11,19 +11,24 @@
                                 <div class="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-150">
                                     <!-- Product Image -->
                                     <a href="{{ route('product.show', $item->product->slug) }}" class="flex-shrink-0">
-                                        <img class="h-24 w-24 object-contain rounded-lg" src="{{ url(config('app.storage'), $item->product->images?->first()->image) }}" alt="{{ $item->product->name }}">
+                                        <img class="h-24 w-24 object-contain rounded-lg" src="{{ url(config('app.storage'), $item->product?->images?->first()?->image) }}" alt="{{ $item?->product?->name }}">
                                     </a>
                                     <div class="flex-1 min-w-0">
-                                        <a href="{{ route('product.show', $item->product->slug) }}"  class="text-md font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
-                                            {{ $item->dimension && $item->dimension?->attribute ? $item->dimension?->attribute->name : "" }}
-                                            {{ str_replace("Façade", "", $item->product->name) }} 
+                                        <a href="{{ route('product.show', $item->product->slug) }}"
+                                            class="text-md font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400">
+                                            
+                                            {{ optional($item->dimension->attribute)->name }}
+                                            {{ str_replace("Façade", "", $item->product->name) }}
 
                                             @if ($item->special_height)
-                                                {{ $item->special_height ? "(".($item->special_height . "*" . $item->special_width . "mm") . ")" : ""}} <strong class="text-red-500">{{ __("Spécial") }}</strong>
+                                                ({{ $item->special_height . '*' . $item->special_width . 'mm' }})
+                                                <strong class="text-red-500">{{ __("Spécial") }}</strong>
                                             @else
-                                                {{ $item->dimension ? $item->dimension->width : "" }} {{ $item->dimension ? "* " . $item->dimension->height : "" }} 
+                                                {{ $item->dimension ? '(' . $item->dimension->height . '*' . $item->dimension->width . 'mm)' : '' }}
                                             @endif
                                         </a>
+
+
                                         @if ($item->color)
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                               @if ($item->dimension)
