@@ -232,6 +232,7 @@ Route::get('/run-npm/{command}', function ($command) {
 Route::get('/clear-cache', function () {
     try {
         Artisan::call('cache:clear');
+        Artisan::call('optimize:clear');
         return response()->json(['message' => 'Cache cleared successfully.'], 200);
     } catch (Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
