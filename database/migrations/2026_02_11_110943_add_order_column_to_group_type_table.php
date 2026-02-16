@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('group_type', function (Blueprint $table) {
-            $table->integer('order')->default(1);
+            // $table->integer('order')->default(1);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('group_type', function (Blueprint $table) {
-            $table->dropColumn('order');
+            // $table->dropColumn('order');
         });
     }
 };
