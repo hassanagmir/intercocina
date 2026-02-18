@@ -29,6 +29,8 @@ class ViewColorForm
                     ->label(__('Référence')),
                 Select::make('product_id')
                     ->label(__("Produit"))
+                    ->searchable()
+                    ->preload()
                     ->required()
                     ->relationship('product', 'name'),
 
