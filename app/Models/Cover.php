@@ -19,7 +19,10 @@ class Cover extends Model
         'subtitle',
         'price',
         'old_price',
-        'description'
+        'is_main',
+        'description',
+        'is_public'
+     
     ];
 
 
