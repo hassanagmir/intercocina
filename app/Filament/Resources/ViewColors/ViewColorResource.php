@@ -50,9 +50,9 @@ class ViewColorResource extends Resource
     {
         return [
             'index' => ListViewColors::route('/'),
-            'create' => CreateViewColor::route('/create'),
-            'view' => ViewViewColor::route('/{record}'),
-            'edit' => EditViewColor::route('/{record}/edit'),
+            // 'create' => CreateViewColor::route('/create'),
+            // 'view' => ViewViewColor::route('/{record}'),
+            // 'edit' => EditViewColor::route('/{record}/edit'),
         ];
     }
 }

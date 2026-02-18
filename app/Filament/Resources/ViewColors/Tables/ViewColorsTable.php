@@ -16,14 +16,17 @@ class ViewColorsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image'),
                 TextColumn::make('name')
+                    ->label(__("Couleur"))
                     ->searchable(),
                 TextColumn::make('code')
+                    ->label(__('Référence'))
                     ->searchable(),
-                TextColumn::make('product_id')
-                    ->numeric()
+                TextColumn::make('product.name')
+                    ->label(__("Produit"))
                     ->sortable(),
-                ImageColumn::make('image'),
+                
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

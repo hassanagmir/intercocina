@@ -12,6 +12,7 @@ class ViewImageForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__("Color name"))
                     ->required(),
                 TextInput::make('path')
                     ->required(),
