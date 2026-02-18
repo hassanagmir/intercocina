@@ -61,6 +61,7 @@ class GroupForm
                                 Select::make('type_id')
                                     ->label('Type')
                                     ->relationship('type', 'name')
+                                    ->preload()
                                     ->required()
                                     ->searchable(),
                             ])
