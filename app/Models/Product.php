@@ -19,7 +19,7 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'es_name', 'description', 'code', 'type_id', 'content', 'options', 'tags', 'status', 'slug',
-        'price', 'old_price', 'order', 'unit'
+        'price', 'old_price', 'order', 'unit', 'family_id'
     ];
 
     protected $hidden = ['dimensions'];
@@ -61,6 +61,11 @@ class Product extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function family()
+    {
+        return $this->belongsTo(Family::class);
     }
 
 

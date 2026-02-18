@@ -84,6 +84,7 @@ class ProductForm
                                     ->options(ProductStatusEnum::toArray())
                                     ->required(),
 
+                                
                                 Select::make('category_id')
                                     ->native(false)
                                     ->preload(true)
@@ -95,6 +96,19 @@ class ProductForm
                                     ->afterStateUpdated(function (Set $set) {
                                         $set('type_id', null);
                                     }),
+
+                                Select::make('family_id')
+                                    ->relationship('family', 'name')
+                                    ->native(false)
+                                    ->preload(true)
+                                    ->searchable()
+                                    ->label(__("Famille"))
+                                    // ->options(Category::all()->pluck('name', 'id')->toArray())
+                                    ->required()
+                                    ->reactive(),
+                                    // ->afterStateUpdated(function (Set $set) {
+                                    //     $set('type_id', null);
+                                    // }),
 
                                 Select::make('type_id')
                                     ->native(false)
@@ -150,7 +164,7 @@ class ProductForm
                                     ->rows(5)
                                     ->columnSpanFull(),
 
-                            ])->columns(2),
+                            ])->columns(3),
                         Tabs\Tab::make('Images')
                             ->schema([
                                 Repeater::make("images")

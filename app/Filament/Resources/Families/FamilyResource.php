@@ -13,14 +13,29 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class FamilyResource extends Resource
 {
     protected static ?string $model = Family::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTableCells;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static string | UnitEnum | null $navigationGroup = "Porduits";
+
+
+    public static function getModelLabel(): string
+    {
+        return __("Famille");
+    }
+
+
+    public static function getPluralModelLabel(): string
+    {
+        return __("Familles");
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -43,8 +58,8 @@ class FamilyResource extends Resource
     {
         return [
             'index' => ListFamilies::route('/'),
-            'create' => CreateFamily::route('/create'),
-            'edit' => EditFamily::route('/{record}/edit'),
+            // 'create' => CreateFamily::route('/create'),
+            // 'edit' => EditFamily::route('/{record}/edit'),
         ];
     }
 }

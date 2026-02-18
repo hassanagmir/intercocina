@@ -133,15 +133,18 @@ class UserForm
                             ]),
 
                         Components\Tabs\Tab::make("Remise")
+
                             ->schema([
                                 Forms\Components\Repeater::make('discounts')
+                                    ->label(__("Remise"))
                                     ->relationship('discounts')
                                     ->label(false)
+                                    ->addActionLabel('Ajouter a remise')
                                     ->schema([
-                                        Forms\Components\Select::make('category_id')
-                                            ->relationship('category', 'name')
+                                        Forms\Components\Select::make('family_id')
+                                            ->relationship('family', 'name')
                                             ->disableOptionsWhenSelectedInSiblingRepeaterItems()
-                                            ->label(__("Category"))
+                                            ->label(__("Famille"))
                                             ->preload()
                                             ->searchable()
                                             ->required(),

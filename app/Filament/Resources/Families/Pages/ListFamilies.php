@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Families\Pages;
 use App\Filament\Resources\Families\FamilyResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListFamilies extends ListRecords
 {
@@ -13,7 +14,8 @@ class ListFamilies extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->icon(Heroicon::OutlinedPlusCircle),
         ];
     }
 }

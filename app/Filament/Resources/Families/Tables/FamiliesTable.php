@@ -15,16 +15,27 @@ class FamiliesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image')
+                    ->label('Image'),
+                    
                 TextColumn::make('name')
+                    ->label('Nom Famile')
                     ->searchable(),
+
                 TextColumn::make('code')
+                    ->label('Référence')
                     ->searchable(),
-                ImageColumn::make('image'),
+
+                
+
                 TextColumn::make('created_at')
+                    ->label('Créé le')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
+                    ->label('Modifié le')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -33,12 +44,15 @@ class FamiliesTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Modifier'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->label('Supprimer la sélection'),
                 ]),
             ]);
     }
 }
+

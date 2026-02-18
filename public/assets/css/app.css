@@ -1,0 +1,71 @@
+@import "animate.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+[x-cloak] {
+    display: none !important
+}
+
+.fi-topbar > nav { 
+    @apply !bg-inherit ring-0 shadow-none;
+}
+ 
+.fi-sidebar-header {
+    @apply !bg-inherit ring-0 shadow-none;
+} 
+
+
+@layer components {
+    .prose {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .prose img {
+        width: 100%;
+        border-radius: 15px;
+    }
+
+    .btn {
+        @apply block px-6 py-3 rounded-lg font-semibold cursor-pointer hover:shadow-md duration-200;
+    }
+
+    .btn-accent-gray {
+        @apply bg-accent-gray-400 hover:bg-accent-gray-500 text-white;
+    }
+
+    .btn-primary {
+        @apply bg-accent-red text-white hover:text-accent-red hover:bg-transparent border hover:border-accent-red;
+    }
+
+    .btn-accent-white-filled {
+        @apply bg-white text-accent-red border hover:border-white hover:text-white hover:bg-transparent;
+    }
+
+    .animate-rotate{
+        transform-origin: center center;
+        animation: rotate linear 800ms infinite forwards;
+    }
+
+    .animate-rotate-reverse{
+        transform-origin: center center;
+        animation: rotate-reverse linear 500ms infinite forwards;
+    }
+
+    @keyframes rotate {
+        from {transform: rotate(0deg)}
+        to {transform: rotate(360deg);}
+    }
+
+
+    @keyframes rotate-reverse {
+        from {transform: rotate(360deg)}
+        to {transform: rotate(0deg);}
+    }
+}
+

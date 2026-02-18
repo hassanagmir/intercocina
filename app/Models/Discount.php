@@ -8,19 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
-    
 
-    protected $fillable = ['user_id', 'category_id', 'percentage'];
 
-    
+    protected $fillable = ['user_id', 'family_id', 'percentage'];
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function family()
+    {
+        return $this->belongsTo(Family::class);
     }
-
-
 }

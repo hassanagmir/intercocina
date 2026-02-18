@@ -13,13 +13,21 @@ class FamilyForm
     {
         return $schema
             ->components([
+                FileUpload::make('image')
+                    ->label('Image')
+                    ->avatar()
+                    ->alignCenter()
+                    ->columnSpanFull()
+                    ->image(),
                 TextInput::make('name')
+                    ->label('Nom Famille')
                     ->required(),
                 TextInput::make('code')
+                    ->label('Code')
                     ->required(),
-                FileUpload::make('image')
-                    ->image(),
+
                 Textarea::make('description')
+                    ->label('Description')
                     ->columnSpanFull(),
             ]);
     }
