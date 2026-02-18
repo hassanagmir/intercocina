@@ -31,8 +31,7 @@ class CoverForm
                                     ->label('Sous-titre'),
 
                                 TextInput::make('url')
-                                    ->label('URL')
-                                    ->url(),
+                                    ->label('URL'),
 
                                 Textarea::make('description')
                                     ->label(__("Description"))
