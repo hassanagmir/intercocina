@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SubscriberController;
@@ -62,6 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('address', AddressController::class);
     Route::apiResource('orders', OrderController::class);
     Route::get('orders-list', [OrderController::class, 'list']);
+    Route::get('discounts', [DiscountController::class, 'discounts']);
     Route::prefix('users')->group(function () {
         Route::put('update', [UserController::class, 'update']);
         Route::put('update-password', [UserController::class, 'updatePassword']);
