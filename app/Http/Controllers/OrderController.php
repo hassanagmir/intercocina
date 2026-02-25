@@ -39,27 +39,40 @@ class OrderController extends Controller
     {
         // 1. Validation
         $validator = Validator::make($request->all(), [
-            'address_id' => 'required|exists:addresses,id',
-            'payment' => 'required|string|max:50',
-            'shipping_id' => 'required|exists:shippings,id',
-            'cart' => 'required|array|min:1',
+            'address_id'                       => 'required|exists:addresses,id',
+            'payment'                          => 'required|string|max:50',
+            'shipping_id'                      => 'required|exists:shippings,id',
+            'cart'                             => 'required|array|min:1',
 
             // cart items
-            'cart.*.quantity' => 'required|integer|min:1',
-            'cart.*.price' => 'required',
-            'cart.*.attributes.product_id' => 'required|integer',
-            'cart.*.attributes.dimension_id' => 'nullable',
-            'cart.*.attributes.color' => 'nullable',
+            'cart.*.quantity'                  => 'required|integer|min:1',
+            'cart.*.price'                     => 'required',
+            'cart.*.attributes.product_id'     => 'required|integer',
+            'cart.*.attributes.dimension_id'   => 'nullable',
+            'cart.*.attributes.color'          => 'nullable',
+        ])->setAttributeNames([
+            'address_id'                       => 'Adresse',
+            'payment'                          => 'Paiement',
+            'shipping_id'                      => 'Livraison',
+            'cart'                             => 'Panier',
+
+            // cart items
+            'cart.*.quantity'                  => 'Quantité',
+            'cart.*.price'                     => 'Prix',
+            'cart.*.attributes.product_id'     => 'Produit',
+            'cart.*.attributes.dimension_id'   => 'Dimension',
+            'cart.*.attributes.color'          => 'Couleur',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 "status" => "error",
+                "message" => $validator->errors()->first(),
                 "errors" => $validator->errors()
             ], 422);
         }
 
-        // 2. Check user account status
+  
         if (auth()->user()->status->value == 2) {
             return response()->json([
                 "status" => "error",
@@ -67,7 +80,7 @@ class OrderController extends Controller
             ], 403);
         }
 
-        // 3. Check address belongs to user
+   
         $address = Address::find($request->address_id);
 
         if (!$address || $address->user_id != auth()->id()) {
@@ -77,7 +90,7 @@ class OrderController extends Controller
             ], 404);
         }
 
-        // 4. Create order
+
         $order = Order::create([
             'user_id' => auth()->id(),
             'total_amount' => 0,
@@ -89,7 +102,6 @@ class OrderController extends Controller
 
         $totalAmount = 0;
 
-        // 5. Loop through frontend cart
         foreach ($request->cart as $product) {
 
             $quantity = intval($product['quantity']);
@@ -109,7 +121,6 @@ class OrderController extends Controller
                 'dimension_id' => $attributes['dimension_id'] ?: null,
             ]);
 
-            // Handle special dimensions (450 * 300)
             if (!empty($attributes['special']) && !empty($attributes['dimension'])) {
                 [$h, $w] = array_map('trim', explode("*", $attributes['dimension']));
 
