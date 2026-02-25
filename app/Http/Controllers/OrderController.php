@@ -3,18 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatusEnum;
-use App\Http\Resources\OrderResource;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Spatie\Browsershot\Browsershot;
-// use Barryvdh\DomPDF\Facade\Pdf;
 use Spatie\LaravelPdf\Facades\Pdf;
 use Illuminate\Support\Facades\Validator;
-
-
 
 
 class OrderController extends Controller
@@ -37,14 +31,11 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validation
         $validator = Validator::make($request->all(), [
             'address_id'                       => 'required|exists:addresses,id',
             'payment'                          => 'required|string|max:50',
             'shipping_id'                      => 'required|exists:shippings,id',
             'cart'                             => 'required|array|min:1',
-
-            // cart items
             'cart.*.quantity'                  => 'required|integer|min:1',
             'cart.*.price'                     => 'required',
             'cart.*.attributes.product_id'     => 'required|integer',
@@ -55,8 +46,6 @@ class OrderController extends Controller
             'payment'                          => 'Paiement',
             'shipping_id'                      => 'Livraison',
             'cart'                             => 'Panier',
-
-            // cart items
             'cart.*.quantity'                  => 'Quantité',
             'cart.*.price'                     => 'Prix',
             'cart.*.attributes.product_id'     => 'Produit',
