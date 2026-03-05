@@ -49,7 +49,7 @@ const Product = () => {
         return Object.keys(obj).length === 0;
     }
 
-    
+
     function validation() {
         if (colors.length > 0 && (!color)) {
             setColorMessage("Obligatoire de sélectionner une couleur");
@@ -93,17 +93,17 @@ const Product = () => {
             setDimensions(Array.isArray(data.data.dimensions) ? data.data.dimensions : []);
             setData(data.data);
             setPrice(data.data.price);
-            setImages((data.data.images || []).map(image => `https://intercocina.com/storage/public/${image}`));
+            setImages((data.data.images || []).map(image => `https://intercocina.com/storage/${image}`));
 
             if (data.data.attributes?.length > 0) {
                 setAttribute(data.data.attributes[0]);
             }
-            
+
             if (data?.data?.attributes.length === 0) {
                 setHeights([...new Set(data.data.dimensions.map(item => item?.height).filter(h => h != null))]);
                 setWidths([...new Set(data.data.dimensions.map(item => item?.width).filter(w => w != null))]);
             }
-            
+
 
             if(data.data.dimensions?.length === 0){
                 setCode(data.data?.code);
@@ -159,7 +159,7 @@ const Product = () => {
         if (color) {
             setColorMessage(null);
         }
-    
+
         // Helper function to update state with dimension details
         const updateDimensionState = (dimension) => {
             setPrice(dimension.price);
@@ -167,22 +167,22 @@ const Product = () => {
             setCode(dimension.code);
             setDimensionMessage(null);
         };
-    
+
         // Find matching dimension based on available parameters
         const findMatchingDimension = () => {
             // Prioritize full match with color, height, and width
             if (color && height && width) {
                 if (attribute) {
-                    
+
                     return dimensions.find(item => item.width === width && item.height === height && item.color_id === color && item.attribute_id === attribute.id);
                 } else {
                      return dimensions.find(item => item.width === width && item.height === height && item.color_id === color);
-                    
+
                 }
 
-              
+
             }
-    
+
             // Match with height and width
             if (height && width) {
                 if (attribute) {
@@ -191,24 +191,24 @@ const Product = () => {
                     return dimensions.find(item => item.width === width && item.height === height);
                 }
             }
-    
+
             // Match with only height
             if (height && widths.length === 0) {
                 return dimensions.find(item => item.height === height );
             }
-    
+
             // Match with only width
             if (width && heights.length === 0) {
                 return dimensions.find(item => item.width === width);
             }
-            
-    
+
+
             return null;
         };
-    
+
         // Find and process matching dimension
         const matchedDimension = findMatchingDimension();
-    
+
         if (matchedDimension) {
             updateDimensionState(matchedDimension);
         } else if (height && width) {
@@ -250,7 +250,7 @@ const Product = () => {
 
         }
 
-        
+
 
         fetch("/add-to-cart", {
             method: "POST",
@@ -282,11 +282,11 @@ const Product = () => {
 
     function changeAttribute(e) {
         const selectedValue = parseInt(e.target.value, 10);
-   
+
 
 
         if (isNaN(selectedValue)) return;
-        
+
         const valide_dimensions = dimensions.filter(item => item?.attribute_id === selectedValue);
         setAttribute(attributes.find((attribute) => attribute.id === selectedValue));
 
@@ -349,7 +349,7 @@ const Product = () => {
                             )
                         }
 
-                
+
                         {
                             auth ?
                                 <a href={`/admin/products/${data.id}/edit`} className="group transition-all duration-500 p-0.5 sm:block hidden">
@@ -363,10 +363,10 @@ const Product = () => {
                         }
 
                     </div>
-                    
+
                     {
-                        !isEmpty(data) ? 
-                         (<p className="mb-3 text-left">{data.description}</p>) : 
+                        !isEmpty(data) ?
+                         (<p className="mb-3 text-left">{data.description}</p>) :
                          (<div role="status" className="bg-gray-300 rounded-sm animate-pulse w-full mr-4 h-10">
                             <span className="sr-only">Loading...</span>
                         </div>)
@@ -480,10 +480,10 @@ const Product = () => {
                                                     }
                                                 }} className="color-box group text-center me-3 relative" key={index}>
                                                     <input type="radio" value={color.id} id={`color-${color.id}`} name="color" className="hidden peer" />
-                                                    <label htmlFor={`color-${color.id}`} className="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100" style={{ 'backgroundImage': `url('https://intercocina.com/storage/public/${color.image}')` }}></label>
+                                                    <label htmlFor={`color-${color.id}`} className="inline-flex items-center justify-between w-full p-4 text-gray-500 border-gray-500 rounded-lg cursor-pointer peer-checked:border-red-600 peer-checked:border-4 border-2 peer-checked:text-red-600 hover:text-gray-600 hover:bg-gray-100" style={{ 'backgroundImage': `url('https://intercocina.com/storage/${color.image}')` }}></label>
                                                     <div id="tooltipExample" className="-top-56 hidden absolute overflow-hidden bg-neutral-950 ease-out left-1/2 p-0 border-black border-2 peer-focus:block peer-hover:block rounded text-center text-sm text-white transition-all w-40 whitespace-nowrap z-10" role="tooltip">
                                                         {color.name}
-                                                        <img className="w-full" src={`https://intercocina.com/storage/public/${color.image}`} alt={color.name} />
+                                                        <img className="w-full" src={`https://intercocina.com/storage/${color.image}`} alt={color.name} />
                                                     </div>
                                                 </li>
                                             )
@@ -513,22 +513,22 @@ const Product = () => {
                                     {[...heights] // clone to avoid mutating original
                                         .sort((a, b) => a - b) // numeric ascending sort
                                         .map((height) => (
-                                        <li key={height} onClick={() => { 
+                                        <li key={height} onClick={() => {
                                             setHeight(height);
                                             if (dimensions.length > 0) {
                                                 changeDimension();
                                                 findDimension();
                                             }
                                         }}>
-                                            <input 
-                                            type="radio" 
-                                            id={`height-${height}`} 
-                                            value={height} 
-                                            name="height" 
-                                            className="hidden peer" 
+                                            <input
+                                            type="radio"
+                                            id={`height-${height}`}
+                                            value={height}
+                                            name="height"
+                                            className="hidden peer"
                                             />
-                                            <label 
-                                            htmlFor={`height-${height}`} 
+                                            <label
+                                            htmlFor={`height-${height}`}
                                             className="border-2 cursor-pointer inline-flex items-center justify-between p-2 px-3 text-gray-500 bg-white border-gray-200 rounded-lg peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
                                             >
                                             <div className="block">
