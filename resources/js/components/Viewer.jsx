@@ -85,7 +85,7 @@ function Viewer() {
                     ) : ''
                 }
                 <img
-                    src={`https://intercocina.com/storage/public/${image}`}
+                    src={`https://intercocina.com/storage/${image}`}
                     alt="Virtual image"
                     className={`w-full h-auto rounded-t-lg shadow-sm transition-opacity duration-100 ease-in-out ${fadeTransition ? 'opacity-95' : 'opacity-100'}`}
                 />
@@ -161,7 +161,7 @@ function Viewer() {
                                 </div>
                             )}
                             <img
-                                src={`https://intercocina.com/storage/public/${colorItem.image}`}
+                                src={`https://intercocina.com/storage/${colorItem.image}`}
                                 alt={colorItem.name}
                                 className={`w-full h-auto rounded-t-lg`}
                             />
