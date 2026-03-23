@@ -68,7 +68,7 @@ class ProductController extends Controller
         $product->load([
             'related:id,slug,name,description,price',
             'related.images:image,id,product_id',
-            'images:image,id,product_id',
+            'images:image,id,product_id,color_id',
             'type'
         ]);
 

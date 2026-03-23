@@ -176,10 +176,10 @@ class ProductForm
                                             ->label(false),
                                         Select::make('color_id')
                                             ->relationship("color", "name")
+                                            ->label(__("Couleur"))
                                             ->placeholder(__("Sélectionnez un couleur"))
                                             ->searchable()
                                             ->preload()
-                                            ->label(false)
                                     ])
                                     ->orderColumn('order')
                                     ->reorderable(true)
