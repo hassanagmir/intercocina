@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GroupController;
@@ -36,6 +37,8 @@ Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
 Route::apiResource('categories', CategoryAPIController::class);
 
 Route::get('search', [ProductAPIController::class, 'search']);
+
+Route::get('collections/{collection}', [CollectionController::class, 'show']);
 
 
 Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
