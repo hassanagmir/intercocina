@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Shippings\Pages;
 use App\Filament\Resources\Shippings\ShippingResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Icons\Heroicon;
 
 class ListShippings extends ListRecords
 {
@@ -13,7 +14,8 @@ class ListShippings extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->icon(Heroicon::OutlinedPlusCircle),
         ];
     }
 }

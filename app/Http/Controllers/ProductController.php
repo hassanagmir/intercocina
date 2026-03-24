@@ -69,7 +69,7 @@ class ProductController extends Controller
             'related:id,slug,name,description,price',
             'related.images:image,id,product_id',
             'images:image,id,product_id,color_id',
-            'type'
+            'type',
         ]);
 
         return $product;

@@ -1,27 +1,36 @@
 <?php
 
-namespace App\Filament\Resources\Shippings\Tables;
+namespace App\Filament\Resources\Collections\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ShippingsTable
+class CollectionsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->label(__("Nom"))
+                TextColumn::make('title')
                     ->searchable(),
-                TextColumn::make('logo')
-                    ->label(__("Logo"))
+                ImageColumn::make('image'),
+                IconColumn::make('status')
+                    ->boolean(),
+                TextColumn::make('end_date')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->label(__("Créé à"))
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

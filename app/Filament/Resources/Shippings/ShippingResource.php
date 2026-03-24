@@ -18,9 +18,15 @@ class ShippingResource extends Resource
 {
     protected static ?string $model = Shipping::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedTruck;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+
+    public static function getModelLabel(): string
+    {
+        return __('Livraison');
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -43,8 +49,8 @@ class ShippingResource extends Resource
     {
         return [
             'index' => ListShippings::route('/'),
-            'create' => CreateShipping::route('/create'),
-            'edit' => EditShipping::route('/{record}/edit'),
+            // 'create' => CreateShipping::route('/create'),
+            // 'edit' => EditShipping::route('/{record}/edit'),
         ];
     }
 }
