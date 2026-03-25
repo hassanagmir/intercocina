@@ -14,7 +14,7 @@ class CollectionController extends Controller
             'products' => function ($q) {
                 $q->latest()->take(4);
             },
-            'products.mainImage'
+            'products.images'
         ])
         ->select('id', 'title', 'image', 'description', 'end_date')
         ->latest()
