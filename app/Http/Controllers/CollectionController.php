@@ -16,7 +16,7 @@ class CollectionController extends Controller
             },
             'products.images'
         ])
-        ->select('id', 'title', 'image', 'description', 'end_date')
+        ->select('id', 'title', 'image', 'description', 'end_date', 'slug')
         ->latest()
         ->paginate(6);
     }
