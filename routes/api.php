@@ -41,6 +41,12 @@ Route::get('search', [ProductAPIController::class, 'search']);
 
 Route::get('collections/{collection:slug}', [CollectionController::class, 'show']);
 
+Route::controller(CollectionController::class)->prefix('collections')->group(function () {
+    Route::get('', 'index');
+    Route::get('{collection:slug}', 'show');
+});
+
+
 
 Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
 Route::get('products/reviews/{product:slug}', [ProductAPIController::class, 'reviews']);
