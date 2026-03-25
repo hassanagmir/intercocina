@@ -27,6 +27,11 @@ class CollectionResource extends Resource
         return CollectionForm::configure($schema);
     }
 
+    public static function getModelLabel(): string
+    {
+        return __("Promotions & Nouveautés");
+    }
+
     public static function table(Table $table): Table
     {
         return CollectionsTable::configure($table);

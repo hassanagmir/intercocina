@@ -21,15 +21,16 @@ class ProductController extends Controller
             ->select(['id', 'name', 'slug', 'code', 'price', 'type_id'])
             ->with([
                 'images:id,product_id,image',
-                'type:id,name,slug',
+                'type:id,name,slug,status', // include status if needed
             ])
-            ->where('status', '!=', ProductStatusEnum::HIDE);
+            ->where('status', '!=', ProductStatusEnum::HIDE)
+            ->whereHas('type', function ($q) use ($filters) {
+                $q->where('status', true); // ✅ only types with status = true
 
-        if (!empty($filters)) {
-            $query->whereHas('type', function ($q) use ($filters) {
-                $q->whereIn('slug', $filters);
+                if (!empty($filters)) {
+                    $q->whereIn('slug', $filters);
+                }
             });
-        }
 
         return $query->paginate(100);
     }
