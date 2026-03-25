@@ -9,7 +9,7 @@ class CollectionController extends Controller
 {
     public function show(Collection $collection)
     {
-        $collection->load('products');
+        $collection->load('products.images');
         return $collection;
     }
 }
