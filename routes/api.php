@@ -21,6 +21,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
 
@@ -59,6 +60,11 @@ Route::apiResource('faqs', FaqController::class);
 
 
 Route::get('/view-colors', [ViewColorController::class, 'index']);
+
+
+Route::get('/view-colors', [ViewColorController::class, 'index']);
+
+Route::get('/pages/{page:slug}', [PageController::class, 'show']);
 
 
 

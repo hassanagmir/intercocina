@@ -57,7 +57,6 @@ class CollectionForm
                                     ->readOnly()
                                     ->copyable()
                                     ->afterStateHydrated(function ($component, $state) {
-                                        // Concatenate a base URL with the slug value
                                         $component->state('https://intercocina.com/collections/' . $state);
                                     })
                             ])->columnSpan(1)

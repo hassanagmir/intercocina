@@ -16,21 +16,31 @@ class CollectionsTable
     {
         return $table
             ->columns([
+            ImageColumn::make('image')
+                ->label('Image'),
                 TextColumn::make('title')
+                    ->label('Titre')
                     ->searchable(),
-                ImageColumn::make('image'),
+
+           
+
                 IconColumn::make('status')
+                    ->label('Statut')
                     ->boolean(),
+
                 TextColumn::make('end_date')
+                    ->label('Date de fin')
                     ->date()
                     ->sortable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+
                 TextColumn::make('created_at')
+                    ->label('Date de création')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
+                    ->label('Date de modification')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Pages\Schemas;
 
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -35,6 +36,14 @@ class PageForm
                                 Forms\Components\FileUpload::make('image')
                                     ->image()
                                     ->image(),
+
+                                 TextInput::make('slug')
+                                    ->label('URL')
+                                    ->readOnly()
+                                    ->copyable()
+                                    ->afterStateHydrated(function ($component, $state) {
+                                        $component->state('https://intercocina.com/pages/' . $state);
+                                    }),
                                 Forms\Components\TagsInput::make('tags')
                                     ->label(__("Mots clés"))
                                     ->placeholder(__("Mot-clé"))
@@ -42,7 +51,7 @@ class PageForm
                                     ->splitKeys(['Tab', ','])
                                     ->default(null),
                             ])->columnSpan(1),
-                    ])
+                    ])->columnSpanFull()
             ]);
     }
 }

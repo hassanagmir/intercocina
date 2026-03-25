@@ -8,6 +8,12 @@ use App\Models\Product;
 
 class PageController extends Controller
 {
+
+    public function show(Page $page){
+        return $page;
+    }
+
+
     public function home()
     {
         $title = __("Fabricant de meubles de cuisine de lux.");
@@ -64,10 +70,6 @@ class PageController extends Controller
         return view("pages.contact", compact('title'));
     }
 
-    public function show(Page $page){
-        $title = $page->title;
-        return view("pages.show", compact('title', 'page'));
-    }
 
     public function placards($slug){
         $product = Product::where("slug", $slug)->first();
