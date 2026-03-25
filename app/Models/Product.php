@@ -127,6 +127,11 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
+    public function mainImage()
+    {
+        return $this->hasOne(Image::class)->latestOfMany('order');
+    }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_items')

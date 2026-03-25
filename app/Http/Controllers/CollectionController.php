@@ -11,15 +11,15 @@ class CollectionController extends Controller
     public function index()
     {
         return Collection::with([
-            'products.images' => function ($query) {
-                $query->take(3);
-            }
+            'products' => function ($q) {
+                $q->latest()->take(4);
+            },
+            'products.mainImage'
         ])
-            ->select('id', 'title', 'image', 'description', 'end_date')
-            ->latest()
-            ->paginate(3);
+        ->select('id', 'title', 'image', 'description', 'end_date')
+        ->latest()
+        ->paginate(6);
     }
-
 
     public function show(Collection $collection)
     {
