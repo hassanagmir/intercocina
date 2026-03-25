@@ -39,7 +39,7 @@ Route::apiResource('categories', CategoryAPIController::class);
 
 Route::get('search', [ProductAPIController::class, 'search']);
 
-Route::get('collections/{collection}', [CollectionController::class, 'show']);
+Route::get('collections/{collection:slug}', [CollectionController::class, 'show']);
 
 
 Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
