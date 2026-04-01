@@ -15,14 +15,23 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ProductSyncResource extends Resource
 {
     protected static ?string $model = ProductSync::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCloudArrowDown;
 
     protected static ?string $recordTitleAttribute = 'started_at';
+
+
+    protected static string | UnitEnum | null $navigationGroup = "Autorisation";
+
+    public static function getModelLabel(): string
+    {
+        return __("Async Produits");
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -50,9 +59,9 @@ class ProductSyncResource extends Resource
     {
         return [
             'index' => ListProductSyncs::route('/'),
-            'create' => CreateProductSync::route('/create'),
-            'view' => ViewProductSync::route('/{record}'),
-            'edit' => EditProductSync::route('/{record}/edit'),
+            // 'create' => CreateProductSync::route('/create'),
+            // 'view' => ViewProductSync::route('/{record}'),
+            // 'edit' => EditProductSync::route('/{record}/edit'),
         ];
     }
 }
