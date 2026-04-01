@@ -22,6 +22,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductSyncController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
 
@@ -33,6 +34,10 @@ Route::get('products/{product:slug}', [ProductController::class, 'show_product']
 
 
 Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
+
+
+Route::get('sync/products', [ProductSyncController::class, 'syncAll']);
+Route::get('sync/product/{code}', [ProductSyncController::class, 'syncByCode']);
 
 
 Route::apiResource('categories', CategoryAPIController::class);

@@ -19,7 +19,7 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'es_name', 'description', 'code', 'type_id', 'content', 'options', 'tags', 'status', 'slug',
-        'price', 'old_price', 'order', 'unit', 'family_id'
+        'price', 'old_price', 'order', 'unit', 'family_id', 'stock'
     ];
 
     protected $hidden = ['dimensions'];

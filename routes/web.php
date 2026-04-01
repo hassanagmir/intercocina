@@ -11,6 +11,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductExportController;
+use App\Http\Controllers\ProductSyncController;
 use App\Http\Controllers\UserController;
 use App\Models\City;
 use App\Models\User;
@@ -69,6 +70,7 @@ Route::prefix('order')->group(function () {
     Route::get('{order}/export-text', [OrderController::class, 'exportOrderText'])->name('order.export-text');
 
 });
+
 
 
 

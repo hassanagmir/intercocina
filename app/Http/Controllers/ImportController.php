@@ -124,8 +124,9 @@ class ImportController extends Controller
         return response()->json(['data' => $processedData]);
     }
 
-    
-    public function laca(){
+
+    public function laca()
+    {
         return view('import.laca');
     }
 
@@ -147,20 +148,26 @@ class ImportController extends Controller
         $processedData = collect($jsonData)->map(function ($item) {
 
             return DB::transaction(function () use ($item) {
+
+                // --- Category ---
                 $category = Category::firstOrCreate(['name' => $item['category']]);
 
+                // --- Type ---
                 $type = Type::firstOrCreate([
-                    'name' => $category->name . " " . $item['type'],
+                    'name'        => $category->name . " " . $item['type'],
                     'category_id' => $category->id,
                 ]);
 
-
+                // --- Color (optional) ---
+                $color = null;
                 if (isset($item['color'])) {
                     $color = Color::firstOrCreate([
                         'name' => ucwords(strtolower($item['color'])),
                     ]);
                 }
 
+                // --- Attribute (optional) ---
+                $attribute = null;
                 if (isset($item['attribute'])) {
                     $attribute = Attribute::firstOrCreate(
                         ['name' => ucfirst($item['attribute'])],
@@ -168,67 +175,57 @@ class ImportController extends Controller
                     );
                 }
 
-
+                // --- Product ---
                 $product = Product::firstOrCreate(
-                    ['name' =>  $type->name . " " . $item['name']],
+                    ['name' => $type->name . " " . $item['name']],
                     [
                         'type_id' => $type->id,
-                        'price' => isset($item['dimensions']) ? null : $item['price'],
-                        'code' => isset($item['dimensions']) ? null : $item['code']
+                        'price'   => isset($item['dimensions']) ? null : ($item['price'] ?? null),
+                        'code'    => isset($item['dimensions']) ? null : ($item['code']  ?? null),
                     ]
                 );
 
-                // $product->code = $item['code'];
-                // $product->save();
-
-                if (isset($item['color'])) {
+                if ($color) {
                     $product->colors()->syncWithoutDetaching([$color->id]);
                 }
 
-                if (isset($item['attribute'])) {
+                if ($attribute) {
                     $product->attributes()->syncWithoutDetaching([$attribute->id]);
                 }
 
-                if (isset($item["height_unit"])) {
-                    switch ($item['height_unit']) {
-                        case 'mm':
-                            $height_unit = 1;
-                            break;
-
-                        case 'cm':
-                            $height_unit = 2;
-                            break;
-
-                        case 'm':
-                            $height_unit = 3;
-                            break;
-                    }
+                // --- Height unit (optional) ---
+                $height_unit = null;
+                if (isset($item['height_unit'])) {
+                    $height_unit = match ($item['height_unit']) {
+                        'mm'    => 1,
+                        'cm'    => 2,
+                        'm'     => 3,
+                        default => null,
+                    };
                 }
 
-
+                // --- Dimensions ---
                 if (isset($item['dimensions'])) {
 
                     if (strpos($item['dimensions'], '*') !== false) {
-                        $height = explode('*', $item['dimensions'])[0];
-                        $width = explode('*', $item['dimensions'])[1];
+                        [$height, $width] = explode('*', $item['dimensions']);
                     } else {
                         $height = $item['dimensions'];
-                        $width = null;
+                        $width  = null;
                     }
-
 
                     return Dimension::firstOrCreate(
                         ['code' => $item['code']],
                         [
-                            'price' => $item['price'],
-                            'height' => $height,
-                            'width' => $width,
-                            'product_id' => $product->id,
-                            'color_id' => isset($item['color']) ? $color->id : null,
-                            'height_unit' =>  isset($height_unit) ? $height_unit : null,
-                            'attribute_id' => isset($item['attribute']) ? $attribute->id : null,
-                            'depth' => isset($item['depth']) ? $item['depth']  : null,
-                            'thicknesse' => isset($item['thickness']) ? $item['thickness']  : null,
+                            'price'        => $item['price']     ?? null,
+                            'height'       => $height,
+                            'width'        => $width,
+                            'product_id'   => $product->id,
+                            'color_id'     => $color?->id,
+                            'height_unit'  => $height_unit,
+                            'attribute_id' => $attribute?->id,
+                            'depth'        => $item['depth']     ?? null,
+                            'thicknesse'   => $item['thickness'] ?? null, // note: typo in DB column kept as-is
                         ]
                     );
                 }
