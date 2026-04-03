@@ -86,39 +86,36 @@ class Product extends Model
     }
 
 
-    public function price()
+    public function getPriceRangeAttribute()
     {
-
-        if ($this->price !== null) {
-            return (string) $this->price;
+        if ($this->getRawOriginal('price') !== null && $this->getRawOriginal('price') > 0) {
+            return (string) $this->getRawOriginal('price');
         }
 
-        $dimensions = $this->relationLoaded('dimensions') 
-            ? $this->dimensions 
+        $dimensions = $this->relationLoaded('dimensions')
+            ? $this->dimensions
             : $this->load('dimensions')->dimensions;
-    
+
         $prices = $dimensions
             ->where('status', true)
             ->where('price', '>', 0)
-            ->pluck('price'); 
-    
+            ->pluck('price');
+
         if ($prices->isEmpty()) {
-            return '0'; // Return string for consistency
+            return '0';
         }
-    
+
         $minPrice = $prices->min();
         $maxPrice = $prices->max();
-    
-        return $minPrice === $maxPrice 
-            ? (string) $minPrice 
+
+        return $minPrice === $maxPrice
+            ? (string) $minPrice
             : "{$minPrice} - {$maxPrice}";
     }
 
-
-    
     public function getPriceFormatAttribute()
     {
-        return $this->price();
+        return $this->getPriceRangeAttribute();
     }
 
 
