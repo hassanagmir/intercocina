@@ -8,7 +8,7 @@ use App\Enums\WeightUnitEnum;
 use App\Models\Category;
 use App\Models\Attribute;
 use App\Models\Color;
-use App\Models\Product;
+use App\Models\Dimension;
 use App\Models\Type;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\KeyValue;
@@ -217,10 +217,10 @@ class ProductForm
 
                                 Group::make()
                                     ->schema(function (Get $get) {
-                                        $product = Product::find($get('id'));
-                                        $dimensionCount = $product ? $product->dimensions()->count() : 0;
+                                        $productId = $get('id');
+                                        $dimensionCount = $productId ? Dimension::where('product_id', $productId)->count() : 0;
 
-                                        if ($dimensionCount > 200) {
+                                        if ($dimensionCount > 50) {
                                             return [
                                                 Placeholder::make('dimensions_info')
                                                     ->content(" Ce produit comporte {$dimensionCount} dimensions. Utilisez l'interface de gestion des dimensions séparée pour les modifier.")
@@ -260,7 +260,7 @@ class ProductForm
                                                         ->label(__("Couleur"))
                                                         ->searchable()
                                                         ->placeholder("...")
-                                                        ->options(fn () => Color::orderBy('name')->pluck('name', 'id')),
+                                                        ->options(once(fn () => Color::orderBy('name')->pluck('name', 'id')->toArray())),
 
 
                                                     Select::make('weight_unit')
@@ -288,7 +288,7 @@ class ProductForm
                                                         ->label(__("Attribut"))
                                                         ->searchable()
                                                         ->placeholder("...")
-                                                        ->options(fn () => Attribute::orderBy('name')->pluck('name', 'id')),
+                                                        ->options(once(fn () => Attribute::orderBy('name')->pluck('name', 'id')->toArray())),
 
                                                     TextInput::make('depth')
                                                         ->label(__("Profondeur"))
@@ -360,8 +360,7 @@ class ProductForm
                             ->native(false)
                             ->multiple()
                             ->nullable()
-                            ->searchable()
-                            ->preload(),
+                            ->searchable(),
                     ])->columnSpanFull()->columns(2),
             ]);
     }
