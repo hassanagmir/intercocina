@@ -6,6 +6,7 @@ use App\Enums\HeightUnitEnum;
 use App\Enums\ProductStatusEnum;
 use App\Enums\WeightUnitEnum;
 use App\Models\Category;
+use App\Models\Attribute;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Type;
@@ -258,9 +259,8 @@ class ProductForm
                                                     Select::make('color_id')
                                                         ->label(__("Couleur"))
                                                         ->searchable()
-                                                        ->preload()
                                                         ->placeholder("...")
-                                                        ->relationship('color', 'name'),
+                                                        ->options(fn () => Color::orderBy('name')->pluck('name', 'id')),
 
 
                                                     Select::make('weight_unit')
@@ -287,9 +287,8 @@ class ProductForm
                                                     Select::make('attribute_id')
                                                         ->label(__("Attribut"))
                                                         ->searchable()
-                                                        ->preload()
                                                         ->placeholder("...")
-                                                        ->relationship('attribute', 'name'),
+                                                        ->options(fn () => Attribute::orderBy('name')->pluck('name', 'id')),
 
                                                     TextInput::make('depth')
                                                         ->label(__("Profondeur"))
