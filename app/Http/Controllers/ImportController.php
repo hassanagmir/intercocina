@@ -6,6 +6,7 @@ use App\Models\Attribute;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Dimension;
+use App\Models\Family;
 use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -152,6 +153,12 @@ class ImportController extends Controller
                 // --- Category ---
                 $category = Category::firstOrCreate(['name' => $item['category']]);
 
+                // --- Family (optional) — looked up by code from JSON ---
+                $family = null;
+                if (isset($item['family'])) {
+                    $family = Family::where('code', $item['family'])->first();
+                }
+
                 // --- Type ---
                 $type = Type::firstOrCreate([
                     'name'        => $category->name . " " . $item['type'],
@@ -179,9 +186,10 @@ class ImportController extends Controller
                 $product = Product::firstOrCreate(
                     ['name' => $type->name . " " . $item['name']],
                     [
-                        'type_id' => $type->id,
-                        'price'   => isset($item['dimensions']) ? null : ($item['price'] ?? null),
-                        'code'    => isset($item['dimensions']) ? null : ($item['code']  ?? null),
+                        'type_id'   => $type->id,
+                        'family_id' => $family?->id,              // ← new
+                        'price'     => isset($item['dimensions']) ? null : ($item['price'] ?? null),
+                        'code'      => isset($item['dimensions']) ? null : ($item['code']  ?? null),
                     ]
                 );
 
@@ -204,6 +212,17 @@ class ImportController extends Controller
                     };
                 }
 
+                // --- Thickness unit (optional) ---
+                $thickness_unit = null;
+                if (isset($item['thickness_unit'])) {
+                    $thickness_unit = match ($item['thickness_unit']) {
+                        'mm'    => 1,
+                        'cm'    => 2,
+                        'm'     => 3,
+                        default => null,
+                    };
+                }
+
                 // --- Dimensions ---
                 if (isset($item['dimensions'])) {
 
@@ -217,15 +236,16 @@ class ImportController extends Controller
                     return Dimension::firstOrCreate(
                         ['code' => $item['code']],
                         [
-                            'price'        => $item['price']     ?? null,
-                            'height'       => $height,
-                            'width'        => $width,
-                            'product_id'   => $product->id,
-                            'color_id'     => $color?->id,
-                            'height_unit'  => $height_unit,
-                            'attribute_id' => $attribute?->id,
-                            'depth'        => $item['depth']     ?? null,
-                            'thicknesse'   => $item['thickness'] ?? null, // note: typo in DB column kept as-is
+                            'price'          => $item['price']     ?? null,
+                            'height'         => $height,
+                            'width'          => $width,
+                            'product_id'     => $product->id,
+                            'color_id'       => $color?->id,
+                            'height_unit'    => $height_unit,
+                            'attribute_id'   => $attribute?->id,
+                            'depth'          => $item['depth']     ?? null,
+                            'thicknesse'     => $item['thickness'] ?? null,
+                            'thickness_unit' => $thickness_unit,   // ← new
                         ]
                     );
                 }
