@@ -39,13 +39,21 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product->load([
+            'images' => fn($query) => $query->orderBy('order'),
+            'related:id,slug,name,description,price',
+            'related.images' => fn($query) => $query->orderBy('order'),
+            'type'
+        ]);
 
         $products = Product::where('type_id', $product->type_id)
             ->whereNot("status", ProductStatusEnum::HIDE)
             ->paginate(4);
+
         $title = $product->name;
         $image = $product->images?->first()?->image;
         $description = $product->description;
+
         return view('product.show', compact('product', 'products', 'title', 'description', 'image'));
     }
 
@@ -63,13 +71,12 @@ class ProductController extends Controller
     }
 
 
-
     public function show_product(Product $product)
     {
         $product->load([
             'related:id,slug,name,description,price',
-            'related.images:image,id,product_id',
-            'images:image,id,product_id,color_id',
+            'related.images' => fn($q) => $q->select('image', 'id', 'product_id')->orderBy('order'),
+            'images' => fn($q) => $q->select('image', 'id', 'product_id', 'color_id')->orderBy('order'),
             'type',
         ]);
 
