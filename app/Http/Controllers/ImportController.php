@@ -180,10 +180,9 @@ class ImportController extends Controller
                         ['category_id' => $category->id]
                     );
                 }
-
-                // --- Product — find existing or create, then attach relations ---
+                // --- Product ---
                 $product = Product::firstOrCreate(
-                    ['name' => $item['name']],           // ← match on name alone
+                    ['name' => $category->name . ' ' . $item['type'] . ' ' . $item['name']], // ← "Façade Intermate 18 Gaudi Art"
                     [
                         'type_id'   => $type->id,
                         'family_id' => $family?->id,
