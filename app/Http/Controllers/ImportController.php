@@ -130,7 +130,6 @@ class ImportController extends Controller
     {
         return view('import.laca');
     }
-
     public function laca_store(Request $request)
     {
         ini_set('max_execution_time', 3600);
@@ -153,15 +152,15 @@ class ImportController extends Controller
                 // --- Category ---
                 $category = Category::firstOrCreate(['name' => $item['category']]);
 
-                // --- Family (optional) — looked up by code from JSON ---
+                // --- Family (optional) — looked up by code, not created ---
                 $family = null;
                 if (isset($item['family'])) {
                     $family = Family::where('code', $item['family'])->first();
                 }
 
-                // --- Type ---
+                // --- Type — stored as-is, e.g. "Intermate 18" ---
                 $type = Type::firstOrCreate([
-                    'name'        => $category->name . " " . $item['type'],
+                    'name'        => $item['type'],      // ← no category prefix
                     'category_id' => $category->id,
                 ]);
 
@@ -182,12 +181,12 @@ class ImportController extends Controller
                     );
                 }
 
-                // --- Product ---
+                // --- Product — find existing or create, then attach relations ---
                 $product = Product::firstOrCreate(
-                    ['name' => $type->name . " " . $item['name']],
+                    ['name' => $item['name']],           // ← match on name alone
                     [
                         'type_id'   => $type->id,
-                        'family_id' => $family?->id,              // ← new
+                        'family_id' => $family?->id,
                         'price'     => isset($item['dimensions']) ? null : ($item['price'] ?? null),
                         'code'      => isset($item['dimensions']) ? null : ($item['code']  ?? null),
                     ]
@@ -201,7 +200,7 @@ class ImportController extends Controller
                     $product->attributes()->syncWithoutDetaching([$attribute->id]);
                 }
 
-                // --- Height unit (optional) ---
+                // --- Height unit ---
                 $height_unit = null;
                 if (isset($item['height_unit'])) {
                     $height_unit = match ($item['height_unit']) {
@@ -212,7 +211,7 @@ class ImportController extends Controller
                     };
                 }
 
-                // --- Thickness unit (optional) ---
+                // --- Thickness unit ---
                 $thickness_unit = null;
                 if (isset($item['thickness_unit'])) {
                     $thickness_unit = match ($item['thickness_unit']) {
@@ -223,7 +222,7 @@ class ImportController extends Controller
                     };
                 }
 
-                // --- Dimensions ---
+                // --- Dimension — always try to add if not already present ---
                 if (isset($item['dimensions'])) {
 
                     if (strpos($item['dimensions'], '*') !== false) {
@@ -233,19 +232,21 @@ class ImportController extends Controller
                         $width  = null;
                     }
 
+                    // firstOrCreate ensures duplicates are never inserted,
+                    // whether the product is new or already existed
                     return Dimension::firstOrCreate(
-                        ['code' => $item['code']],
+                        ['code' => $item['code']],        // ← unique key: code
                         [
                             'price'          => $item['price']     ?? null,
                             'height'         => $height,
                             'width'          => $width,
-                            'product_id'     => $product->id,
+                            'product_id'     => $product->id,      // ← works for both new & existing product
                             'color_id'       => $color?->id,
                             'height_unit'    => $height_unit,
                             'attribute_id'   => $attribute?->id,
                             'depth'          => $item['depth']     ?? null,
                             'thicknesse'     => $item['thickness'] ?? null,
-                            'thickness_unit' => $thickness_unit,   // ← new
+                            'thickness_unit' => $thickness_unit,
                         ]
                     );
                 }
