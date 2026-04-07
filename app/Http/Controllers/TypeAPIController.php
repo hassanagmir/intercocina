@@ -31,7 +31,7 @@ class TypeAPIController extends Controller
                     ->orderBy('order');
                 },
                 'products.images' => function ($query) {
-                    $query->select('id', 'product_id', 'image', 'order');
+                    $query->orderBy('order')->select('id', 'product_id', 'image', 'order');
                 }
             ])
             ->first();
