@@ -78,6 +78,7 @@ class ProductController extends Controller
             'related.images' => fn($q) => $q->select('image', 'id', 'product_id')->orderBy('order'),
             'images' => fn($q) => $q->select('image', 'id', 'product_id', 'color_id')->orderBy('order'),
             'type',
+            'color'
         ]);
 
         return $product;
