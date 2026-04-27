@@ -32,7 +32,8 @@ class ProductAPIController extends Controller
         $product->load([
             'related:id,slug,name,description,price',
             'related.images' => fn($query) => $query->orderBy('order'),
-            'type'
+            'type',
+            'color'
         ]);
 
         return new ProductResource($product);
