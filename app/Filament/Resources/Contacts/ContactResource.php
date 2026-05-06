@@ -14,6 +14,8 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Override;
 
 class ContactResource extends Resource
 {
@@ -31,6 +33,13 @@ class ContactResource extends Resource
     public static function getModelLabel(): string
     {
         return __("Message");
+    }
+
+
+    #[Override]
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->latest();
     }
 
 
@@ -67,7 +76,7 @@ class ContactResource extends Resource
     {
         return [
             'index' => ListContacts::route('/'),
-            'create' => CreateContact::route('/create'),
+            // 'create' => CreateContact::route('/create'),
             // 'view' => ViewContact::route('/{record}'),
             // 'edit' => EditContact::route('/{record}/edit'),
         ];

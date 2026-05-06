@@ -54,7 +54,7 @@ class BrandForm
                                     ->required(),
                             ])->columnSpan(1),
 
-                    ])
+                    ])->columnSpanfull()
             ]);
     }
 }

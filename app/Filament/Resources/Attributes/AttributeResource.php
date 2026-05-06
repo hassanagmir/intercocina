@@ -20,7 +20,7 @@ class AttributeResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-paper-clip';
 
-    protected static ?string $recordTitleAttribute = 'dimentions';
+    protected static ?string $recordTitleAttribute = 'name';
 
 
     protected static string | UnitEnum | null $navigationGroup = "Plus d'options";
