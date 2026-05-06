@@ -64,7 +64,7 @@ class UsersChart extends ChartWidget
         return [
             'scales' => [
                 'y' => [
-                    'beginAtZero' => true,
+                    // 'beginAtZero' => true,
                     'ticks' => [
                         'stepSize' => 1,
                         'precision' => 0,
