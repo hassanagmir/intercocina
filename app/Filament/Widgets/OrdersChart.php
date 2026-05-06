@@ -51,6 +51,22 @@ class OrdersChart extends ChartWidget
         ];
     }
 
+    protected function getOptions(): array
+    {
+        return [
+            'scales' => [
+                'y' => [
+                    'beginAtZero' => true,
+                    'ticks' => [
+                        'stepSize' => 1,
+                        'precision' => 0,
+                    ],
+                    'min' => 0,
+                ],
+            ],
+        ];
+    }
+
     protected function getType(): string
     {
         return 'line';
