@@ -2,21 +2,24 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Order;
+use App\Models\User;
 use Filament\Widgets\ChartWidget;
 use Carbon\CarbonPeriod;
 
-class OrdersChart extends ChartWidget
+class UsersChart extends ChartWidget
 {
-    protected ?string $heading = 'Rapport des commandes';
-    protected static ?int $sort = 4;
+    protected ?string $heading = 'Rapport des clients';
+
+    protected string $color = 'primary';
+
+    protected static ?int $sort = 5;
 
     protected function getData(): array
     {
         $endDate = now();
         $startDate = $endDate->copy()->subDays(29);
 
-        $data = Order::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+        $data = User::selectRaw('DATE(created_at) as date, COUNT(*) as count')
             ->whereBetween('created_at', [
                 $startDate->copy()->startOfDay(),
                 $endDate->copy()->endOfDay(),
@@ -39,7 +42,7 @@ class OrdersChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label'           => 'Commandes',
+                    'label'           => 'Clients',
                     'data'            => $counts,
                     'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                     'borderColor'     => 'rgba(54, 162, 235, 1)',
