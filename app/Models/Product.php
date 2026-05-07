@@ -15,8 +15,6 @@ class Product extends Model
 {
     use HasFactory, HasSlug, LogsActivity;
 
-
-
     protected $fillable = [
         'name', 'es_name', 'description', 'code', 'type_id', 'content', 'options', 'tags', 'status', 'slug',
         'price', 'old_price', 'order', 'unit', 'family_id', 'stock'
@@ -30,7 +28,6 @@ class Product extends Model
     protected $casts = [
         'options' => 'array',
         'status' =>  ProductStatusEnum::class,
-        // 'images' => 'array',
     ];
 
 
@@ -83,6 +80,10 @@ class Product extends Model
 
     public function reviews(){
         return $this->hasMany(Review::class, 'product_id', 'id');
+    }
+
+    public function piece(){
+        return $this->hasMany(Piece::class);
     }
 
 
@@ -144,7 +145,4 @@ class Product extends Model
     {
         return $this->belongsToMany(Product::class, 'product_relation', 'product_id', 'related_id');
     }
-
-
-
 }

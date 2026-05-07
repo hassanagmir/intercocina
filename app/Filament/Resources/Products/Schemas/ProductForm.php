@@ -85,7 +85,7 @@ class ProductForm
                                     ->options(ProductStatusEnum::toArray())
                                     ->required(),
 
-                                
+
                                 Select::make('category_id')
                                     ->native(false)
                                     ->preload(true)
@@ -107,9 +107,9 @@ class ProductForm
                                     // ->options(Category::all()->pluck('name', 'id')->toArray())
                                     ->required()
                                     ->reactive(),
-                                    // ->afterStateUpdated(function (Set $set) {
-                                    //     $set('type_id', null);
-                                    // }),
+                                // ->afterStateUpdated(function (Set $set) {
+                                //     $set('type_id', null);
+                                // }),
 
                                 Select::make('type_id')
                                     ->native(false)
@@ -260,7 +260,7 @@ class ProductForm
                                                         ->label(__("Couleur"))
                                                         ->searchable()
                                                         ->placeholder("...")
-                                                        ->options(once(fn () => Color::orderBy('name')->pluck('name', 'id')->toArray())),
+                                                        ->options(once(fn() => Color::orderBy('name')->pluck('name', 'id')->toArray())),
 
 
                                                     Select::make('weight_unit')
@@ -288,7 +288,7 @@ class ProductForm
                                                         ->label(__("Attribut"))
                                                         ->searchable()
                                                         ->placeholder("...")
-                                                        ->options(once(fn () => Attribute::orderBy('name')->pluck('name', 'id')->toArray())),
+                                                        ->options(once(fn() => Attribute::orderBy('name')->pluck('name', 'id')->toArray())),
 
                                                     TextInput::make('depth')
                                                         ->label(__("Profondeur"))
@@ -308,6 +308,43 @@ class ProductForm
                                         ];
                                     })
                             ]),
+
+
+ Tabs\Tab::make('Piece')
+    ->schema([
+        Grid::make(2)
+            ->schema([
+                Repeater::make('piece')
+                    ->relationship()
+                    ->schema([
+                        TextInput::make('title')
+                            ->label(__("Titre"))
+                            ->required()
+                            ->maxLength(255),
+                        Textarea::make('description')
+                            ->label(__("Description"))
+                            ->required()
+                            ->maxLength(255),
+                        FileUpload::make('file')
+                            ->label(__("Ficher"))
+                    ]),
+
+                Repeater::make('piece2')
+                    ->relationship()
+                    ->schema([
+                        TextInput::make('title')
+                            ->label(__("Titre"))
+                            ->required()
+                            ->maxLength(255),
+                        Textarea::make('description')
+                            ->label(__("Description"))
+                            ->required()
+                            ->maxLength(255),
+                        FileUpload::make('file')
+                            ->label(__("Ficher"))
+                    ]),
+            ])
+    ])
                     ])->columnSpanFull(),
 
                 Section::make()
