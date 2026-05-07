@@ -33,6 +33,7 @@ class ProductAPIController extends Controller
             'related:id,slug,name,description,price',
             'related.images' => fn($query) => $query->orderBy('order'),
             'type',
+            'piece',
             'color'
         ]);
 

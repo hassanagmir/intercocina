@@ -310,42 +310,25 @@ class ProductForm
                             ]),
 
 
- Tabs\Tab::make('Piece')
-    ->schema([
-        Grid::make(2)
-            ->schema([
-                Repeater::make('piece')
-                    ->relationship()
-                    ->schema([
-                        TextInput::make('title')
-                            ->label(__("Titre"))
-                            ->required()
-                            ->maxLength(255),
-                        Textarea::make('description')
-                            ->label(__("Description"))
-                            ->required()
-                            ->maxLength(255),
-                        FileUpload::make('file')
-                            ->label(__("Ficher"))
-                    ]),
+                    Tabs\Tab::make('Piece')
+                        ->schema([
+                            Repeater::make('piece')
+                                ->relationship()
+                                ->schema([
+                                    TextInput::make('title')
+                                        ->label(__("Titre"))
+                                        ->required()
+                                        ->maxLength(255),
+                                    Textarea::make('description')
+                                        ->label(__("Description"))
+                                        ->required()
+                                        ->maxLength(255),
+                                    FileUpload::make('file')
+                                        ->label(__("Ficher"))
+                                ])->grid(3)
 
-                Repeater::make('piece2')
-                    ->relationship()
-                    ->schema([
-                        TextInput::make('title')
-                            ->label(__("Titre"))
-                            ->required()
-                            ->maxLength(255),
-                        Textarea::make('description')
-                            ->label(__("Description"))
-                            ->required()
-                            ->maxLength(255),
-                        FileUpload::make('file')
-                            ->label(__("Ficher"))
-                    ]),
-            ])
-    ])
-                    ])->columnSpanFull(),
+                        ])
+                ])->columnSpanFull(),
 
                 Section::make()
                     ->schema([
