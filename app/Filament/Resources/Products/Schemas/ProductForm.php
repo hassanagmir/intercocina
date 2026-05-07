@@ -87,11 +87,11 @@ class ProductForm
 
 
                                 Select::make('category_id')
+                                    ->options(once(fn() => Category::orderBy('name')->pluck('name', 'id')->toArray()))
                                     ->native(false)
                                     ->preload(true)
                                     ->searchable()
                                     ->label(__("Catégorie"))
-                                    ->options(Category::all()->pluck('name', 'id')->toArray())
                                     ->required()
                                     ->reactive()
                                     ->afterStateUpdated(function (Set $set) {
@@ -218,15 +218,17 @@ class ProductForm
                                 Group::make()
                                     ->schema(function (Get $get) {
                                         $productId = $get('id');
-                                        $dimensionCount = $productId ? Dimension::where('product_id', $productId)->count() : 0;
-
-                                        if ($dimensionCount > 50) {
+                                         // Always use separate UI when editing existing product
+                                        if ($productId) {
+                                            $dimensionCount = Dimension::where('product_id', $productId)->count();
                                             return [
-                                                Placeholder::make('dimensions_info')
-                                                    ->content(" Ce produit comporte {$dimensionCount} dimensions. Utilisez l'interface de gestion des dimensions séparée pour les modifier.")
-                                                    ->columns(2),
+                                                TextEntry::make('dimensions_info')
+                                                    ->placeholder("Ce produit comporte {$dimensionCount} dimensions.")
+                                                    ->columnSpanFull(),
+                                                // Link to a dedicated DimensionResource page
                                             ];
                                         }
+
                                         return [
                                             Repeater::make('dimensions')
                                                 ->hidden(fn(Get $get): bool => $get('is_dimensions'))
