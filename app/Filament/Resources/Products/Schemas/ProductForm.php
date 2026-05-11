@@ -310,7 +310,7 @@ class ProductForm
                             ]),
 
 
-                    Tabs\Tab::make('Piece')
+                    Tabs\Tab::make('Pièces')
                         ->schema([
                             Repeater::make('piece')
                                 ->relationship()
@@ -321,7 +321,6 @@ class ProductForm
                                         ->maxLength(255),
                                     Textarea::make('description')
                                         ->label(__("Description"))
-                                        ->required()
                                         ->maxLength(255),
                                     FileUpload::make('file')
                                         ->label(__("Ficher"))
