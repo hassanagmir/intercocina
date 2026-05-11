@@ -218,14 +218,12 @@ class ProductForm
                                 Group::make()
                                     ->schema(function (Get $get) {
                                         $productId = $get('id');
-                                         // Always use separate UI when editing existing product
                                         if ($productId) {
                                             $dimensionCount = Dimension::where('product_id', $productId)->count();
                                             return [
                                                 TextEntry::make('dimensions_info')
                                                     ->placeholder("Ce produit comporte {$dimensionCount} dimensions.")
                                                     ->columnSpanFull(),
-                                                // Link to a dedicated DimensionResource page
                                             ];
                                         }
 

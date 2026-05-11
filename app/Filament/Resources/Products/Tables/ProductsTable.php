@@ -30,10 +30,9 @@ class ProductsTable
                     ->searchable()
                     ->sortable(),
                 
-                TextColumn::make('code')
-                    ->label(__("Référence"))
-                    ->searchable()
-                    ->sortable(),
+                TextColumn::make('piece_count')->counts('piece')
+                    ->label(__("Pièces"))
+                    ->numeric(),
 
                 TextColumn::make('dimensions_count')->counts('dimensions')
                     ->label(__("Dimensions"))
