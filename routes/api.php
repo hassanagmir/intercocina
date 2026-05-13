@@ -26,11 +26,24 @@ use App\Http\Controllers\ProductSyncController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
 
-Route::post('orders/confirm', [OrderController::class, 'confirm']);
 
+
+use App\Http\Controllers\Auth\GoogleAuthController;
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
+    ->name('google.login');
+
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
+
+
+
+Route::post('orders/confirm', [OrderController::class, 'confirm']);
 Route::apiResource('products', ProductController::class);
+
 Route::get("products/{product:slug}/related", [ProductController::class, 'relatedProducts'])->name('product.related');
 Route::get('products/{product:slug}', [ProductController::class, 'show_product']);
+
 
 
 Route::post('add-to-cart', [ProductController::class, 'AddToCart']);

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ProductStatusEnum;
+use App\Exports\ArticleExport;
 use App\Models\Category;
 use App\Models\Dimension;
 use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -153,5 +156,64 @@ class ProductController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+
+
+    public function exportProducts()
+    {
+
+        if (!auth()->user()->hasRole('super_admin')) {
+            return response()->json([
+                'message' => 'Unauthorized access.'
+            ], 403);
+        }
+        $data = DB::select("
+            SELECT 
+                D.code AS Ref,
+                CONCAT(
+                    COALESCE(A.name, ''),
+                    ' ',
+                    REPLACE(P.name, 'Façade ', '')
+                ) AS Desg,
+                D.dimension AS Dimension,
+                D.price AS Prix,
+                C.name AS Couleur
+            FROM dimensions D
+            INNER JOIN products P ON P.id = D.product_id
+            LEFT JOIN attributes A ON D.attribute_id = A.id
+            LEFT JOIN colors C ON C.id = D.color_id
+
+            UNION ALL
+
+            SELECT
+                P.code AS Ref,
+                REPLACE(P.name, 'Façade ', '') AS Desg,
+                NULL AS Dimension,
+                P.price AS Prix,
+                NULL AS Couleur
+            FROM products P
+            WHERE P.code IS NOT NULL
+            AND NOT EXISTS (
+                SELECT 1
+                FROM dimensions D
+                WHERE D.product_id = P.id
+            )
+        ");
+
+        $rows = collect($data)->map(function ($row) {
+            return [
+                'Ref'       => $row->Ref,
+                'Desg'      => trim($row->Desg),
+                'Dimension' => $row->Dimension,
+                'Prix'      => $row->Prix,
+                'Couleur'   => $row->Couleur,
+            ];
+        })->toArray();
+
+        return Excel::download(
+            new ArticleExport($rows),
+            'products.xlsx'
+        );
     }
 }

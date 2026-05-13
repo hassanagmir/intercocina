@@ -51,6 +51,8 @@ Route::prefix('user')->group(function () {
 });
 
 
+Route::get('products/export', [ProductController::class, 'exportProducts']);
+
 Route::prefix('')->group(function () {
     Route::get('produits', [ProductController::class, 'list'])->name("products");
     Route::get('shop', [ProductController::class, 'list'])->name("products");
@@ -260,5 +262,6 @@ Route::get('view-product', function () {
 });
 
 Route::get('/', function () {
+    return redirect('https://intercocina.com');
     return view('welcome');
 })->name('home');

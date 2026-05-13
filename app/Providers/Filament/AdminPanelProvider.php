@@ -28,6 +28,12 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->navigationGroups([
+                'Porduits',
+                "Plus d'options",
+
+                'Autorisation',
+            ])
             ->brandLogo('\assets\imgs\intercocina-logo.png')
             ->brandLogoHeight("2.5rem")
             ->favicon('\assets\imgs\favicon.png')

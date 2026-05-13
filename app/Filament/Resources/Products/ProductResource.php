@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 class ProductResource extends Resource
@@ -39,6 +40,7 @@ class ProductResource extends Resource
     }
 
     protected static string | UnitEnum | null $navigationGroup = "Porduits";
+
 
 
 
