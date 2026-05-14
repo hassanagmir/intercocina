@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -56,36 +57,65 @@ class UserController extends Controller
 
     public function onboarding(Request $request)
     {
-
         $user = auth()->user();
 
+        Validator::make(
+            $request->all(),
+            [
+                'first_name'   => 'nullable|string|max:255',
+                'last_name'    => 'nullable|string|max:255',
+                'gender'       => 'nullable|string|in:Mâle,Femelle',
+                'address'      => 'nullable|string',
+                'phone'        => 'nullable|string|unique:users,phone,' . $user->id,
+                'zip'          => 'nullable|string',
+                'city_id'      => 'nullable|exists:cities,id',
+                'shipping_id'  => 'nullable|exists:shippings,id',
+                'type'       => 'required|integer|in:0,1',
+            ],
+            [],
+            [
+                'first_name'  => 'prénom',
+                'last_name'   => 'nom',
+                'gender'      => 'genre',
+                'address'     => 'adresse',
+                'phone'       => 'téléphone',
+                'zip'         => 'code postal',
+                'city_id'     => 'ville',
+                'shipping_id' => 'livraison',
+                'type'       => 'type de compte',
+            ]
+        )->validate();
+
+        $user->update($request->only([
+            'first_name',
+            'last_name',
+            'gender',
+            'address',
+            'phone',
+            'zip',
+            'city_id',
+            'shipping_id',
+            'type'
+        ]));
 
 
-        $validator = Validator::make($request->all(), [
-            'first_name'   => 'nullable|string|max:255',
-            'last_name'    => 'nullable|string|max:255',
-            'gender'       => 'nullable|string|in:Mâle,Femelle',
-            'address'      => 'nullable|string',
-            'phone'        => 'nullable|string',
-            'zip'          => 'nullable|string',
-            'city_id'      => 'nullable|exists:cities,id',
-            'shipping_id'  => 'nullable|exists:shippings,id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors'  => $validator->errors(),
-            ], 422);
+        if (!count($user->addresses)) {
+            Address::create([
+                'user_id' => $user->id,
+                'address_name' => $user->address,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'phone' => $user->phone,
+                'city_id' => $user->city_id,
+                'email' => $user->email
+            ]);
         }
 
-        $data = $validator->validated();
-
-        $user->update($data);
-
-        return response()->json($user);
+        return response()->json([
+            'message' => 'Profil mis à jour avec succès',
+            'user'    => $user->fresh(),
+        ]);
     }
-
     public function updatePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [

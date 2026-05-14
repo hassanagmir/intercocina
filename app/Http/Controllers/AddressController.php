@@ -36,7 +36,6 @@ class AddressController extends Controller
 
 
         $data = $validator->validated();
-        \Log::alert($data);
         $data['user_id'] = auth()->id();
 
         $address = Address::create($data);
