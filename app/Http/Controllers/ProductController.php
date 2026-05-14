@@ -157,8 +157,7 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-
+    
 
     public function exportProducts()
     {

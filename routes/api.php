@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+
 use App\Http\Controllers\BrandAPIController;
 use App\Http\Controllers\CategoryAPIController;
 use App\Http\Controllers\ContactAPIController;
@@ -25,15 +26,18 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductSyncController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
-
-
-
 use App\Http\Controllers\Auth\GoogleAuthController;
 
-Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
-    ->name('google.login');
 
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+Route::prefix('auth')->group(function () {
+
+    Route::get('/google/redirect', [GoogleAuthController::class, 'redirect']);
+
+    Route::post('/google/callback', [GoogleAuthController::class, 'callback']);
+
+    Route::middleware('auth:sanctum')->post('/logout', [GoogleAuthController::class, 'logout']);
+
+});
 
 
 
@@ -99,6 +103,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('discounts', [DiscountController::class, 'discounts']);
     Route::prefix('users')->group(function () {
         Route::put('update', [UserController::class, 'update']);
+        Route::put('onboarding', [UserController::class, 'onboarding']);
         Route::put('update-password', [UserController::class, 'updatePassword']);
     });
 });

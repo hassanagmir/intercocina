@@ -35,7 +35,7 @@ class User extends Authenticatable implements HasName, FilamentUser
         "gender",
         'address',
         'code',
-        'phone', 
+        'phone',
         'image',
         'status',
         'zip',
@@ -43,6 +43,11 @@ class User extends Authenticatable implements HasName, FilamentUser
         'city_id',
         'shipping_id',
         'password',
+        'provider',
+        'provider_id',
+        'last_login',
+        'type',
+        'company_name'
     ];
 
 

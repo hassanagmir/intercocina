@@ -51,7 +51,40 @@ class UserController extends Controller
         $user->update($data);
 
         return response()->json($user);
-}
+    }
+
+
+    public function onboarding(Request $request)
+    {
+
+        $user = auth()->user();
+
+
+
+        $validator = Validator::make($request->all(), [
+            'first_name'   => 'nullable|string|max:255',
+            'last_name'    => 'nullable|string|max:255',
+            'gender'       => 'nullable|string|in:Mâle,Femelle',
+            'address'      => 'nullable|string',
+            'phone'        => 'nullable|string',
+            'zip'          => 'nullable|string',
+            'city_id'      => 'nullable|exists:cities,id',
+            'shipping_id'  => 'nullable|exists:shippings,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        $user->update($data);
+
+        return response()->json($user);
+    }
 
     public function updatePassword(Request $request)
     {

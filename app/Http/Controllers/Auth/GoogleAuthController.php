@@ -3,66 +3,192 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
+use Throwable;
 
 class GoogleAuthController extends Controller
 {
-    public function redirect()
+    /**
+     * Redirect the user to the Google OAuth consent screen.
+     * Used only in server-side (stateful) flows.
+     */
+    public function redirect(): JsonResponse
     {
-        return Socialite::driver('google')->redirect();
+        $url = Socialite::driver('google')
+            ->stateless()
+            ->redirect()
+            ->getTargetUrl();
+
+        return response()->json([
+            'url' => $url
+        ]);
     }
 
-    public function callback()
+    /**
+     * Handle the Google OAuth callback.
+     *
+     * Expects a POST body:
+     * {
+     *   "access_token": "<google_token>"
+     * }
+     */
+    public function callback(Request $request): JsonResponse
     {
+        $request->validate([
+            'access_token' => ['required', 'string'],
+        ]);
+
         try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
+
+            $googleUser = Socialite::driver('google')
+                ->stateless()
+                ->userFromToken($request->input('access_token'));
 
             if (empty($googleUser->email)) {
-                return redirect()->route('login')
-                    ->withErrors('No email returned from Google account.');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No email address was returned from Google.',
+                ], 422);
             }
 
-            $user = User::where('google_id', $googleUser->id)
-                ->orWhere('email', $googleUser->email)
-                ->first();
+            $result = DB::transaction(function () use ($googleUser): array {
 
-            if (!$user) {
-                $user = User::create([
-                    'name'      => $googleUser->name,
-                    'email'     => $googleUser->email,
-                    'google_id' => $googleUser->id,
-                    'provider'  => 'google',
-                    'avatar'    => $googleUser->avatar,
-                    'password'  => bcrypt(Str::random(24)),
-                    'status'    => 'Active',
-                    'join_date' => now(),
-                ]);
-            } else {
-                if (!$user->google_id) {
-                    $user->update([
-                        'google_id' => $googleUser->id,
-                        'provider'  => 'google',
-                    ]);
+                $isNewUser = false;
+
+                // Search by provider_id
+                $user = User::where('provider_id', $googleUser->id)->first();
+
+                if (!$user) {
+
+                    // Search by email
+                    $emailUser = User::where('email', $googleUser->email)->first();
+
+                    if ($emailUser) {
+
+                        // Attach Google account if not already linked
+                        if (empty($emailUser->provider_id)) {
+                            $emailUser->update([
+                                'provider_id' => $googleUser->id,
+                                'provider'    => 'google',
+                                'image'       => $googleUser->avatar,
+                            ]);
+                        }
+
+                        $user = $emailUser;
+
+                    } else {
+
+                        // Create new user
+                        $user = $this->createUserFromGoogle($googleUser);
+
+                        $isNewUser = true;
+                    }
                 }
-            }
 
-            $user->update([
-                'last_login' => now(),
+                // Update last login
+                $user->update([
+                    'last_login' => now(),
+                ]);
+
+                // Create Sanctum token
+                $token = $user->createToken(
+                    'google-oauth',
+                    ['*']
+                )->plainTextToken;
+
+                return [
+                    'user'        => $user,
+                    'token'       => $token,
+                    'is_new_user' => $isNewUser,
+                ];
+            });
+
+            return response()->json([
+                'success'      => true,
+                'message'      => $result['is_new_user']
+                    ? 'Registration successful.'
+                    : 'Login successful.',
+                'is_new_user'  => $result['is_new_user'],
+                'token'        => $result['token'],
+                'user'         => new UserResource($result['user']),
             ]);
 
-            Auth::login($user);
+        } catch (InvalidStateException $e) {
 
-            return redirect()->route('home');
-        } catch (\Exception $e) {
-            \Log::error('Google OAuth Error', [
+            Log::warning('Google OAuth invalid state', [
                 'message' => $e->getMessage(),
+                'ip'      => $request->ip(),
             ]);
 
-            return redirect()->route('login')
-                ->withErrors('Authentication failed. Please try again.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid OAuth state. Please try again.',
+            ], 422);
+
+        } catch (Throwable $e) {
+
+            Log::error('Google OAuth error', [
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile(),
+                'line'    => $e->getLine(),
+                'ip'      => $request->ip(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Authentication failed. Please try again.',
+            ], 500);
         }
+    }
+
+    /**
+     * Logout current user.
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logged out successfully.',
+        ]);
+    }
+
+    /**
+     * Create a new user from Google profile.
+     */
+    private function createUserFromGoogle(mixed $googleUser): User
+    {
+        $nameParts = explode(' ', trim((string) $googleUser->name), 2);
+
+        $firstName = $nameParts[0] ?? '';
+        $lastName  = $nameParts[1] ?? '';
+
+        // Temporary username
+        $user = User::create([
+            'first_name'  => $firstName,
+            'last_name'   => $lastName,
+            'name'        => 'client_' . Str::uuid(),
+            'email'       => $googleUser->email,
+            'provider_id' => $googleUser->id,
+            'provider'    => 'google',
+            'image'       => $googleUser->avatar,
+            'password'    => bcrypt(Str::random(32)),
+        ]);
+
+        // Final username using real DB ID
+        $user->update([
+            'name' => 'client' . $user->id
+        ]);
+
+        return $user->fresh();
     }
 }
