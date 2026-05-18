@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use App\Enums\ProductStatusEnum;
+use App\Filament\Resources\Products\Actions\ImportStockAction;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -17,8 +18,7 @@ use Filament\Tables\Table;
 
 class ProductsTable
 {
-
-  public static function configure(Table $table): Table
+    public static function configure(Table $table): Table
     {
         return $table
             ->columns([
@@ -31,7 +31,7 @@ class ProductsTable
                     ->numeric()
                     ->searchable()
                     ->sortable(),
-                
+
                 TextColumn::make('piece_count')->counts('piece')
                     ->label(__("Pièces"))
                     ->numeric(),
@@ -39,6 +39,7 @@ class ProductsTable
                 TextColumn::make('dimensions_count')->counts('dimensions')
                     ->label(__("Dimensions"))
                     ->numeric(),
+
                 SelectColumn::make('status')
                     ->options(ProductStatusEnum::toArray())
                     ->placeholder("__")
@@ -62,7 +63,7 @@ class ProductsTable
                     ->searchable()
                     ->multiple()
                     ->preload()
-                    ->relationship('type', 'name')
+                    ->relationship('type', 'name'),
             ])
             ->recordActions([
                 EditAction::make(),
@@ -70,14 +71,13 @@ class ProductsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                    
-                
                 ]),
 
+                ImportStockAction::make(),   // ← import
+
                 Action::make('Exporter')
-                        ->icon(Heroicon::OutlinedArrowDownTray)
-                        ->url('/products/export')
+                    ->icon(Heroicon::OutlinedArrowDownTray)
+                    ->url('/products/export'),
             ]);
     }
-
 }
