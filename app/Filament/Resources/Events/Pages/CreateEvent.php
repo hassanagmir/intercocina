@@ -4,8 +4,17 @@ namespace App\Filament\Resources\Events\Pages;
 
 use App\Filament\Resources\Events\EventResource;
 use Filament\Resources\Pages\CreateRecord;
+use Override;
 
 class CreateEvent extends CreateRecord
 {
     protected static string $resource = EventResource::class;
+
+
+    #[Override]
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+        return $data;
+    }
 }
