@@ -14,11 +14,11 @@ public function index(Request $request)
     $perPage = $request->input('per_page');
 
     if ($perPage) {
-        $colors = ViewColor::paginate($perPage);
+        $colors = ViewColor::latest()->paginate($perPage);
         return ViewColorResource::collection($colors);
     }
 
-    $colors = ViewColor::all();
+    $colors = ViewColor::latest();
     return ViewColorResource::collection($colors);
 }
 }
