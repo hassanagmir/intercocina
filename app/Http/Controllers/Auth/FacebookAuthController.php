@@ -159,14 +159,12 @@ class FacebookAuthController extends Controller
         $user = User::create([
             'first_name'  => $firstName,
             'last_name'   => $lastName,
-            'name'        => 'client_' . Str::uuid(), // temporary — replaced below
+            'name'        => 'client_' . Str::uuid(),
             'email'       => $email,
             'provider_id' => $facebookUser->id,
             'provider'    => 'facebook',
             'password'    => bcrypt(Str::random(32)),
-            'role_name'   => 'User',
-            'status'      => 'Active',
-            'join_date'   => now(),
+            'image'       => $facebookUser?->avatar,
         ]);
 
         // Use the real DB ID for a deterministic, collision-free username
