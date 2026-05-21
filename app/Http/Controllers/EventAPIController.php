@@ -9,12 +9,22 @@ class EventAPIController extends Controller
 {
     public function index()
     {
-        $events = Event::select('id', 'city', 'title', 'description', 'slug')
+        $events = Event::select('id', 'city', 'title', 'description', 'slug', 'image')
             ->with('media')
             ->paginate(10);
 
         $events->getCollection()->transform(function ($event) {
-            $event->image = $event->getFirstMediaUrl('default'); 
+            $mediaUrl = $event->getFirstMediaUrl('default');
+
+            if ($mediaUrl) {
+                // Has Spatie media → use it
+                $event->image = $mediaUrl;
+            } elseif ($event->image) {
+                // Fallback to DB column, but strip markdown if present
+                preg_match('/\]\((https?:\/\/[^)]+)\)/', $event->image, $matches);
+                $event->image = $matches[1] ?? $event->image;
+            }
+
             return $event;
         });
 
