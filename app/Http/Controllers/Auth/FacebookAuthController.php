@@ -163,7 +163,6 @@ class FacebookAuthController extends Controller
             'email'       => $email,
             'provider_id' => $facebookUser->id,
             'provider'    => 'facebook',
-            'image'       => $facebookUser->avatar,
             'password'    => bcrypt(Str::random(32)),
             'role_name'   => 'User',
             'status'      => 'Active',
