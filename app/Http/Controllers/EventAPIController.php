@@ -8,25 +8,31 @@ use Illuminate\Http\Request;
 class EventAPIController extends Controller
 {
 public function index()
-    {
-        $events = Event::select('id', 'city', 'title', 'description', 'slug')
-            ->with('media')
-            ->paginate(10);
+{
+    $events = Event::select('id', 'city', 'title', 'description', 'slug')
+        ->with('media')
+        ->paginate(10);
 
-        $events->getCollection()->transform(function ($event) {
-            $url = $event->getFirstMediaUrl('default') ?: null;
+    $events->getCollection()->transform(function ($event) {
+        $url = $event->getFirstMediaUrl('default') ?: null;
 
-            // Strip markdown link format if present: [text](url)
-            if ($url && preg_match('/\]\((https?:\/\/[^)]+)\)/', $url, $matches)) {
-                $url = $matches[1];
-            }
+        // Strip markdown link format if present: [text](url)
+        if ($url && preg_match('/\]\((https?:\/\/[^)]+)\)/', $url, $matches)) {
+            $url = $matches[1];
+        }
 
-            $event->image = $url;
-            return $event;
-        });
+        // Also handle case where it's just /storage/... path without full domain
+        if ($url && str_starts_with($url, '/storage/')) {
+            $url = config('app.url') . $url;
+        }
 
-        return response()->json($events);
-    }
+        $event->image = $url;
+        unset($event->media);
+        return $event;
+    });
+
+    return response()->json($events);
+}
 
     public function show(Event $event)
     {
