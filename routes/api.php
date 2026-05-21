@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
-
+use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\BrandAPIController;
 use App\Http\Controllers\CategoryAPIController;
 use App\Http\Controllers\ContactAPIController;
@@ -29,17 +29,26 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 
 
-Route::prefix('auth')->group(function () {
+/*
+|--------------------------------------------------------------------------
+| Auth - OAuth Routes (Public)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('auth')->name('auth.')->group(function () {
 
-    Route::get('/google/redirect', [GoogleAuthController::class, 'redirect']);
+    // Facebook OAuth
+    Route::prefix('facebook')->name('facebook.')->group(function () {
+        Route::get('/',          [FacebookAuthController::class, 'redirect'])->name('redirect');
+        Route::post('/callback', [FacebookAuthController::class, 'callback'])->name('callback');
+    });
 
-    Route::post('/google/callback', [GoogleAuthController::class, 'callback']);
-
-    Route::middleware('auth:sanctum')->post('/logout', [GoogleAuthController::class, 'logout']);
+    // Google OAuth
+    Route::prefix('google')->name('google.')->group(function () {
+        Route::get('/',          [GoogleAuthController::class, 'redirect'])->name('redirect');
+        Route::post('/callback', [GoogleAuthController::class, 'callback'])->name('callback');
+    });
 
 });
-
-
 
 
 Route::post('orders/confirm', [OrderController::class, 'confirm']);
