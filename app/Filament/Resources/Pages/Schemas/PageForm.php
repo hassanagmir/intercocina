@@ -37,13 +37,6 @@ class PageForm
                                     ->image()
                                     ->image(),
 
-                                 TextInput::make('slug')
-                                    ->label('URL')
-                                    ->readOnly()
-                                    ->copyable()
-                                    ->afterStateHydrated(function ($component, $state) {
-                                        $component->state('https://intercocina.com/pages/' . $state);
-                                    }),
                                 Forms\Components\TagsInput::make('tags')
                                     ->label(__("Mots clés"))
                                     ->placeholder(__("Mot-clé"))
