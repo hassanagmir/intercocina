@@ -7,24 +7,21 @@ use Illuminate\Http\Request;
 
 class EventAPIController extends Controller
 {
-    public function index()
+public function index()
     {
-        $events = Event::select('id', 'city', 'title', 'description', 'slug', 'image')
+        $events = Event::select('id', 'city', 'title', 'description', 'slug')
             ->with('media')
             ->paginate(10);
 
         $events->getCollection()->transform(function ($event) {
-            $mediaUrl = $event->getFirstMediaUrl('default');
+            $url = $event->getFirstMediaUrl('default') ?: null;
 
-            if ($mediaUrl) {
-                // Has Spatie media → use it
-                $event->image = $mediaUrl;
-            } elseif ($event->image) {
-                // Fallback to DB column, but strip markdown if present
-                preg_match('/\]\((https?:\/\/[^)]+)\)/', $event->image, $matches);
-                $event->image = $matches[1] ?? $event->image;
+            // Strip markdown link format if present: [text](url)
+            if ($url && preg_match('/\]\((https?:\/\/[^)]+)\)/', $url, $matches)) {
+                $url = $matches[1];
             }
 
+            $event->image = $url;
             return $event;
         });
 
