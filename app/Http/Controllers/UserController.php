@@ -30,6 +30,20 @@ class UserController extends Controller
             'name'         => 'nullable|string',
             'city_id'      => 'nullable|exists:cities,id',
             'shipping_id'  => 'nullable|exists:shippings,id',
+        ], [], [
+            'first_name'   => 'prénom',
+            'last_name'    => 'nom de famille',
+            'email'        => 'adresse e-mail',
+            'gender'       => 'genre',
+            'address'      => 'adresse',
+            'code'         => 'code',
+            'phone'        => 'téléphone',
+            'image'        => 'image',
+            'status'       => 'statut',
+            'zip'          => 'code postal',
+            'name'         => 'nom',
+            'city_id'      => 'ville',
+            'shipping_id'  => 'livraison',
         ]);
 
         if ($validator->fails()) {
