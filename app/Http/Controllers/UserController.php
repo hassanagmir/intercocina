@@ -14,24 +14,16 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-
         $user = auth()->user();
-
-
-        $emailRule = ['required', 'email', 'max:255'];
-
-        if (!$user->id) {
-            $emailRule[] = Rule::unique('users')->ignore($user->id);
-        }
 
         $validator = Validator::make($request->all(), [
             'first_name'   => 'nullable|string|max:255',
             'last_name'    => 'nullable|string|max:255',
-            'email'        => $emailRule,
+            'email'        => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'gender'       => 'nullable|string|in:Mâle,Femelle',
             'address'      => 'nullable|string',
             'code'         => 'nullable|string',
-            'phone'        => 'nullable|string',
+            'phone'        => ['nullable', 'string', Rule::unique('users')->ignore($user->id)],
             'image'        => 'nullable|string',
             'status'       => 'nullable',
             'zip'          => 'nullable|string',
