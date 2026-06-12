@@ -29,100 +29,99 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Auth - OAuth Routes (Public)
-|--------------------------------------------------------------------------
-*/
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::middleware('api.key')->group(function () {
 
-    // Facebook OAuth
-    Route::prefix('facebook')->name('facebook.')->group(function () {
-        Route::get('/',          [FacebookAuthController::class, 'redirect'])->name('redirect');
-        Route::post('/callback', [FacebookAuthController::class, 'callback'])->name('callback');
+    /*
+    |--------------------------------------------------------------------------
+    | Auth - OAuth Routes (Public)
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('auth')->name('auth.')->group(function () {
+
+        // Facebook OAuth
+        Route::prefix('facebook')->name('facebook.')->group(function () {
+            Route::get('/',          [FacebookAuthController::class, 'redirect'])->name('redirect');
+            Route::post('/callback', [FacebookAuthController::class, 'callback'])->name('callback');
+        });
+
+        // Google OAuth
+        Route::prefix('google')->name('google.')->group(function () {
+            Route::get('/',          [GoogleAuthController::class, 'redirect'])->name('redirect');
+            Route::post('/callback', [GoogleAuthController::class, 'callback'])->name('callback');
+        });
+
     });
 
-    // Google OAuth
-    Route::prefix('google')->name('google.')->group(function () {
-        Route::get('/',          [GoogleAuthController::class, 'redirect'])->name('redirect');
-        Route::post('/callback', [GoogleAuthController::class, 'callback'])->name('callback');
+
+    Route::post('orders/confirm', [OrderController::class, 'confirm']);
+    Route::apiResource('products', ProductController::class);
+
+    Route::get("products/{product:slug}/related", [ProductController::class, 'relatedProducts'])->name('product.related');
+    Route::get('products/{product:slug}', [ProductController::class, 'show_product']);
+
+
+
+    Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
+
+
+    Route::get('sync/products', [ProductSyncController::class, 'syncAll']);
+    Route::get('sync/product/{code}', [ProductSyncController::class, 'syncByCode']);
+
+
+    Route::apiResource('categories', CategoryAPIController::class);
+
+    Route::get('search', [ProductAPIController::class, 'search']);
+
+    Route::get('collections/{collection:slug}', [CollectionController::class, 'show']);
+
+    Route::controller(CollectionController::class)->prefix('collections')->group(function () {
+        Route::get('', 'index');
+        Route::get('{collection:slug}', 'show');
     });
 
-});
 
 
-Route::post('orders/confirm', [OrderController::class, 'confirm']);
-Route::apiResource('products', ProductController::class);
+    Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
+    Route::get('products/reviews/{product:slug}', [ProductAPIController::class, 'reviews']);
 
-Route::get("products/{product:slug}/related", [ProductController::class, 'relatedProducts'])->name('product.related');
-Route::get('products/{product:slug}', [ProductController::class, 'show_product']);
+    Route::get('posts/home', [PostAPIController::class, 'list']);
+    Route::apiResource('reviews', ReviewAPIController::class);
+    Route::apiResource('types', TypeAPIController::class);
+    Route::apiResource('posts', PostAPIController::class);
+    Route::apiResource('covers', CoverAPIController::class);
+    Route::apiResource('contacts', ContactAPIController::class);
+    Route::apiResource('brands', BrandAPIController::class);
+    Route::apiResource('events', EventAPIController::class);
+    Route::apiResource('groups', GroupController::class);
+    Route::apiResource('cities', CityController::class);
+    Route::apiResource('subscribers', SubscriberController::class);
+    Route::apiResource('faqs', FaqController::class);
 
 
+    Route::get('/view-colors', [ViewColorController::class, 'index']);
 
-Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
-
-
-Route::get('sync/products', [ProductSyncController::class, 'syncAll']);
-Route::get('sync/product/{code}', [ProductSyncController::class, 'syncByCode']);
-
-
-Route::apiResource('categories', CategoryAPIController::class);
-
-Route::get('search', [ProductAPIController::class, 'search']);
-
-Route::get('collections/{collection:slug}', [CollectionController::class, 'show']);
-
-Route::controller(CollectionController::class)->prefix('collections')->group(function () {
-    Route::get('', 'index');
-    Route::get('{collection:slug}', 'show');
-});
+    Route::get('/pages/{page:slug}', [PageController::class, 'show']);
 
 
 
-Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
-Route::get('products/reviews/{product:slug}', [ProductAPIController::class, 'reviews']);
-
-Route::get('posts/home', [PostAPIController::class, 'list']);
-Route::apiResource('reviews', ReviewAPIController::class);
-Route::apiResource('types', TypeAPIController::class);
-Route::apiResource('posts', PostAPIController::class);
-Route::apiResource('covers', CoverAPIController::class);
-Route::apiResource('contacts', ContactAPIController::class);
-Route::apiResource('brands', BrandAPIController::class);
-Route::apiResource('events', EventAPIController::class);
-Route::apiResource('groups', GroupController::class);
-Route::apiResource('cities', CityController::class);
-Route::apiResource('subscribers', SubscriberController::class);
-Route::apiResource('faqs', FaqController::class);
-
-
-Route::get('/view-colors', [ViewColorController::class, 'index']);
-
-
-Route::get('/view-colors', [ViewColorController::class, 'index']);
-
-Route::get('/pages/{page:slug}', [PageController::class, 'show']);
-
-
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('address', AddressController::class);
-    Route::apiResource('orders', OrderController::class);
-    Route::get('orders-list', [OrderController::class, 'list']);
-    Route::get('discounts', [DiscountController::class, 'discounts']);
-    Route::prefix('users')->group(function () {
-        Route::put('update', [UserController::class, 'update']);
-        Route::put('onboarding', [UserController::class, 'onboarding']);
-        Route::put('update-password', [UserController::class, 'updatePassword']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('address', AddressController::class);
+        Route::apiResource('orders', OrderController::class);
+        Route::get('orders-list', [OrderController::class, 'list']);
+        Route::get('discounts', [DiscountController::class, 'discounts']);
+        Route::prefix('users')->group(function () {
+            Route::put('update', [UserController::class, 'update']);
+            Route::put('onboarding', [UserController::class, 'onboarding']);
+            Route::put('update-password', [UserController::class, 'updatePassword']);
+        });
     });
+
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 });
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
-
