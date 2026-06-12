@@ -49,7 +49,6 @@ Route::middleware('api.key')->group(function () {
             Route::get('/',          [GoogleAuthController::class, 'redirect'])->name('redirect');
             Route::post('/callback', [GoogleAuthController::class, 'callback'])->name('callback');
         });
-
     });
 
 
