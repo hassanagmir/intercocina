@@ -104,12 +104,9 @@ class ProductForm
                                     ->preload(true)
                                     ->searchable()
                                     ->label(__("Famille"))
-                                    // ->options(Category::all()->pluck('name', 'id')->toArray())
                                     ->required()
                                     ->reactive(),
-                                // ->afterStateUpdated(function (Set $set) {
-                                //     $set('type_id', null);
-                                // }),
+        
 
                                 Select::make('type_id')
                                     ->native(false)
@@ -126,8 +123,6 @@ class ProductForm
                                     ->required()
                                     ->reactive()
                                     ->afterStateHydrated(function (Get $get, Set $set) {
-                                        // This runs in edit mode when the form is loaded
-                                        // self::$dimansions = Dimension::where('product_id', $query->id)->count();
                                         $typeId = $get('type_id');
                                         if ($typeId) {
                                             $categoryId = Type::find($typeId)?->category_id;
@@ -160,6 +155,9 @@ class ProductForm
                                             'L' => 'L',
                                         ],
                                     ]),
+
+                                    Toggle::make('is_new')
+                                        ->label(__("Nouveau")),
 
                                 Textarea::make('description')
                                     ->rows(5)
