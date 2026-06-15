@@ -73,7 +73,7 @@ class ProductAPIController extends Controller
 
 
         $colors = $product->colors()
-            ->select('colors.id', 'colors.name', 'colors.image')  // Prefix columns with table name
+            ->select('colors.id', 'colors.name', 'colors.image', 'colors.code') 
             ->get()
             ->map(function ($color) {
                 return [
