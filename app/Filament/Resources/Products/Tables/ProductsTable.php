@@ -13,6 +13,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
@@ -44,6 +45,9 @@ class ProductsTable
                     ->options(ProductStatusEnum::toArray())
                     ->placeholder("__")
                     ->label("Etat"),
+                    
+                ToggleColumn::make('is_new')
+                    ->label(__("Nouveau")),
 
                 TextColumn::make('created_at')
                     ->label(__("Date de création"))

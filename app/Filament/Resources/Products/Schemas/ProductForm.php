@@ -157,6 +157,7 @@ class ProductForm
                                     ]),
 
                                     Toggle::make('is_new')
+                                        ->inline(false)
                                         ->label(__("Nouveau")),
 
                                 Textarea::make('description')
