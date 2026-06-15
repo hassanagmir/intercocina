@@ -21,7 +21,7 @@ class ProductController extends Controller
         $filters = $filters ? explode(',', $filters) : [];
 
         $query = Product::query()
-            ->select(['id', 'name', 'slug', 'code', 'price', 'type_id'])
+            ->select(['id', 'name', 'slug', 'code', 'price', 'type_id','is_new'])
             ->with([
                 'images:id,product_id,image',
                 'type:id,name,slug,status',
