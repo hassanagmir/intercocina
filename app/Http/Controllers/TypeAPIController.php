@@ -26,7 +26,7 @@ class TypeAPIController extends Controller
         $type = Type::where('slug', $slug)
             ->with([
                 'products' => function ($query) {
-                    $query->select('id', 'type_id', 'name', 'slug', 'status', 'order', 'price')
+                    $query->select('id', 'type_id', 'name', 'slug', 'status', 'order', 'price', 'is_new')
                     ->whereIn("status", [1, 5])
                     ->orderBy('order');
                 },
