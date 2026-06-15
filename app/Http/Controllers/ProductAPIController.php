@@ -79,6 +79,7 @@ class ProductAPIController extends Controller
                 return [
                     'id' => $color->id,
                     'name' => $color->name,
+                    'code' => $color->code,
                     'image' => $color->image
                 ];
             });

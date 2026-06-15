@@ -79,6 +79,8 @@ Route::middleware('api.key')->group(function () {
     });
 
 
+    
+
 
     Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
     Route::get('products/reviews/{product:slug}', [ProductAPIController::class, 'reviews']);
