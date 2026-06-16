@@ -26,6 +26,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductSyncController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 
 
@@ -99,6 +100,7 @@ Route::middleware('api.key')->group(function () {
     Route::apiResource('faqs', FaqController::class);
 
 
+
     Route::get('/view-colors', [ViewColorController::class, 'index']);
 
     Route::get('/pages/{page:slug}', [PageController::class, 'show']);
@@ -121,11 +123,12 @@ Route::middleware('api.key')->group(function () {
     });
 
 
+    Route::post('/reclamations', [ReclamationController::class, 'store']);
+
+
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
-
 
     Route::prefix('orders')->controller(OrderController::class)->group(function () {
         Route::get('/', 'api_list');
