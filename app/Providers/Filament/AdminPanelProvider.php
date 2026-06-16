@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->navigationGroups([
                 'Porduits',
@@ -62,6 +63,7 @@ class AdminPanelProvider extends PanelProvider
                  \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
                  ->navigationGroup('Autorisation')
             ])
+             ->viteTheme('resources/css/filament/admin/theme.css')
             ->authMiddleware([
                 Authenticate::class,
             ]);

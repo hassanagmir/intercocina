@@ -52,7 +52,7 @@ Route::middleware('api.key')->group(function () {
     });
 
 
-    Route::post('orders/confirm', [OrderController::class, 'confirm']);
+    
     Route::apiResource('products', ProductController::class);
 
     Route::get("products/{product:slug}/related", [ProductController::class, 'relatedProducts'])->name('product.related');
@@ -104,7 +104,6 @@ Route::middleware('api.key')->group(function () {
     Route::get('/pages/{page:slug}', [PageController::class, 'show']);
 
 
-
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('address', AddressController::class);
         Route::apiResource('orders', OrderController::class);
@@ -115,14 +114,22 @@ Route::middleware('api.key')->group(function () {
             Route::put('onboarding', [UserController::class, 'onboarding']);
             Route::put('update-password', [UserController::class, 'updatePassword']);
         });
+
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
     });
 
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
-    });
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+
+
+    Route::prefix('orders')->controller(OrderController::class)->group(function () {
+        Route::get('/', 'api_list');
+        Route::post('/confirm', 'confirm');
+    });
 
 });

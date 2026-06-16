@@ -139,19 +139,23 @@ class OrderController extends Controller
 
     public function api_list(Request $request)
     {
-        $apiKey = $request->header('INTER-API-KEY');
-        if ($apiKey !== env('API_KEY')) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        return \App\Http\Resources\OrderResource::collection(Order::where('status', 2)->get());
+        return \App\Http\Resources\OrderResource::collection(Order::where('status', isset($request->status) ? isset($request->status) : 1)->get());
     }
 
 
     public function confirm(Request $request)
     {
-        $apiKey = $request->header('INTER-API-KEY');
-        if ($apiKey !== env('API_KEY')) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:1,2,3,4,5|numeric',
+            'code' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors()
+            ], 402);
         }
 
         $order = Order::where('code', $request->code)->first();
