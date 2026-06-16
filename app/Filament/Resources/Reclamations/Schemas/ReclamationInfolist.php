@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Reclamations\Schemas;
 
 use Filament\Infolists;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Schemas\Schema;
 
 class ReclamationInfolist
@@ -23,6 +24,8 @@ class ReclamationInfolist
                 Infolists\Components\TextEntry::make('message')
                     ->columnSpanFull()
                     ->label(__("Message")),
+                    
+                SpatieMediaLibraryImageEntry::make('attachments'),
             ]);
     }
 }
