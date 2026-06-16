@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Reclamations\Schemas;
 
 use App\Enums\ClaimStatusEnum;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
@@ -35,7 +36,10 @@ class ReclamationForm
                     ->maxLength(255),
                 Textarea::make('message')
                     ->required()
-                    ->columnSpanFull()
+                    ->columnSpanFull(),
+
+                SpatieMediaLibraryFileUpload::make('attachments')
+                 ->multiple()
             ]);
     }
 }

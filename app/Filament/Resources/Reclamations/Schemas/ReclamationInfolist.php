@@ -24,7 +24,6 @@ class ReclamationInfolist
                 Infolists\Components\TextEntry::make('message')
                     ->columnSpanFull()
                     ->label(__("Message")),
-                    
                 SpatieMediaLibraryImageEntry::make('attachments'),
             ]);
     }
