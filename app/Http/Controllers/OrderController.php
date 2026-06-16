@@ -139,7 +139,22 @@ class OrderController extends Controller
 
     public function api_list(Request $request)
     {
-        return \App\Http\Resources\OrderResource::collection(Order::where('status', isset($request->status) ? isset($request->status) : 1)->get());
+        $status = $request->input('status', 1);
+
+        return \App\Http\Resources\OrderResource::collection(
+            Order::where('status', $status)->get()
+        );
+    }
+
+
+
+    public function count(Request $request)
+    {
+        $status = $request->input('status', 1);
+
+        return [
+            'count' => Order::where('status', $status)->count()
+        ];
     }
 
 

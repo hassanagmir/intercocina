@@ -15,7 +15,7 @@ class ReclamationForm
         return $schema
             ->components([
 
-            Forms\Components\TextInput::make('client_number')
+                Forms\Components\TextInput::make('client_number')
                     ->required()
                     ->maxLength(255),
 
@@ -26,7 +26,7 @@ class ReclamationForm
                     ->required()
                     ->maxLength(255),
 
-                 Forms\Components\Select::make('status')
+                Forms\Components\Select::make('status')
                     ->options(ClaimStatusEnum::class)
                     ->default(1)
                     ->required(),
@@ -39,7 +39,8 @@ class ReclamationForm
                     ->columnSpanFull(),
 
                 SpatieMediaLibraryFileUpload::make('attachments')
-                 ->multiple()
+                    ->downloadable()
+                    ->multiple()
             ]);
     }
 }
