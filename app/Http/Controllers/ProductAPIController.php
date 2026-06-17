@@ -67,13 +67,13 @@ class ProductAPIController extends Controller
         $dimensions = $product->dimensions()
             ->select('id', 'product_id', 'width', 'height', 'price', 'code', 'color_id', 'attribute_id')
             ->with([
-                'color:id,name',
+                'color:id,name,code',
             ])
             ->get();
 
 
         $colors = $product->colors()
-            ->select('colors.id', 'colors.name', 'colors.image') 
+            ->select('colors.id', 'colors.name', 'colors.image', 'colors.code') 
             ->get()
             ->map(function ($color) {
                 return [
