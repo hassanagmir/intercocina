@@ -106,11 +106,7 @@ Route::middleware('api.key')->group(function () {
     Route::get('/pages/{page:slug}', [PageController::class, 'show']);
 
 
-    Route::prefix('orders')->controller(OrderController::class)->group(function () {
-        Route::get('/json', 'api_list');
-        Route::post('/confirm', 'confirm');
-        Route::get('/count', 'count');
-    });
+
 
 
 
@@ -128,6 +124,12 @@ Route::middleware('api.key')->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
+    });
+
+    Route::prefix('orders')->controller(OrderController::class)->group(function () {
+        Route::get('/json', 'api_list');
+        Route::post('/confirm', 'confirm');
+        Route::get('/count', 'count');
     });
 
 
