@@ -167,6 +167,8 @@ class FacebookAuthController extends Controller
             'image'       => $facebookUser?->avatar,
         ]);
 
+        $user->assignRole('client');
+
         // Use the real DB ID for a deterministic, collision-free username
         $user->update(['name' => 'client' . $user->id]);
 

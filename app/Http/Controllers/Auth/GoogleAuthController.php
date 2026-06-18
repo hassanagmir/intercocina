@@ -189,6 +189,8 @@ class GoogleAuthController extends Controller
             'name' => 'client' . $user->id
         ]);
 
+        $user->assignRole('client');
+
         return $user->fresh();
     }
 }

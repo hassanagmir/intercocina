@@ -53,13 +53,20 @@ Route::middleware('api.key')->group(function () {
     });
 
 
-    
+
     Route::apiResource('products', ProductController::class);
+    Route::prefix('products')->group(function () {
 
-    Route::get("products/{product:slug}/related", [ProductController::class, 'relatedProducts'])->name('product.related');
-    Route::get('products/{product:slug}', [ProductController::class, 'show_product']);
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('{product:slug}/related', 'relatedProducts');
+            Route::get('{product:slug}', 'show_product');
+        });
 
-
+        Route::controller(ProductAPIController::class)->group(function () {
+            Route::get('dimensions/{product:slug}', 'dimensions');
+            Route::get('reviews/{product:slug}', 'reviews');
+        });
+    });
 
     Route::post('add-to-cart', [ProductController::class, 'AddToCart']);
 
@@ -83,8 +90,7 @@ Route::middleware('api.key')->group(function () {
     
 
 
-    Route::get('products/dimensions/{product:slug}', [ProductAPIController::class, 'dimensions']);
-    Route::get('products/reviews/{product:slug}', [ProductAPIController::class, 'reviews']);
+ 
 
     Route::get('posts/home', [PostAPIController::class, 'list']);
     Route::apiResource('reviews', ReviewAPIController::class);
@@ -106,7 +112,11 @@ Route::middleware('api.key')->group(function () {
     Route::get('/pages/{page:slug}', [PageController::class, 'show']);
 
 
-
+    Route::prefix('orders')->controller(OrderController::class)->group(function () {
+        Route::get('/json', 'api_list');
+        Route::post('/confirm', 'confirm');
+        Route::get('/count', 'count');
+    });
 
 
 
@@ -126,11 +136,7 @@ Route::middleware('api.key')->group(function () {
         });
     });
 
-    Route::prefix('orders')->controller(OrderController::class)->group(function () {
-        Route::get('/json', 'api_list');
-        Route::post('/confirm', 'confirm');
-        Route::get('/count', 'count');
-    });
+
 
 
     Route::post('/reclamations', [ReclamationController::class, 'store']);
