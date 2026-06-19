@@ -9,6 +9,11 @@ class DiscountController extends Controller
 {
     public function discounts()
     {
-        return Discount::with('family')->where('user_id', auth()->id())->get();
+        return response()->json(
+            auth()->user()
+                ->discounts()
+                ->with('family:id,name,code')
+                ->get()
+        );
     }
 }

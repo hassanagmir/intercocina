@@ -26,7 +26,7 @@ class PostAPIController extends Controller
                 return $query->orderBy('order')->take(1);
             },
             'products' => function ($query) {
-                return $query->select('products.id', 'name', 'price', 'description', 'slug', 'status', 'order', 'is_new');
+                return $query->select('products.id', 'name', 'price', 'description', 'slug', 'status', 'order', 'is_new', 'family_id');
             }
         ])
             ->where('slug', $slug)

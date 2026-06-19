@@ -21,7 +21,7 @@ class ProductController extends Controller
         $filters = $filters ? explode(',', $filters) : [];
 
         $query = Product::query()
-            ->select(['id', 'name', 'slug', 'code', 'price', 'type_id','is_new'])
+            ->select(['id', 'name', 'slug', 'code', 'price', 'type_id','is_new', 'family_id'])
             ->with([
                 'images:id,product_id,image',
                 'type:id,name,slug,status',
@@ -44,7 +44,7 @@ class ProductController extends Controller
     {
         $product->load([
             'images' => fn($query) => $query->orderBy('order'),
-            'related:id,slug,name,description,price',
+            'related:id,slug,name,description,price,family_id',
             'related.images' => fn($query) => $query->orderBy('order'),
             'type'
         ])->loadCount('reviews');
@@ -77,7 +77,7 @@ class ProductController extends Controller
     public function show_product(Product $product)
     {
         $product->load([
-            'related:id,slug,name,description,price',
+            'related:id,slug,name,description,price,is_new,family_id',
             'related.images' => fn($q) => $q->select('image', 'id', 'product_id')->orderBy('order'),
             'images' => fn($q) => $q->select('image', 'id', 'product_id', 'color_id')->orderBy('order'),
             'type',
@@ -94,7 +94,7 @@ class ProductController extends Controller
     {
         return $product->related()
             ->with([
-                'products:id,type_id,name,slug,status,order,price',
+                'products:id,type_id,name,slug,status,order,price,is_new,family_id',
                 'products.images:id,product_id,image,order'
             ])
             ->whereHas('products', function ($query) {

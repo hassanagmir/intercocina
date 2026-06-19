@@ -30,6 +30,7 @@ class ReclamationsTable
                     ->searchable(),
 
                 Tables\Columns\SelectColumn::make('status')
+                    ->native(false)
                     ->options(ClaimStatusEnum::class)
                     ->label(__("Etat"))
                     ->searchable(),

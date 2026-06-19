@@ -14,11 +14,11 @@
 
                                     $imagePath = $product?->images?->first()?->image;
                                     $imageUrl = $imagePath
-                                        ? asset(config('app.storage') . '/' . $imagePath)
+                                        ? asset(config('app.storage') . '/storage/' . $imagePath)
                                         : asset('assets/imgs/empty-cart.png');
 
     
-                                    $productUrl = $product ? route('product.show', $product->slug) : '#';
+                                    $productUrl = 'https://intercocina.com/product/'. $product->slug;
 
                                     $itemName = trim(
                                         ($dimension?->attribute?->name ?? '') . ' ' .

@@ -28,9 +28,14 @@ class ReviewsTable
                     ->label(__("Produit"))
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('status')
+                Tables\Columns\SelectColumn::make('status')
                     ->label(__("Status"))
-                    ->boolean(),
+                    // ->placeholder(false)
+                    ->native(false)
+                    ->options([
+                        0 => 'En attend',
+                        1 => 'Accepte'
+                    ]),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
