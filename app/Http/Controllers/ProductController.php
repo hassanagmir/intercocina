@@ -47,7 +47,7 @@ class ProductController extends Controller
             'related:id,slug,name,description,price',
             'related.images' => fn($query) => $query->orderBy('order'),
             'type'
-        ]);
+        ])->loadCount('reviews');
 
         $products = Product::where('type_id', $product->type_id)
             ->whereNot("status", ProductStatusEnum::HIDE)
@@ -83,7 +83,7 @@ class ProductController extends Controller
             'type',
             'piece:id,product_id,title,description,file',
             'color'
-        ]);
+        ])->loadCount('reviews');
 
         return $product;
     }

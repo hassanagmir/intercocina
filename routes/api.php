@@ -55,6 +55,7 @@ Route::middleware('api.key')->group(function () {
 
 
     Route::apiResource('products', ProductController::class);
+    
     Route::prefix('products')->group(function () {
 
         Route::controller(ProductController::class)->group(function () {

@@ -34,19 +34,28 @@ class ProductAPIController extends Controller
             'related.images' => fn($query) => $query->orderBy('order'),
             'type',
             'piece',
-            'color'
-        ]);
+            'color',
+        ])->loadCount('reviews');
 
         return new ProductResource($product);
     }
 
+
+
     public function reviews($slug)
     {
-        $reviews = Product::where('slug', $slug)
-            ->firstOrFail()
-            ->reviews()->where('status', 1)->paginate(10);
+        $product = Product::where('slug', $slug)->firstOrFail();
+
+        $reviews = $product->reviews()
+            ->where('status', 1)
+            ->select("full_name", 'comment', 'stars')
+            ->latest()
+            ->get();
+
         return response()->json($reviews);
     }
+
+    // [{"id":1,"full_name":"Rachid","email":"admin@admin.com","stars":5,"product_id":163,"status":1,"comment":"Intercocina, c\u2019est bien plus qu\u2019une entreprise de fabrication de meubles. C\u2019est une v\u00e9ritable r\u00e9f\u00e9rence dans l\u2019art de concevoir des espaces de vie qui allient \u00e9l\u00e9gance, fonctionnalit\u00e9 et durabilit\u00e9.","created_at":"2024-10-04T15:25:11.000000Z","updated_at":"2024-10-09T07:05:33.000000Z"}]
 
     /**
      * Update the specified product in storage.
