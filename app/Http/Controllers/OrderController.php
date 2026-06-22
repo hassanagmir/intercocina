@@ -142,7 +142,7 @@ class OrderController extends Controller
         $status = $request->input('status', 1);
 
         return \App\Http\Resources\OrderResource::collection(
-            Order::where('status', $status)->get()
+            Order::where('status', $status)->latest()->get()
         );
     }
 
