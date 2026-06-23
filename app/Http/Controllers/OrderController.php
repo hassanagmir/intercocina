@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatusEnum;
 use App\Models\Address;
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -41,6 +42,7 @@ class OrderController extends Controller
             'cart.*.attributes.product_id'     => 'required|integer',
             'cart.*.attributes.dimension_id'   => 'nullable',
             'cart.*.attributes.color'          => 'nullable',
+            'cart.*.attributes.family_id'      => 'nullable|integer',
         ])->setAttributeNames([
             'address_id'                       => 'Adresse',
             'payment'                          => 'Paiement',
@@ -55,64 +57,83 @@ class OrderController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                "status" => "error",
+                "status"  => "error",
                 "message" => $validator->errors()->first(),
-                "errors" => $validator->errors()
+                "errors"  => $validator->errors()
             ], 422);
         }
 
-  
         if (auth()->user()->status->value == 2) {
             return response()->json([
-                "status" => "error",
+                "status"  => "error",
                 "message" => __("Désolé, votre compte est actuellement inactif. Veuillez contacter le support au +212 661-547900.")
             ], 403);
         }
 
-   
         $address = Address::find($request->address_id);
-
         if (!$address || $address->user_id != auth()->id()) {
             return response()->json([
-                "status" => "error",
+                "status"  => "error",
                 "message" => __("Cette adresse n'est pas pour vous")
             ], 404);
         }
 
+        // Load this user's discounts keyed by family_id for fast lookup
+        $discounts = Discount::where('user_id', auth()->id())
+            ->get()
+            ->keyBy('family_id');
+
+        $TVA_RATE = 0.20; // 2%
 
         $order = Order::create([
-            'user_id' => auth()->id(),
+            'user_id'    => auth()->id(),
             'total_amount' => 0,
-            'status' => OrderStatusEnum::ON_HOLD,
+            'status'     => OrderStatusEnum::ON_HOLD,
             'address_id' => $request->address_id,
-            'payment' => $request->payment,
+            'payment'    => $request->payment,
             'shipping_id' => $request->shipping_id,
         ]);
 
-        $totalAmount = 0;
+        $rawTotal      = 0; // before discount
+        $totalHT       = 0; // after discount, before TVA
+        $totalDiscount = 0;
 
         foreach ($request->cart as $product) {
-
-            $quantity = intval($product['quantity']);
-            $price = floatval($product['price']);
-            $lineTotal = $price * $quantity;
-            $totalAmount += $lineTotal;
-
+            $quantity  = intval($product['quantity']);
+            $price     = floatval($product['price']);
+            $familyId  = $product['attributes']['family_id'] ?? null;
             $attributes = $product['attributes'];
 
+            // Find discount for this item's family
+            $discountPct = 0;
+            if ($familyId && isset($discounts[$familyId])) {
+                $discountPct = floatval($discounts[$familyId]->percentage);
+            }
+
+            $discountedPrice = $price * (1 - $discountPct / 100);
+            $lineRaw         = $price * $quantity;
+            $lineTotal       = round($discountedPrice * $quantity, 2);
+            $lineDiscount    = $lineRaw - $lineTotal;
+
+            $rawTotal      += $lineRaw;
+            $totalHT       += $lineTotal;
+            $totalDiscount += $lineDiscount;
+
             $item = OrderItem::create([
-                'order_id'     => $order->id,
-                'code'         => $order->code,
-                'total'        => $lineTotal,
-                'quantity'     => $quantity,
-                'color_id'     => $attributes['color'] ?: null,
-                'product_id'   => $attributes['product_id'],
-                'dimension_id' => $attributes['dimension_id'] ?: null,
+                'order_id'          => $order->id,
+                'code'              => $order->code,
+                'quantity'          => $quantity,
+                'unit_price'        => $price,
+                'discount_percent'  => $discountPct,
+                'discounted_price'  => $discountedPrice,
+                'total'             => $lineTotal,
+                'color_id'          => $attributes['color'] ?: null,
+                'product_id'        => $attributes['product_id'],
+                'dimension_id'      => $attributes['dimension_id'] ?: null,
             ]);
 
             if (!empty($attributes['special']) && !empty($attributes['dimension'])) {
                 [$h, $w] = array_map('trim', explode("*", $attributes['dimension']));
-
                 $item->update([
                     'special_height' => $h,
                     'special_width'  => $w,
@@ -120,19 +141,32 @@ class OrderController extends Controller
             }
         }
 
-        // 6. Update order total
+        $tvaAmount = round($totalHT * $TVA_RATE, 2);
+        $totalTTC  = round($totalHT + $tvaAmount, 2);
+
         $order->update([
-            'total_amount' => $totalAmount
+            'raw_total'       => round($rawTotal, 2),
+            'discount_amount' => round($totalDiscount, 2),
+            'total_ht'        => round($totalHT, 2),
+            'tva_rate'        => $TVA_RATE,
+            'tva_amount'      => $tvaAmount,
+            'total_amount'    => $totalTTC, // final TTC stored as the order total
         ]);
 
-        // 7. Return API response
         return response()->json([
-            "status" => "success",
+            "status"  => "success",
             "message" => __("Votre commande a été envoyée avec succès!"),
-            "order" => $order->load("items")
+            "order"   => $order->load("items"),
+            "summary" => [
+                "raw_total"       => round($rawTotal, 2),
+                "discount_amount" => round($totalDiscount, 2),
+                "total_ht"        => round($totalHT, 2),
+                "tva_rate"        => $TVA_RATE * 100 . "%",
+                "tva_amount"      => $tvaAmount,
+                "total_ttc"       => $totalTTC,
+            ]
         ]);
     }
-
 
 
 

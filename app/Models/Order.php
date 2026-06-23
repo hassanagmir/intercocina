@@ -28,6 +28,11 @@ class Order extends Model
         'special_height',
         'special_width',
         'shipping_id',
+        'raw_total',
+        'discount_amount',
+        'total_ht',
+        'tva_rate',
+        'tva_amount'
     ];
 
     protected $casts = [
@@ -35,7 +40,8 @@ class Order extends Model
         'payment' =>  PaymentEnum::class,
     ];
 
-    public function shipping(){
+    public function shipping()
+    {
         return $this->belongsTo(Shipping::class);
     }
 
@@ -59,11 +65,11 @@ class Order extends Model
     public function getTotalWithoutTva()
     {
         $total = 0;
-    
+
         foreach ($this->items as $item) {
             $total += floatval($item->dimension ? $item->dimension->price : $item->product->price) * $item->quantity;
         }
-    
+
         return $total;
     }
 
@@ -78,7 +84,7 @@ class Order extends Model
     }
 
 
-    
+
 
     public function exportText()
     {
@@ -86,10 +92,10 @@ class Order extends Model
 
         $order = Order::with('items')->findOrFail($this->id);
         $content = "";
-       
+
         foreach ($order->items as $item) {
-            if($item->special_height)
-                $dimension = ($item->special_height ? "(".($item->special_height . "*" . $item->special_width . "mm") . ")" : "") .  " Spécial";
+            if ($item->special_height)
+                $dimension = ($item->special_height ? "(" . ($item->special_height . "*" . $item->special_width . "mm") . ")" : "") .  " Spécial";
             else
                 $dimension = ($item->dimension ? $item->dimension->width : "") . " " . ($item->dimension ? "* " . $item->dimension->height : "");
 
@@ -99,7 +105,7 @@ class Order extends Model
                 . (str_replace("Façade", "", $item->product->name)) . " "
                 . $dimension . " "
                 . ($item->color ? $item->color->name . " " : '')
-                . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0')) ) . " "
+                . ($item->dimension ? $item->dimension->price : ($item->special_width ? $item->total : ($item->product->price ?? '0'))) . " "
                 . "QTY: " . ($item->quantity ?? '1')
                 . "\n";
         }

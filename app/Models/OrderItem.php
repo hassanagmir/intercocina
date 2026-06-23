@@ -11,7 +11,10 @@ class OrderItem extends Model
 
     protected $fillable = [
         'order_id', 'product_id', 'dimension_id', 'color_id',
-        'quantity', 'total', 'special_height', 'special_width'
+        'quantity', 'total', 'special_height', 'special_width', 
+        'discount','unit_price',
+        'discount_percent',
+        'discounted_price'
     ];
 
     // Relationships
