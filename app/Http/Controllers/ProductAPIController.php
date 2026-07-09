@@ -108,30 +108,39 @@ class ProductAPIController extends Controller
 
     public function search(Request $request)
     {
-        if ($request->search != '') {
-            $articles = Product::with(['images'])->whereNot("status", ProductStatusEnum::HIDE)
-                ->where(function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . $request->search . '%')
-                        ->orWhere('description', 'like', '%' . $request->search . '%')
-                        ->orWhere('code', strtoupper($request->search))
-                        ->orWhereHas('dimensions', fn($query) => $query->where('code', strtoupper($request->search)))
-                        ->orWhere('tags', 'like', '%' . $request->search . '%');
-                })
-                ->orderByRaw("
-                CASE
-                    WHEN name LIKE ? THEN 1
-                    WHEN description LIKE ? THEN 2
-                    ELSE 3
-                END
-            ", ['%' . $request->search . '%', '%' . $request->search . '%'])
-                ->select(['id', 'name', 'price', 'slug', 'type_id']) // 👈 select only needed columns
-                ->take(15)
-                ->get();
-        } else {
-            $articles = [];
+        $search = trim((string) $request->input('search'));
+
+        if ($search === '') {
+            return response()->json([]);
         }
 
-        return $articles;
+        // Escape LIKE wildcards so user input can't be treated as a pattern
+        $escaped = addcslashes($search, '%_\\');
+        $like    = '%' . $escaped . '%';
+        $upper   = mb_strtoupper($search);
+
+        $articles = Product::query()
+            ->with(['images'])
+            ->where('status', '!=', ProductStatusEnum::HIDE)
+            ->where(function ($query) use ($like, $upper) {
+                $query->whereRaw('LOWER(name) LIKE LOWER(?)', [$like])
+                    ->orWhereRaw('LOWER(description) LIKE LOWER(?)', [$like])
+                    ->orWhere('code', $upper)
+                    ->orWhereHas('dimensions', fn($q) => $q->where('code', $upper))
+                    ->orWhereRaw('LOWER(tags) LIKE LOWER(?)', [$like]);
+            })
+            ->orderByRaw("
+            CASE
+                WHEN LOWER(name) LIKE LOWER(?) THEN 1
+                WHEN LOWER(description) LIKE LOWER(?) THEN 2
+                ELSE 3
+            END
+        ", [$like, $like])
+            ->select(['id', 'name', 'price', 'slug', 'type_id'])
+            ->take(15)
+            ->get();
+
+        return response()->json($articles);
     }
 
 
