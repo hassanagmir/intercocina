@@ -114,7 +114,6 @@ class ProductAPIController extends Controller
             return response()->json([]);
         }
 
-        // Escape LIKE wildcards so user input can't be treated as a pattern
         $escaped = addcslashes($search, '%_\\');
         $like    = '%' . $escaped . '%';
         $upper   = mb_strtoupper($search);
@@ -122,11 +121,12 @@ class ProductAPIController extends Controller
         $articles = Product::query()
             ->with(['images'])
             ->where('status', '!=', ProductStatusEnum::HIDE)
+            ->whereHas('type', fn($query) => $query->where('status', true)) // exclude products whose type is inactive
             ->where(function ($query) use ($like, $upper) {
                 $query->whereRaw('LOWER(name) LIKE LOWER(?)', [$like])
                     ->orWhereRaw('LOWER(description) LIKE LOWER(?)', [$like])
-                    ->orWhere('code', $upper)
-                    ->orWhereHas('dimensions', fn($q) => $q->where('code', $upper))
+                    ->orWhere('code', 'like', $like)
+                    ->orWhereHas('dimensions', fn($q) => $q->where('code', 'like', $like))
                     ->orWhereRaw('LOWER(tags) LIKE LOWER(?)', [$like]);
             })
             ->orderByRaw("
@@ -142,7 +142,6 @@ class ProductAPIController extends Controller
 
         return response()->json($articles);
     }
-
 
     /**
      * Remove the specified product from storage.
