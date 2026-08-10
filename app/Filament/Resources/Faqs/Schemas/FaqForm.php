@@ -24,6 +24,8 @@ class FaqForm
                                     ->label(__("Répondre"))
                                     ->required()
                                     ->columnSpanFull(),
+                                Forms\Components\Hidden::make('user_id')
+                                    ->default(fn() => auth()->id()),
 
                             ])->columnSpanFull()
 
