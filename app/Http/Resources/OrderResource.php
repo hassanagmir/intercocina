@@ -39,12 +39,12 @@ class OrderResource extends JsonResource
             'created_at'     => $this->created_at,
             'payment'        => $this->payment,
             'shipping_id'    => $this->shipping_id,
-            'phone'          => $this->user->phone,
-            'address'        => $this->address,
-            'city'           => $this->user?->city?->name,
+            'phone'          => $this->address->phone,
+            'address'        => $this->address_name,
+            'city'           => $this->address?->city?->name,
             'shipping'       => $this->shipping?->name,
-            'email'          => $this->email,
-            'full_name'      => $this?->user?->first_name . ' ' . $this?->user?->last_name,
+            'email'          => $this->address?->email,
+            'full_name'      => $this?->address?->first_name . ' ' . $this?->address?->last_name,
             'souche'         => 0,
 
             // Customer
