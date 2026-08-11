@@ -40,7 +40,7 @@ class OrderResource extends JsonResource
             'payment'        => $this->payment,
             'shipping_id'    => $this->shipping_id,
             'phone'          => $this->address->phone,
-            'address'        => $this->address_name,
+            'address'        => $this?->address?->address_name,
             'city'           => $this->address?->city?->name,
             'shipping'       => $this->shipping?->name,
             'email'          => $this->address?->email,
