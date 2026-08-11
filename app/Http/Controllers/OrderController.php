@@ -250,4 +250,34 @@ class OrderController extends Controller
             ['Content-Type' => 'text/plain']
         );
     }
+
+
+    public function cancel(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'code' => 'required|string|exists:orders,code',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors'  => $validator->errors()
+            ], 422);
+        }
+
+        $order = Order::where('code', $request->code)->first();
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        if ($order->status == OrderStatusEnum::CANCELED) {
+            return response()->json(['message' => 'Order is already canceled'], 400);
+        }
+
+        $order->status = OrderStatusEnum::CANCELED;
+        $order->save();
+
+        return new \App\Http\Resources\OrderResource($order);
+    }
 }

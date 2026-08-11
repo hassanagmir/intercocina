@@ -58,7 +58,7 @@ class OrderResource extends JsonResource
             'tva_rate'       => $tvaRate,
             'tva_percent'    => round($tvaRate * 100, 0) . '%',
             'tva_amount'     => round($tvaAmount, 2),
-            'total_amount'   => round($totalTTC, 2), // TTC
+            'total_amount'   => round($totalTTC, 2),
 
             'products' => $this->items->map(function ($item) {
                 $product_name = str_replace("Façade ", "", $item->product->name);
