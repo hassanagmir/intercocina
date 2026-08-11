@@ -116,7 +116,7 @@ Route::middleware('api.key')->group(function () {
     Route::prefix('orders')->controller(OrderController::class)->group(function () {
         Route::get('/json', 'api_list');
         Route::post('/confirm', 'confirm');
-        Route::delete('/cancel', 'cancel');
+        Route::delete('/json', 'cancel');
         Route::get('/count', 'count');
     });
 
