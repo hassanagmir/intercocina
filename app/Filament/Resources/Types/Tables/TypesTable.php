@@ -21,8 +21,6 @@ class TypesTable
                 return $query->orderBy('order');
             })
             ->columns([
-                ImageColumn::make('image')
-                    ->label(__('Image')),
                 TextColumn::make('name')
                     ->label(__('Type'))
                     ->searchable(),

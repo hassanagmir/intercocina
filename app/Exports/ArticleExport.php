@@ -3,15 +3,13 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ArticleExport implements FromArray, WithHeadings
+class ArticleExport implements FromArray, WithHeadings, ShouldAutoSize
 {
-    protected $data;
-
-    public function __construct(array $data)
+    public function __construct(protected array $data)
     {
-        $this->data = $data;
     }
 
     public function array(): array
@@ -23,8 +21,10 @@ class ArticleExport implements FromArray, WithHeadings
     {
         return [
             'Référence',
-            'Desgéniation',
+            'Désignation',
             'Dimensions',
+            'Profondeur',
+            'Épaisseur',
             'Prix',
             'Couleur',
         ];

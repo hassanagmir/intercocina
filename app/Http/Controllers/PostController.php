@@ -7,17 +7,35 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(){
-        $posts = Post::latest()->paginate(20);;
-        $title = __("Blog");
-        return view('post.list', compact('posts', 'title'));
+    public function index()
+    {
+        return response()->json(Post::select('title', 'slug', 'image', 'created_at')->latest()->paginate(20));
     }
 
-    public function show(Post $post){
-        $title = $post->title;
-        $description = $post->description;
-        $image = $post->image;
-        $tags = $post->tags;
-        return view('post.show', compact('post', 'title', 'description', 'image', 'tags'));
+    public function list()
+    {
+        return response()->json(Post::select('title', 'slug', 'image', 'created_at')->latest()->take(3)->get());
+    }
+
+
+
+    public function show($slug)
+    {
+        $post = Post::with([
+            'products.images' => function ($query) {
+                return $query->orderBy('order')->take(1);
+            },
+            'products' => function ($query) {
+                return $query->select('products.id', 'name', 'price', 'description', 'slug', 'status', 'order', 'is_new', 'family_id');
+            }
+        ])
+            ->where('slug', $slug)
+            ->first();
+
+        if ($post) {
+            return response()->json($post);
+        } else {
+            return response()->json(['message' => 'post not found'], 404);
+        }
     }
 }

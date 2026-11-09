@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Validator;
-
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    /**
+     * Register a new client.
+     */
+    public function register(Request $request): JsonResponse
     {
-
-        $validator = Validator::make($request->all(),
+        $data = $request->validate(
             [
-                'first_name' => 'required|string|max:255',
-                'last_name'  => 'required|string|max:255',
-                'email'      => 'required|string|email|unique:users',
-                'phone'      => 'required|string|max:255|unique:users',
-                'password'   => 'required|string|min:6',
+                'first_name' => ['required', 'string', 'max:255'],
+                'last_name'  => ['required', 'string', 'max:255'],
+                'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'phone'      => ['required', 'string', 'max:255', 'unique:users'],
+                'password'   => ['required', 'string', 'min:6'],
             ],
             [],
             [
@@ -32,64 +32,77 @@ class AuthController extends Controller
                 'password'   => 'Mot de passe',
             ]
         );
-        
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors' => $validator->errors()
-            ], 422);
-        }
 
         $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
+            ...$data,
+            'password' => Hash::make($data['password']),
         ]);
 
         $user->assignRole('client');
 
-        return response()->json(['message' => "L'utilisateur s'est inscrit avec succès.", 'user' => $user], 201);
+        return response()->json([
+            'success' => true,
+            'message' => "L'utilisateur s'est inscrit avec succès.",
+            'user'    => $user,
+        ], 201);
     }
 
-    public function login(Request $request)
+    /**
+     * Authenticate a user (by email or username) and issue a token.
+     */
+    public function login(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'login' => 'required|string',
-            'password' => 'required|string',
+        $data = $request->validate([
+            'login'    => ['required', 'string'],
+            'password' => ['required', 'string'],
         ]);
 
-        if ($validator->fails()) {
+        $field = filter_var($data['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+
+        $user = User::where($field, $data['login'])->first();
+
+        if (! $user || ! Hash::check($data['password'], $user->password)) {
             return response()->json([
                 'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-
-        $validatedData = $validator->validated();
-
-        $login = $validatedData['login'];
-        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-
-        $user = User::where($fieldType, $login)->first();
-
-        // ✅ Check credentials
-        if (!$user || !Hash::check($validatedData['password'], $user->password)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid credentials',
+                'message' => 'Identifiants invalides',
             ], 401);
         }
 
-        // ✅ Generate token
-        $token = $user->createToken('auth_token')->plainTextToken;
+        return response()->json([
+            'success'      => true,
+            'access_token' => $user->createToken('auth_token')->plainTextToken,
+            'token_type'   => 'Bearer',
+            'user'         => $user,
+        ]);
+    }
+
+    /**
+     * Revoke the token used for the current request.
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        $token = $request->user()->currentAccessToken();
+
+        if ($token instanceof PersonalAccessToken) {
+            $token->delete();
+        }
 
         return response()->json([
             'success' => true,
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'user' => $user,
+            'message' => 'Déconnexion effectuée avec succès.',
+        ]);
+    }
+
+    /**
+     * Revoke every token of the user (logout from all devices).
+     */
+    public function logoutAll(Request $request): JsonResponse
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Déconnexion effectuée de tous les appareils.',
         ]);
     }
 }

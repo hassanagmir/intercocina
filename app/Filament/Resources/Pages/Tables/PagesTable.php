@@ -42,7 +42,7 @@ class PagesTable
                     Action::make("view")
                         ->label("Voir")
                         ->icon("heroicon-o-arrow-top-right-on-square")
-                        ->url(fn(Page $record): string => route('page.show', $record->slug))
+                        ->url(fn(Page $record): string => 'https://intercocina.com/pages/'.$record->slug)
                         ->color('info')
                         ->openUrlInNewTab(),
                     DeleteAction::make(),

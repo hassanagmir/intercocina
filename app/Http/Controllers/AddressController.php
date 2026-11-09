@@ -5,15 +5,18 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 use App\Models\Address;
+use Illuminate\Http\JsonResponse;
 
 class AddressController extends Controller
 {
     public function index(){
         if(!auth()->user()){
-            return redirect()->route('user.login');
+            return response()->json([
+                'message' => 'Utilisateur non authentifié.'
+            ], 401);
         }
         $addresses = Address::with(['city'])->where('user_id', auth()->user()->id)->get();
-        return $addresses;
+        return response()->json($addresses);
     }
 
     public function store(Request $request)
@@ -47,21 +50,17 @@ class AddressController extends Controller
     }
 
 
-
-
-    public function destroy(Address $address)
+    public function destroy(Request $request, string $address): JsonResponse
     {
-        if (auth()->id() !== $address->user_id) {
-            return response()->json([
-                'message' => 'Adresse introuvable.'
-            ], 404);
+        $deleted = Address::where('id', $address)
+            ->where('user_id', $request->user()->id)
+            ->delete();
+
+        if (! $deleted) {
+            return response()->json(['message' => 'Adresse introuvable.'], 404);
         }
 
-        $address->delete();
-
-        return response()->json([
-            'message' => 'Adresse supprimée avec succès.'
-        ], 200);
+        return response()->json(['message' => 'Adresse supprimée avec succès.']);
     }
 
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Enums\ProductStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Sluggable\HasSlug;
@@ -144,8 +145,15 @@ class Product extends Model
         return $this->belongsToMany(Attribute::class, 'product_attributes');
     }
 
-    public function related()
+    // Related products
+    public function products()
     {
         return $this->belongsToMany(Product::class, 'product_relation', 'product_id', 'related_id');
+    }
+
+    public function firstImage(): HasOne
+    {
+        return $this->hasOne(Image::class)
+            ->ofMany(['order' => 'min', 'id' => 'min']);
     }
 }

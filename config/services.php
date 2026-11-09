@@ -47,4 +47,8 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI'),
     ],
 
+    'logilink' => [
+        'article_url' => env('LOGILINK_ART_URL', 'https://intercocina.online/api/article/'),
+    ],
+
 ];

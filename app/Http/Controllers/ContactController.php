@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
-class ContactAPIController extends Controller
+class ContactController extends Controller
 {
            /**
      * Display a listing of the resource.

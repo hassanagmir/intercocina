@@ -32,23 +32,14 @@ class ReclamationController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data' => [
-                    'id' => $reclamation->id,
-                    'attachments' => $reclamation->getMedia('attachments')->map(fn ($m) => [
-                        'id'   => $m->id,
-                        'name' => $m->file_name,
-                        'url'  => $m->getUrl(),
-                        'preview' => $m->getUrl('preview'),
-                        'size' => $m->size,
-                    ]),
-                ],
+                'message' => 'Votre réclamation a été envoyée avec succès.',
             ], 201);
         } catch (Throwable $e) {
             report($e);
 
             return response()->json([
                 'success' => false,
-                'error' => "Une erreur s'est produite. Veuillez réessayer.",
+                'message' => "Une erreur s'est produite. Veuillez réessayer.",
             ], 500);
         }
     }

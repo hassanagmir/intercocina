@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatusEnum;
+use App\Http\Resources\OrderResource;
 use App\Models\Address;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\LaravelPdf\Facades\Pdf;
 use Illuminate\Support\Facades\Validator;
@@ -14,20 +16,10 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function list()
+    public function index()
     {
         $orders = Order::withCount(['items'])->where("user_id", auth()->id())->latest()->paginate(20);
         return $orders;
-    }
-
-
-    public function show(Order $order)
-    {
-        if (!($order->user_id == auth()->id())) {
-            return abort(404);
-        }
-        $title = $order->code;
-        return view('order.show', compact('order', 'title'));
     }
 
     public function store(Request $request)
@@ -171,7 +163,7 @@ class OrderController extends Controller
 
 
 
-    public function api_list(Request $request)
+    public function list(Request $request)
     {
         $status = $request->input('status', 1);
 
@@ -192,31 +184,21 @@ class OrderController extends Controller
     }
 
 
-    public function confirm(Request $request)
+    public function updateStatus(Request $request, string $code): JsonResponse|OrderResource
     {
+        $order = Order::where('code', $code)->first();
 
-        $validator = Validator::make($request->all(), [
-            'status' => 'required|in:1,2,3,4,5|numeric',
-            'code' => 'required'
+        if (! $order) {
+            return response()->json(['message' => 'Commande introuvable.'], 404);
+        }
+
+        $data = $request->validate([
+            'status' => ['required', 'integer', 'in:1,2,3,4,5'],
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors'  => $validator->errors()
-            ], 402);
-        }
+        $order->update(['status' => $data['status']]);
 
-        $order = Order::where('code', $request->code)->first();
-
-        if (!$order) {
-            return response()->json(['error' => 'Order not found'], 404);
-        }
-
-        $order->status = 3;
-        $order->save();
-
-        return new \App\Http\Resources\OrderResource($order);
+        return new OrderResource($order);
     }
 
 
@@ -249,35 +231,5 @@ class OrderController extends Controller
             $filename,
             ['Content-Type' => 'text/plain']
         );
-    }
-
-
-    public function cancel(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'code' => 'required|string|exists:orders,code',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => $validator->errors()->first(),
-                'errors'  => $validator->errors()
-            ], 422);
-        }
-
-        $order = Order::where('code', $request->code)->first();
-
-        if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
-        }
-
-        if ($order->status == OrderStatusEnum::CANCELED) {
-            return response()->json(['message' => 'Order is already canceled'], 400);
-        }
-
-        $order->status = OrderStatusEnum::CANCELED;
-        $order->save();
-
-        return new \App\Http\Resources\OrderResource($order);
     }
 }

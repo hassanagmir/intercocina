@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dimension;
 use App\Models\Product;
 use App\Models\ProductSync;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -12,7 +13,12 @@ use Throwable;
 
 class ProductSyncController extends Controller
 {
-    protected string $baseApiUrl = 'https://online.intercocina.space/api/article/';
+    protected string $baseApiUrl;
+
+    public function __construct()
+    {
+        $this->baseApiUrl = rtrim((string) config('services.logilink.article_url'), '/') . '/';
+    }
 
     public function syncByCode(string $code): JsonResponse
     {
@@ -23,7 +29,7 @@ class ProductSyncController extends Controller
         ]);
 
         try {
-            $response = Http::timeout(15)->get($this->baseApiUrl . $code);
+            $response = Http::timeout(15)->get($this->baseApiUrl . rawurlencode($code));
 
             if (!$response->successful()) {
                 return $this->failSync($sync, "API returned status {$response->status()} for code [{$code}].");
@@ -32,7 +38,7 @@ class ProductSyncController extends Controller
             $data = $response->json();
 
             if (empty($data['AR_Ref'])) {
-                return $this->failSync($sync, "Invalid API response: missing AR_Ref.");
+                return $this->failSync($sync, 'Invalid API response: missing AR_Ref.');
             }
 
             [$meta, $action] = $this->syncPriceAndStock($data);
@@ -43,20 +49,130 @@ class ProductSyncController extends Controller
                 'updated_count'   => $action === 'updated'   ? 1 : 0,
                 'unchanged_count' => $action === 'unchanged' ? 1 : 0,
                 'failed_count'    => $action === 'not_found' ? 1 : 0,
-                'price_updates'   => $meta['price_changed']  ? 1 : 0,
-                'stock_updates'   => $meta['stock_changed']  ? 1 : 0,
+                'price_updates'   => $meta['price_changed'] ? 1 : 0,
+                'stock_updates'   => $meta['stock_changed'] ? 1 : 0,
                 'message'         => $meta['message'],
             ]);
 
             return response()->json([
-                'success'   => true,
-                'action'    => $action,
-                'sync_id'   => $sync->id,
-                'details'   => $meta,
+                'success' => true,
+                'action'  => $action,
+                'sync_id' => $sync->id,
+                'details' => $meta,
             ]);
         } catch (Throwable $e) {
             Log::error("ProductSync error for [{$code}]: " . $e->getMessage());
             return $this->failSync($sync, $e->getMessage());
+        }
+    }
+
+    public function syncAll(): JsonResponse
+    {
+        set_time_limit(0);
+
+        $sync = ProductSync::create([
+            'started_at'     => now(),
+            'status'         => 'running',
+            'total_products' => 0,
+        ]);
+
+        try {
+            $total = Product::whereNotNull('code')->count()
+                   + Dimension::whereNotNull('code')->count();
+
+            $sync->update(['total_products' => $total]);
+
+            $stats = [
+                'updated'   => 0,
+                'unchanged' => 0,
+                'failed'    => 0,
+                'price'     => 0,
+                'stock'     => 0,
+            ];
+
+            // Chunked + only the needed columns: constant memory usage
+            foreach ([Product::class, Dimension::class] as $modelClass) {
+                $modelClass::query()
+                    ->whereNotNull('code')
+                    ->select('id', 'code', 'price', 'stock')
+                    ->chunkById(200, function ($rows) use (&$stats) {
+                        foreach ($rows as $row) {
+                            $this->syncRow($row, $stats);
+                        }
+                    });
+            }
+
+            $sync->update([
+                'finished_at'     => now(),
+                'status'          => 'completed',
+                'updated_count'   => $stats['updated'],
+                'unchanged_count' => $stats['unchanged'],
+                'failed_count'    => $stats['failed'],
+                'price_updates'   => $stats['price'],
+                'stock_updates'   => $stats['stock'],
+                'message'         => "Sync completed: {$stats['updated']} updated, {$stats['unchanged']} unchanged, {$stats['failed']} failed.",
+            ]);
+
+            return response()->json([
+                'success'         => true,
+                'sync_id'         => $sync->id,
+                'total'           => $total,
+                'updated_count'   => $stats['updated'],
+                'unchanged_count' => $stats['unchanged'],
+                'failed_count'    => $stats['failed'],
+                'price_updates'   => $stats['price'],
+                'stock_updates'   => $stats['stock'],
+            ]);
+        } catch (Throwable $e) {
+            Log::error('SyncAll fatal error: ' . $e->getMessage());
+            return $this->failSync($sync, $e->getMessage());
+        }
+    }
+
+    /* ------------------------------------------------------------------ */
+
+    private function fetchArticle(string $code): ?array
+    {
+        $response = Http::timeout(15)->get($this->baseApiUrl . rawurlencode($code));
+
+        if (!$response->successful()) {
+            return null;
+        }
+
+        $data = $response->json();
+
+        return empty($data['AR_Ref']) ? null : $data;
+    }
+
+    /** Syncs one Product or Dimension row and updates the stats counters. */
+    private function syncRow(Model $row, array &$stats): void
+    {
+        try {
+            $data = $this->fetchArticle($row->code);
+
+            if (!$data) {
+                $stats['failed']++;
+                return;
+            }
+
+            $price = (float) ($data['AR_PrixVen'] ?? 0);
+            $stock = (int)   ($data['stock']      ?? 0);
+
+            $priceChanged = (float) $row->price !== $price;
+            $stockChanged = (int)   $row->stock !== $stock;
+
+            if ($priceChanged || $stockChanged) {
+                $row->update(['price' => $price, 'stock' => $stock]);
+                $stats['updated']++;
+            } else {
+                $stats['unchanged']++;
+            }
+
+            if ($priceChanged) $stats['price']++;
+            if ($stockChanged) $stats['stock']++;
+        } catch (Throwable $e) {
+            Log::error('Sync failed for [' . class_basename($row) . " {$row->code}]: " . $e->getMessage());
+            $stats['failed']++;
         }
     }
 
@@ -66,7 +182,6 @@ class ProductSyncController extends Controller
         $price = (float) ($data['AR_PrixVen'] ?? 0);
         $stock = (int)   ($data['stock']      ?? 0);
 
-        // --- Sync Product ---
         $product = Product::where('code', $code)->first();
 
         if (!$product) {
@@ -84,13 +199,9 @@ class ProductSyncController extends Controller
         $stockChanged = (int)   $product->stock !== $stock;
 
         if ($priceChanged || $stockChanged) {
-            $product->update([
-                'price' => $price,
-                'stock' => $stock,
-            ]);
+            $product->update(['price' => $price, 'stock' => $stock]);
         }
 
-        // --- Sync Dimension (by product_id + code) ---
         $dimension = Dimension::where('product_id', $product->id)
             ->where('code', $code)
             ->first();
@@ -100,10 +211,7 @@ class ProductSyncController extends Controller
             $dimStockChanged = (int)   $dimension->stock !== $stock;
 
             if ($dimPriceChanged || $dimStockChanged) {
-                $dimension->update([
-                    'price' => $price,
-                    'stock' => $stock,
-                ]);
+                $dimension->update(['price' => $price, 'stock' => $stock]);
             }
         }
 
@@ -111,11 +219,11 @@ class ProductSyncController extends Controller
 
         return [
             [
-                'price_changed'  => $priceChanged,
-                'stock_changed'  => $stockChanged,
-                'product_id'     => $product->id,
-                'dimension_id'   => $dimension?->id,
-                'message'        => "Product [{$code}] {$action}.",
+                'price_changed' => $priceChanged,
+                'stock_changed' => $stockChanged,
+                'product_id'    => $product->id,
+                'dimension_id'  => $dimension?->id,
+                'message'       => "Product [{$code}] {$action}.",
             ],
             $action,
         ];
@@ -131,137 +239,5 @@ class ProductSyncController extends Controller
         ]);
 
         return response()->json(['success' => false, 'message' => $message], 422);
-    }
-
-
-    public function syncAll(): JsonResponse
-    {
-        $sync = ProductSync::create([
-            'started_at'     => now(),
-            'status'         => 'running',
-            'total_products' => 0,
-        ]);
-
-        try {
-            $products   = Product::whereNotNull('code')->get();
-            $dimensions = Dimension::whereNotNull('code')->get();
-
-            $sync->update([
-                'total_products' => $products->count() + $dimensions->count(),
-            ]);
-
-            $totalPriceUpdates = 0;
-            $totalStockUpdates = 0;
-            $updatedCount      = 0;
-            $unchangedCount    = 0;
-            $failedCount       = 0;
-
-            // --- Loop Products ---
-            foreach ($products as $product) {
-                try {
-                    $response = Http::timeout(15)->get($this->baseApiUrl . $product->code);
-
-                    if (!$response->successful()) {
-                        $failedCount++;
-                        continue;
-                    }
-
-                    $data = $response->json();
-
-                    if (empty($data['AR_Ref'])) {
-                        $failedCount++;
-                        continue;
-                    }
-
-                    $price = (float) ($data['AR_PrixVen'] ?? 0);
-                    $stock = (int)   ($data['stock']      ?? 0);
-
-                    $priceChanged = (float) $product->price !== $price;
-                    $stockChanged = (int)   $product->stock !== $stock;
-
-                    if ($priceChanged || $stockChanged) {
-                        $product->update([
-                            'price' => $price,
-                            'stock' => $stock,
-                        ]);
-                        $updatedCount++;
-                    } else {
-                        $unchangedCount++;
-                    }
-
-                    if ($priceChanged) $totalPriceUpdates++;
-                    if ($stockChanged) $totalStockUpdates++;
-                } catch (Throwable $e) {
-                    Log::error("Sync failed for product [{$product->code}]: " . $e->getMessage());
-                    $failedCount++;
-                }
-            }
-
-            // --- Loop Dimensions ---
-            foreach ($dimensions as $dimension) {
-                try {
-                    $response = Http::timeout(15)->get($this->baseApiUrl . $dimension->code);
-
-                    if (!$response->successful()) {
-                        $failedCount++;
-                        continue;
-                    }
-
-                    $data = $response->json();
-
-                    if (empty($data['AR_Ref'])) {
-                        $failedCount++;
-                        continue;
-                    }
-
-                    $price = (float) ($data['AR_PrixVen'] ?? 0);
-                    $stock = (int)   ($data['stock']      ?? 0);
-
-                    $dimPriceChanged = (float) $dimension->price !== $price;
-                    $dimStockChanged = (int)   $dimension->stock !== $stock;
-
-                    if ($dimPriceChanged || $dimStockChanged) {
-                        $dimension->update([
-                            'price' => $price,
-                            'stock' => $stock,
-                        ]);
-                        $updatedCount++;
-                    } else {
-                        $unchangedCount++;
-                    }
-
-                    if ($dimPriceChanged) $totalPriceUpdates++;
-                    if ($dimStockChanged) $totalStockUpdates++;
-                } catch (Throwable $e) {
-                    Log::error("Sync failed for dimension [{$dimension->code}]: " . $e->getMessage());
-                    $failedCount++;
-                }
-            }
-
-            $sync->update([
-                'finished_at'     => now(),
-                'status'          => 'completed',
-                'updated_count'   => $updatedCount,
-                'unchanged_count' => $unchangedCount,
-                'failed_count'    => $failedCount,
-                'price_updates'   => $totalPriceUpdates,
-                'stock_updates'   => $totalStockUpdates,
-                'message'         => "Sync completed: {$updatedCount} updated, {$unchangedCount} unchanged, {$failedCount} failed.",
-            ]);
-
-            return response()->json([
-                'success'         => true,
-                'sync_id'         => $sync->id,
-                'total'           => $products->count() + $dimensions->count(),
-                'updated_count'   => $updatedCount,
-                'unchanged_count' => $unchangedCount,
-                'failed_count'    => $failedCount,
-                'price_updates'   => $totalPriceUpdates,
-                'stock_updates'   => $totalStockUpdates,
-            ]);
-        } catch (Throwable $e) {
-            Log::error("SyncAll fatal error: " . $e->getMessage());
-            return $this->failSync($sync, $e->getMessage());
-        }
     }
 }

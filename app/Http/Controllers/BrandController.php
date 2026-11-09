@@ -7,7 +7,7 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class BrandAPIController extends Controller
+class BrandController extends Controller
 {
 
     public function index()
@@ -16,7 +16,7 @@ class BrandAPIController extends Controller
         return response()->json($contacts);
     }
 
-    
+
     public function store(Request $request)
     {
         return response()->json(['message' => 'Message envoyé avec succès']);

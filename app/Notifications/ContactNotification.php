@@ -46,7 +46,7 @@ class ContactNotification extends Notification
                     'customer' => $this->contact->full_name,
                     'phone' => $this->contact->phone,
                     'email' => $this->contact->email,
-                    'contact_message' => $this->contact->message, // Changed to 'contact_message'
+                    'contact_message' => $this->contact->message,
                     'date' => $this->contact->created_at->format('d F Y'),
                 ]);
         } catch (\Throwable $th) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cover;
 use Illuminate\Http\Request;
 
-class CoverAPIController extends Controller
+class CoverController extends Controller
 {
     public function index()
     {
