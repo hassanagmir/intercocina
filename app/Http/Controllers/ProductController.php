@@ -22,6 +22,55 @@ class ProductController extends Controller
 
     private const SEARCH_LIMIT = 15;
 
+    public function index(Request $request)
+    {
+        $filters = $request->query('filters');
+        $filters = $filters ? explode(',', $filters) : [];
+
+        $query = Product::query()
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'code',
+                'price',
+                'type_id',
+                'is_new',
+                'family_id',
+            ])
+            ->with([
+                'firstImage' => fn($query) => $query->select([
+                    'images.id',
+                    'images.product_id',
+                    'images.image',
+                    'images.order',
+                ]),
+
+                'type:id,name,slug,status',
+            ])
+            ->where('status', '!=', ProductStatusEnum::HIDE)
+            ->whereHas('type', function ($q) use ($filters) {
+                $q->where('status', true);
+
+                if (!empty($filters)) {
+                    $q->whereIn('slug', $filters);
+                }
+            });
+
+        $products = $query->paginate(100);
+
+        $products->getCollection()->each(function ($product) {
+            $image = $product->firstImage?->image;
+
+            $product->unsetRelation('firstImage');
+            $product->setAttribute('first_image', $image);
+        });
+
+        return $products;
+    }
+
+
+
     /**
      * Display a product with its relations.
      */

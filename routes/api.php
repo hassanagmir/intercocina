@@ -58,6 +58,7 @@ Route::middleware('api.key')->group(function () {
     */
     // Specific routes first, slug-bound routes last.
     Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('', 'index');
         Route::get('dimensions/{slug}', 'dimensions');
         Route::get('reviews/{slug}', 'reviews');
         Route::get('search', 'search');

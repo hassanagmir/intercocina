@@ -22,20 +22,46 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::with([
-            'products.images' => function ($query) {
-                return $query->orderBy('order')->take(1);
-            },
             'products' => function ($query) {
-                return $query->select('products.id', 'name', 'price', 'description', 'slug', 'status', 'order', 'is_new', 'family_id');
-            }
+                $query->select([
+                    'products.id',
+                    'products.name',
+                    'products.price',
+                    'products.description',
+                    'products.slug',
+                    'products.status',
+                    'products.order',
+                    'products.is_new',
+                    'products.family_id',
+                ]);
+            },
+
+            'products.firstImage' => function ($query) {
+                $query->select([
+                    'images.id',
+                    'images.product_id',
+                    'images.image',
+                    'images.order',
+                ]);
+            },
         ])
             ->where('slug', $slug)
             ->first();
 
-        if ($post) {
-            return response()->json($post);
-        } else {
-            return response()->json(['message' => 'post not found'], 404);
+        if (!$post) {
+            return response()->json([
+                'message' => 'post not found',
+            ], 404);
         }
+
+        $post->products->each(function ($product) {
+            $image = $product->firstImage?->image;
+
+            $product->unsetRelation('firstImage');
+
+            $product->setAttribute('first_image', $image);
+        });
+
+        return response()->json($post);
     }
 }

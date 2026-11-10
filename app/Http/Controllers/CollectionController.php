@@ -23,7 +23,33 @@ class CollectionController extends Controller
 
     public function show(Collection $collection)
     {
-        $collection->load('products.images');
+        $collection->load([
+            'products' => fn($query) => $query->select([
+                'products.id',
+                'products.name',
+                'products.slug',
+                'products.price',
+                'products.status',
+                'products.is_new',
+
+            ]),
+
+            'products.firstImage' => fn($query) => $query->select([
+                'images.id',
+                'images.product_id',
+                'images.image',
+                'images.order',
+            ]),
+        ]);
+
+        $collection->products->each(function ($product) {
+            $image = $product->firstImage?->image;
+
+            $product->unsetRelation('firstImage');
+
+            $product->setAttribute('first_image', $image);
+        });
+
         return $collection;
     }
 }
