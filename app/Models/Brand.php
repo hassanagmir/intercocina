@@ -14,10 +14,23 @@ class Brand extends Model
     use HasFactory, HasSlug, LogsActivity;
 
     protected $fillable = [
-        'name', 'description', 'logo', 'tags', 'status', 'slug'
+        'name',
+        'description',
+        'logo',
+        'tags',
+        'status',
+        'slug'
     ];
 
-    public function getSlugOptions() : SlugOptions
+    protected function casts(): array
+    {
+        return [
+            'tags' => 'array',
+            'status' => 'boolean',
+        ];
+    }
+
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
