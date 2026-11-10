@@ -57,7 +57,7 @@ class ProductController extends Controller
             ])
             ->whereIn('products.status', self::VISIBLE_RELATED_STATUSES)
             ->with([
-                'firstImage' => fn($query) => $query->select([
+                'firstImage' => fn ($query) => $query->select([
                     'images.id',
                     'images.product_id',
                     'images.image',
@@ -65,7 +65,7 @@ class ProductController extends Controller
                 ]),
             ])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'id' => $item->id,
                 'type_id' => $item->type_id,
                 'name' => $item->name,
@@ -75,7 +75,7 @@ class ProductController extends Controller
                 'price_format' => $item->price_format,
                 'is_new' => $item->is_new,
                 'family_id' => $item->family_id,
-                'image' => $item->firstImage?->image,
+                'first_image' => $item->firstImage?->image,
             ]);
     }
     /**
