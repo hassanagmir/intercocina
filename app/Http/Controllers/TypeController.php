@@ -25,15 +25,43 @@ class TypeController extends Controller
         $type = Type::where('slug', $slug)
             ->with([
                 'products' => fn($q) => $q
-                    ->select('id', 'type_id', 'name', 'slug', 'status', 'order', 'price', 'is_new', 'family_id')
+                    ->select([
+                        'id',
+                        'type_id',
+                        'name',
+                        'slug',
+                        'status',
+                        'order',
+                        'price',
+                        'is_new',
+                        'family_id',
+                    ])
                     ->whereIn('status', [1, 5])
                     ->orderBy('order'),
-                'products.firstImage' => fn($q) => $q->select('images.id', 'images.product_id', 'images.image'),
+
+                'products.firstImage' => fn($q) => $q->select([
+                    'images.id',
+                    'images.product_id',
+                    'images.image',
+                    'images.order',
+                ]),
             ])
             ->first();
 
-        return $type
-            ? response()->json($type)
-            : response()->json(['message' => 'Type introuvable'], 404);
+        if (!$type) {
+            return response()->json([
+                'message' => 'Type introuvable',
+            ], 404);
+        }
+
+        $type->products->each(function ($product) {
+            $image = $product->firstImage?->image;
+
+            $product->unsetRelation('firstImage');
+
+            $product->setAttribute('first_image', $image);
+        });
+
+        return response()->json($type);
     }
 }
