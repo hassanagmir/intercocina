@@ -3,51 +3,57 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AttributeResource\Pages;
-use App\Filament\Resources\AttributeResource\RelationManagers;
 use App\Models\Attribute;
-use Filament\Forms;
-use Filament\Forms\Form;
+use BackedEnum;
+use UnitEnum;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
 
 class AttributeResource extends Resource
 {
     protected static ?string $model = Attribute::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-paper-clip';
+    protected static string|BackedEnum|null $navigationIcon =
+        'heroicon-o-paper-clip';
+
+    protected static string|UnitEnum|null $navigationGroup =
+        "Plus d'options";
 
     public static function getModelLabel(): string
     {
-        return __("Attribute");
+        return __('Attribute');
     }
 
-    protected static ?string $navigationGroup = "Plus d'options";
-
-
-
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make([
-                    Forms\Components\TextInput::make('name')
-                        ->label(__("Attribut"))
-                        ->required()
-                        ->maxLength(255),
+        return $schema
+            ->components([
+                Section::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->label(__('Attribut'))
+                            ->required()
+                            ->maxLength(255),
 
-                    Forms\Components\Select::make('category_id')
-                        ->relationship('category', 'name')
-                        ->searchable()
-                        ->label(__("Catégorie")),
+                        Select::make('category_id')
+                            ->relationship('category', 'name')
+                            ->searchable()
+                            ->label(__('Catégorie')),
 
-                    Forms\Components\Textarea::make('discription')
-                        ->label(__("Description"))
-                        ->columnSpanFull(),
-                ])->columns(2)
-
+                        Textarea::make('discription')
+                            ->label(__('Description'))
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -55,37 +61,37 @@ class AttributeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->label(__("Attribut"))
+                TextColumn::make('name')
+                    ->label(__('Attribut'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->placeholder("__")
-                    ->label(__("Catégorie"))
+
+                TextColumn::make('category.name')
+                    ->placeholder('—')
+                    ->label(__('Catégorie'))
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label(__("Cree le"))
+
+                TextColumn::make('created_at')
+                    ->label(__('Créé le'))
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(
+                        isToggledHiddenByDefault: true
+                    ),
             ])
-            ->filters([
-                //
+            ->filters([])
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
