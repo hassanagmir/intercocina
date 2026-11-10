@@ -30,8 +30,18 @@ class ProductController extends Controller
         return $product
             ->load([
                 'products:id,slug,name,description,price,is_new,family_id',
-                'products.images' => fn($q) => $q->select('image', 'id', 'product_id')->orderBy('order'),
-                'images'         => fn($q) => $q->select('image', 'id', 'product_id', 'color_id')->orderBy('order'),
+
+                'products.firstImage' => fn($query) => $query->select([
+                    'images.id',
+                    'images.product_id',
+                    'images.image',
+                    'images.order',
+                ]),
+
+                'images' => fn($query) => $query
+                    ->select('image', 'id', 'product_id', 'color_id')
+                    ->orderBy('order'),
+
                 'type',
                 'piece:id,product_id,title,description,file',
                 'color',
