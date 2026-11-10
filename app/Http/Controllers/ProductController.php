@@ -45,12 +45,33 @@ class ProductController extends Controller
     public function relatedProducts(Product $product)
     {
         return $product->products()
-            ->with([
-                'products:id,type_id,name,slug,status,order,price,is_new,family_id',
-                'products.images:id,product_id,image,order',
+            ->select([
+                'products.id',
+                'products.type_id',
+                'products.name',
+                'products.slug',
+                'products.status',
+                'products.price',
+                'products.is_new',
+                'products.family_id',
             ])
-            ->whereHas('products', fn($query) => $query->whereIn('status', self::VISIBLE_RELATED_STATUSES))
-            ->get();
+            ->whereIn('products.status', self::VISIBLE_RELATED_STATUSES)
+            ->with([
+                'firstImage:id,product_id,image,order',
+            ])
+            ->get()
+            ->map(fn($item) => [
+                'id' => $item->id,
+                'type_id' => $item->type_id,
+                'name' => $item->name,
+                'slug' => $item->slug,
+                'status' => $item->status,
+                'price' => $item->price,
+                'price_format' => $item->price_format,
+                'is_new' => $item->is_new,
+                'family_id' => $item->family_id,
+                'image' => $item->firstImage?->image,
+            ]);
     }
 
     /**
