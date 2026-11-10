@@ -170,7 +170,11 @@ class ProductController extends Controller
 
         return response()->json([
             'image' => $image
-                ? preg_replace('#(/storage/)+#', '/storage/', Storage::url($image))
+                ? url(preg_replace(
+                    '#(/storage/)+#',
+                    '/storage/',
+                    Storage::url($image)
+                ))
                 : null,
         ]);
     }
