@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Filament\Resources\Orders\Pages;
 
 use App\Enums\OrderStatusEnum;
 use App\Filament\Resources\Orders\OrderResource;
-use App\Models\Order;
-use Filament\Actions;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Enums\IconSize;
@@ -18,77 +17,93 @@ class ViewOrder extends ViewRecord
 
     protected string $view = 'filament.view-order';
 
-
-    public function notify($text){
+    public function notify(string $text): void
+    {
         Notification::make()
             ->title($text)
             ->success()
             ->send();
     }
 
-
     public function getTitle(): Htmlable
     {
-        return new HtmlString("<span class='text-xl'>{$this->getRecordTitle()}</span>");
+        return new HtmlString(
+            '<span class="text-xl">'
+            . e($this->getRecordTitle())
+            . '</span>'
+        );
     }
-        
+
+    protected function updateOrderStatus(
+        OrderStatusEnum $status,
+        string $message
+    ): void {
+        $record = $this->getRecord();
+
+        $record->status = $status;
+        $record->save();
+
+        $record->refresh();
+
+        $this->notify($message);
+    }
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ActionGroup::make([
-                Actions\Action::make("Confirmé")
-                    ->action(function(Order $record) : void{
-                        $record->status = OrderStatusEnum::CONFIRMED;
-                        $record->save();
-                        $this->notify("Commande confirmée");
+            ActionGroup::make([
+                Action::make('confirmed')
+                    ->label(__('Confirmé'))
+                    ->action(function (): void {
+                        $this->updateOrderStatus(
+                            OrderStatusEnum::CONFIRMED,
+                            'Commande confirmée'
+                        );
                     })
                     ->requiresConfirmation()
                     ->color('info')
-                    ->icon("heroicon-o-check-circle"),
+                    ->icon('heroicon-o-check-circle'),
 
-
-                Actions\Action::make("Préparation")
-                    ->action(function(Order $record) : void{
-                        $record->status = OrderStatusEnum::PREPARATION;
-                        $record->save();
-                        $this->notify("Commande en préparation");
+                Action::make('preparation')
+                    ->label(__('Préparation'))
+                    ->action(function (): void {
+                        $this->updateOrderStatus(
+                            OrderStatusEnum::PREPARATION,
+                            'Commande en préparation'
+                        );
                     })
                     ->requiresConfirmation()
                     ->color('warning')
-                    ->icon("heroicon-o-arrow-path"),
+                    ->icon('heroicon-o-arrow-path'),
 
-                Actions\Action::make("Prêt")
-                    ->action(function(Order $record) : void{
-                        $record->status = OrderStatusEnum::READY;
-                        $record->save();
-                        $this->notify("Commande prêt");
-
+                Action::make('ready')
+                    ->label(__('Prêt'))
+                    ->action(function (): void {
+                        $this->updateOrderStatus(
+                            OrderStatusEnum::READY,
+                            'Commande prête'
+                        );
                     })
                     ->requiresConfirmation()
                     ->color('success')
-                    ->icon("heroicon-o-bell-alert"),
+                    ->icon('heroicon-o-bell-alert'),
 
-                Actions\Action::make("Annulé")
-                    ->action(function(Order $record) : void{
-                        $record->status = OrderStatusEnum::CANCELED;
-                        $record->save();
-                        $this->notify("Commande annulé");
+                Action::make('canceled')
+                    ->label(__('Annulé'))
+                    ->action(function (): void {
+                        $this->updateOrderStatus(
+                            OrderStatusEnum::CANCELED,
+                            'Commande annulée'
+                        );
                     })
                     ->requiresConfirmation()
                     ->color('danger')
-                    ->icon("heroicon-o-x-circle"),
+                    ->icon('heroicon-o-x-circle'),
 
-            ])->icon("heroicon-o-squares-2x2")
+            ])
+                ->icon('heroicon-o-squares-2x2')
                 ->iconSize(IconSize::Large)
-                ->tooltip(__("État")),
-            // Actions\Action::make('export')
-            //     ->color('info')
-            //     ->label('Export')
-            //     ->action(function(Order $record) : void{
-            //         $this->redirect(route('order.export-text', $record));
-            //     })
-            //     ->icon("heroicon-o-arrow-up-tray"),
+                ->tooltip(__('État')),
         ];
     }
 }
