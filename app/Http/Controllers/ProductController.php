@@ -141,6 +141,11 @@ class ProductController extends Controller
      */
     public function exportProducts(): JsonResponse|BinaryFileResponse
     {
+
+        ini_set('memory_limit', '512M');
+        set_time_limit(300);
+
+
         if (! auth()->user()->hasRole('super_admin')) {
             return response()->json(['message' => 'Unauthorized access.'], 403);
         }
