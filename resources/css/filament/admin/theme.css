@@ -2,6 +2,8 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
+@source '../../../../resources/views/components/**/*';
+@source '../../../../resources/views/livewire/**/*';
 
 /* ---------- Compact form: single source of truth ---------- */
 .compact-form,
