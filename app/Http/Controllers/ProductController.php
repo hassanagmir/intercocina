@@ -57,7 +57,12 @@ class ProductController extends Controller
             ])
             ->whereIn('products.status', self::VISIBLE_RELATED_STATUSES)
             ->with([
-                'firstImage:id,product_id,image,order',
+                'firstImage' => fn($query) => $query->select([
+                    'images.id',
+                    'images.product_id',
+                    'images.image',
+                    'images.order',
+                ]),
             ])
             ->get()
             ->map(fn($item) => [
@@ -73,7 +78,6 @@ class ProductController extends Controller
                 'image' => $item->firstImage?->image,
             ]);
     }
-
     /**
      * List approved reviews for a product.
      */
