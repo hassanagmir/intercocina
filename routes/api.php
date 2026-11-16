@@ -93,8 +93,6 @@ Route::middleware('api.key')->group(function () {
     Route::apiResource('cities', CityController::class)->only($readOnly);
     Route::apiResource('faqs', FaqController::class)->only($readOnly);
 
-    Route::get('color/{id}', [ColorController::class, 'show']);
-
     /*
     |--------------------------------------------------------------------------
     | Public forms
